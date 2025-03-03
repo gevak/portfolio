@@ -27,7 +27,8 @@ def get_design(model: str) -> str:
   return prompt(designer_prompt.format(current_time=current_timestamp), model)
 
 def get_impl(design: str, model: str) -> str:
-  text = prompt(IMPL_PROMPT.format(design=design), model)
+  impl_prompt = open(_CODER_PROMPT_FILE, 'r').read()
+  text = prompt(impl_prompt.format(design=design), model)
   assert '<html' in text
   assert '</html>' in text
   html_code = text[text.find('<html'):text.find('</html>')+len('</html>')]
