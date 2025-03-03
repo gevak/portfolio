@@ -1,619 +1,297 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper | Software Engineer</title>
+    <title>Geva Kipper - Software Engineer</title>
     <style>
-        :root {
-            --bg-color: #1a1a2e;
-            --text-color: #e6e6e6;
-            --accent-glgl: #4ecca3;
-            --accent-ahuzat: #a8a9ad;
-            --accent-portfolio: #f0a500;
-            --accent-social: #e6e6e6;
-            --prompt-color: #4ecca3;
-            --section-bg: rgba(0, 0, 0, 0.2);
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto Mono', monospace;
-        }
-        
+        /* General Styles */
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            font-size: 16px;
-            line-height: 1.6;
-            padding: 0;
             margin: 0;
+            font-family: monospace, sans-serif;
+            background-color: #121212;
+            color: #f0f0f0;
+            overflow-x: hidden;
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
+            padding: 20px;
         }
-        
-        header {
-            padding: 2rem;
+
+        /* Header Styles */
+        #header {
             text-align: center;
+            margin-bottom: 30px;
         }
-        
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+
+        #header h1 {
+            font-size: 2.5em;
+            margin: 0;
         }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            opacity: 0.8;
-            margin-bottom: 2rem;
+
+        #header h2 {
+            font-size: 1.2em;
+            margin: 5px 0;
+            font-weight: normal;
         }
-        
-        .terminal {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 1rem;
-            flex-grow: 1;
+
+        #header p {
+            font-style: italic;
+            font-size: 0.9em;
+            margin: 5px 0;
+            color: #aaa;
         }
-        
-        .prompt-container {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding: 0.5rem;
-            border-radius: 4px;
-            background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .prompt-prefix {
-            color: var(--prompt-color);
-            margin-right: 0.5rem;
-            font-weight: bold;
-        }
-        
-        #command-input {
-            background: transparent;
-            border: none;
-            color: var(--text-color);
-            font-family: inherit;
-            font-size: 1rem;
-            width: 100%;
-            outline: none;
-            caret-color: var(--prompt-color);
-        }
-        
-        .nav {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-        }
-        
-        .nav-item {
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            border-radius: 4px;
-            transition: all 0.3s ease;
-            background: rgba(0, 0, 0, 0.2);
-        }
-        
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .nav-item.active {
-            background: rgba(255, 255, 255, 0.15);
-        }
-        
+
+        /* Section Styles (Boxes) */
         .section {
-            display: none;
-            padding: 1.5rem;
-            border-radius: 8px;
-            background: var(--section-bg);
-            margin-bottom: 2rem;
-            animation: fadeIn 0.5s ease;
             position: relative;
-            overflow: hidden;
-        }
-        
-        .section.active {
-            display: block;
-        }
-        
-        .section h2 {
-            margin-bottom: 1rem;
-            font-size: 1.8rem;
-        }
-        
-        .section p {
-            margin-bottom: 1rem;
-        }
-        
-        .section-content {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .tech-stack {
-            display: flex;
-            gap: 0.5rem;
-            flex-wrap: wrap;
-            margin: 1rem 0;
-        }
-        
-        .tech {
-            padding: 0.25rem 0.5rem;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            font-size: 0.8rem;
-        }
-        
-        .project-img {
-            width: 100%;
+            margin: 20px;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            width: 60%;
             max-width: 600px;
-            border-radius: 4px;
-            margin: 1rem 0;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        }
-        
-        #glglstats {
-            position: relative;
-        }
-        
-        #glglstats::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(90deg, transparent, var(--accent-glgl, #4ecca3) 50%, transparent);
-            opacity: 0.05;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        #glglstats h2 {
-            color: var(--accent-glgl);
-        }
-        
-        #ahuzat {
-            position: relative;
-        }
-        
-        #ahuzat::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
-                             linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-            background-size: 20px 20px;
-            opacity: 0.2;
-            pointer-events: none;
-            z-index: -1;
-        }
-        
-        #ahuzat h2 {
-            color: var(--accent-ahuzat);
-        }
-        
-        #portfolio {
-            position: relative;
-        }
-        
-        #portfolio h2 {
-            color: var(--accent-portfolio);
-        }
-        
-        .code-line {
-            font-family: 'Roboto Mono', monospace;
-            margin-bottom: 0.5rem;
-            opacity: 0;
-            animation: typeIn 0.5s forwards;
-        }
-        
-        #social {
+            transition: background-color 0.3s ease;
             text-align: center;
         }
-        
-        #social h2 {
-            margin-bottom: 2rem;
+
+        .section h3 {
+            margin-top: 0;
+            font-size: 1.5em;
         }
-        
-        .social-links {
+
+        .section p {
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .section a {
+            color: #80cbc4;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+            display: inline-block; /* Ensure inline appearance */
+        }
+
+        .section a:hover {
+            color: #a7ffeb;
+        }
+
+        /* GlglStats */
+        #glglstats {
+            background-color: #222;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+            padding: 50px;
+            color: #eee;
+        }
+
+        #glglstats:hover {
+            background-color: #37474f;
+            color: #fff;
+        }
+
+        /* Ahuzat Dibuk */
+        #ahuzat-dibuk {
+          position: relative;
+          overflow: hidden;
+          min-height: 200px; /* Ensure the container has some height */
+        }
+
+        #ahuzat-dibuk .circle {
+          position: absolute;
+          border-radius: 50%;
+          background-color: #607d8b;
+          opacity: 0.7;
+          transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        #ahuzat-dibuk .circle:hover {
+          transform: scale(1.1);
+          background-color: #78909c;
+        }
+
+        /* Portfolio Website */
+        #portfolio-website {
+            background-color: #222;
+        }
+
+        #portfolio-website::before {
+          content: "";
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          background-image: linear-gradient(rgba(0, 0, 0, 0.1) 50%, transparent 50%),
+                            linear-gradient(90deg, rgba(0, 0, 0, 0.1) 50%, transparent 50%);
+          background-size: 15px 15px;
+          z-index: 0;
+          animation: rotateMesh 20s linear infinite;
+          opacity: 0.5;
+          pointer-events: none; /* Allow clicks through the mesh */
+        }
+
+        @keyframes rotateMesh {
+            from {background-position: 0 0;}
+            to {background-position: 100% 100%;}
+        }
+
+        #portfolio-website a {
+            color: #00ff00; /* Neon Green */
+            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
+        }
+
+        /* Connect */
+        #connect {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+            justify-content: space-around;
         }
-        
-        .social-icon {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
-            cursor: pointer;
+
+        #connect img {
+            width: 50px;
+            height: 50px;
+            margin: 10px;
+            transition: transform 0.3s ease;
+            animation: pulse 2s infinite alternate;
         }
-        
-        .social-icon:hover {
+
+        #connect img:hover {
             transform: scale(1.1);
         }
-        
-        .social-icon.github:hover {
-            background: #333;
+
+        @keyframes pulse {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
         }
-        
-        .social-icon.linkedin:hover {
-            background: #0077B5;
+
+        /* Footer Styles */
+        #footer {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #1a1a1a;
+            color: #aaa;
+            font-size: 0.8em;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
         }
-        
-        .social-icon.facebook:hover {
-            background: #1877F2;
+
+        #stopwatch {
+            font-family: monospace;
+            color: #00ff00;
         }
-        
-        .social-icon svg {
-            width: 30px;
-            height: 30px;
-            fill: var(--text-color);
-        }
-        
-        /* Responsive styles */
-        @media (min-width: 768px) {
-            .section-content {
-                flex-direction: row;
-                align-items: flex-start;
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .section {
+                width: 90%;
             }
-            
-            .text-content {
-                flex: 1;
-            }
-            
-            .visual-content {
-                flex: 1;
-                display: flex;
-                justify-content: center;
+
+            #connect {
+                flex-direction: column;
                 align-items: center;
             }
         }
-        
-        @media (max-width: 767px) {
-            .nav {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 0.5rem;
-            }
-            
-            .nav-item {
-                text-align: center;
-            }
-            
-            .section {
-                padding: 1rem;
-            }
-            
-            .project-img {
-                margin: 1rem auto;
-            }
-            
-            .social-links {
-                gap: 1rem;
-            }
-            
-            .social-icon {
-                width: 50px;
-                height: 50px;
-            }
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        
-        @keyframes typeIn {
-            to {
-                opacity: 1;
-            }
-        }
-        
-        .typewriter {
-            overflow: hidden;
-            border-right: 2px solid var(--prompt-color);
-            white-space: nowrap;
-            margin: 0 auto;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-        
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-        
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--prompt-color) }
-        }
-        
-        .waveform {
-            position: absolute;
-            bottom: 20px;
-            left: 0;
-            right: 0;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0.15;
-        }
-        
-        .wave {
-            background: var(--accent-glgl);
-            height: 100%;
-            width: 3px;
-            margin: 0 2px;
-            border-radius: 3px;
-            animation: wave 1s infinite ease-in-out;
-        }
-        
-        @keyframes wave {
-            0%, 100% { height: 8px; }
-            50% { height: 32px; }
-        }
-        
-        .wave:nth-child(2) { animation-delay: 0.1s; }
-        .wave:nth-child(3) { animation-delay: 0.2s; }
-        .wave:nth-child(4) { animation-delay: 0.3s; }
-        .wave:nth-child(5) { animation-delay: 0.4s; }
-        .wave:nth-child(6) { animation-delay: 0.5s; }
-        .wave:nth-child(7) { animation-delay: 0.6s; }
-        .wave:nth-child(8) { animation-delay: 0.7s; }
+
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <header>
-        <h1>GEVA KIPPER</h1>
-        <p class="subtitle">Software Engineer</p>
-    </header>
-    
-    <main class="terminal">
-        <div class="prompt-container">
-            <span class="prompt-prefix">user@geva-portfolio:~$</span>
-            <input type="text" id="command-input" placeholder="Type 'help' for options..." autocomplete="off">
-        </div>
-        
-        <nav class="nav">
-            <div class="nav-item" data-section="glglstats">GlglStats</div>
-            <div class="nav-item" data-section="ahuzat">Ahuzat Dibuk</div>
-            <div class="nav-item" data-section="portfolio">Portfolio Site</div>
-            <div class="nav-item" data-section="social">Social Links</div>
-        </nav>
-        
-        <div id="welcome" class="section active">
-            <h2>Welcome to my portfolio</h2>
-            <p class="typewriter">I'm Geva Kipper, a software engineer passionate about creating elegant solutions.</p>
-            <p>Navigate through my projects by clicking the options above or typing commands in the terminal.</p>
-            <p>Available commands: <code>glglstats</code>, <code>ahuzat</code>, <code>portfolio</code>, <code>social</code>, <code>help</code>, <code>clear</code></p>
-        </div>
-        
-        <div id="glglstats" class="section">
-            <h2>GlglStats</h2>
-            <div class="section-content">
-                <div class="text-content">
-                    <p>A sophisticated tool for music data analysis, providing insights and visualization for audio metrics.</p>
-                    <div class="tech-stack">
-                        <span class="tech">JavaScript</span>
-                        <span class="tech">Web Audio API</span>
-                        <span class="tech">D3.js</span>
-                        <span class="tech">Node.js</span>
-                    </div>
-                    <p>GlglStats analyzes audio patterns and presents them in an intuitive interface, allowing musicians and producers to gain deeper understanding of their compositions.</p>
-                </div>
-                <div class="visual-content">
-                    <img src="/api/placeholder/400/320" alt="GlglStats Interface" class="project-img">
-                </div>
-            </div>
-            <div class="waveform">
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-                <div class="wave"></div>
-            </div>
-        </div>
-        
-        <div id="ahuzat" class="section">
-            <h2>Ahuzat Dibuk</h2>
-            <div class="section-content">
-                <div class="text-content">
-                    <p>A smart parking management system designed to streamline urban parking experiences.</p>
-                    <div class="tech-stack">
-                        <span class="tech">Python</span>
-                        <span class="tech">IoT</span>
-                        <span class="tech">React</span>
-                        <span class="tech">MongoDB</span>
-                    </div>
-                    <p>Ahuzat Dibuk addresses the challenges of urban parking through sensor integration and real-time availability mapping, reducing search time and traffic congestion.</p>
-                </div>
-                <div class="visual-content">
-                    <img src="/api/placeholder/400/320" alt="Ahuzat Dibuk Interface" class="project-img">
-                </div>
-            </div>
-        </div>
-        
-        <div id="portfolio" class="section">
-            <h2>Portfolio Site</h2>
-            <div class="section-content">
-                <div class="text-content">
-                    <p>You're looking at it—a single-page portfolio built with HTML, CSS, and JavaScript.</p>
-                    <div class="tech-stack">
-                        <span class="tech">HTML5</span>
-                        <span class="tech">CSS3</span>
-                        <span class="tech">JavaScript</span>
-                        <span class="tech">Responsive Design</span>
-                    </div>
-                    <p>This terminal-inspired interface combines my love for clean code with an interactive user experience, demonstrating both technical skill and design thinking.</p>
-                    <div class="code-animation">
-                        <div class="code-line" style="animation-delay: 0.2s">/* Portfolio website code */</div>
-                        <div class="code-line" style="animation-delay: 0.4s">const portfolio = {</div>
-                        <div class="code-line" style="animation-delay: 0.6s">  developer: "Geva Kipper",</div>
-                        <div class="code-line" style="animation-delay: 0.8s">  design: "Terminal-inspired",</div>
-                        <div class="code-line" style="animation-delay: 1.0s">  technologies: ["HTML", "CSS", "JS"]</div>
-                        <div class="code-line" style="animation-delay: 1.2s">};</div>
-                    </div>
-                </div>
-                <div class="visual-content">
-                    <img src="/api/placeholder/400/320" alt="Portfolio Site Structure" class="project-img">
-                </div>
-            </div>
-        </div>
-        
-        <div id="social" class="section">
-            <h2>Social Links</h2>
-            <p>Software engineer crafting elegant solutions to complex problems.</p>
-            <div class="social-links">
-                <a href="#" class="social-icon github">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-icon linkedin">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-                    </svg>
-                </a>
-                <a href="#" class="social-icon facebook">
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-                    </svg>
-                </a>
-            </div>
-        </div>
-    </main>
-    
+
+    <div id="container">
+        <!-- Header -->
+        <header id="header">
+            <h1>Geva Kipper</h1>
+            <h2>Software Engineer at Google</h2>
+            <p>*This portfolio is redesigned daily by AI.*</p>
+        </header>
+
+        <!-- GlglStats Section -->
+        <section id="glglstats" class="section">
+            <h3>GlglStats</h3>
+            <p>Measures repetitiveness of Israeli pop chart songs based on LZ77 compression. Visualizes repetition patterns.</p>
+            <a href="https://glglstats.onrender.com/">Visit the Website</a>
+            <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo">PyData TLV Presentation</a>
+        </section>
+
+        <!-- Ahuzat Dibuk Section -->
+        <section id="ahuzat-dibuk" class="section">
+            <h3>Ahuzat Dibuk</h3>
+            <p>Collects statistics for Tel-Aviv car parking lots, generating heatmaps for residents.</p>
+            <a href="#">Source 1 (Example)</a>
+            <a href="#">Source 2 (Example)</a>
+            <a href="#">Source 3 (Example)</a>
+        </section>
+
+        <!-- Portfolio Website Section -->
+        <section id="portfolio-website" class="section">
+            <h3>Portfolio Website</h3>
+            <p>This very website.</p>
+            <a href="https://www.geekipp.er">geva.kipp.er</a>
+        </section>
+
+        <!-- Connect Section -->
+        <section id="connect" class="section">
+            <a href="https://github.com/gevak"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
+            <a href="https://www.linkedin.com/in/gevakip"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"></a>
+            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/59/59439.png" alt="Facebook"></a>
+        </section>
+
+
+
+    </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div>© 2024 Grok & Claude</div>
+        <div id="stopwatch"></div>
+    </footer>
+
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const commandInput = document.getElementById('command-input');
-            const navItems = document.querySelectorAll('.nav-item');
-            const sections = document.querySelectorAll('.section');
-            
-            // Initialize with welcome section
-            showSection('welcome');
-            
-            // Process commands
-            commandInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    const command = commandInput.value.toLowerCase().trim();
-                    processCommand(command);
-                    commandInput.value = '';
-                }
-            });
-            
-            // Nav item clicks
-            navItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const sectionId = this.getAttribute('data-section');
-                    showSection(sectionId);
-                    updateActiveNav(sectionId);
-                });
-            });
-            
-            // Process command input
-            function processCommand(command) {
-                switch(command) {
-                    case 'glglstats':
-                        showSection('glglstats');
-                        updateActiveNav('glglstats');
-                        break;
-                    case 'ahuzat':
-                        showSection('ahuzat');
-                        updateActiveNav('ahuzat');
-                        break;
-                    case 'portfolio':
-                        showSection('portfolio');
-                        updateActiveNav('portfolio');
-                        break;
-                    case 'social':
-                        showSection('social');
-                        updateActiveNav('social');
-                        break;
-                    case 'help':
-                        showSection('welcome');
-                        updateActiveNav(null);
-                        break;
-                    case 'clear':
-                        showSection('welcome');
-                        updateActiveNav(null);
-                        break;
-                    default:
-                        // Handle unknown command
-                        console.log('Unknown command: ' + command);
-                        // You could display an error message here
-                }
-            }
-            
-            // Show section and hide others
-            function showSection(id) {
-                sections.forEach(section => {
-                    section.classList.remove('active');
-                });
-                
-                document.getElementById(id).classList.add('active');
-            }
-            
-            // Update active nav item
-            function updateActiveNav(id) {
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.getAttribute('data-section') === id) {
-                        item.classList.add('active');
-                    }
-                });
-            }
-            
-            // Initialize waveform for GlglStats
-            const waveform = document.querySelector('.waveform');
-            for (let i = 0; i < 8; i++) {
-                const wave = document.createElement('div');
-                wave.classList.add('wave');
-                wave.style.animationDelay = `${i * 0.1}s`;
-                waveform.appendChild(wave);
-            }
-            
-            // Auto-focus the command input on page load
-            setTimeout(() => {
-                commandInput.focus();
-            }, 500);
-            
-            // Add animation delay to code lines
-            const codeLines = document.querySelectorAll('.code-line');
-            codeLines.forEach((line, index) => {
-                line.style.animationDelay = `${index * 0.2}s`;
-            });
-        });
+        // Stopwatch Functionality
+        function updateStopwatch() {
+            const startDate = new Date('2025-03-03T18:49:27');
+            const now = new Date();
+            const diff = new Date(now - startDate);
+
+            const hours = String(diff.getUTCHours()).padStart(2, '0');
+            const minutes = String(diff.getUTCMinutes()).padStart(2, '0');
+            const seconds = String(diff.getUTCSeconds()).padStart(2, '0');
+
+            document.getElementById('stopwatch').textContent = `${hours}:${minutes}:${seconds} since 2025-03-03 18:49:27`;
+        }
+
+        setInterval(updateStopwatch, 1000);
+
+        // Initial call to set the text content immediately
+        updateStopwatch();
+
+        // Ahuzat Dibuk circles generation
+        const ahuzatDibukSection = document.getElementById('ahuzat-dibuk');
+        const numberOfCircles = 10;
+
+        for (let i = 0; i < numberOfCircles; i++) {
+            const circle = document.createElement('div');
+            circle.classList.add('circle');
+
+            const size = Math.random() * 50 + 20; // Adjust size as needed
+            circle.style.width = `${size}px`;
+            circle.style.height = `${size}px`;
+
+            const x = Math.random() * (ahuzatDibukSection.offsetWidth - size);
+            const y = Math.random() * (ahuzatDibukSection.offsetHeight - size);
+
+            circle.style.left = `${x}px`;
+            circle.style.top = `${y}px`;
+
+            ahuzatDibukSection.appendChild(circle);
+        }
+
     </script>
 </body>
 </html>
