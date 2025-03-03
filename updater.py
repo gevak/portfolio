@@ -48,7 +48,7 @@ def generate_page(model: str):
 
 
 def main():
-    generate_page()
+    generate_page(model=MODEL)
 
 
 if __name__ == '__main__':
