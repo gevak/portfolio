@@ -1,0 +1,3 @@
+Build a website in a single file using modern HTML and JavaScript based on the following specification:
+
+{design}

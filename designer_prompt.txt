@@ -1,0 +1,35 @@
+Describe the design for a unique, out-of-the-box portfolio website for a software engineer. 
+
+The site should be a single page and use modern HTML, JavaScript and CSS. 
+It should include: 
+Developer's Name: Geva Kipper, and a single sentence explaining his current work at Google.
+
+A subtitle, explaining that the website is re-designed each day by AI and is thus ever-changing.
+ 
+Four boxes / sections:
+1.Presentíng a project called 'GlglStats'. This project measures repetitiveness of Israeli pop-chart songs based on LZ77 compression. It also visualizes repetition patterns in a selection of famous songs. 
+Add a link to the site: https://glglstats.onrender.com/
+As well as a video of myself presenting the project in PyData TLV conference:
+https://www.youtube.com/watch?v=jrKAtOsj1Lo 
+
+2. Presenting a project called 'Ahuzat dibuk' which involves collecting statistics for Tel-Aviv car parking lots, generating heat-maps to be used by residents. Add a link to the news stories about the project:  
+https://13tv.co.il/item/news/domestic/internal/parking-902956407/
+https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm
+
+And also link to the original publication on Facebook:
+https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/
+
+3. Presenting a portfolio website project (how meta! That's the site you are building)
+Add a self-reference link to: 
+https://www.geekipp.er
+
+4. The fourth and last box will include links to GitHub, LinkedIn and Facebook:
+https://github.com/gevak
+www.linkedin.com/in/gevakip
+
+
+At the bottom of the page, a copyright reserved to Grok and Claude, and a stopwatch showing how much time (hours, minutes, seconds) has passed since {current_time}.
+
+Make the design elegant and minimalistic, but also creative and interesting.
+Do not write code, simply describe your idea for a unique design in several paragraphs.
+Your output will be used directly as input to a website designer so skip the explanations and only describe the design practically.
