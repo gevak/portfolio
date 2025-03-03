@@ -1,41 +1,40 @@
-## Design for Geva Kipper's Portfolio Website
+## Portfolio Website Design: Geva Kipper
 
-**Overall Concept:** A dynamic, generative art portfolio presented as a series of interconnected, almost floating elements on a dark backdrop. The ever-changing nature of the AI redesign should be subtly reflected in the layout and visual elements; a feeling of controlled chaos and generative evolution.
+**Overall Theme:**  Deconstructed, evolving, and somewhat playful (given the AI-generation aspect). The site should feel like a dynamic sketch or a constantly refreshing data visualization.
 
-**Visual Style:** Modern, minimalist, dark theme. Use a monospace font family.
-
-**Page Structure:** Single page, modular design.
+**Layout:** Single-page, utilizing a fluid grid or a masonry-style layout that adapts to different screen sizes. Each section (name/intro, project boxes, footer) has a distinct visual treatment.
 
 **Header:**
 
-*   **Top Center:**  "Geva Kipper" – larger font size. Smaller beneath: "Software Engineer at Google."
-*   **Sub-title:** Below Geva's sentence, a smaller, italicized line: *"This portfolio is redesigned daily by AI."*
+*   **Geva Kipper:** Large, distinctive yet minimalist typography. Consider a font that evokes a sense of both technicality and artistry (perhaps something slightly monospace-inspired but with humanist elements). Above the name, small brand image showing AI brains connected to a webpage
+*   **"Software engineer at Google."** Simple, clean typography beneath the name.
+*   **Subtitle:** "This website is redesigned daily by AI; consider this iteration a snapshot." - Smaller, italicized font beneath the introduction, perhaps with a subtle background color shift or animation to emphasize its dynamic nature.
 
-**Sections ('Boxes'):**
+**Project Boxes:**
 
-Each section represents a project. Each project has its own geometric shape and appears floating. These shapes are interconnected.
+*   **Style:** Each box has a unique visual style, generated from project description. Boxes are not limited to the same shape and size.
+*   **GlglStats:** Background with animated waveform visualization based on average repetitiveness of the songs studied in the project. Title is displayed prominently. Link to demo site is a button styled like an oscilloscope knob or a retro audio interface element. The video iframe is embedded directly within the box, responsive to the box size.
+*   **Ahuzat Dibuk:** The background is a subtle, blurred heatmap visualization using greens and yellows on neutral beige color, mimicking Tel Aviv parking lot density. Headlines from the news stories are displayed as moving ticker tape or randomly popping tooltips. Facebook post preview is included with dimmed transparency effect. Links to stories are indicated by small, retro-style "news clipping" icons.
+*   **Portfolio Website (Meta):** Abstract, colorful design. Display screenshot from mobile, desktop and tablet formats. Add a simple CSS animation to the "View Source" link button, visually representing the site's code being updated - maybe a subtle highlight effect or a pixelated distortion on hover.
+*   **Social Links:** Icons for GitHub, LinkedIn, and Facebook are styled with a blend of the website's color scheme and the platform's colors. Hover effect: a small, data-driven animation triggered by the platform represented (e.g., GitHub icon shows flashing code; LinkedIn icon shows a ripple of network connections). Displayed horizontally on the right side of the page, in a way it flows around the other boxes naturally.
 
-*   **GlglStats:**
-    *   Shape: Irregular polygon.
-    *   Content: "GlglStats" title. Brief description: "Measures repetitiveness of Israeli pop chart songs based on LZ77 compression. Visualizes repetition patterns."
-    *   Active Links: 'Visit the Website' ([https://glglstats.onrender.com/](https://glglstats.onrender.com/)), 'PyData TLV Presentation' ([https://www.youtube.com/watch?v=jrKAtOsj1Lo](https://www.youtube.com/watch?v=jrKAtOsj1Lo)). Hover effect on the box changes the color scheme of that box.
+**Footer:**
 
-*   **Ahuzat Dibuk:**
-    *   Shape: Circles of varying sizes clustered together. Size of circle reflects the popularity/hits on the link.
-    *   Content: "Ahuzat Dibuk" title. Brief description: "Collects statistics for Tel-Aviv car parking lots, generating heatmaps for residents."
-    *   Active Links: Include 3 links to sources. Each link is a circle. Hover effect expands/pulsates the source.
+*   **Copyright:** "© Grok & Claude, All Rights Reserved." - Small, understated typography.
+*   **Stopwatch:**  A digital-style counter prominently shows the time elapsed since 2025-03-03 18:58:50. The counter is animated and smooth. Positioned slightly askew, implying a lack of perfect control. Style it to feel like a hardware clock but with a polished digital display for a modern look.
 
-*   **Portfolio Website:**
-    *   Shape: The container has a grid-like mesh.
-    *   Content: "Portfolio Website" title.  Brief description: "This very website." The mesh rotates slowly via CSS.
-    *   Self-Reference Link: "[https://www.geekipp.er](https://www.geekipp.er)" - Highlight this (e.g., neon effect).
+**Animations & Interactions:**
 
-*   **Connect:**
-    *   Shape: A stylized constellation.
-    *   Content: Labeled icon links for "GitHub", "LinkedIn", "Facebook."
-    *   Active Links: GitHub ([https://github.com/gevak](https://github.com/gevak)), LinkedIn ([www.linkedin.com/in/gevakip)), Facebook (No Link, icon only). Each icon pulses gently.
+*   Subtle micro-interactions are used throughout the site. Hover effects, transitions, and animations enhance usability and create a dynamic feel.
+*   Loading indicator is a minimalist symbol resembling a CPU being spun.
+*   Use parallax scrolling minimally, but only on the background.
 
-**Page Footer:**
+**Color Palette:**
 
-*   **Bottom Left:** "© 2024 Grok & Claude."
-*   **Bottom Right:** Functioning Stopwatch. Display format: "HH:MM:SS since 2025-03-03 18:49:27". Digital font-style. Color should match the "Portfolio Website" link color.
+Minimalistic and clean. Combination of cool grays and blues for the base, and vibrant, almost neon, accent colors for the projects (derived from the visualizations in GlglStats and Ahuzat Dibuk).
+
+**Typography:**
+
+Mix of a clean, modern sans-serif for body text and a more stylized, slightly-retro font for headings. Use fonts that work well on both desktop and mobile.
+
+**Note:** The design should emphasize the ever-changing nature of the site. Elements should subtly "shift" or "morph" upon each reload/visit while maintaining consistency. The AI-generated aspect should be felt subtly, not overtly. The website design should be constantly be evolving in a way that promotes curiosity and engagement, aligning to a software engineer interested in AI.

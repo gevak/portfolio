@@ -2,296 +2,463 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - Software Engineer</title>
+    <title>Geva Kipper - Evolving AI Portfolio</title>
     <style>
-        /* General Styles */
+        /* --- General Styles --- */
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 0;
-            font-family: monospace, sans-serif;
-            background-color: #121212;
-            color: #f0f0f0;
-            overflow-x: hidden;
+            padding: 0;
+            background-color: #f0f4f8;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll due to parallax */
         }
 
-        #container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 20px;
         }
 
-        /* Header Styles */
-        #header {
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* --- Header Styles --- */
+        header {
             text-align: center;
-            margin-bottom: 30px;
+            padding: 40px 20px;
+             position: relative; /* Ensure context for absolute positioning */
+             padding-top:100px;
+
         }
 
-        #header h1 {
-            font-size: 2.5em;
-            margin: 0;
+        header h1 {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #2c3e50;
+            letter-spacing: 1px;
         }
 
-        #header h2 {
+        header p {
             font-size: 1.2em;
-            margin: 5px 0;
-            font-weight: normal;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .brand-image {
+            position:absolute;
+            top:10px;
+            left:10px;
+            width: 50px; /* Adjust image size as needed */
+            filter: grayscale(100%); /* Muted gray */
         }
 
-        #header p {
+        header em {
             font-style: italic;
             font-size: 0.9em;
-            margin: 5px 0;
-            color: #aaa;
+            background-color: rgba(255, 255, 255, 0.5); /*Translucent */
+            padding :  5px 10px;
+            border-radius:5px;
+            animation: subtleBackgroundColorShift 5s infinite alternate;
+            display: inline-block; /* Ensures padding affects the element */
         }
 
-        /* Section Styles (Boxes) */
-        .section {
-            position: relative;
-            margin: 20px;
-            padding: 20px;
-            background-color: #222;
+        @keyframes subtleBackgroundColorShift {
+            0% {  background-color: rgba(255, 255, 255, 0.4);  }
+            100% { background-color: rgba(230, 230, 230, 0.6); }
+        }
+
+        /* --- Project Boxes Styles --- */
+
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .project-box {
+            background-color: #fff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            width: 60%;
-            max-width: 600px;
-            transition: background-color 0.3s ease;
-            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden; /* Prevents overflow content from breaking layout. */
+            position: relative;
+
         }
 
-        .section h3 {
-            margin-top: 0;
-            font-size: 1.5em;
+        .project-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .section p {
+        .project-box h2 {
+            color: #34495e;
+            margin-bottom: 10px;
+             font-size: 1.5em; /* Adjust font size as needed */
+
+        }
+
+        .project-box p {
+            color: #666;
             margin-bottom: 15px;
-            line-height: 1.4;
         }
 
-        .section a {
-            color: #80cbc4;
-            text-decoration: none;
-            margin: 0 10px;
-            transition: color 0.3s ease;
-            display: inline-block; /* Ensure inline appearance */
+        .project-box iframe {
+            width: 100%; /*Responsive IFRAME*/
+            height: auto;
+            aspect-ratio: 16 / 9;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 15px;
         }
 
-        .section a:hover {
-            color: #a7ffeb;
+        .project-box .button {
+            background-color: #2ecc71;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            display: inline-block;
+             font-family: 'Roboto Mono', monospace; /* Retro look */
         }
+
+        .project-box .button:hover {
+            background-color: #27ae60;
+        }
+
+
+        /* Specific Project Styles */
 
         /* GlglStats */
         #glglstats {
-            background-color: #222;
-            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
-            padding: 50px;
-            color: #eee;
+           /* Placeholder for dynamic waveform visualization */
+            background: linear-gradient(to bottom, #3498db, #2980b9);
+            color: white; /*Example color*/
         }
 
-        #glglstats:hover {
-            background-color: #37474f;
-            color: #fff;
+       /* Ahuzat Dibuk */
+        #ahuzatdibuk {
+            background-color: #f5f5dc; /* Beige */
         }
 
-        /* Ahuzat Dibuk */
-        #ahuzat-dibuk {
-          position: relative;
-          overflow: hidden;
-          min-height: 200px; /* Ensure the container has some height */
+        #ahuzatdibuk .ticker-tape {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+               padding: 5px;
+            background-color: rgba(255, 255, 255, 0.8); /* Opaque White */
+             border: 1px solid #ddd; /* Subtle Border */
         }
 
-        #ahuzat-dibuk .circle {
-          position: absolute;
-          border-radius: 50%;
-          background-color: #607d8b;
-          opacity: 0.7;
-          transition: transform 0.2s ease, background-color 0.2s ease;
+        #ahuzatdibuk .ticker-tape span {
+            display: inline-block;
+            padding-left: 100%; /* Start each sentence off screen */
+            animation: ticker 15s linear infinite; /* Adjust duration as needed */
         }
 
-        #ahuzat-dibuk .circle:hover {
-          transform: scale(1.1);
-          background-color: #78909c;
+        @keyframes ticker {
+            0%   { transform: translate(0, 0); }
+            100% { transform: translate(-100%, 0); }
         }
 
-        /* Portfolio Website */
-        #portfolio-website {
-            background-color: #222;
+        #ahuzatdibuk .facebook-preview {
+            opacity: 0.7;
+            margin-bottom: 10px;
         }
 
-        #portfolio-website::before {
-          content: "";
-          position: absolute;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-image: linear-gradient(rgba(0, 0, 0, 0.1) 50%, transparent 50%),
-                            linear-gradient(90deg, rgba(0, 0, 0, 0.1) 50%, transparent 50%);
-          background-size: 15px 15px;
-          z-index: 0;
-          animation: rotateMesh 20s linear infinite;
-          opacity: 0.5;
-          pointer-events: none; /* Allow clicks through the mesh */
+        #ahuzatdibuk .news-clipping {
+            display: inline-block;
+             padding: 3px 6px;
+            border: 1px dashed #999; /* Dashed Border */
+            margin-right: 5px;
+            border-radius: 3px;
+            font-size: 0.8em;
+            background-color: #f9f9f9; /* Light Grey Background */
         }
 
-        @keyframes rotateMesh {
-            from {background-position: 0 0;}
-            to {background-position: 100% 100%;}
+
+        /* Meta Website */
+        #metawebsite {
+            /* Placeholder for an abstract colorful design */
+            background: linear-gradient(to right, #e74c3c, #9b59b6);
+            color: white; /* Example Color */
+              overflow: hidden; /* Ensure overflow is handled elegantly */
         }
 
-        #portfolio-website a {
-            color: #00ff00; /* Neon Green */
-            text-shadow: 0 0 5px #00ff00, 0 0 10px #00ff00;
-        }
-
-        /* Connect */
-        #connect {
+       #metawebsite .screenshots {
             display: flex;
             justify-content: space-around;
+            gap: 10px;
+
+            /* Allow wrapping to the next line on smaller screens */
+            flex-wrap: wrap;
         }
 
-        #connect img {
-            width: 50px;
-            height: 50px;
-            margin: 10px;
+        #metawebsite .screenshots img {
+            max-width: 30%;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+       #metawebsite .view-source {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, filter 0.3s ease;
+
+        }
+
+     #metawebsite .view-source:hover {
+        background-color: #2980b9;
+        filter: drop-shadow(0 0 5px #007bff); /*Neon glow*/
+
+    }
+
+
+
+        /* Social Links */
+        .social-links {
+            text-align: right;
+            margin-bottom: 20px;
+        }
+
+         .social-links a {
+             display: inline-block;
+            margin-left: 15px; /* Space between icons */
+        }
+
+        .social-links img {
+            width: 30px; /* Adjust size as needed */
+            height: 30px;
             transition: transform 0.3s ease;
-            animation: pulse 2s infinite alternate;
         }
 
-        #connect img:hover {
-            transform: scale(1.1);
+        .social-links img:hover {
+            transform: scale(1.2);
         }
 
-        @keyframes pulse {
-            from { transform: scale(1); }
-            to { transform: scale(1.1); }
+        /* Example of custom icon animations */
+        .social-links a[href*="github.com"] img:hover {
+            /* Placeholder for GitHub flashing code animation */
+            filter: brightness(1.2);
         }
 
-        /* Footer Styles */
-        #footer {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            background-color: #1a1a1a;
-            color: #aaa;
-            font-size: 0.8em;
-            position: fixed;
-            bottom: 0;
+        .social-links a[href*="linkedin.com"] img:hover {
+            /* Placeholder for LinkedIn network connection ripple - could use JS here to modify a SVG */
+            filter: sepia(50%);
+        }
+
+
+
+        /* --- Footer Styles --- */
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #333;
+            color: #fff;
+            font-size: 0.85em;
+            position: relative;
+            overflow: hidden;/*For stopwatch*/
+        }
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0;
             left: 0;
             width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.2); /* Slightly darkened overlay */
+            z-index: 0;
         }
 
-        #stopwatch {
-            font-family: monospace;
-            color: #00ff00;
+        .copyright {
+            position: relative;
+            z-index: 1;
         }
 
-        /* Mobile Responsive */
+         .stopwatch {
+            font-family: 'Roboto Mono', monospace;
+                font-size: 1.5em;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%) rotate(-2deg); /* Slightly askew */
+                background-color: rgba(0, 0, 0, 0.7);
+                padding: 10px 15px;
+                border-radius: 8px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+                color: #00ff00; /* Green Digital clock color */
+            z-index:1
+            }
+
+        /* --- Loading Indicator --- */
+
+        #loading-indicator {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2em;
+            color: #3498db;
+            animation : spin 2s linear infinite;
+            z-index: 1000;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+
+         /*--- Parallax Background ---*/
+        .parallax {
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"%3E%3Crect width="100" height="100" fill="%23f0f4f8"/%3E%3Cg fill="%23dae2e9"%3E%3Ccircle cx="10" cy="10" r="4"/%3E%3Ccircle cx="50" cy="70" r="6"/%3E%3Ccircle cx="90" cy="30" r="5"/%3E%3Ccircle cx="30" cy="30" r="3"/%3E%3Ccircle cx="70" cy="70" r="4"/%3E%3C/g%3E%3C/svg%3E'); /*Simple pattern */
+            background-attachment: fixed;
+            background-size: 200px 200px;
+        }
+
+        /* --- Media Queries for Responsiveness --- */
         @media (max-width: 768px) {
-            .section {
-                width: 90%;
+            header h1 {
+                font-size: 2.5em;
             }
 
-            #connect {
-                flex-direction: column;
-                align-items: center;
+            .projects {
+                grid-template-columns: 1fr; /* Stack on smaller screens */
             }
+
+
+
         }
 
     </style>
-</head>
-<body>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
 
-    <div id="container">
-        <!-- Header -->
-        <header id="header">
+</head>
+<body class="parallax">
+
+    <div id="loading-indicator">&#9883;</div>
+
+    <div class="container">
+        <header>
+             <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Cpath d='M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z'/%3E%3Ccircle cx='12' cy='12' r='3' fill='%23666'/%3E%3C/svg%3E" alt="AI Icon" class="brand-image">
             <h1>Geva Kipper</h1>
-            <h2>Software Engineer at Google</h2>
-            <p>*This portfolio is redesigned daily by AI.*</p>
+            <p>Software Engineer at Google.</p>
+            <em>This website is redesigned daily by AI; consider this iteration a snapshot.</em>
         </header>
 
-        <!-- GlglStats Section -->
-        <section id="glglstats" class="section">
-            <h3>GlglStats</h3>
-            <p>Measures repetitiveness of Israeli pop chart songs based on LZ77 compression. Visualizes repetition patterns.</p>
-            <a href="https://glglstats.onrender.com/">Visit the Website</a>
-            <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo">PyData TLV Presentation</a>
+        <section class="projects">
+
+            <div class="project-box" id="glglstats">
+                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M2 6.69L12 13l10-6.31V18H2V6.69z'/%3E%3C/svg%3E" alt="Wave Icon" style="position: absolute; top: 10px; right: 10px; width: 20px; height: 20px; filter: invert(1);" >
+                <h2>GlglStats</h2>
+                <iframe src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="GlglStats Demo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <p>Analyzes musical repetitiveness.  Generates waveform visualization from average repetition.</p>
+                <a href="#" class="button">Demo Site</a>
+            </div>
+
+            <div class="project-box" id="ahuzatdibuk">
+                <h2>Ahuzat Dibuk</h2>
+                <div class="ticker-tape">
+                    <span>Breaking News: Tel Aviv Parking Woes Continue - Traffic Jams Persist: Residents Demand Solutions!</span>
+                </div>
+                <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAICAgICAgMCAgMEAwMDBAUEBAQEBAUHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcH//2wBDAQMDAwQEBAQEBAQHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcHBwcH/wAARCAA8ADwDASIAAhEBAxEBBCtTYX5/2gAIAQEA/8QAHAAAAQUBAQEAAAAAAAAAAAAAAwECBAUGAAcI/8QAMxAAAAYCAgECBwUBAAAAAAAAAAECAwQRBRITITEiQVFhcYGRoQczQrHB0eHwIgQVIv/aAAwDAQACEQMRAD8A1XRNy026nUf6d9S/9Q+peS46lA4549sCuqtUvP+0iE+dixH/K59K4/b9xJ/qP8A0n0qO+R3z+v+h67k3c+dvoN6q/qf0N0L6lX0w/r9x/8AX1UqBxz6g8e5rvdSvI1xXJJ3+Gq5r8g1X9/D9m1w/oJ6f0K5yTj6m/6551TdS+m30G5b/s7z75/S9j6V0zWryDk1qG4d/oN6K6H7r+g56i5p8n/5y0f505//2gAMAwEAAhEDEQA/AMg3wD8nN/wB9n/fX2G31b8/3n/c/76s/eAPyc3/ff59fYN6M/J/wB5/wB/36v971/l7/c/72r/eAP8nN/33+f/Wb0Z+T/AN5/3/39N/9/0+3f9/8A8n/dVAHnz7Jz/AHj/AH9+46369f3jf0E/fP59E3oz8n/AHn/AH/f03/3/Ts/f/8AJ/3VQAeX/t/3j/f37m/f/ABl7S/a/3y8Nvo/wDPm/7z/v8Af07/AO//TsP5/wDk/wC9qID/y/8AvH+/v3NwH+M8Dk76/fLw2+j/AM+b/vP+/v3c+b59EIPx/8nfvO/e3/b/n+/44j9703/wAf/vP+/wDe3/gH+/3/A//9k=" alt="Facebook Preview" class="facebook-preview">
+                <p>Analyzes news patterns related to Tel Aviv parking.  Visualises heatmap of  parking lot density.</p>
+                <a href="#" class="news-clipping">Story 1</a>
+                <a href="#" class="news-clipping">Story 2</a>
+            </div>
+
+            <div class="project-box" id="metawebsite">
+                 <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14z'/%3E%3C/svg%3E" alt="Code Icon" style="position: absolute; top: 10px; right: 10px; width: 20px; height: 20px;" >
+                <h2>Portfolio Website (Meta)</h2>
+                <div class="screenshots">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Mobile Screenshot">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Desktop Screenshot">
+                    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Tablet Screenshot">
+                </div>
+                <p>Abstract and vibrant representation. Displays screenshots from mobile, desktop, and tablet formats.</p>
+                <a href="#" class="button view-source">View Source</a>
+            </div>
+
         </section>
-
-        <!-- Ahuzat Dibuk Section -->
-        <section id="ahuzat-dibuk" class="section">
-            <h3>Ahuzat Dibuk</h3>
-            <p>Collects statistics for Tel-Aviv car parking lots, generating heatmaps for residents.</p>
-            <a href="#">Source 1 (Example)</a>
-            <a href="#">Source 2 (Example)</a>
-            <a href="#">Source 3 (Example)</a>
-        </section>
-
-        <!-- Portfolio Website Section -->
-        <section id="portfolio-website" class="section">
-            <h3>Portfolio Website</h3>
-            <p>This very website.</p>
-            <a href="https://www.geekipp.er">geva.kipp.er</a>
-        </section>
-
-        <!-- Connect Section -->
-        <section id="connect" class="section">
-            <a href="https://github.com/gevak"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="GitHub"></a>
-            <a href="https://www.linkedin.com/in/gevakip"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="LinkedIn"></a>
-            <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/59/59439.png" alt="Facebook"></a>
-        </section>
-
-
+        <div class="social-links">
+            <a href="https://github.com/"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23333'%3E%3Cpath d='M12 2A10 10 0 0 0 2 12c0 4.42 2.87 8.17 6.84 9.54.5.09.68-.22.68-.48V20.5c-2.78.6-4.24-1.34-4.24-1.34-.46-.92-1.12-1.17-1.12-1.17-.92-.62.62-.62.62-.62 1.03.07 1.58 1.05 1.58 1.05.91 1.57 2.4 1.11 2.99.85.09-.66.36-1.11.66-1.37-2.29-.26-4.69-1.14-4.69-5.08 0-1.12.39-2.06 1.03-2.79-.1-.25-.45-1.32.1-2.75 0 0 .84-.28 2.75 1.07.81-.23 1.68-.34 2.55-.34.87 0 1.74.11 2.55.34 1.91-1.35 2.75-1.07 2.75-1.07.55 1.43.2 2.5.1 2.75.63.73 1.02 1.67 1.02 2.79 0 3.95-2.4 4.82-4.69 5.08.36.26.66.71.66 1.37V21c0 .27.18.57.68.48A10 10 0 0 0 22 12 10 10 0 0 0 12 2z'/%3E%3C/svg%3E" alt="GitHub"></a>
+            <a href="https://linkedin.com/"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%230077b5'%3E%3Cpath d='M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-5.34c0-.01 0-.01 0 0 0-1.45 1.24-2.62 2.7-2.62 1.58 0 2.6 1.16 2.6 2.79v5.17h2.79m-5.12-13.96a1.5 1.5 0 1 0 1.5 1.51a1.5 1.5 0 0 0-1.5-1.51m-2.62 15.46h2.79V5.92h-2.79v12.96z'/%3E%3C/svg%3E" alt="LinkedIn"></a>
+            <a href="https://facebook.com/"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b5998'%3E%3Cpath d='M5 3h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2m9 17v-6h2l.3-2H14v-1.33c0-.64.23-1.04.7-1.04h1.32V6.67h-2a3.2 3.2 0 0 0-3 3V11h-2v2h2v7h3V14h0l-.3-2h2v8z'/%3E%3C/svg%3E" alt="Facebook"></a>
+        </div>
 
     </div>
 
-    <!-- Footer -->
-    <footer id="footer">
-        <div>© 2024 Grok & Claude</div>
-        <div id="stopwatch"></div>
+    <footer>
+        <div class="copyright">&copy; Grok & Claude, All Rights Reserved.</div>
+        <div class="stopwatch" id="stopwatch">00:00:00</div>
+
     </footer>
 
     <script>
+
+        //Loading Indicator
+         document.addEventListener('DOMContentLoaded', () => {
+            const loadingIndicator = document.getElementById('loading-indicator');
+            loadingIndicator.style.display = 'none'; // Or set to 'block' initially
+        });
+
         // Stopwatch Functionality
         function updateStopwatch() {
-            const startDate = new Date('2025-03-03T18:49:27');
+            const startDate = new Date('2025-03-03T18:58:50');
             const now = new Date();
-            const diff = new Date(now - startDate);
+            const difference = now.getTime() - startDate.getTime();
 
-            const hours = String(diff.getUTCHours()).padStart(2, '0');
-            const minutes = String(diff.getUTCMinutes()).padStart(2, '0');
-            const seconds = String(diff.getUTCSeconds()).padStart(2, '0');
+            const seconds = Math.floor((difference / 1000) % 60);
+            const minutes = Math.floor((difference / (1000 * 60)) % 60);
+            const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
 
-            document.getElementById('stopwatch').textContent = `${hours}:${minutes}:${seconds} since 2025-03-03 18:49:27`;
+            const stopwatch = document.getElementById('stopwatch');
+            stopwatch.textContent = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+        }
+
+           function pad(value) {
+            return value < 10 ? '0' + value : value;
         }
 
         setInterval(updateStopwatch, 1000);
 
-        // Initial call to set the text content immediately
-        updateStopwatch();
+        // Ticker Tape
+        document.addEventListener('DOMContentLoaded', function() {
+            const tickerTape = document.querySelector('.ticker-tape span');
+            if (tickerTape) {
+                // Optional: Pause the animation on hover - adds interactivity
+                tickerTape.addEventListener('mouseover', () => {
+                    tickerTape.style.animationPlayState = 'paused';
+                });
 
-        // Ahuzat Dibuk circles generation
-        const ahuzatDibukSection = document.getElementById('ahuzat-dibuk');
-        const numberOfCircles = 10;
+                tickerTape.addEventListener('mouseout', () => {
+                    tickerTape.style.animationPlayState = 'running';
+                });
+            }
+        });
 
-        for (let i = 0; i < numberOfCircles; i++) {
-            const circle = document.createElement('div');
-            circle.classList.add('circle');
 
-            const size = Math.random() * 50 + 20; // Adjust size as needed
-            circle.style.width = `${size}px`;
-            circle.style.height = `${size}px`;
-
-            const x = Math.random() * (ahuzatDibukSection.offsetWidth - size);
-            const y = Math.random() * (ahuzatDibukSection.offsetHeight - size);
-
-            circle.style.left = `${x}px`;
-            circle.style.top = `${y}px`;
-
-            ahuzatDibukSection.appendChild(circle);
-        }
 
     </script>
+
 </body>
 </html>
