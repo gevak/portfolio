@@ -36,6 +36,9 @@ def generate_page(model: str):
     with open(os.path.join('templates', 'index.html'), 'w', encoding='utf-8') as f:
         f.write(impl_code)
     logging.info(f"HTML template used to replace templates/index.html")
+    with open(os.path.join('docs', 'index.html'), 'w', encoding='utf-8') as f:
+        f.write(impl_code)
+    logging.info(f"HTML template used to replace docs/index.html")
 
     # Save screenshot
     # screenshot_jpg = asyncio.run(utils.get_screenshot(impl_code))
