@@ -1,0 +1,40 @@
+Website design for Geva Kipper:
+
+**Overall Concept:** A single-page website leveraging generative AI imagery and a subtle glitch aesthetic to highlight its ever-changing nature. The core idea is to display polished information in a way that hints at the AI's imperfect, evolving design.
+
+**Layout:**
+
+*   **Hero Section:** Centered at the top. Contains Geva Kipper's name in a large, clean sans-serif font. Below, the single-sentence descriptor ("Software Engineer at Google."). Underneath this, a slightly smaller subtitle: "*Redesigned Daily by AI*".
+*   **Project Sections:** Four equal-sized boxes, arranged in a 2x2 grid below the hero section. Each box features a prominent title (e.g. GlglStats, Ahuzat Dibuk, Portfolio Website) in a bold font. A concise description follows the title. Links are presented as visually distinct buttons with hover effects. Video/image thumbnails are displayed in the boxes as applicable.
+*   **Footer:** Fixed at the bottom. On the left, the text “© Grok & Claude”. On the right, the continuously updating stopwatch, displayed in a clear and modern font, indicating time elapsed since 2025-03-04 00:56:02.
+
+**Visual Style:**
+
+*   **Color Palette:** A muted color scheme with a primary color (e.g., a deep teal or slate blue) and neutral background (off-white or light gray). Accent colors (e.g., a bright coral or electric yellow) are used sparingly for interactive elements and visual highlights.
+
+*   **Typography:** Clean, readable sans-serif fonts for body text. A slightly more stylized, but still legible, font for headings & titles.
+
+*   **Imagery:**
+    *   **Background:** A subtle, generative AI-created background pattern that shifts dynamically. This could be a slightly distorted geometric pattern or an abstract, flowing texture. The background should be interesting but not distracting.
+    *   **Project Boxes:** Each box includes a visual element related to the project. For 'GlglStats', a screenshot from the website and a small Youtube-player. For 'Ahuzat Dibuk', a compressed heatmap rendering. For the 'Portfolio Website', a visually interesting graphical depiction of a website structure.
+    *   **Glitch Effects:** Subtle, infrequent glitch effects applied to text or images. A momentary pixel shift or color distortion can emphasize the AI-generated, ever-changing nature of the site.
+
+*   **Interactions:**
+    *   Hover effects on links, buttons, and project boxes (e.g., a slight color change, shadow effect, or subtle animation).
+    *   Smooth scrolling to project sections when links are clicked.
+
+**Specific Box Details:**
+
+1.  **GlglStats:** Box contains title, short description, thumbnail of the GlglStats website UI, and also a thumbnail of the author speaking in PyData TLV conference. Two buttons link to the website and the YouTube video.
+
+2.  **Ahuzat Dibuk:** Box contains title, short description, plus a compressed rendering of a heatmap visualization of the parking data. Three clearly distinguished links to the news stories and Facebook post.
+
+3.  **Portfolio Website:** Box contains title, short description ("A self-referential project..."), and a clean graphic that conceptually illustrates a portfolio design structure (e.g., interconnected nodes, a layered cake). The link directs to the static portfolio website.
+
+4.  **Social Links:** Box contains titles "Find Me", and contains simple, monochromatic icons for GitHub, LinkedIn, and Facebook, each hyperlinked to the corresponding profile.
+
+**Other Considerations:**
+
+*   **Responsiveness:** The design adapts seamlessly to different screen sizes (desktop, tablet, mobile).
+*   **Accessibility:** Adheres to accessibility guidelines for color contrast, font sizes, and screen reader compatibility.
+*   **Performance:** Optimized for fast loading times and smooth animations.
