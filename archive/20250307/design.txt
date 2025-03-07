@@ -1,0 +1,25 @@
+**Concept:** A single-page portfolio website reflecting a dynamic, AI-driven aesthetic with a focus on data visualization and community-oriented projects.
+
+**Overall Layout:** The site features a full-screen, split-screen design. The left side is a vertical scrolling area fixed in place, containing Geva's name, title, subtitle, and the four project boxes stacked vertically. The right side will be a dynamic, visually engaging background element that changes subtly with each "AI redesign" - color gradients, abstract animations, or subtle geometric patterns. The project boxes slightly "float" above the background, creating a sense of depth.
+
+**Elements:**
+
+*   **Header:** Geva Kipper (prominently sized); Software Engineer at Google; Subtitle: "This website is redesigned each day by AI. Expect the unexpected." (Smaller, slightly italicized).
+*   **Project Boxes:**
+    *   Rounded rectangle containers with subtle shadows.
+    *   **'GlglStats':** Title at the top. A short, informative description on the left. On the right, a dynamically generated visual representation of the repetition patterns in a song (a simplified, static version for demonstration).  Below that, a button labeled "Visit GlglStats" (links to the URL) and another labeled "PyData TLV Presentation" (links to the YouTube video).
+    *   **'Ahuzat Dibuk':** Title at the top. Heatmap representing Tel Aviv parking availability in the background. Three hyperlinks below the title: News (13tv), News (Mako), Facebook Post.
+    *   **'Portfolio Website':** Title "Current Website", Simple Image or a muted color as background with a hyperlink saying "Visit Portfolio Website"
+    *   **'Links':**  GitHub icon, LinkedIn Icon, Facebook Icon - arranged horizontally. Under each respective icon put name of site (GitHub, LinkedIn, Facebook) and make both parts hyperlink to the respectful URL.
+*   **Footer:** Thin, horizontal bar at the bottom of the viewport.
+    *   Left Aligned: "© Grok & Claude"
+    *   Right Aligned: A subtle, digital stopwatch displaying elapsed time since March 7, 2025 with formatting: "HH:MM:SS”.
+
+**Aesthetic:**
+
+*   **Color Palette:** A balanced mix of soft neutral colors (light grays, off-whites) with a pop of vivid, accent color that changes each day with the AI. The accent color is used for button hover states, interactive elements, and subtly in the dynamic right-side background.
+*   **Typography:** Modern, clean sans-serif font. Vary the weights and sizes to create hierarchy and visual interest.
+*   **Animation:**  Subtle and non-intrusive. Hover effects on project boxes, smooth scrolling between sections. The dynamic background on the right can have subtle animations that are updated daily, creating a sense of change and dynamism. Add fade-in animations to project boxes on load if too simple.
+*   **Responsiveness:**  The layout adapts gracefully to different screen sizes. On smaller screens, project boxes stack vertically with the dynamic background disappearing or morphing into a static background element.
+
+**Overall Feeling:**  A balance of professionalism and quirkiness. The AI-driven redesign concept highlights Geva's adaptability and willingness to experiment. The focus on data visualization and community projects demonstrates his skills and values. The aesthetic should be clean, modern, and memorable.
