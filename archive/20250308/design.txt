@@ -1,0 +1,53 @@
+**Overall Concept:**
+
+A single-page website embodying a machine learning aesthetic, clean lines, and subtle animations. The design should feel contemporary, almost like looking into an AI's mind. A slightly desaturated color palette with strategically placed bright accents would work well. The dynamic nature of the website (as stated in the subtitle) will be emphasized visually by the design using randomized parameters (colors, sizes, etc.).
+
+**Header:**
+
+*   **Developer's Name:** Geva Kipper should be prominent at the very top, using a clean but slightly futuristic sans-serif typeface.
+*   **Tagline:** "Software Engineer at Google" will be placed directly below, in a smaller, lighter font weight.
+*   **Subtitle:** Below the tagline, "This portfolio is re-designed daily by AI, always evolving." presented in an italicized, slightly faded font.
+This area would have a very subtle background animation, like slowly shifting gradients or a very faint grid pattern.
+
+**Content Boxes (4 Sections):**
+
+These boxes will be the main focus of the page, arranged in a visually interesting grid pattern. This grid will vary randomly to reflect the AI redesign.
+
+*   **General Box Style:** Clean, minimalist boxes with rounded corners and subtle shadow. Each box will feature a project title in a bold font and a brief description in a lighter font. Buttons linking to the project.
+*   **Box 1: GlglStats:**
+    *   Title: GlglStats (use contrasty colors, perhaps generated randomly)
+    *   Description: Summaries about measuring repetitiveness of Israeli pop-chart songs based on LZ77 compression. And about visualizing repetition patterns.
+    *   Links:
+        *   A button or a styled link labeled "Visit GlglStats" linking to: https://glglstats.onrender.com/
+        *   A small thumbnail (16:9) of the YouTube video, clicking it will open a stylized lightbox with a youtube embed.
+        *   A button or a styled link labeled "Watch Presentation" linking to: https://www.youtube.com/watch?v=jrKAtOsj1Lo
+*   **Box 2: Ahuzat dibuk:**
+    *   Title: Ahuzat dibuk
+    *   Description: A summary about collecting statistics for Tel-Aviv car parking lots and generating heat-maps.
+    *   Links:
+        *   A button or a styled link labeled "News Story 1" linking to: https://13tv.co.il/item/news/domestic/internal/parking-902956407/
+        *   A button or a styled link labeled "News Story 2" linking to: https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm
+        * A button or a styled link labeled "Facebook Publication" linking to: https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/
+*   **Box 3: This Portfolio (How Meta!):**
+    *   Title: This Very Website
+    * Description: A summary about the design philosophy of the website
+    *   Link:
+        *   A circular or uniquely shaped button labeled "See Source Code!" linking to: https://gevak.github.io/portfolio/
+*   **Box 4: Contact & Socials:**
+    *   Title: Get In Touch
+    *   This box will contain stylized icons for GitHub, LinkedIn, and Facebook, clearly linked and visually appealing..
+
+**Footer:**
+
+*   **Copyright:** "© Grok & Claude" centered at the bottom in a small font.
+*   **Stopwatch:** A clean, digital-style stopwatch displaying the elapsed time since 2025-03-08 00:43:35. The numbers should be clear and easily readable.
+Preferably, make the stopwatch display only when users scrolls to the bottom of the page.
+
+**General Design Elements:**
+
+*   **Color Palette:** A base of whites/off-whites and grays, with an accent color (maybe a vibrant blue, teal, or purple – randomly selected on each refresh) used for key elements like buttons, titles, and subtle highlights.
+*   **Typography:** A combination of a modern sans-serif with variable font sizes and weight to establish a clear hierarchy.
+*   **Animations:** Subtle, smooth transitions and animations (e.g., on hover, on scroll) to add visual interest without being distracting. Consider animations that suggest AI thinking, like subtle pulsing or glitch effects.
+
+All parameters (colors, sizes, fonts) must have acceptable accessibility (WCAG) ratings.
+

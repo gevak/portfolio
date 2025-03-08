@@ -2,280 +2,429 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geva Kipper - AI-Redesigned Portfolio</title>
+  <title>Geva Kipper - Software Engineer at Google</title>
   <style>
     /* General Styles */
+    :root {
+      --accent-color: #{randomColor}; /* Placeholder - will be replaced by JS */
+      --text-color: #333;
+      --background-color: #f5f5f5;
+      --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      --font-family: 'Helvetica Neue', sans-serif;
+    }
+
     body {
-      font-family: sans-serif;
+      font-family: var(--font-family);
       margin: 0;
       padding: 0;
-      height: 100vh;
-      overflow: hidden; /* Prevent scrolling on the main body */
-      display: flex;
-      color: #333;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      overflow-x: hidden; /* Hide horizontal scrollbar caused by the grid */
     }
 
     a {
-      color: inherit;
+      color: var(--accent-color);
       text-decoration: none;
     }
 
-    /* Left Side (Vertical Scrolling Area) */
-    .left-side {
-      width: 40%; /* Adjust as needed */
-      height: 100vh;
-      overflow-y: auto; /* Enable vertical scrolling */
-      padding: 20px;
-      box-sizing: border-box;
-      position: relative; /* For absolute positioning of elements within */
-      z-index: 2; /* Ensure it's above the background */
-      background-color: rgba(255, 255, 255, 0.8); /* Optional background */
-      backdrop-filter: blur(5px); /* Optional blur */
+    a:hover {
+      text-decoration: underline;
     }
 
-    .left-side::-webkit-scrollbar {
-      width: 8px; /* width of the entire scrollbar */
-    }
-
-    .left-side::-webkit-scrollbar-track {
-      background: #f1f1f1; /* color of the tracking area */
-    }
-
-    .left-side::-webkit-scrollbar-thumb {
-      background-color: #888; /* color of the scroll thumb */
-      border-radius: 4px; /* roundness of the scroll thumb */
-    }
-
-    .left-side::-webkit-scrollbar-thumb:hover {
-      background-color: #555; /* color of the scroll thumb on hover */
-    }
-
-    h1 {
-      font-size: 2.5em;
-      margin-bottom: 0.2em;
-    }
-
-    h2 {
-      font-size: 1.2em;
-      margin-bottom: 1em;
-    }
-
-    .subtitle {
-      font-style: italic;
-      font-size: 0.9em;
-      margin-bottom: 2em;
-    }
-
-
-    /* Project Boxes */
-    .project-box {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      margin-bottom: 20px;
-      position: relative; /* for the float effect */
-      transition: transform 0.3s ease;
-      background-color: inherit;
-    }
-
-    .project-box:hover {
-      transform: translateY(-5px);
-    }
-
-    .project-box h3 {
-      margin-top: 0; /* Reset default h3 margin */
-      font-size: 1.5em;
-      margin-bottom: 0.5em;
-    }
-
-    .project-box p {
-      margin-bottom: 1em;
-    }
-
-    .project-box .visual-representation {
-      /* Style for static visual representation */
-      width: 100px;
-      height: 100px;
-      background-color: #eee;
-      border-radius: 5px;
-      float: right;
-      margin-left: 10px;
-    }
-
-    .project-box .button {
-      background-color: #4CAF50;
-      border: none;
+    button {
+      background-color: var(--accent-color);
       color: white;
-      padding: 10px 20px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 14px;
-      margin: 4px 2px;
-      cursor: pointer;
+      border: none;
+      padding: 0.75rem 1.5rem;
       border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      font-size: 0.9rem;
+    }
+
+    button:hover {
+      background-color: #{darken(randomColor, 10)}; /* Placeholder - will be replaced by JS */
+    }
+
+    /* Header Styles */
+    header {
+      text-align: center;
+      padding: 2rem;
+      background: linear-gradient(to bottom, #e8e8e8, #f8f8f8);
+      margin-bottom: 2rem;
+      position: relative;
+      overflow: hidden; /* Hide gradient overflow */
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.03));
+      opacity: 0.4;
+      z-index: -1;
+      animation: subtleGradient 10s linear infinite;
+    }
+
+    @keyframes subtleGradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    header h2 {
+      font-size: 1.2rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+    }
+
+    header p {
+      font-style: italic;
+      color: #777;
+      font-size: 1rem;
+    }
+
+    /* Content Box Styles */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 2rem;
+      margin: 0 auto;
+      max-width: 1200px;
+
+      /* Placeholder - will be replaced by JS */
+      grid-template-areas: #{gridTemplateAreas};
+    }
+
+    .content-box {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: var(--box-shadow);
+      padding: 1.5rem;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-box:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    .content-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+      color: var(--accent-color);
+    }
+
+    .content-box p {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 1rem;
+    }
+
+    .content-box a {
+      display: inline-block;
+      margin-right: 1rem;
+    }
+
+    /* Project Specific Styles */
+    /* GlglStats Thumbnails */
+    .glglstats-thumbnail {
+      width: 100%;
+      max-width: 320px; /* Adjust as needed */
+      height: auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .glglstats-thumbnail:hover {
+      transform: scale(1.05);
+    }
+
+    /*Ahuzat dibuk Thumbnail*/
+    .ahuzat-dibuk-thumbnail {
+      width: 100%;
+      max-width: 320px; /* Adjust as needed */
+      height: auto;
+      aspect-ratio: 16 / 9;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    .ahuzat-dibuk-thumbnail:hover {
+      transform: scale(1.05);
+    }
+
+    /* Social Icons */
+    .social-icons {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    .social-icons a {
+      display: block;
+      width: 48px;
+      height: 48px;
+      background-color: #ddd;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       transition: background-color 0.3s ease;
     }
 
-    .project-box .hyperlink {
-      color: blue;
-      text-decoration: underline;
-      transition: color 0.3s ease;
-    }
-    .project-box .button:hover {
-      background-color: #3e8e41;
-
+    .social-icons a:hover {
+      background-color: var(--accent-color);
     }
 
-    .project-box .icon {
-      width: 32px; /* Adjust icon size as needed */
-      height: 32px;
-      margin-right: 5px; /* Space between icon and text */
-      vertical-align: middle;
-      margin-bottom: 8x;
-      border-radius: 10px;
+    .social-icons img {
+      width: 24px;
+      height: 24px;
+      filter: invert(1); /* Invert colors for white icons */
     }
 
-    /* Right Side (Dynamic Background) */
-    .right-side {
-      width: 60%; /* Adjust as needed */
-      height: 100vh;
-      background: linear-gradient(45deg, #f0f0f0, #e0e0e0); /* Example gradient */
-      /* Add animation or other dynamic background elements here */
+    /* Youtube Lightbox */
+    .lightbox {
+      display: none;
       position: fixed;
       top: 0;
-      right: 0;
-      z-index: 1;
-      background-size: cover; /* Cover the entire area */
-      background-position: center;
-    }
-
-    /* Footer */
-    footer {
-      position: fixed;
-      bottom: 0;
       left: 0;
       width: 100%;
-      background-color: #f0f0f0;
-      padding: 10px 20px;
-      display: flex;
-      justify-content: space-between;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.8);
+      z-index: 1000;
+      justify-content: center;
       align-items: center;
-      font-size: 0.8em;
-      z-index: 3;
     }
 
-    /* Responsiveness */
-    @media (max-width: 768px) {
-      body {
-        flex-direction: column;
-        overflow-y: auto; /* Enable scrolling on the whole body */
-      }
-
-      .left-side {
-        width: 100%;
-        height: auto;
-      }
-
-      .right-side {
-        width: 100%;
-        height: 300px; /* Or auto, or remove entirely */
-        position: relative; /* Or static, depending on desired behavior */
-      }
+    .lightbox-content {
+      position: relative;
     }
+
+    .lightbox-close {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+
+    /* Footer Styles */
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #eee;
+      color: #777;
+      font-size: 0.8rem;
+    }
+
+    #stopwatch {
+        font-family: monospace;
+        font-size: 1.2em;
+        padding-top: 1em;
+        margin-bottom: 1em;
+        display: none; /* Hidden initially */
+    }
+
+      /* Media queries for responsiveness */
+      @media (max-width: 768px) {
+          .content-grid {
+              grid-template-columns: 1fr; /* Stack on smaller screens */
+              grid-template-areas:
+                "glglstats"
+                "ahuzat"
+                "portfolio"
+                "contact"; /* Stack the boxes for mobile/small screen */
+          }
+
+          header h1 {
+              font-size: 2rem;
+          }
+
+          header h2 {
+              font-size: 1rem;
+          }
+      }
+
+    /* Content Area Assignments for grid */
+    #glglstats { grid-area: glglstats; }
+    #ahuzat { grid-area: ahuzat; }
+    #portfolio { grid-area: portfolio; }
+    #contact { grid-area: contact; }
   </style>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-  <div class="left-side">
+  <header>
     <h1>Geva Kipper</h1>
     <h2>Software Engineer at Google</h2>
-    <p class="subtitle"><i>This website is redesigned each day by AI. Expect the unexpected.</i></p>
+    <p><i>This portfolio is re-designed daily by AI, always evolving.</i></p>
+  </header>
 
-    <div class="project-box">
+  <div class="content-grid">
+
+    <div class="content-box" id="glglstats">
       <h3>GlglStats</h3>
-      <p>Analyzes song repetition patterns to identify key phrases and structure.</p>
-      <div class="visual-representation"></div>
-      <a href="URL" class="button">Visit GlglStats</a>
-      <a href="YOUTUBE_URL" class="button">PyData TLV Presentation</a>
+      <p>Summaries about measuring repetitiveness of Israeli pop-chart songs based on LZ77 compression. And about visualizing repetition patterns.</p>
+        <a href="https://glglstats.onrender.com/" target="_blank"><button>Visit GlglStats</button></a>
+        <img src="https://img.youtube.com/vi/jrKAtOsj1Lo/hqdefault.jpg" alt="GlglStats Presentation Thumbnail" class="glglstats-thumbnail" onclick="openLightbox('jrKAtOsj1Lo')">
+        <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank"><button>Watch Presentation</button></a>
     </div>
 
-    <div class="project-box">
-      <h3>Ahuzat Dibuk</h3>
-        <a href="#" class="hyperlink">News (13tv)</a> <br/>
-        <a href="#" class="hyperlink">News (Mako)</a>  <br/>
-        <a href="#" class="hyperlink">Facebook Post</a>
-      <p>Heatmap representing Tel Aviv parking availability</p>
+    <div class="content-box" id="ahuzat">
+      <h3>Ahuzat dibuk</h3>
+      <p>A summary about collecting statistics for Tel-Aviv car parking lots and generating heat-maps.</p>
+      <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank"><button>News Story 1</button></a>
+      <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank"><button>News Story 2</button></a>
+      <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/" target="_blank"><button>Facebook Publication</button></a>
     </div>
 
-    <div class="project-box">
-      <h3>Current Website</h3>
-      <p>Portfolio Website</p>
-      <a href="#" class="hyperlink">Visit Portfolio Website</a>
+    <div class="content-box" id="portfolio">
+      <h3>This Very Website</h3>
+      <p>A summary about the design philosophy of the website.</p>
+      <a href="https://gevak.github.io/portfolio/" target="_blank"><button style="border-radius: 50%;">See Source Code!</button></a>
     </div>
 
-    <div class="project-box">
-      <h3>Links</h3>
-      <a href="https://github.com"><img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub" class="icon"> GitHub</a> <br/>
-      <a href="https://www.linkedin.com"><img src="https://static.licdn.com/scds/common/u/img/logos/logo_linkedin_desktop.png" alt="LinkedIn" class="icon">LinkedIn</a> <br/>
-      <a href="https://www.facebook.com"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png" alt="Facebook" class="icon"> Facebook</a>
+    <div class="content-box" id="contact">
+      <h3>Get In Touch</h3>
+      <div class="social-icons">
+        <a href="https://github.com/gevak" target="_blank">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2.247a10 10 0 0 0-3.167 19.515c.59.108.803-.255.803-.565 0-.28-.011-1.022-.015-2.005-2.593.565-3.324-1.275-3.324-1.275-.423-1.082-1.03-1.365-1.03-1.365-.843-.577.064-.565.064-.565.932.064 1.422.959 1.422.959.823 1.353 2.159.96 2.693.733.083-.565.324-.959.591-1.18-2.059-.227-4.23-1.03-4.23-4.561 0-1.009.358-1.832.948-2.473-.094-.23-.407-1.17.094-2.445 0 0 .773-.244 2.532.943-.741-.23-2.44-.865-2.44-.865.824-.245 1.712-.367 2.596-.372.887.005 1.775.127 2.596.372 0 0-1.699.635-2.44.865 1.759-1.187 2.532-.943 2.532-.943.501 1.275.188 2.215.094 2.445.59.641.948 1.464.948 2.473 0 3.539-2.174 4.33-4.238 4.554.334.291.631.872.631 1.762 0 1.27-.015 2.297-.015 2.591 0 .31.208.673.809.563A9.994 9.994 0 0 0 12 2.247z'/%3E%3C/svg%3E" alt="GitHub">
+        </a>
+        <a href="https://www.linkedin.com/in/geva-kipper-50924584/" target="_blank">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-11 1a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1m3 0a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1m3 0a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1m3 0v14H5V4h14z'/%3E%3C/svg%3E" alt="LinkedIn">
+        </a>
+        <a href="https://www.facebook.com/geva.kipper" target="_blank">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9.197 21.549v-8.494h-2.117v-2.965h2.117v-2.099c0-3.479 1.696-5.872 5.871-5.872 1.606 0 3.067.124 3.479.172v3.215h-2.404c-1.797 0-2.158.9-2.158 2.16v2.099h4.48v2.965h-4.48v8.494h-3.667z'/%3E%3C/svg%3E" alt="Facebook">
+        </a>
+      </div>
     </div>
+
   </div>
 
-  <div class="right-side">
-    <!-- Dynamic background content will go here.  Can be changed with JS. -->
-  </div>
+    <!-- YouTube Lightbox -->
+    <div class="lightbox" id="youtubeLightbox">
+        <div class="lightbox-content">
+            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+            <div id="youtubeEmbed"></div>
+        </div>
+    </div>
 
   <footer>
-    <div>© Grok & Claude</div>
+    <p>© Grok & Claude</p>
     <div id="stopwatch">00:00:00</div>
   </footer>
 
   <script>
-    // Stopwatch functionality
-    function updateStopwatch() {
-      const startDate = new Date('March 7, 2025 00:00:00');
-      const now = new Date();
-      const difference = now - startDate;
-
-      let hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      let minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-      let seconds = Math.floor((difference % (1000 * 60)) / 1000);
-
-      hours = String(hours).padStart(2, '0');
-      minutes = String(minutes).padStart(2, '0');
-      seconds = String(seconds).padStart(2, '0');
-
-      document.getElementById('stopwatch').innerText = `${hours}:${minutes}:${seconds}`;
+    // Function to generate a random color
+    function getRandomColor() {
+      const hue = Math.floor(Math.random() * 360); // Random hue value
+      const saturation = Math.floor(Math.random() * 40) + 60; // Saturation between 60 and 100
+      const lightness = Math.floor(Math.random() * 40) + 40; // Lightness between 40 and 80
+      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
     }
 
-    setInterval(updateStopwatch, 1000); // Update every second
 
-    // Initial update
-    updateStopwatch();
+    // Function to darken a hex color  (Simplified for HSL)
+    function darken(hsl, percent) {
+      const hslValues = hsl.substring(4, hsl.length - 1).split(',');
+        const lightness = parseInt(hslValues[2].trim().slice(0,-1));
+        const newLightness = Math.max(0, lightness - percent);
 
-    // Example of dynamically changing the right-side background daily
-    function updateBackground() {
-      const backgrounds = [
-        'linear-gradient(45deg, #a8edea, #fed6e3)',
-        'linear-gradient(45deg, #2980b9, #2c3e50)',
-        'radial-gradient(circle, #6a3093, #a044ff)'
-        // Add more background gradients or images here
+      return `hsl(${hslValues[0]}, ${hslValues[1]}, ${newLightness}%)`; //H, S, L
+    }
+
+
+    // Function to randomize grid layout
+    function generateGridLayout() {
+      const layouts = [
+        `"glglstats ahuzat" "portfolio contact"`,
+        `"glglstats portfolio" "ahuzat contact"`,
+        `"glglstats" "ahuzat" "portfolio" "contact"`
       ];
-      const today = new Date();
-      const dayIndex = today.getDate() % backgrounds.length; // Simple daily index
-      const rightSide = document.querySelector('.right-side');
-      rightSide.style.background = backgrounds[dayIndex];
-      rightSide.style.backgroundSize = 'cover'; // Make sure background covers the whole area
-
-      // Example of adding subtle animation (can be more complex)
-      rightSide.style.transition = 'background 1s ease-in-out';
+      return layouts[Math.floor(Math.random() * layouts.length)];
     }
 
+     function openLightbox(youtubeId) {
+         const lightbox = document.getElementById('youtubeLightbox');
+         const embed = document.getElementById('youtubeEmbed');
+         embed.innerHTML = `<iframe width="80%" height="60%" src="https://www.youtube.com/embed/${youtubeId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
+         lightbox.style.display = 'flex'; // Show the lightbox
+     }
 
-    // Call function on page load
-    updateBackground();
+    function closeLightbox() {
+        const lightbox = document.getElementById('youtubeLightbox');
+        const embed = document.getElementById('youtubeEmbed');
+        embed.innerHTML = ''; // Clear the embed
+        lightbox.style.display = 'none'; // Hide the lightbox
+    }
+
+    // Apply randomized parameters
+    window.onload = () => {
+      const accentColor = getRandomColor();
+      const gridTemplateAreas = generateGridLayout();
+
+      document.documentElement.style.setProperty('--accent-color', accentColor);
+      document.documentElement.style.setProperty('--darken', darken(accentColor, 10));
+      document.documentElement.style.setProperty('--randomColor', accentColor);
+      document.documentElement.style.setProperty('--gridTemplateAreas', gridTemplateAreas);
+
+      // Stopwatch Functionality (triggered once scroll reaches the bottom)
+      let stopwatchInterval;
+
+      function startStopwatch() {
+          const startTime = new Date('2025-03-08T00:43:35').getTime(); // Set start time
+          const stopwatchElement = document.getElementById('stopwatch');
+
+          stopwatchInterval = setInterval(() => {
+              const now = new Date().getTime();
+              const elapsedTime = now - startTime;
+
+              const seconds = Math.floor((elapsedTime / 1000) % 60);
+              const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
+              const hours = Math.floor((elapsedTime / (1000 * 60 * 60)));
+
+              const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
+              stopwatchElement.textContent = formattedTime;
+          }, 1000);
+      }
+
+      function pad(number) {
+          return number < 10 ? "0" + number : number;
+      }
+
+          // Event Listener to start stopwatch when the user scrolls to the bottom of the page
+          window.addEventListener('scroll', () => {
+              // Check if the user has scrolled to the bottom of the page
+              //(window.innerHeight + window.scrollY) == document.body.offsetHeight
+              if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 100)) {
+                  if (!stopwatchInterval) { // Prevent multiple starts
+                      const stopwatchElement = document.getElementById('stopwatch');
+                      stopwatchElement.style.display = "block";    // Show stopwatch
+                      startStopwatch();
+                  }
+              }
+          });
+    };
   </script>
 
 </body>
