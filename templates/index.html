@@ -1,431 +1,341 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geva Kipper - Software Engineer at Google</title>
-  <style>
-    /* General Styles */
-    :root {
-      --accent-color: #{randomColor}; /* Placeholder - will be replaced by JS */
-      --text-color: #333;
-      --background-color: #f5f5f5;
-      --box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      --font-family: 'Helvetica Neue', sans-serif;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geva Kipper</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #333;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+        }
 
-    body {
-      font-family: var(--font-family);
-      margin: 0;
-      padding: 0;
-      background-color: var(--background-color);
-      color: var(--text-color);
-      line-height: 1.6;
-      scroll-behavior: smooth;
-      overflow-x: hidden; /* Hide horizontal scrollbar caused by the grid */
-    }
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
 
-    a {
-      color: var(--accent-color);
-      text-decoration: none;
-    }
+        h1, h2 {
+            font-family: 'Arial', sans-serif;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
 
-    a:hover {
-      text-decoration: underline;
-    }
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
 
-    button {
-      background-color: var(--accent-color);
-      color: white;
-      border: none;
-      padding: 0.75rem 1.5rem;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      font-size: 0.9rem;
-    }
+        button {
+            background-color: #eee;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
 
-    button:hover {
-      background-color: #{darken(randomColor, 10)}; /* Placeholder - will be replaced by JS */
-    }
+        button:hover {
+            background-color: #ddd;
+        }
 
-    /* Header Styles */
-    header {
-      text-align: center;
-      padding: 2rem;
-      background: linear-gradient(to bottom, #e8e8e8, #f8f8f8);
-      margin-bottom: 2rem;
-      position: relative;
-      overflow: hidden; /* Hide gradient overflow */
-    }
+        /* Header/Intro Section */
+        #header {
+            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0); /* Placeholder */
+            color: #222;
+            position: relative;
+            overflow: hidden;
+        }
 
-    header::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(45deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.03));
-      opacity: 0.4;
-      z-index: -1;
-      animation: subtleGradient 10s linear infinite;
-    }
+        #header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><polygon points="100,10 40,180 190,60 10,60 160,180"/></svg>');
+            opacity: 0.2;
+            animation: patternAnimation 20s linear infinite;
+        }
 
-    @keyframes subtleGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
+        @keyframes patternAnimation {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
 
-    header h1 {
-      font-size: 2.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      font-family: 'Roboto Mono', monospace;
-    }
 
-    header h2 {
-      font-size: 1.2rem;
-      font-weight: 300;
-      margin-bottom: 1rem;
-    }
+        #header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            z-index: 1;
+        }
 
-    header p {
-      font-style: italic;
-      color: #777;
-      font-size: 1rem;
-    }
+        #header p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            z-index: 1;
+        }
 
-    /* Content Box Styles */
-    .content-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
-      padding: 2rem;
-      margin: 0 auto;
-      max-width: 1200px;
+        #header em {
+            font-style: italic;
+            font-size: 0.9rem;
+            z-index: 1;
+        }
 
-      /* Placeholder - will be replaced by JS */
-      grid-template-areas: #{gridTemplateAreas};
-    }
+        /* Project Boxes */
+        .project-box {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            transition: transform 0.3s ease;  /* Slight movement effect */
+        }
+        .project-box:hover {
+            transform: translateY(-5px); /* Move up slightly */
+        }
 
-    .content-box {
-      background-color: white;
-      border-radius: 10px;
-      box-shadow: var(--box-shadow);
-      padding: 1.5rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
+        .project-visual {
+            margin-bottom: 1rem;
+            overflow: hidden;
+            border-radius: 8px;
+            position: relative;
+        }
 
-    .content-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
-    }
+        .project-visual img {
+            width: 100%;
+            display: block;
+            transition: transform 0.3s ease;
+        }
 
-    .content-box h3 {
-      font-size: 1.5rem;
-      margin-bottom: 0.5rem;
-      font-weight: 600;
-      color: var(--accent-color);
-    }
+        .project-visual:hover img {
+            transform: scale(1.1); /* Zoom on hover */
+        }
 
-    .content-box p {
-      font-size: 1rem;
-      color: #666;
-      margin-bottom: 1rem;
-    }
+        .project-visual .project-title {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2; /* Ensure title is above the image */
+        }
 
-    .content-box a {
-      display: inline-block;
-      margin-right: 1rem;
-    }
+        .project-description {
+            margin-bottom: 1rem;
+        }
 
-    /* Project Specific Styles */
-    /* GlglStats Thumbnails */
-    .glglstats-thumbnail {
-      width: 100%;
-      max-width: 320px; /* Adjust as needed */
-      height: auto;
-      aspect-ratio: 16 / 9;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .glglstats-thumbnail:hover {
-      transform: scale(1.05);
-    }
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
 
-    /*Ahuzat dibuk Thumbnail*/
-    .ahuzat-dibuk-thumbnail {
-      width: 100%;
-      max-width: 320px; /* Adjust as needed */
-      height: auto;
-      aspect-ratio: 16 / 9;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-    }
-    .ahuzat-dibuk-thumbnail:hover {
-      transform: scale(1.05);
-    }
+        .project-links a {
+            display: inline-block;
+        }
 
-    /* Social Icons */
-    .social-icons {
-      display: flex;
-      justify-content: space-around;
-      align-items: center;
-    }
+        .project-links img {
+            width: 32px; /* Adjust as needed */
+        }
 
-    .social-icons a {
-      display: block;
-      width: 48px;
-      height: 48px;
-      background-color: #ddd;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: background-color 0.3s ease;
-    }
+        /* Socials Box Styles*/
+        #socials .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
 
-    .social-icons a:hover {
-      background-color: var(--accent-color);
-    }
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            color: #fff;  /* Default to white */
+            background-color:#333;
+            transition: transform 0.3s ease;
+        }
 
-    .social-icons img {
-      width: 24px;
-      height: 24px;
-      filter: invert(1); /* Invert colors for white icons */
-    }
+        .social-icon img{
+          width:100%;
+          height: 100%;
+        }
 
-    /* Youtube Lightbox */
-    .lightbox {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      z-index: 1000;
-      justify-content: center;
-      align-items: center;
-    }
+        .social-icon:hover {
+            transform: scale(1.2);
+        }
 
-    .lightbox-content {
-      position: relative;
-    }
+        /* Footer Styles */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
 
-    .lightbox-close {
-      position: absolute;
-      top: 10px;
-      right: 20px;
-      color: white;
-      font-size: 2rem;
-      cursor: pointer;
-    }
+        #stopwatch {
+            font-family: monospace;
+            font-size: 1.2rem;
+            color: #fff;
+        }
 
-    /* Footer Styles */
-    footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #eee;
-      color: #777;
-      font-size: 0.8rem;
-    }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            section {
+                padding: 1rem;
+            }
 
-    #stopwatch {
-        font-family: monospace;
-        font-size: 1.2em;
-        padding-top: 1em;
-        margin-bottom: 1em;
-        display: none; /* Hidden initially */
-    }
+            .project-box {
+                width: 95%;
+                padding: 1.5rem;
+            }
 
-      /* Media queries for responsiveness */
-      @media (max-width: 768px) {
-          .content-grid {
-              grid-template-columns: 1fr; /* Stack on smaller screens */
-              grid-template-areas:
-                "glglstats"
-                "ahuzat"
-                "portfolio"
-                "contact"; /* Stack the boxes for mobile/small screen */
-          }
+            #header h1 {
+                font-size: 2.5rem;
+            }
 
-          header h1 {
-              font-size: 2rem;
-          }
+            #header p {
+                font-size: 1rem;
+            }
 
-          header h2 {
-              font-size: 1rem;
-          }
-      }
-
-    /* Content Area Assignments for grid */
-    #glglstats { grid-area: glglstats; }
-    #ahuzat { grid-area: ahuzat; }
-    #portfolio { grid-area: portfolio; }
-    #contact { grid-area: contact; }
-  </style>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+            footer {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
+    <section id="header">
+        <h1>Geva Kipper</h1>
+        <p>Software Engineer at Google</p>
+        <em>This website is reimagined daily by AI.</em>
+    </section>
 
-  <header>
-    <h1>Geva Kipper</h1>
-    <h2>Software Engineer at Google</h2>
-    <p><i>This portfolio is re-designed daily by AI, always evolving.</i></p>
-  </header>
-
-  <div class="content-grid">
-
-    <div class="content-box" id="glglstats">
-      <h3>GlglStats</h3>
-      <p>Summaries about measuring repetitiveness of Israeli pop-chart songs based on LZ77 compression. And about visualizing repetition patterns.</p>
-        <a href="https://glglstats.onrender.com/" target="_blank"><button>Visit GlglStats</button></a>
-        <img src="https://img.youtube.com/vi/jrKAtOsj1Lo/hqdefault.jpg" alt="GlglStats Presentation Thumbnail" class="glglstats-thumbnail" onclick="openLightbox('jrKAtOsj1Lo')">
-        <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank"><button>Watch Presentation</button></a>
-    </div>
-
-    <div class="content-box" id="ahuzat">
-      <h3>Ahuzat dibuk</h3>
-      <p>A summary about collecting statistics for Tel-Aviv car parking lots and generating heat-maps.</p>
-      <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank"><button>News Story 1</button></a>
-      <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank"><button>News Story 2</button></a>
-      <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/" target="_blank"><button>Facebook Publication</button></a>
-    </div>
-
-    <div class="content-box" id="portfolio">
-      <h3>This Very Website</h3>
-      <p>A summary about the design philosophy of the website.</p>
-      <a href="https://gevak.github.io/portfolio/" target="_blank"><button style="border-radius: 50%;">See Source Code!</button></a>
-    </div>
-
-    <div class="content-box" id="contact">
-      <h3>Get In Touch</h3>
-      <div class="social-icons">
-        <a href="https://github.com/gevak" target="_blank">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M12 2.247a10 10 0 0 0-3.167 19.515c.59.108.803-.255.803-.565 0-.28-.011-1.022-.015-2.005-2.593.565-3.324-1.275-3.324-1.275-.423-1.082-1.03-1.365-1.03-1.365-.843-.577.064-.565.064-.565.932.064 1.422.959 1.422.959.823 1.353 2.159.96 2.693.733.083-.565.324-.959.591-1.18-2.059-.227-4.23-1.03-4.23-4.561 0-1.009.358-1.832.948-2.473-.094-.23-.407-1.17.094-2.445 0 0 .773-.244 2.532.943-.741-.23-2.44-.865-2.44-.865.824-.245 1.712-.367 2.596-.372.887.005 1.775.127 2.596.372 0 0-1.699.635-2.44.865 1.759-1.187 2.532-.943 2.532-.943.501 1.275.188 2.215.094 2.445.59.641.948 1.464.948 2.473 0 3.539-2.174 4.33-4.238 4.554.334.291.631.872.631 1.762 0 1.27-.015 2.297-.015 2.591 0 .31.208.673.809.563A9.994 9.994 0 0 0 12 2.247z'/%3E%3C/svg%3E" alt="GitHub">
-        </a>
-        <a href="https://www.linkedin.com/in/geva-kipper-50924584/" target="_blank">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-11 1a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1m3 0a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1m3 0a1 1 0 0 0-1 1v8a1 1 0 0 0 2 0V5a1 1 0 0 0-1-1m3 0v14H5V4h14z'/%3E%3C/svg%3E" alt="LinkedIn">
-        </a>
-        <a href="https://www.facebook.com/geva.kipper" target="_blank">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='white' d='M9.197 21.549v-8.494h-2.117v-2.965h2.117v-2.099c0-3.479 1.696-5.872 5.871-5.872 1.606 0 3.067.124 3.479.172v3.215h-2.404c-1.797 0-2.158.9-2.158 2.16v2.099h4.48v2.965h-4.48v8.494h-3.667z'/%3E%3C/svg%3E" alt="Facebook">
-        </a>
-      </div>
-    </div>
-
-  </div>
-
-    <!-- YouTube Lightbox -->
-    <div class="lightbox" id="youtubeLightbox">
-        <div class="lightbox-content">
-            <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
-            <div id="youtubeEmbed"></div>
+    <section id="glglstats">
+        <div class="project-box">
+            <div class="project-visual">
+                <img src="https://via.placeholder.com/800x400/cccccc/ffffff?text=GlglStats+Visual" alt="GlglStats Still">
+                <div class="project-title">GlglStats</div>
+            </div>
+            <div class="project-description">
+                Repetition in Israeli pop music via LZ77.
+            </div>
+            <div class="project-links">
+                <a href="https://glglstats.onrender.com/" target="_blank"><button>Visit Site</button></a>
+                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=YT" alt="YouTube"></a>
+            </div>
         </div>
-    </div>
+    </section>
 
-  <footer>
-    <p>© Grok & Claude</p>
-    <div id="stopwatch">00:00:00</div>
-  </footer>
+    <section id="ahuzat-dibuk">
+        <div class="project-box">
+            <div class="project-visual">
+                <img src="https://via.placeholder.com/800x400/999999/ffffff?text=Ahuzat+Dibuk+Heatmap" alt="Ahuzat Dibuk Heatmap">
+                <div class="project-title">Ahuzat Dibuk</div>
+            </div>
+            <div class="project-description">
+                Tel Aviv parking statistics for residents.
+            </div>
+            <div class="project-links">
+                <a href="https://www.example.com/13tv" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=13" alt="13tv News"></a>
+                <a href="https://www.example.com/mako" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=MK" alt="Mako Article"></a>
+                <a href="https://www.facebook.com/example" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=FB" alt="Facebook Post"></a>
+            </div>
+        </div>
+    </section>
 
-  <script>
-    // Function to generate a random color
-    function getRandomColor() {
-      const hue = Math.floor(Math.random() * 360); // Random hue value
-      const saturation = Math.floor(Math.random() * 40) + 60; // Saturation between 60 and 100
-      const lightness = Math.floor(Math.random() * 40) + 40; // Lightness between 40 and 80
-      return `hsl(${hue}, ${saturation}%, ${lightness}%)`;
-    }
+    <section id="portfolio-website">
+        <div class="project-box">
+            <div class="project-visual">
+                <img src="https://via.placeholder.com/800x400/bbbbbb/ffffff?text=Code+Abstraction" alt="Meta Portfolio Code">
+                <div class="project-title">Meta Portfolio</div>
+            </div>
+            <div class="project-description">
+                This very website, always evolving.
+            </div>
+            <div class="project-links">
+                <a href="https://gevak.github.io/portfolio/" target="_blank"><button>View Source</button></a>
+            </div>
+        </div>
+    </section>
+
+    <section id="socials">
+        <div class="project-box">
+            <div class="project-visual">
+              <div class="project-title">Social Links</dev>
+            </div>
+            <div class="project-links social-links">
+              <a href="https://github.com/GevaK" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Github"></dic></a>
+              <a href="https://www.linkedin.com/in/geva-kipper-894a543/" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="linkedin"></dic></a>
+              <a href="https://www.facebook.com/geva.kipper/" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/741/741368.png" alt = "facebook"></dic></a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© Copyright Reserved to Grok & Claude</p>
+        <div id="stopwatch">00:00:00</div>
+    </footer>
+
+    <script>
+        // Dynamic accent color (changes daily)
+        const accentColors = ["#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688"];
+        const today = new Date();
+        const colorIndex = today.getDate() % accentColors.length;
+        const accentColor = accentColors[colorIndex];
+
+        // Apply accent color to buttons and stopwatch
+        const buttons = document.querySelectorAll('button');
+        buttons.forEach(button => button.style.backgroundColor = accentColor);
+
+        document.getElementById('stopwatch').style.color = accentColor;
+
+        document.getElementById('header').style.backgroundColor = accentColor;
+        document.getElementById('header').style.color = "white";
 
 
-    // Function to darken a hex color  (Simplified for HSL)
-    function darken(hsl, percent) {
-      const hslValues = hsl.substring(4, hsl.length - 1).split(',');
-        const lightness = parseInt(hslValues[2].trim().slice(0,-1));
-        const newLightness = Math.max(0, lightness - percent);
+        // Stopwatch functionality
+        const startTime = new Date("2025-03-09T00:48:42").getTime();
 
-      return `hsl(${hslValues[0]}, ${hslValues[1]}, ${newLightness}%)`; //H, S, L
-    }
+        function updateStopwatch() {
+            const now = new Date().getTime();
+            const elapsedTime = now - startTime;
 
+            const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
 
-    // Function to randomize grid layout
-    function generateGridLayout() {
-      const layouts = [
-        `"glglstats ahuzat" "portfolio contact"`,
-        `"glglstats portfolio" "ahuzat contact"`,
-        `"glglstats" "ahuzat" "portfolio" "contact"`
-      ];
-      return layouts[Math.floor(Math.random() * layouts.length)];
-    }
+            const formattedTime = String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+            document.getElementById('stopwatch').textContent = formattedTime;
+        }
 
-     function openLightbox(youtubeId) {
-         const lightbox = document.getElementById('youtubeLightbox');
-         const embed = document.getElementById('youtubeEmbed');
-         embed.innerHTML = `<iframe width="80%" height="60%" src="https://www.youtube.com/embed/${youtubeId}?autoplay=1" frameborder="0" allowfullscreen></iframe>`;
-         lightbox.style.display = 'flex'; // Show the lightbox
-     }
+        setInterval(updateStopwatch, 1000);
 
-    function closeLightbox() {
-        const lightbox = document.getElementById('youtubeLightbox');
-        const embed = document.getElementById('youtubeEmbed');
-        embed.innerHTML = ''; // Clear the embed
-        lightbox.style.display = 'none'; // Hide the lightbox
-    }
-
-    // Apply randomized parameters
-    window.onload = () => {
-      const accentColor = getRandomColor();
-      const gridTemplateAreas = generateGridLayout();
-
-      document.documentElement.style.setProperty('--accent-color', accentColor);
-      document.documentElement.style.setProperty('--darken', darken(accentColor, 10));
-      document.documentElement.style.setProperty('--randomColor', accentColor);
-      document.documentElement.style.setProperty('--gridTemplateAreas', gridTemplateAreas);
-
-      // Stopwatch Functionality (triggered once scroll reaches the bottom)
-      let stopwatchInterval;
-
-      function startStopwatch() {
-          const startTime = new Date('2025-03-08T00:43:35').getTime(); // Set start time
-          const stopwatchElement = document.getElementById('stopwatch');
-
-          stopwatchInterval = setInterval(() => {
-              const now = new Date().getTime();
-              const elapsedTime = now - startTime;
-
-              const seconds = Math.floor((elapsedTime / 1000) % 60);
-              const minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
-              const hours = Math.floor((elapsedTime / (1000 * 60 * 60)));
-
-              const formattedTime = `${pad(hours)}:${pad(minutes)}:${pad(seconds)}`;
-              stopwatchElement.textContent = formattedTime;
-          }, 1000);
-      }
-
-      function pad(number) {
-          return number < 10 ? "0" + number : number;
-      }
-
-          // Event Listener to start stopwatch when the user scrolls to the bottom of the page
-          window.addEventListener('scroll', () => {
-              // Check if the user has scrolled to the bottom of the page
-              //(window.innerHeight + window.scrollY) == document.body.offsetHeight
-              if ((window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 100)) {
-                  if (!stopwatchInterval) { // Prevent multiple starts
-                      const stopwatchElement = document.getElementById('stopwatch');
-                      stopwatchElement.style.display = "block";    // Show stopwatch
-                      startStopwatch();
-                  }
-              }
-          });
-    };
-  </script>
-
+    </script>
 </body>
 </html>
