@@ -2,340 +2,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper</title>
+    <title>Geva Kipper - AI Redesigned Portfolio</title>
     <style>
-        /* General Styles */
+        /* --- Global Styles --- */
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            color: #333;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
+            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            box-sizing: border-box;
+        /* Color Theme Variables (Dynamically Adjusted) */
+        :root {
+            --accent-color: #e91e63; /* Initial Fallback */
+            --text-color: #333;
+            --secondary-text-color: #666;
+            --background-gradient-start: #f0f0f0;
+            --background-gradient-end: #e0e0e0;
+        }
+
+        /* --- Header Styles --- */
+        header {
+            background: linear-gradient(to right, #a8edea, #dc74e1);
+            color: white;
             text-align: center;
+            padding: 2em 0;
+            margin-bottom: 2em;
         }
 
-        h1, h2 {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
+        h1 {
+            font-family: 'Dancing Script', cursive; /* Replace with a more suitable digital calligraphy font */
+            font-size: 3em;
+            margin: 0;
+            font-weight: lighter;
         }
 
-        a {
-            color: inherit;
-            text-decoration: none;
+        /* simulated code snippets - can be replaced with actual */
+        .code-snippets {
+            font-family: monospace;
+            font-size: 0.8em;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0.5em 0;
+            overflow: hidden; /* Hide overflow */
+            white-space: nowrap; /* Prevent line breaks */
         }
 
-        button {
-            background-color: #eee;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        h2 {
+            font-size: 1.2em;
+            font-weight: normal;
+            color: var(--text-color);
         }
 
-        button:hover {
-            background-color: #ddd;
+        .subtitle {
+            font-family: serif;
+            font-style: italic;
+            color: var(--secondary-text-color);
         }
 
-        /* Header/Intro Section */
-        #header {
-            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0); /* Placeholder */
-            color: #222;
+        /* --- Project Boxes --- */
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2em;
+            padding: 2em;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .project-box {
+            background-color: white;
+            padding: 1.5em;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For absolute positioning of elements within */
+        }
+
+        .project-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Project Specific Styling */
+        #glglstats {
+            /* LZ77 visualization here (subtle lines and overlay) */
+            background: linear-gradient(to bottom right, rgba(120,144,156,0.1), rgba(38,50,56,0.1));
             position: relative;
             overflow: hidden;
         }
 
-        #header::before {
+        #glglstats video {
+            width: 100%;
+            height: auto;
+            /* Add muted overlay effect */
+            mix-blend-mode: multiply;
+            filter: opacity(0.8) hue-rotate(20deg) brightness(1.1); /* Muted color filter adjustments */
+
+        }
+
+
+        #ahuzat-dibuk {
+            /* Heatmap background (blurred) */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><rect width="200" height="100" fill="red" /><animate attributeName="fill" values="red;orange;yellow;green;blue;indigo;violet;red" dur="5s" repeatCount="indefinite" /></svg>');
+            background-size: 200px 100px;
+            filter: blur(5px); /* Blur the background */
+            color:white;
+        }
+
+        #ahuzat-dibuk a {
+            display: inline-block;
+            margin-right: 0.5em;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        #ahuzat-dibuk a:hover {
+            opacity: 1;
+        }
+
+        #portfolio-website {
+            /* Code structure visualization */
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="100"><line x1="0" y1="0" x2="200" y2="100" style="stroke:rgb(255,0,0);stroke-width:2" /><circle cx="50" cy="50" r="20" fill="blue" /></svg>');
+             /* Add SVG code here for abstract code structure */
+            background-size: cover; /* Stretch to cover */
+            background-position: center;
+        }
+
+
+        #social-links {
+            text-align: center;
+        }
+
+        #social-links a {
+            display: inline-block;
+            margin: 0 1em;
+            font-size: 1.5em;
+            color: var(--text-color);
+            transition: transform 0.3s ease, color 0.3s ease;
+            text-decoration: none;
+
+        }
+
+        #social-links a:hover {
+            transform: translateY(-5px);
+            color: var(--accent-color); /* Use accent color here */
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 2em 0;
+            color: var(--secondary-text-color);
+        }
+
+        .stopwatch {
+            font-family: 'digital-7', sans-serif; /* Replace with actual digital font */
+            font-size: 1.2em;
+            color: var(--accent-color); /* Use accent color here */
+            text-shadow: 0 0 5px var(--accent-color);
+        }
+
+        /* --- Media Queries --- */
+        @media (max-width: 768px) {
+            .projects-container {
+                grid-template-columns: 1fr; /* Stack vertically on smaller screens */
+            }
+
+            h1 {
+                font-size: 2.5em;
+            }
+        }
+
+        /* Simulated Pulsating Background */
+        body::before {
             content: "";
-            position: absolute;
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><polygon points="100,10 40,180 190,60 10,60 160,180"/></svg>');
-            opacity: 0.2;
-            animation: patternAnimation 20s linear infinite;
+            background: linear-gradient(to bottom, var(--background-gradient-start), var(--background-gradient-end));
+            z-index: -1;
+            animation: pulse 5s infinite alternate;
         }
 
-        @keyframes patternAnimation {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-
-
-        #header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            z-index: 1;
-        }
-
-        #header p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            z-index: 1;
-        }
-
-        #header em {
-            font-style: italic;
-            font-size: 0.9rem;
-            z-index: 1;
-        }
-
-        /* Project Boxes */
-        .project-box {
-            width: 80%;
-            max-width: 800px;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;  /* Slight movement effect */
-        }
-        .project-box:hover {
-            transform: translateY(-5px); /* Move up slightly */
-        }
-
-        .project-visual {
-            margin-bottom: 1rem;
-            overflow: hidden;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        .project-visual img {
-            width: 100%;
-            display: block;
-            transition: transform 0.3s ease;
-        }
-
-        .project-visual:hover img {
-            transform: scale(1.1); /* Zoom on hover */
-        }
-
-        .project-visual .project-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            z-index: 2; /* Ensure title is above the image */
-        }
-
-        .project-description {
-            margin-bottom: 1rem;
-        }
-
-        .project-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
-
-        .project-links a {
-            display: inline-block;
-        }
-
-        .project-links img {
-            width: 32px; /* Adjust as needed */
-        }
-
-        /* Socials Box Styles*/
-        #socials .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            color: #fff;  /* Default to white */
-            background-color:#333;
-            transition: transform 0.3s ease;
-        }
-
-        .social-icon img{
-          width:100%;
-          height: 100%;
-        }
-
-        .social-icon:hover {
-            transform: scale(1.2);
-        }
-
-        /* Footer Styles */
-        footer {
-            background-color: #222;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        #stopwatch {
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: #fff;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            section {
-                padding: 1rem;
+        @keyframes pulse {
+            0% {
+                opacity: 0.9;
             }
-
-            .project-box {
-                width: 95%;
-                padding: 1.5rem;
-            }
-
-            #header h1 {
-                font-size: 2.5rem;
-            }
-
-            #header p {
-                font-size: 1rem;
-            }
-
-            footer {
-                flex-direction: column;
-                gap: 0.5rem;
+            100% {
+                opacity: 1;
             }
         }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap" rel="stylesheet"> <!-- Example font - replace! -->
 </head>
 <body>
-    <section id="header">
+
+    <header>
         <h1>Geva Kipper</h1>
-        <p>Software Engineer at Google</p>
-        <em>This website is reimagined daily by AI.</em>
-    </section>
-
-    <section id="glglstats">
-        <div class="project-box">
-            <div class="project-visual">
-                <img src="https://via.placeholder.com/800x400/cccccc/ffffff?text=GlglStats+Visual" alt="GlglStats Still">
-                <div class="project-title">GlglStats</div>
-            </div>
-            <div class="project-description">
-                Repetition in Israeli pop music via LZ77.
-            </div>
-            <div class="project-links">
-                <a href="https://glglstats.onrender.com/" target="_blank"><button>Visit Site</button></a>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=YT" alt="YouTube"></a>
-            </div>
+        <div class="code-snippets">
+            <span>// AI-Generated Code Snippet 1:</span> <code>const color = generateAccentColor();</code>
+            <span>// Snippet 2:</span> <code>layout.shuffleProjects();</code>
         </div>
-    </section>
+        <h2>Software Engineer at Google</h2>
+        <p class="subtitle">A portfolio website perpetually redesigned by AI.</p>
+    </header>
 
-    <section id="ahuzat-dibuk">
-        <div class="project-box">
-            <div class="project-visual">
-                <img src="https://via.placeholder.com/800x400/999999/ffffff?text=Ahuzat+Dibuk+Heatmap" alt="Ahuzat Dibuk Heatmap">
-                <div class="project-title">Ahuzat Dibuk</div>
-            </div>
-            <div class="project-description">
-                Tel Aviv parking statistics for residents.
-            </div>
-            <div class="project-links">
-                <a href="https://www.example.com/13tv" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=13" alt="13tv News"></a>
-                <a href="https://www.example.com/mako" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=MK" alt="Mako Article"></a>
-                <a href="https://www.facebook.com/example" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=FB" alt="Facebook Post"></a>
-            </div>
+    <section class="projects-container">
+        <div class="project-box" id="glglstats">
+            <h3>GlglStats</h3>
+            <p>LZ77 Compression Visualization</p>
+            <video src="some_video.mp4" autobuffer autoplay loop muted></video>
         </div>
-    </section>
 
-    <section id="portfolio-website">
-        <div class="project-box">
-            <div class="project-visual">
-                <img src="https://via.placeholder.com/800x400/bbbbbb/ffffff?text=Code+Abstraction" alt="Meta Portfolio Code">
-                <div class="project-title">Meta Portfolio</div>
-            </div>
-            <div class="project-description">
-                This very website, always evolving.
-            </div>
-            <div class="project-links">
-                <a href="https://gevak.github.io/portfolio/" target="_blank"><button>View Source</button></a>
-            </div>
+        <div class="project-box" id="ahuzat-dibuk">
+            <h3>Ahuzat Dibuk</h3>
+            <p>News Source Links</p>
+            <a href="#">News 1</a>
+            <a href="#">News 2</a>
+            <a href="#">News 3</a>
         </div>
-    </section>
 
-    <section id="socials">
-        <div class="project-box">
-            <div class="project-visual">
-              <div class="project-title">Social Links</dev>
-            </div>
-            <div class="project-links social-links">
-              <a href="https://github.com/GevaK" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Github"></dic></a>
-              <a href="https://www.linkedin.com/in/geva-kipper-894a543/" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="linkedin"></dic></a>
-              <a href="https://www.facebook.com/geva.kipper/" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/741/741368.png" alt = "facebook"></dic></a>
-            </div>
+        <div class="project-box" id="portfolio-website">
+            <h3>Portfolio Website</h3>
+             <p>Abstract Code Representation</p>
+        </div>
+
+        <div class="project-box" id="social-links">
+            <h3>Get In Touch</h3>
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
         </div>
     </section>
 
     <footer>
-        <p>© Copyright Reserved to Grok & Claude</p>
-        <div id="stopwatch">00:00:00</div>
+        <p>© Grok and Claude</p>
+        <p class="stopwatch">Since 2025-03-10 00:46:47</p>
     </footer>
 
     <script>
-        // Dynamic accent color (changes daily)
-        const accentColors = ["#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688"];
-        const today = new Date();
-        const colorIndex = today.getDate() % accentColors.length;
-        const accentColor = accentColors[colorIndex];
+        // --- Dynamic Accent Color (Simulated) ---
+        function generateNewTheme() {
+                // Simulate fetching from AI (replace with actual API call)
+                const suggestedAccentColor = '#' + Math.floor(Math.random()*16777215).toString(16); // Random color
+                document.documentElement.style.setProperty('--accent-color', suggestedAccentColor);
 
-        // Apply accent color to buttons and stopwatch
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.style.backgroundColor = accentColor);
+                // Slight variations for the background gradient - just examples.
+                let gradientStart = lightenColor('#f0f0f0', Math.random()*20);
+                let gradientEnd = lightenColor('#e0e0e0', Math.random()*20);
 
-        document.getElementById('stopwatch').style.color = accentColor;
+                document.documentElement.style.setProperty('--background-gradient-start', gradientStart);
+                document.documentElement.style.setProperty('--background-gradient-end', gradientEnd);
 
-        document.getElementById('header').style.backgroundColor = accentColor;
-        document.getElementById('header').style.color = "white";
+            }
+
+            function lightenColor(color, percent) {
+                let R = parseInt(color.substring(1,3),16);
+                let G = parseInt(color.substring(3,5),16);
+                let B = parseInt(color.substring(5,7),16);
+
+                R = parseInt((1+(percent/100)) * R);
+                G = parseInt((1+(percent/100)) * G);
+                B = parseInt((1+(percent/100)) * B);
+
+                R = (R<255)?R:255;
+                G = (G<255)?G:255;
+                B = (B<255)?B:255;
+
+                let RR = ((R.toString(16).length==1)?"0"+R.toString(16):R.toString(16));
+                let GG = ((G.toString(16).length==1)?"0"+G.toString(16):G.toString(16));
+                let BB = ((B.toString(16).length==1)?"0"+B.toString(16):B.toString(16));
+
+                return "#"+RR+GG+BB;
+            }
 
 
-        // Stopwatch functionality
-        const startTime = new Date("2025-03-09T00:48:42").getTime();
+        // --- Daily Redesign (Simulated) ---
 
-        function updateStopwatch() {
-            const now = new Date().getTime();
-            const elapsedTime = now - startTime;
+            // Shuffle the projects - quick and simple. A 'real' AI would adjust layout more substantively.
+            var projectsContainer = document.querySelector(".projects-container");
+            var projectBoxes = Array.from(document.querySelectorAll(".project-box"));
 
-            const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+            function shuffleProjects() {
+                projectBoxes.sort(() => Math.random() - 0.5);
+                projectBoxes.forEach(box => projectsContainer.appendChild(box));
+            }
 
-            const formattedTime = String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
-            document.getElementById('stopwatch').textContent = formattedTime;
-        }
 
-        setInterval(updateStopwatch, 1000);
+        // --- Initialization ---
+        window.onload = () => {
+            // Simulate daily AI redesign
+            generateNewTheme();
+            shuffleProjects();
+        };
 
     </script>
+    <script src="https://kit.fontawesome.com/your_font_awesome_kit.js" crossorigin="anonymous"></script> <!-- Replace with your Font Awesome kit -->
 </body>
 </html>
