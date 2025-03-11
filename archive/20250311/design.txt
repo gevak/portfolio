@@ -1,0 +1,13 @@
+## Geva Kipper Portfolio: Ever-Changing AI Design
+
+**Overall Concept:** The site embodies the dynamism implied by its AI redesign. Imagine a minimalist, yet slightly chaotic aesthetic. Think clean lines disrupted by unexpected geometric shapes, muted color palettes with pops of vibrant accents that shift subtly with each AI iteration. Each day will have a slightly randomized visual theme.
+
+**Header:** A full-width header contains Geva Kipper's name in a bold, sans-serif font. Below, a single sentence states he works at Google. Underneath *that*, the subtitle reads: "AI Redesigned Daily." These elements are subtly animated with easing functions to give each text element a unique entrance animation.
+
+**Project Sections (Boxes):** Four boxes are arranged in a flexible grid layout. They are subtly separated by negative space and thin, moving lines. Each box features a clean design with rounded corners. Project titles ("GlglStats", "Ahuzat Dibuk", "Portfolio Website") are styled in the same font as the name, but slightly smaller. Concise descriptions accompany the titles. Links are visually distinct buttons with subtle hover effects. Videos and external links should be embedded where appropriate, with thumbnails and icons used for clear presentation of external media material.
+
+**Color and Typography:** Muted, pastel color palette with a single strong accent color chosen and shifted by each iteration of the AI design. Think desaturated blues, greens, or purples. The typography uses a clean, modern sans-serif for body text to ensure readability. The headers use a bolder, slightly more playful font to inject personality.
+
+**Animations and Interactions:** Micro-animations are used throughout to add visual interest without being distracting. Subtle hover effects on links and buttons are essential. Each day, the AI might add new subtle animation, such as a randomized particle effect background, or change the way a box opens.
+
+**Footer:** A minimalist footer contains the copyright notice "© Grok & Claude" and a stopwatch. The stopwatch constantly ticks, displaying the time elapsed since 2025-03-11 00:56:35 accurately. The numbers are in a monospaced font, providing a stark, contrasting element. It is fixed to the bottom and always displayed.
