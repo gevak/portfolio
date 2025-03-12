@@ -1,0 +1,44 @@
+## Portfolio Website Design: Geva Kipper
+
+**Overall Theme:**  Dynamic, Fluid, and Minimalist. A focus on subtle animation and unexpected visual transitions to convey the idea of a site constantly being redesigned. A monochrome color palette with a single, dynamically chosen accent color will emphasize the evolving nature of the site. The layout should be clean and modern, focusing on content presentation.
+
+**Layout:** Single-page scrolling layout.
+
+**Hero Section:**
+
+*   **Headline:** "Geva Kipper" – Large, modern sans-serif typeface.
+*   **Subtitle:** "Software Engineer at Google. This website is re-designed daily by AI." – Smaller, slightly lighter font weight than the headline. Dynamically update the font family from a small random selection each day.
+*   **Background:** A subtle, animated gradient or parallax scrolling effect.
+
+**Project Sections (Four Boxes/Sections):**
+
+*   **General Style:** Each project section is a visually distinct "card."  Cards are uniformly styled, but subtly animated on scroll. Borderless rounded rectangular sections.
+*   **'GlglStats'**:
+    *   **Title:** "GlglStats" – Use a bold font. Position to top left.
+    *   **Description:** "Measures repetitiveness of Israeli pop-chart songs based on LZ77 compression. Visualizes repetition patterns in famous songs."
+    *   **Links:** Below the description, display two buttons, one for "Website" linking to `https://glglstats.onrender.com/` and one for "PyData TLV Presentation" linking to `https://www.youtube.com/watch?v=jrKAtOsj1Lo`. Use icons with the links.
+*   **'Ahuzat Dibuk'**:
+    *   **Title:** "Ahuzat Dibuk" – Use a bold font. Position to top left.
+    *   **Description:** "Collecting statistics for Tel-Aviv car parking lots, generating heat-maps for residents."
+    *   **Links:** Present three clickable icons. The first, a news-paper icon linking to `https://13tv.co.il/item/news/domestic/internal/parking-902956407/ `. the second, another news-paper icon linking to `https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm`. The third, a third an 'F' icon, linking to `https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/`
+*   **'Portfolio Website'**:
+    *   **Title:** "This Portfolio" –  Bold font. Position to top left.
+    *   **Description:**  Sarcastic description referencing the fact it's a self-referential portfolio entry. Something like: "Behold!  This very website you're viewing!  Built (presumably) with love.  Constantly re-skinned by our AI overlords."
+    *   **Link:** "View Source" – A single button linking to `https://gevak.github.io/portfolio/`. Icon included.
+*   **Contact/Social:**
+    *   **Title:** "Connect" –  Bold font. Position to top left.
+    *   **Links:**  Present three icons (GitHub, LinkedIn, Facebook) linking to the respective URLs (`https://github.com/gevak`, `www.linkedin.com/in/gevakip`).
+    *   Center the icons horizontally.
+
+**Footer:**
+
+*   **Copyright:**  "© Copyright Reserved to Grok and Claude" – Small font size, subtle color. Aligned to the left.
+*   **Stopwatch:** Display hours, minutes, and seconds elapsed since 2025-03-12 00:55:55.  This should be a prominent visual element, displayed a fixed amount of px from the right corner.
+* Animate the counting with a smooth transition every second.
+
+**Dynamic Elements:**
+
+*   **Accent Color:**  Change the accent color randomly each day (CSS variable).
+*   **Font Family:**  Change the font family for all headlines (including the developer name) from a predefined list of modern fonts.
+*   **Animation:**  Subtle animations on scroll and hover effects can be applied dynamically.
+*   **Layout Variations:**  Slightly alter the placement of the text within the sections daily. Small variations in padding, sizing, and orientation of elements.
