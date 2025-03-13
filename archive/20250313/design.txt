@@ -1,0 +1,27 @@
+Here's a design concept for Geva Kipper's ever-evolving portfolio website:
+
+**Overall Aesthetic:** Clean, minimalist, and subtly futuristic. A color palette of muted blues and grays with pops of vibrant yellow for interactive elements and highlights. The overall impression should be intelligent and innovative, reflecting both technical skill and a sense of playful experimentation. Think "data visualization meets Scandinavian design."
+
+**Layout:** A single, vertically scrolling page. Each of the four project sections and the footer occupy distinct "panels" that fill the viewport width. Subtle parallax scrolling effects could add visual interest as the user moves through the content.
+
+**Header:** Geva Kipper's name, prominently displayed in a sans-serif typeface. Below, the single-sentence description about his work at Google. Then, the subtitle: "This site's design is procedurally generated daily. Come back tomorrow for a refresh." The font of the subtitle should be less prominent.
+
+**Project Sections (Boxes):** Each project section is housed in a rectangular panel.
+
+*   **"GlglStats":** Title in bold. A brief description (as provided). A visual representation of the LZ77 compression in action – perhaps a simplified, animated graph showing data points clustering and dispersing. The project's logo (if any) or a custom icon relating to music frequency visualized in a trendy way. Below, prominent but clean button/link styles to the project website and the PyData TLV video. If possible, lazy-load a blurred placeholder image from the video until the user hovers over the section.
+
+*   **"Ahuzat Dibuk":** Title in bold. Description (as provided). A geographically inspired heat map visual using the muted blues from the color palette for low-traffic areas, grading to bright yellow/orange for high-traffic areas. This heat map should *lead* the user to click the links in a subtle way. Button-style links to the news articles and Facebook publication. Consider a subtle animation on the heat map, simulating the flow of traffic data.
+
+*   **Portfolio Website Project:** The title, then a simple call to action: "You're on it!". The link to the portfolio site is integrated into the sentence as a styled hyperlink. Rather than explicitly describing the design of the current portfolio, the focus here is that the AI re-generates a design every day.
+
+*   **Social Links:** Title: "Connect". Simple, minimalist icons (GitHub, LinkedIn) aligned horizontally. Use the vibrant yellow only on hover.
+
+**Footer:** A horizontal bar at the very bottom of the page. On the left: "Copyright Grok & Claude." On the right: The stopwatch visualization. The date "2025-03-13 00:56:48" should be discreetly rendered to show the origin of the countdown. The stopwatch could be a custom SVG animation of a stopwatch hand ticking forward in real-time.
+
+**Responsiveness & Aesthetics:**
+
+* The site should be fully responsive and adapt intelligently to different screen sizes.
+* Use subtle animations for transitions between sections or when hovering over elements.
+* Ensure the text is easily readable and has sufficient contrast.
+
+**Overall Impression:** The design conveys Geva's technical skills, projects and creativity while hinting at the ever-changing, AI-driven nature for the website.
