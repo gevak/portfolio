@@ -1,0 +1,269 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geva Kipper Portfolio: Ever-Changing AI Design</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0; /* Base background */
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
+
+        /* Utility classes for fonts */
+        .title-font {
+            font-family: sans-serif; /* Example playful font */
+            font-weight: bold;
+        }
+
+        .body-font {
+            font-family: sans-serif;
+        }
+
+        /* Header */
+        header {
+            background-color: #eee; /* Header background */
+            padding: 2rem;
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            animation: fadeIn 1s ease-out;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+            animation: slideInFromTop 1s ease-out;
+        }
+
+        header h2 {
+            font-size: 1.5rem;
+            font-weight: normal;
+            animation: slideInFromBottom 1s ease-out;
+        }
+
+        /* Project Grid */
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .project-box {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden; /* Hide moving lines */
+        }
+
+        .project-box h3 {
+            font-size: 1.75rem;
+            margin-bottom: 0.5rem;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .project-box p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Button Styles */
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #6a7a84; /* Primary accent */
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #4c5760; /* Darker accent */
+        }
+
+        /* Moving Lines */
+        .moving-line {
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background-color: #ccc;
+            animation: moveLine 4s linear infinite;
+        }
+
+        .moving-line:nth-child(1) { top: 10%; }
+        .moving-line:nth-child(2) { top: 30%; }
+        .moving-line:nth-child(3) { top: 50%; }
+        .moving-line:nth-child(4) { top: 70%; }
+        .moving-line:nth-child(5) { top: 90%; }
+        .moving-line::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, #ccc, transparent); /* Corrected gradient direction */
+                animation: moveGradient 4s linear infinite;
+                }
+
+        @keyframes moveLine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        @keyframes moveGradient {
+            0% {transform: translateX(-100%)}
+            100% {transform: translateX(100%)}
+        }
+
+        /* Footer */
+        footer {
+            background-color: #444;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            font-family: monospace;
+            font-size:1.1rem;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideInFromTop {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        @keyframes slideInFromBottom {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Media Queries for better responsive design */
+        @media (max-width: 600px) {
+            header {
+                padding: 1rem;
+            }
+
+            header h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr; /* Stack on smaller screens */
+                padding: 0.5rem;
+            }
+
+            .project-box {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 class="title-font">Geva Kipper</h1>
+        <p>Works at Google</p>
+        <h2 class="body-font">AI Redesigned Daily</h2>
+    </header>
+
+    <section class="project-grid">
+
+        <div class="project-box">
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <h3 class="title-font">GlglStats</h3>
+            <p class="body-font">A data visualization project showcasing statistical analysis of something interesting.</p>
+            <a href="#" class="button">View Project</a>
+        </div>
+
+        <div class="project-box">
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <h3 class="title-font">Ahuzat Dibuk</h3>
+            <p class="body-font">An interactive art installation exploring themes of identity and place.</p>
+            <a href="#" class="button">Explore Installation</a>
+        </div>
+
+        <div class="project-box">
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <h3 class="title-font">Portfolio Website</h3>
+            <p class="body-font">The very website you're currently viewing, constantly evolving.</p>
+            <a href="#" class="button">Source Code</a>
+        </div>
+
+        <div class="project-box">
+         <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <div class="moving-line"></div>
+            <h3 class="title-font">AI Experiment</h3>
+            <p class="body-font">A sandbox for experimenting with new AI art techniques and design patterns.</p>
+            <a href="#" class="button">Visit Experiment</a>
+        </div>
+
+    </section>
+
+    <footer>
+        &copy; Grok & Claude <span id="stopwatch">00:00:00</span>
+    </footer>
+
+    <script>
+        // Stopwatch Logic
+        function updateStopwatch() {
+            const startTime = new Date('2025-03-11T00:56:35');
+            const now = new Date();
+            const elapsed = now - startTime;
+
+            const seconds = Math.floor((elapsed / 1000) % 60);
+            const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+            const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+
+            const formattedTime = String(hours).padStart(2, '0') + ":" +
+                                  String(minutes).padStart(2, '0') + ":" +
+                                  String(seconds).padStart(2, '0');
+
+            document.getElementById('stopwatch').textContent = formattedTime;
+        }
+
+        setInterval(updateStopwatch, 1000); // Update every second
+        updateStopwatch(); // Initial call to avoid delay
+    </script>
+</body>
+</html>

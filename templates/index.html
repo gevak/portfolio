@@ -1,341 +1,394 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            padding: 0;
-            color: #333;
-            line-height: 1.6;
-            scroll-behavior: smooth;
-            overflow-x: hidden;
-        }
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geva Kipper - Ever-Evolving Portfolio</title>
+  <style>
+   /* General Styles */
+   body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #343a40, #f8f9fa);
+    color: #f8f9fa;
+    transition: background 0.5s ease;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+   }
 
-        section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            box-sizing: border-box;
-            text-align: center;
-        }
+   a {
+    color: #00bcd4;
+    text-decoration: none;
+   }
 
-        h1, h2 {
-            font-family: 'Arial', sans-serif;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
+   a:hover {
+    text-decoration: underline;
+   }
 
-        a {
-            color: inherit;
-            text-decoration: none;
-        }
+   /* Header */
+   .header {
+    text-align: center;
+    padding: 2em;
+   }
 
-        button {
-            background-color: #eee;
-            border: none;
-            padding: 0.75rem 1.5rem;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
+   .header h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+    font-family: 'Arial Black', sans-serif;
+   }
 
-        button:hover {
-            background-color: #ddd;
-        }
+   .header h2 {
+    font-size: 1em;
+    margin-bottom: 1em;
+    font-style: italic;
+   }
 
-        /* Header/Intro Section */
-        #header {
-            background: linear-gradient(to bottom, #f0f0f0, #e0e0e0); /* Placeholder */
-            color: #222;
-            position: relative;
-            overflow: hidden;
-        }
+   .header p {
+    font-size: 1.2em;
+    animation: changeFont 5s infinite alternate;
+   }
 
-        #header::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><polygon points="100,10 40,180 190,60 10,60 160,180"/></svg>');
-            opacity: 0.2;
-            animation: patternAnimation 20s linear infinite;
-        }
+   @keyframes changeFont {
+    0% {
+     font-family: "Courier New", monospace;
+    }
 
-        @keyframes patternAnimation {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
+    50% {
+     font-family: "Helvetica Neue", sans-serif;
+    }
+
+    100% {
+     font-family: "Segoe UI", sans-serif;
+    }
+   }
 
 
-        #header h1 {
-            font-size: 3rem;
-            margin-bottom: 0.5rem;
-            z-index: 1;
-        }
+   /* Project Grid */
+   .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2em;
+    padding: 2em;
+   }
 
-        #header p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            z-index: 1;
-        }
+   .project-box {
+    background-color: #212529;
+    border-radius: 10px;
+    padding: 1.5em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+   }
 
-        #header em {
-            font-style: italic;
-            font-size: 0.9rem;
-            z-index: 1;
-        }
+   .project-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+   }
 
-        /* Project Boxes */
-        .project-box {
-            width: 80%;
-            max-width: 800px;
-            background-color: #fff;
-            border-radius: 10px;
-            padding: 2rem;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            transition: transform 0.3s ease;  /* Slight movement effect */
-        }
-        .project-box:hover {
-            transform: translateY(-5px); /* Move up slightly */
-        }
+   .project-box h3 {
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+   }
 
-        .project-visual {
-            margin-bottom: 1rem;
-            overflow: hidden;
-            border-radius: 8px;
-            position: relative;
-        }
+   .project-description {
+    margin-bottom: 1em;
+   }
 
-        .project-visual img {
-            width: 100%;
-            display: block;
-            transition: transform 0.3s ease;
-        }
+   /* Special Project Box Styles */
 
-        .project-visual:hover img {
-            transform: scale(1.1); /* Zoom on hover */
-        }
+   /* GlglStats */
+   .glglstats-visual {
+    height: 80px;
+    background: linear-gradient(to right, #00bcd4, #3f51b5);
+    margin-bottom: 1em;
+    border-radius: 5px;
+    animation: soundwave 2s linear infinite alternate;
+   }
 
-        .project-visual .project-title {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: white;
-            font-size: 1.5rem;
-            font-weight: bold;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            z-index: 2; /* Ensure title is above the image */
-        }
+   @keyframes soundwave {
+    0% {
+     background-position: 0 0;
+    }
 
-        .project-description {
-            margin-bottom: 1rem;
-        }
+    100% {
+     background-position: 200px 0;
+    }
+   }
 
-        .project-links {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-        }
+   .glglstats-video {
+    display: block;
+    width: 100%;
+    max-height: 200px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+   }
 
-        .project-links a {
-            display: inline-block;
-        }
+   .glglstats-video:hover {
+    opacity: 1;
+   }
 
-        .project-links img {
-            width: 32px; /* Adjust as needed */
-        }
+   .glglstats-video-container {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+   }
 
-        /* Socials Box Styles*/
-        #socials .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
+   /* Ahuzat Dibuk */
+   .ahuzat-dibuk-map {
+    height: 150px;
+    background: url('tel-aviv-map.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    position: relative;
+    overflow: hidden;
+   }
 
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 2rem;
-            color: #fff;  /* Default to white */
-            background-color:#333;
-            transition: transform 0.3s ease;
-        }
+   .ahuzat-dibuk-map::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent 70%);
+    animation: heatmap 5s linear infinite alternate;
+   }
 
-        .social-icon img{
-          width:100%;
-          height: 100%;
-        }
+   @keyframes heatmap {
+    0% {
+     transform: translate(-10%, -10%);
+    }
 
-        .social-icon:hover {
-            transform: scale(1.2);
-        }
+    100% {
+     transform: translate(10%, 10%);
+    }
+   }
 
-        /* Footer Styles */
-        footer {
-            background-color: #222;
-            color: #fff;
-            padding: 1rem;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 2rem;
-        }
+   /* Portfolio Website */
+   .portfolio-website-mirror {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 1em;
+   }
 
-        #stopwatch {
-            font-family: monospace;
-            font-size: 1.2rem;
-            color: #fff;
-        }
+   .portfolio-website-mirror::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('portfolio-screenshot.png') no-repeat center center;
+    background-size: cover;
+    filter: blur(10px) brightness(0.5);
+    z-index: -1;
+   }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            section {
-                padding: 1rem;
-            }
+   /* Links */
+   .links-container {
+    text-align: center;
+   }
 
-            .project-box {
-                width: 95%;
-                padding: 1.5rem;
-            }
+   .social-icons a {
+    display: inline-block;
+    margin: 0 0.5em;
+    color: #00bcd4;
+    font-size: 1.5em;
+    transition: transform 0.3s ease, color 0.3s ease;
+   }
 
-            #header h1 {
-                font-size: 2.5rem;
-            }
+   .social-icons a:hover {
+    transform: scale(1.2);
+    color: #64ffda;
+    text-decoration: none;
+   }
 
-            #header p {
-                font-size: 1rem;
-            }
+   /* Footer */
+   .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    font-size: 0.8em;
+    color: #999;
+    background-color: #343a40;
+   }
 
-            footer {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-        }
-    </style>
-</head>
-<body>
-    <section id="header">
-        <h1>Geva Kipper</h1>
-        <p>Software Engineer at Google</p>
-        <em>This website is reimagined daily by AI.</em>
-    </section>
+   .timer {
+    font-family: monospace;
+    color: #eee;
+    transition: color 0.8s ease;
+   }
 
-    <section id="glglstats">
-        <div class="project-box">
-            <div class="project-visual">
-                <img src="https://via.placeholder.com/800x400/cccccc/ffffff?text=GlglStats+Visual" alt="GlglStats Still">
-                <div class="project-title">GlglStats</div>
-            </div>
-            <div class="project-description">
-                Repetition in Israeli pop music via LZ77.
-            </div>
-            <div class="project-links">
-                <a href="https://glglstats.onrender.com/" target="_blank"><button>Visit Site</button></a>
-                <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=YT" alt="YouTube"></a>
-            </div>
+   /* Responsive Design */
+   @media (max-width: 768px) {
+    .projects {
+     grid-template-columns: 1fr;
+    }
+   .responsiveHeader{
+      display: block;
+    }
+   }
+
+   @media (max-width: 576px) {
+    .header h1 {
+     font-size: 2.5em;
+    }
+
+    .projects {
+     padding: 1em;
+    }
+
+    .project-box {
+     padding: 1em;
+    }
+   }
+  </style>
+ </head>
+ <body>
+
+  <header class="header">
+   <h1>Geva Kipper</h1>
+   <h2>Software Engineer at Google</h2>
+   <p>This portfolio is re-designed by AI and therefore always evolving.</p>
+  </header>
+
+  <section class="projects">
+
+   <div class="project-box">
+    <h3>GlglStats</h3>
+    <div class="glglstats-visual"></div>
+    <p class="project-description">LZ77 compression of internet data. Demonstrating data visualization and reduction strategies.</p>
+    <a href="#">GitHub Repository</a><br>
+
+    <!-- PyData TLV video placeholder -->
+    <div class="glglstats-video-container">
+     <iframe class="glglstats-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1"
+      title="PyData TLV Video" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
+    </div>
+   </div>
+
+   <div class="project-box">
+    <h3>Ahuzat Dibuk</h3>
+    <div class="ahuzat-dibuk-map"></div>
+    <p class="project-description">
+     A real-time heatmap of Tel Aviv parking availability using public data.
+     Visualizing urban data challenges.
+    </p>
+    <a href="#">News Article</a> <br>
+    <a href="#">Facebook Post</a>
+   </div>
+
+   <div class="project-box">
+    <h3>Portfolio Website</h3>
+    <div class="portfolio-website-mirror"></div>
+    <p class="project-description">
+     Design and implementation of this ever-evolving portfolio page.
+     Showcasing dynamic content driven by AI.
+    </p>
+    <a href="#">Previous Website</a>
+   </div>
+
+   <div class="project-box">
+    <h3>Links</h3>
+    <p class="project-description">
+     Links to the resources inside the other boxes:
+     <ul>
+      <li><a href="#">GlglStats GitHub</a></li>
+      <li><a href="#">GlglStats Demo</a></li>
+      <li><a href="#">Ahuzat Dibuk News Article</a></li>
+      <li><a href="#">Ahuzat Dibuk Facebook Post</a></li>
+      <li><a href="#">Previous Website Source</a></li>
+     </ul>
+    </p>
+       <div class="links-container">
+        <div class="social-icons">
+         <a href="#"><i class="fab fa-github"></i></a>
+         <a href="#"><i class="fab fa-linkedin"></i></a>
+         <a href="#"><i class="fab fa-twitter"></i></a>
+         <a href="#"><i class="fab fa-stack-overflow"></i></a>
         </div>
-    </section>
+       </div>
 
-    <section id="ahuzat-dibuk">
-        <div class="project-box">
-            <div class="project-visual">
-                <img src="https://via.placeholder.com/800x400/999999/ffffff?text=Ahuzat+Dibuk+Heatmap" alt="Ahuzat Dibuk Heatmap">
-                <div class="project-title">Ahuzat Dibuk</div>
-            </div>
-            <div class="project-description">
-                Tel Aviv parking statistics for residents.
-            </div>
-            <div class="project-links">
-                <a href="https://www.example.com/13tv" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=13" alt="13tv News"></a>
-                <a href="https://www.example.com/mako" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=MK" alt="Mako Article"></a>
-                <a href="https://www.facebook.com/example" target="_blank"><img src="https://via.placeholder.com/32/808080/ffffff?text=FB" alt="Facebook Post"></a>
-            </div>
-        </div>
-    </section>
+   </div>
 
-    <section id="portfolio-website">
-        <div class="project-box">
-            <div class="project-visual">
-                <img src="https://via.placeholder.com/800x400/bbbbbb/ffffff?text=Code+Abstraction" alt="Meta Portfolio Code">
-                <div class="project-title">Meta Portfolio</div>
-            </div>
-            <div class="project-description">
-                This very website, always evolving.
-            </div>
-            <div class="project-links">
-                <a href="https://gevak.github.io/portfolio/" target="_blank"><button>View Source</button></a>
-            </div>
-        </div>
-    </section>
+  </section>
 
-    <section id="socials">
-        <div class="project-box">
-            <div class="project-visual">
-              <div class="project-title">Social Links</dev>
-            </div>
-            <div class="project-links social-links">
-              <a href="https://github.com/GevaK" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/25/25231.png" alt="Github"></dic></a>
-              <a href="https://www.linkedin.com/in/geva-kipper-894a543/" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/174/174857.png" alt="linkedin"></dic></a>
-              <a href="https://www.facebook.com/geva.kipper/" target="_blank"><div class="social-icon"><img src="https://cdn-icons-png.flaticon.com/512/741/741368.png" alt = "facebook"></dic></a>
-            </div>
-        </div>
-    </section>
+  <footer class="footer">
+   <div>© Grok & Claude</div>
+   <div class="timer"></div>
+  </footer>
 
-    <footer>
-        <p>© Copyright Reserved to Grok & Claude</p>
-        <div id="stopwatch">00:00:00</div>
-    </footer>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+   integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+   crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <script>
-        // Dynamic accent color (changes daily)
-        const accentColors = ["#e91e63", "#9c27b0", "#673ab7", "#3f51b5", "#2196f3", "#03a9f4", "#00bcd4", "#009688"];
-        const today = new Date();
-        const colorIndex = today.getDate() % accentColors.length;
-        const accentColor = accentColors[colorIndex];
+  <script>
+   // Dynamic Background Gradient
+   function setDynamicBackground() {
+    const colors = ["#343a40", "#495057", "#6c757d"];
+    const angle = Math.floor(Math.random() * 360);
+    const color1 = colors[Math.floor(Math.random() * colors.length)];
+    const color2 = "#f8f9fa"; // Off-white
+    document.body.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+   }
 
-        // Apply accent color to buttons and stopwatch
-        const buttons = document.querySelectorAll('button');
-        buttons.forEach(button => button.style.backgroundColor = accentColor);
+   // Timer
+   function updateTimer() {
+    const startDate = new Date('2025-03-15T00:00:00');
+    const now = new Date();
+    const difference = now.getTime() - startDate.getTime();
 
-        document.getElementById('stopwatch').style.color = accentColor;
+    const seconds = Math.floor(difference / 1000) % 60;
+    const minutes = Math.floor(difference / (1000 * 60)) % 60;
+    const hours = Math.floor(difference / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
 
-        document.getElementById('header').style.backgroundColor = accentColor;
-        document.getElementById('header').style.color = "white";
+    const timerElement = document.querySelector('.timer');
+    timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
+    // Subtle timer color shift
+    const colors2 = ["#eee", "#ddd", "#ccc"];
+    timerElement.style.color = colors2[Math.floor(Math.random() * colors2.length)];
 
-        // Stopwatch functionality
-        const startTime = new Date("2025-03-09T00:48:42").getTime();
+   }
 
-        function updateStopwatch() {
-            const now = new Date().getTime();
-            const elapsedTime = now - startTime;
+   // Accent Color Shift
+   function setDailyAccentColor() {
+    const accentColors = ["#00bcd4", "#64ffda", "#a7ffeb"]; // example accent colors
+    const color = accentColors[Math.floor(Math.random() * accentColors.length)];
+    const styleSheet = document.styleSheets[0];
 
-            const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+    // Find existing rules that use the accent color and update them
+    for (let i = 0; i < styleSheet.cssRules.length; i++) {
+     const rule = styleSheet.cssRules[i];
+     if (rule.cssText.includes("#00bcd4") || rule.cssText.includes("#64ffda") || rule.cssText.includes("#a7ffeb")) { // Check if the rule contains the accent color
+      styleSheet.deleteRule(i); // Delete the rule
+      i--; // Adjust the index because a rule was removed
+     }
+    }
 
-            const formattedTime = String(hours).padStart(2, '0') + ":" + String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
-            document.getElementById('stopwatch').textContent = formattedTime;
-        }
+    // Add new rules with dynamic accent color
+    styleSheet.insertRule(`.social-icons a { color: ${color}; }`, styleSheet.cssRules.length);
+    styleSheet.insertRule(`.social-icons a:hover {color:  #00bcd4 ;}`, styleSheet.cssRules.length);
 
-        setInterval(updateStopwatch, 1000);
+    // Update accent color globally (example: links, other elements)
+    const links = document.querySelectorAll('a');
+    links.forEach(link => link.style.color = color);
+   }
 
-    </script>
-</body>
-</html>
+   // Initialization
+   setDynamicBackground();
+   setDailyAccentColor();
+   setInterval(updateTimer, 1000);
+   updateTimer(); // Initial call
+  </script>
+ </body>
+ </html>

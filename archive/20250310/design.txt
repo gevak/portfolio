@@ -1,0 +1,23 @@
+**Overall Concept:**
+
+The site uses a "living organism" aesthetic. Think cellular, fluid, and constantly morphing. The four project boxes aren’t rigid rectangles, but organically shaped, slightly pulsating forms. Color palette: muted pastels with one vibrant accent color that changes daily via AI selection. Gentle, animated transitions between layout iterations each day bring the "ever-changing" aspect to life.
+
+**Layout:**
+
+*   A header area features a fluid gradient background. In the centre: "Geva Kipper", in a unique hand-written font (think digital calligraphy), above a thin, dynamically generated line of code snippets. Below: "Software Engineer at Google".
+*   Below, a sub-title in a secondary font: "A portfolio website perpetually redesigned by AI."
+*   The four project boxes are displayed below the header within a flexible grid-like container. Their shapes slightly differ to avoid complete symmetry, and the order changes daily.
+*   The "GlglStats" project box contains a stylized representation of an LZ77 compression algorithm on subtle, animated lines. The video is embedded directly, scaled to fit the container, with a muted color overlay.
+*   The "Ahuzat Dibuk" project box uses a heat map (blurred) as a subtle background. Three small logos of news sources (as appear on their respective websites) link directly.
+*   The "Portfolio Website" project uses a visually abstract representation of code structure – flowing lines connecting abstract forms – as its visual.
+*   The social media links in the final box are displayed as simple, elegant icons, each animated with individual hover effects.
+*   At the bottom, the copyright notice: "© Grok and Claude" sits above the "Since 2025-03-10 00:46:47" stopwatch. The stopwatch is styled distinctly – using a custom digital font and subtle glow.
+
+**Styling and Interactivity:**
+
+*   Fluid typography throughout. Font sizes and weights adapt to screen size.
+*   Subtle hover effects with smooth transitions on all interactive elements.
+*   The accent color dynamically selected by AI is applied to text highlights, button borders, and subtle gradients.
+*   The background is a very softly pulsating gradient, barely detectable, to further enhance the "living" feel.
+*   On smaller screens, the project boxes stack vertically.
+*   The daily redesign should involve subtle shifts in color palette, layout, typography and animation, never a complete overhaul.

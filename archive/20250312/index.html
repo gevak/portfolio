@@ -1,0 +1,306 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geva Kipper</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+            color: #333;
+            scroll-behavior: smooth;
+        }
+
+        /* Dynamic CSS Variables */
+        :root {
+            --accent-color: #007bff; /* Initial accent color */
+            --headline-font: 'Arial, sans-serif'; /* Initial font */
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(to right, #e0e0e0, #f0f0f0);
+            padding: 100px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            font-family: var(--headline-font);
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            font-family: var(--headline-font);
+            font-weight: 400;
+            color: #555;
+        }
+
+
+        /* Project Sections (Cards) */
+        .project-section {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin: 20px;
+            padding: 20px;
+            transition: transform 0.3s ease-in-out;
+            position: relative;  /* For absolute positioning of titles */
+        }
+
+        .project-section:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-section h2 {
+          font-size: 1.5em;
+          font-family: var(--headline-font);
+          font-weight: bold;
+          color: var(--accent-color);
+          position: absolute; /* Make the title absolute */
+          top: 10px; /* Position to the top */
+          left: 20px; /* And to the left */
+          margin: 0; /* Remove default margin to exactly control positioning */
+        }
+
+        .project-section p {
+            margin-top: 30px; /* Make room for the title */
+            font-size: 1em;
+            line-height: 1.6;
+        }
+
+        .project-section a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        /* Links/Buttons */
+        .links {
+            margin-top: 15px;
+        }
+        .links a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: var(--accent-color);
+            color: #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .links a:hover {
+            background-color: darken(var(--accent-color), 10%);
+        }
+        .links i {
+            margin-right: 5px; /* Icon spacing */
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #888;
+            text-align: left;
+            padding: 20px;
+            font-size: 0.8em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+
+        .footer-copyright {
+            text-align: left;
+        }
+
+        .footer-stopwatch {
+            text-align: right;
+            font-size: 1.2em;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 5px;
+            border-radius: 5px;
+            color: #fff;
+        }
+
+
+        /* Media Queries for Responsiveness */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 50px 10px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1em;
+            }
+
+            .project-section {
+                margin: 10px;
+            }
+
+
+            .footer-stopwatch {
+                position: static;  /* Responsive footer position */
+                margin-top: 10px;
+                text-align: left;
+            }
+
+            footer {
+                flex-direction: column; /* Stack on smaller screens */
+                align-items: flex-start; /* Align items to the left */
+            }
+
+            .links {
+              text-align: center; /* center the icons on smaller devices. */
+            }
+
+        }
+
+      /* Icon Styles.  Font Awesome (free) required */
+      .links i {
+        font-size: 1.2em;
+        margin: 0 5px;
+        color: inherit; /* Inherit color from link */
+      }
+
+
+      /* Social media icons */
+      .social-icons {
+        display: flex;
+        justify-content: center; /* Center icons */
+        gap: 10px; /* Space out icons */
+        margin-top: 15px;
+      }
+
+      .social-icons a {
+        color: var(--accent-color); /* or any other color you prefer */
+        font-size: 2em; /* Adjust size as needed */
+        text-decoration: none;
+
+      }
+
+      .social-icons a:hover {
+        opacity: 0.7; /* Slightly fade on hover */
+      }
+
+    </style>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+</head>
+<body>
+
+    <section class="hero">
+        <h1>Geva Kipper</h1>
+        <p>Software Engineer at Google. This website is re-designed daily by AI.</p>
+    </section>
+
+    <section class="project-section">
+        <h2>GlglStats</h2>
+        <p>Measures repetitiveness of Israeli pop-chart songs based on LZ77 compression. Visualizes repetition patterns in famous songs.</p>
+        <div class="links">
+            <a href="https://glglstats.onrender.com/"><i class="fas fa-globe"></i> Website</a>
+            <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo"><i class="fab fa-youtube"></i> PyData TLV Presentation</a>
+        </div>
+    </section>
+
+    <section class="project-section">
+        <h2>Ahuzat Dibuk</h2>
+        <p>Collecting statistics for Tel-Aviv car parking lots, generating heat-maps for residents.</p>
+        <div class="links">
+            <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/"><i class="fa fa-newspaper"></i></a>
+            <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm"><i class="fa fa-newspaper"></i></a>
+            <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/"><i class="fab fa-facebook"></i></a>
+        </div>
+    </section>
+
+    <section class="project-section">
+        <h2>This Portfolio</h2>
+        <p>Behold! This very website you're viewing! Built (presumably) with love. Constantly re-skinned by our AI overlords.</p>
+        <div class="links">
+            <a href="https://gevak.github.io/portfolio/"><i class="fas fa-code"></i> View Source</a>
+        </div>
+    </section>
+
+  <section class="project-section">
+    <h2>Connect</h2>
+    <div class="social-icons">
+      <a href="https://github.com/gevak" target="_blank"><i class="fab fa-github"></i></a>
+      <a href="https://www.linkedin.com/in/gevakip" target="_blank"><i class="fab fa-linkedin"></i></a>
+      <a href="https://www.facebook.com/gevak" target="_blank"><i class="fab fa-facebook"></i></a>
+    </div>
+  </section>
+
+    <footer>
+        <div class="footer-copyright">© Copyright Reserved to Grok and Claude</div>
+
+        <div class="footer-stopwatch" id="stopwatch">00:00:00</div>
+    </footer>
+
+
+    <script>
+        // Dynamic Accent Color
+        function setAccentColor() {
+            const colors = ['#2ecc71', '#3498db', '#9b59b6', '#f39c12', '#e74c3c'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+            document.documentElement.style.setProperty('--accent-color', randomColor);
+        }
+
+        // Dynamic Font Family
+        function setFontFamily() {
+            const fonts = ["'Arial, sans-serif'", "'Helvetica, sans-serif'", "'Verdana, sans-serif'", "'Montserrat, sans-serif'", "'Roboto, sans-serif'"];
+            const randomFont = fonts[Math.floor(Math.random() * fonts.length)];
+            document.documentElement.style.setProperty('--headline-font', randomFont);
+        }
+
+
+        // Stopwatch
+        function updateStopwatch() {
+            const startTime = new Date('2025-03-12T00:55:55');
+            const now = new Date();
+            const diff = now.getTime() - startTime.getTime();
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            const formattedTime = `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+            document.getElementById('stopwatch').textContent = formattedTime;
+        }
+
+
+        // Call functions
+        setAccentColor();
+        setFontFamily();
+        updateStopwatch(); // Initial call
+
+        // Set interval for stopwatch.
+        setInterval(updateStopwatch, 1000);
+
+        // Function to handle scroll animation
+        function handleScrollAnimation() {
+            const sections = document.querySelectorAll('.project-section');
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+
+                if (sectionTop < windowHeight * 0.75) {
+                    section.classList.add('activeScroll'); // Add a class to trigger CSS animations
+                } else {
+                    section.classList.remove('activeScroll');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
