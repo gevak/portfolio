@@ -1,213 +1,394 @@
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper's Ever-Changing Portfolio</title>
-    <style>
-        body {
-            background-color: #468499;
-            font-family: 'Open Sans', sans-serif;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geva Kipper - Ever-Evolving Portfolio</title>
+  <style>
+   /* General Styles */
+   body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #343a40, #f8f9fa);
+    color: #f8f9fa;
+    transition: background 0.5s ease;
+    overflow-x: hidden; /* Prevent horizontal scroll */
+   }
 
-        /* Header styles */
-        .header {
-            text-align: center;
-            padding: 20px 0;
-        }
+   a {
+    color: #00bcd4;
+    text-decoration: none;
+   }
 
-        .header h1 {
-            font-size: 3em;
-            color: #F5F5DC;
-            margin-bottom: 5px;
-        }
+   a:hover {
+    text-decoration: underline;
+   }
 
-       .header p {
-            font-style: italic;
-            color: #F5F5DC;
-            font-size: 0.9em;
-            margin-bottom: 10px;
-        }
+   /* Header */
+   .header {
+    text-align: center;
+    padding: 2em;
+   }
 
-        .header .subtitle {
-          font-size: 0.7em;
-          color: rgba(245, 245, 220, 0.7); /* Slightly transparent */
-          margin-top: 0;
-        }
+   .header h1 {
+    font-size: 3em;
+    margin-bottom: 0.2em;
+    font-family: 'Arial Black', sans-serif;
+   }
 
-        /* Portfolio Boxes */
-        .portfolio-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-        }
+   .header h2 {
+    font-size: 1em;
+    margin-bottom: 1em;
+    font-style: italic;
+   }
 
-        .portfolio-box {
-            background-color: #F5F5DC;
-            border: 1px solid #468499;
-            box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
-            padding: 20px;
-            margin-bottom: 30px;
-            width: 60%;
-            text-align: left;
-            transform: rotate(calc(var(--rotation) * 1deg)); /* Random rotation */
-            transition: width 0.3s ease, height 0.3s ease;
-        }
+   .header p {
+    font-size: 1.2em;
+    animation: changeFont 5s infinite alternate;
+   }
 
-        /* Responsive adjustments for portfolio boxes */
-        @media (max-width: 768px) {
-            .portfolio-box {
-                width: 90%;
-                margin-left: auto;
-                margin-right: auto;
-             }
-        }
+   @keyframes changeFont {
+    0% {
+     font-family: "Courier New", monospace;
+    }
 
-        /* GlglStats - specific style for video and link */
-        .glglstats-video {
-            width: 100%; /* Make video responsive within the box */
-            max-width: 100%;
-            height: auto;  /* Maintain aspect ratio */
-            margin-bottom: 10px;
-        }
+    50% {
+     font-family: "Helvetica Neue", sans-serif;
+    }
 
-        /* Footer Styles */
-        .footer {
-            background-color: #F5F5DC;
-            color: #468499;
-            text-align: center;
-            padding: 10px;
-            font-size: 0.7em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+    100% {
+     font-family: "Segoe UI", sans-serif;
+    }
+   }
 
-        .timer {
-            font-family: monospace;
-            font-size: 0.7em;
-            background-color: #F5F5DC;
-            color: #468499;
-            padding: 5px;
-            border-radius: 3px;
-        }
 
-        .random-element {
-            position: absolute;
-            /* Random positioning will be handled by JavaScript */
-            background-color: rgba(245, 245, 220, 0.3); /* Example style */
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            pointer-events: none; /* Make it non-interactive */
-        }
+   /* Project Grid */
+   .projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2em;
+    padding: 2em;
+   }
 
-        /* Icons (using simple text characters for brevity) */
-        .icon-link {
-            margin-right: 10px;
-            color: #468499;
-            text-decoration: none;
-        }
+   .project-box {
+    background-color: #212529;
+    border-radius: 10px;
+    padding: 1.5em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+   }
 
-        /* --- Box Contents --- */
-        .portfolio-box h2 { margin-bottom: 5px; }
-        .portfolio-box a { color: #468499; text-decoration: none; }
+   .project-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+   }
 
-    </style>
-</head>
-<body>
+   .project-box h3 {
+    font-size: 1.8em;
+    margin-bottom: 0.5em;
+   }
 
-    <div class="header">
-        <h1>Geva Kipper</h1>
-        <p><i>Software Engineer at Google</i></p>
-        <p class="subtitle">Redesigned Daily by AI</p>
+   .project-description {
+    margin-bottom: 1em;
+   }
+
+   /* Special Project Box Styles */
+
+   /* GlglStats */
+   .glglstats-visual {
+    height: 80px;
+    background: linear-gradient(to right, #00bcd4, #3f51b5);
+    margin-bottom: 1em;
+    border-radius: 5px;
+    animation: soundwave 2s linear infinite alternate;
+   }
+
+   @keyframes soundwave {
+    0% {
+     background-position: 0 0;
+    }
+
+    100% {
+     background-position: 200px 0;
+    }
+   }
+
+   .glglstats-video {
+    display: block;
+    width: 100%;
+    max-height: 200px;
+    border: none;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+   }
+
+   .glglstats-video:hover {
+    opacity: 1;
+   }
+
+   .glglstats-video-container {
+    position: relative;
+    overflow: hidden;
+    height: 0;
+    padding-bottom: 56.25%;
+    /* 16:9 aspect ratio */
+   }
+
+   /* Ahuzat Dibuk */
+   .ahuzat-dibuk-map {
+    height: 150px;
+    background: url('tel-aviv-map.png') no-repeat center center;
+    background-size: cover;
+    border-radius: 5px;
+    margin-bottom: 1em;
+    position: relative;
+    overflow: hidden;
+   }
+
+   .ahuzat-dibuk-map::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent 70%);
+    animation: heatmap 5s linear infinite alternate;
+   }
+
+   @keyframes heatmap {
+    0% {
+     transform: translate(-10%, -10%);
+    }
+
+    100% {
+     transform: translate(10%, 10%);
+    }
+   }
+
+   /* Portfolio Website */
+   .portfolio-website-mirror {
+    position: relative;
+    overflow: hidden;
+    border-radius: 5px;
+    margin-bottom: 1em;
+   }
+
+   .portfolio-website-mirror::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('portfolio-screenshot.png') no-repeat center center;
+    background-size: cover;
+    filter: blur(10px) brightness(0.5);
+    z-index: -1;
+   }
+
+   /* Links */
+   .links-container {
+    text-align: center;
+   }
+
+   .social-icons a {
+    display: inline-block;
+    margin: 0 0.5em;
+    color: #00bcd4;
+    font-size: 1.5em;
+    transition: transform 0.3s ease, color 0.3s ease;
+   }
+
+   .social-icons a:hover {
+    transform: scale(1.2);
+    color: #64ffda;
+    text-decoration: none;
+   }
+
+   /* Footer */
+   .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1em;
+    font-size: 0.8em;
+    color: #999;
+    background-color: #343a40;
+   }
+
+   .timer {
+    font-family: monospace;
+    color: #eee;
+    transition: color 0.8s ease;
+   }
+
+   /* Responsive Design */
+   @media (max-width: 768px) {
+    .projects {
+     grid-template-columns: 1fr;
+    }
+   .responsiveHeader{
+      display: block;
+    }
+   }
+
+   @media (max-width: 576px) {
+    .header h1 {
+     font-size: 2.5em;
+    }
+
+    .projects {
+     padding: 1em;
+    }
+
+    .project-box {
+     padding: 1em;
+    }
+   }
+  </style>
+ </head>
+ <body>
+
+  <header class="header">
+   <h1>Geva Kipper</h1>
+   <h2>Software Engineer at Google</h2>
+   <p>This portfolio is re-designed by AI and therefore always evolving.</p>
+  </header>
+
+  <section class="projects">
+
+   <div class="project-box">
+    <h3>GlglStats</h3>
+    <div class="glglstats-visual"></div>
+    <p class="project-description">LZ77 compression of internet data. Demonstrating data visualization and reduction strategies.</p>
+    <a href="#">GitHub Repository</a><br>
+
+    <!-- PyData TLV video placeholder -->
+    <div class="glglstats-video-container">
+     <iframe class="glglstats-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1"
+      title="PyData TLV Video" frameborder="0"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+      allowfullscreen></iframe>
     </div>
+   </div>
 
-    <div class="portfolio-container">
+   <div class="project-box">
+    <h3>Ahuzat Dibuk</h3>
+    <div class="ahuzat-dibuk-map"></div>
+    <p class="project-description">
+     A real-time heatmap of Tel Aviv parking availability using public data.
+     Visualizing urban data challenges.
+    </p>
+    <a href="#">News Article</a> <br>
+    <a href="#">Facebook Post</a>
+   </div>
 
-        <div class="portfolio-box" style="--rotation: 2;">
-            <h2>GlglStats</h2>
-            <iframe class="glglstats-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0" allowfullscreen></iframe> <!-- Replace with real video link -->
-            <a href="https://example.com/glglstats">GlglStats Project Link</a>
+   <div class="project-box">
+    <h3>Portfolio Website</h3>
+    <div class="portfolio-website-mirror"></div>
+    <p class="project-description">
+     Design and implementation of this ever-evolving portfolio page.
+     Showcasing dynamic content driven by AI.
+    </p>
+    <a href="#">Previous Website</a>
+   </div>
+
+   <div class="project-box">
+    <h3>Links</h3>
+    <p class="project-description">
+     Links to the resources inside the other boxes:
+     <ul>
+      <li><a href="#">GlglStats GitHub</a></li>
+      <li><a href="#">GlglStats Demo</a></li>
+      <li><a href="#">Ahuzat Dibuk News Article</a></li>
+      <li><a href="#">Ahuzat Dibuk Facebook Post</a></li>
+      <li><a href="#">Previous Website Source</a></li>
+     </ul>
+    </p>
+       <div class="links-container">
+        <div class="social-icons">
+         <a href="#"><i class="fab fa-github"></i></a>
+         <a href="#"><i class="fab fa-linkedin"></i></a>
+         <a href="#"><i class="fab fa-twitter"></i></a>
+         <a href="#"><i class="fab fa-stack-overflow"></i></a>
         </div>
+       </div>
 
-        <div class="portfolio-box" style="--rotation: -3;">
-            <h2>Ahuzat Dibuk</h2>
-            <a href="https://example.com/ahuzat1">Ahuzat Dibuk Link 1</a><br>
-            <a href="https://example.com/ahuzat2">Ahuzat Dibuk Link 2</a>
-        </div>
+   </div>
 
-        <div class="portfolio-box" style="--rotation: 1;">
-            <h2>Portfolio</h2>
-            <p>This Site:</p>
-            <a href="https://example.com/portfolio1">Portfolio Link 1</a><br>
-            <a href="https://example.com/portfolio2">Portfolio Link 2</a>
-        </div>
+  </section>
 
-        <div class="portfolio-box" style="--rotation: -2;">
-            <h2>Contact</h2>
-            <a href="#" class="icon-link">GitHub</a>
-            <a href="#" class="icon-link">LinkedIn</a>
-            <a href="#" class="icon-link">Facebook</a>
-        </div>
+  <footer class="footer">
+   <div>© Grok & Claude</div>
+   <div class="timer"></div>
+  </footer>
 
-    </div>
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+   integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+   crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <div class="footer">
-        <div>© Grok and Claude</div>
-        <div class="timer" id="timer">00:00:00</div>
-    </div>
+  <script>
+   // Dynamic Background Gradient
+   function setDynamicBackground() {
+    const colors = ["#343a40", "#495057", "#6c757d"];
+    const angle = Math.floor(Math.random() * 360);
+    const color1 = colors[Math.floor(Math.random() * colors.length)];
+    const color2 = "#f8f9fa"; // Off-white
+    document.body.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
+   }
 
-    <script>
-        // --- Stopwatch ---
-        function updateTimer() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            const seconds = String(now.getSeconds()).padStart(2, '0');
-            document.getElementById('timer').textContent = `${hours}:${minutes}:${seconds}`;
-        }
+   // Timer
+   function updateTimer() {
+    const startDate = new Date('2025-03-15T00:00:00');
+    const now = new Date();
+    const difference = now.getTime() - startDate.getTime();
 
-        setInterval(updateTimer, 1000);
+    const seconds = Math.floor(difference / 1000) % 60;
+    const minutes = Math.floor(difference / (1000 * 60)) % 60;
+    const hours = Math.floor(difference / (1000 * 60 * 60)) % 24;
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
 
-        // --- Random Element Generation ---
-        function createRandomElement() {
-            const element = document.createElement('div');
-            element.classList.add('random-element');
-            element.style.left = Math.random() * 100 + 'vw';
-            element.style.top = Math.random() * 100 + 'vh';
-            document.body.appendChild(element);
+    const timerElement = document.querySelector('.timer');
+    timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
 
-            // Clean up elements after a while
-            setTimeout(() => {
-                element.remove();
-            }, 5000); // Remove after 5 seconds
-        }
+    // Subtle timer color shift
+    const colors2 = ["#eee", "#ddd", "#ccc"];
+    timerElement.style.color = colors2[Math.floor(Math.random() * colors2.length)];
 
-        // Call the function periodically
-        setInterval(createRandomElement, 3000); // Create every 3 seconds
+   }
 
-        // --- Random Box Dimensions ---
-        const boxes = document.querySelectorAll('.portfolio-box');
+   // Accent Color Shift
+   function setDailyAccentColor() {
+    const accentColors = ["#00bcd4", "#64ffda", "#a7ffeb"]; // example accent colors
+    const color = accentColors[Math.floor(Math.random() * accentColors.length)];
+    const styleSheet = document.styleSheets[0];
 
-        boxes.forEach(box => {
-            const widthVariance = Math.random() * 5;  // Up to 5% variation
-            const heightVariance = Math.random() * 5;
+    // Find existing rules that use the accent color and update them
+    for (let i = 0; i < styleSheet.cssRules.length; i++) {
+     const rule = styleSheet.cssRules[i];
+     if (rule.cssText.includes("#00bcd4") || rule.cssText.includes("#64ffda") || rule.cssText.includes("#a7ffeb")) { // Check if the rule contains the accent color
+      styleSheet.deleteRule(i); // Delete the rule
+      i--; // Adjust the index because a rule was removed
+     }
+    }
 
-            const currentWidth = box.offsetWidth;
-            const currentHeight = box.offsetHeight;
+    // Add new rules with dynamic accent color
+    styleSheet.insertRule(`.social-icons a { color: ${color}; }`, styleSheet.cssRules.length);
+    styleSheet.insertRule(`.social-icons a:hover {color:  #00bcd4 ;}`, styleSheet.cssRules.length);
 
+    // Update accent color globally (example: links, other elements)
+    const links = document.querySelectorAll('a');
+    links.forEach(link => link.style.color = color);
+   }
 
-            box.style.width = `${currentWidth + widthVariance}%`;
-            box.style.height = `${currentHeight + heightVariance}px`;
-        });
-
-
-
-    </script>
-
-</body>
-</html>
+   // Initialization
+   setDynamicBackground();
+   setDailyAccentColor();
+   setInterval(updateTimer, 1000);
+   updateTimer(); // Initial call
+  </script>
+ </body>
+ </html>

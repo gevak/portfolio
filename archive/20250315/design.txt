@@ -1,0 +1,36 @@
+## Design Concept: Ever-Evolving Portfolio
+
+**Overall Aesthetic:** Clean, futuristic, and subtly playful. The core concept is to visually represent the dynamically generated nature of the site. Use a limited color palette of deep blue/indigo, off-white, and a vibrant accent color (e.g., electric blue or a neon green) that shifts slightly each day.
+
+**Layout:** The single page will feature a smooth, vertical scrolling experience. The page is divided into sections, the first of which is dedicated to a header and subtitle, and the rest will be the four boxes representing the projects, in a 2x2 grid.
+
+**Header & Subtitle:**
+The first thing to show on the page is the header, featuring Geva Kipper's name in a large, modern sans-serif typeface.
+Below the site title, Geva's current work at Google is displayed, right before the ever-changing subtitle, explaining that the website is re-designed by AI and is thus ever-changing. the subtitle should use a font that is more modern and visually changes everyday.
+
+**Project Boxes:**
+
+The four project sections will be arranged in a flexible 2x2 grid.
+
+*   **Visual Style:** Each section will be enclosed in a slightly raised rectangular box with rounded corners to give a futuristic/modern look.
+    Each box will contain the project name in big letters, its description, and the relevant link(s) to the project.
+    Use subtle animations on project boxes on hover (e.g. a slight raise, a color shift).
+
+*   **'GlglStats' Box:** Use a visual element to represent the LZ77 compression concept. This could be a stylized data stream pattern, abstract soundwave visualization that subtly animates. Embed a thumbnail for the PyData TLV conference video underneath the link text, using the hover animation to play the video.
+
+*   **'Ahuzat Dibuk' Box:** Include a simplified heat map graphic representing Tel-Aviv, overlaid with subtle semi-transparent color gradients that shift based on parking availability data. Make the Tel-Aviv map an integral part of the design inside this box. Links to news articles and FB posting are clearly displayed below the map.
+
+*   **Portfolio Website Box:** A mirror effect. In the background of this box, provide a blurred, low-resolution copy of parts of the website itself. A simple call-out displays the project scope and links to the previous website.
+
+*   **Links Box:** Social media icons rendered in the accent color and animated on hover. Placed cleanly in the corner is text with the different links inside the boxes.
+
+**Footer:**
+Copyright information ("© Grok & Claude") is displayed in a small font at the very bottom, left-aligned.
+Next to it, a live stopwatch displays the elapsed time since March 15 2025, in a modern monospace font. Use subtle visual effects to reinforce the dynamic nature of the timer, such as a slight color shift every few seconds.
+
+**Background:**
+
+*   A gradient background that subtly shifts through shades of blue/indigo and off-white. The gradient's direction could change dynamically each day.
+
+**Responsiveness:**
+*The layout must be fully responsive and adapt seamlessly to different screen sizes, maintaining the design's aesthetic on both desktop and mobile devices. Ensure smooth transitions and optimal readability on all devices through proper media queries and viewport settings.*
