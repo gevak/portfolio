@@ -3,3 +3,6 @@ anthropic
 google-genai
 playwright
 pillow
+waitress
+flask
+flask_socketio
