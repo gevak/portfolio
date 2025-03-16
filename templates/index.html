@@ -1,394 +1,412 @@
 <html lang="en">
- <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geva Kipper - Ever-Evolving Portfolio</title>
-  <style>
-   /* General Styles */
-   body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    background: linear-gradient(to bottom, #343a40, #f8f9fa);
-    color: #f8f9fa;
-    transition: background 0.5s ease;
-    overflow-x: hidden; /* Prevent horizontal scroll */
-   }
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geva Kipper - Evolving Portfolio</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Nunito', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to bottom, #e0f2f1, #fce4ec); /* Using pastel backgrounds */
+            color: #333;
+            overflow-x: hidden; /* Prevent horizontal scrolling */
+        }
 
-   a {
-    color: #00bcd4;
-    text-decoration: none;
-   }
+        #background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.3; /*Make more subtle*/
+        }
 
-   a:hover {
-    text-decoration: underline;
-   }
+        /* Hero Section */
+        #hero {
+            text-align: center;
+            padding: 100px 20px;
+            margin-bottom: 50px;
+        }
 
-   /* Header */
-   .header {
-    text-align: center;
-    padding: 2em;
-   }
+        #hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
 
-   .header h1 {
-    font-size: 3em;
-    margin-bottom: 0.2em;
-    font-family: 'Arial Black', sans-serif;
-   }
+        #hero p {
+            font-size: 1.2em;
+            color: #555;
+        }
 
-   .header h2 {
-    font-size: 1em;
-    margin-bottom: 1em;
-    font-style: italic;
-   }
+        /* Card Styles */
+        .card-container {
+            display: flex;
+            justify-content: center; /* Center cards horizontally */
+            margin-bottom: 40px;
+        }
 
-   .header p {
-    font-size: 1.2em;
-    animation: changeFont 5s infinite alternate;
-   }
+        .card {
+            width: 300px; /* Adjusted width */
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 0 20px; /* Added horizontal margin between cards */
+            transform: rotate(2deg);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative; /* For absolute positioning of elements within */
+        }
 
-   @keyframes changeFont {
-    0% {
-     font-family: "Courier New", monospace;
-    }
+        .card:hover {
+            transform: rotate(0deg) scale(1.05); /* Slight zoom on hover */
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
 
-    50% {
-     font-family: "Helvetica Neue", sans-serif;
-    }
+        .card h2 {
+            margin-bottom: 10px;
+        }
 
-    100% {
-     font-family: "Segoe UI", sans-serif;
-    }
-   }
+        .card p {
+            color: #777;
+        }
 
+        .card a {
+            color: #03a9f4;
+            text-decoration: none;
+            display: block; /* Make links block for full width click area */
+            margin-top: 10px;
+            transition: color 0.3s ease;
+        }
 
-   /* Project Grid */
-   .projects {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
-    gap: 2em;
-    padding: 2em;
-   }
+        .card a:hover {
+            color: #0277bd;
+        }
 
-   .project-box {
-    background-color: #212529;
-    border-radius: 10px;
-    padding: 1.5em;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-   }
+        .card .links {
+            display: none; /* Initially hide the links */
+        }
 
-   .project-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
-   }
+        .card:hover .links {
+            display: block;   /* Show links on hover */
+        }
 
-   .project-box h3 {
-    font-size: 1.8em;
-    margin-bottom: 0.5em;
-   }
+        /* GlglStats Card */
+        #glglstats-graphic {
+            height: 75px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 20' fill='%234CAF50'%3E%3Cpath d='M0 10 C 10 15, 30 5, 50 10, 70 15, 90 5, 100 10'/%3E%3C/svg%3E"); /* A simple wave graphic */
+            background-size: cover;
+            margin-bottom: 10px;
+        }
 
-   .project-description {
-    margin-bottom: 1em;
-   }
+        /* Ahuzat Dibuk Card */
+        #ahuzat-dibuk-graphic {
+            height: 75px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' fill='%23FF9800'%3E%3Crect width='10' height='10' x='0' y='0'/%3E%3Crect width='10' height='10' x='20' y='10'/%3E%3Crect width='10' height='10' x='40' y='20'/%3E%3Crect width='10' height='10' x='60' y='30'/%3E%3Crect width='10' height='10' x='80' y='40'/%3E%3Crect width='10' height='10' x='10' y='20'/%3E%3Crect width='10' height='10' x='30' y='30'/%3E%3Crect width='10' height='10' x='50' y='40'/%3E%3Crect width='10' height='10' x='70' y='50'/%3E%3Crect width='10' height='10' x='90' y='60'/%3E%3C/svg%3E"); /* Abstract heatmap */
+            background-size: cover;
+            margin-bottom: 10px;
+        }
 
-   /* Special Project Box Styles */
+        /* Portfolio Website Card */
+        #portfolio-graphic {
+             height: 75px;
+            background-color: #ddd;
+            margin-bottom: 10px;
 
-   /* GlglStats */
-   .glglstats-visual {
-    height: 80px;
-    background: linear-gradient(to right, #00bcd4, #3f51b5);
-    margin-bottom: 1em;
-    border-radius: 5px;
-    animation: soundwave 2s linear infinite alternate;
-   }
+            /* Mirror Effect */
+             position: relative;
+            overflow: hidden;
+        }
 
-   @keyframes soundwave {
-    0% {
-     background-position: 0 0;
-    }
+        #portfolio-graphic::before {
+            content: " ";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+            animation: reflection 5s linear infinite;
+        }
 
-    100% {
-     background-position: 200px 0;
-    }
-   }
+        @keyframes reflection {
+             0% {
+                 transform: translateX(-100%);
+            }
+             100% {
+                 transform: translateX(100%);
+            }
+        }
 
-   .glglstats-video {
-    display: block;
-    width: 100%;
-    max-height: 200px;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-   }
+        /* Connect Card */
+        #connect-icons {
+              text-align: center;
+        }
 
-   .glglstats-video:hover {
-    opacity: 1;
-   }
+        #connect-icons a {
+            display: inline-block; /* Display icons inline */
+            margin: 0 15px;  /* Add spacing between icons */
+            transition: transform 0.3s ease;
+        }
 
-   .glglstats-video-container {
-    position: relative;
-    overflow: hidden;
-    height: 0;
-    padding-bottom: 56.25%;
-    /* 16:9 aspect ratio */
-   }
+        #connect-icons a:hover {
+            transform: scale(1.2);
+        }
 
-   /* Ahuzat Dibuk */
-   .ahuzat-dibuk-map {
-    height: 150px;
-    background: url('tel-aviv-map.png') no-repeat center center;
-    background-size: cover;
-    border-radius: 5px;
-    margin-bottom: 1em;
-    position: relative;
-    overflow: hidden;
-   }
+        #connect-icons img {
+            width: 40px;  /* Adjust size as needed */
+            height: 40px;
+        }
 
-   .ahuzat-dibuk-map::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 0, 0, 0.2), transparent 70%);
-    animation: heatmap 5s linear infinite alternate;
-   }
+         /* Connect Card on hover*/
+         .card:hover #connect-icons a {
+                display: inline-block; /* Show icons on hover */
+        }
 
-   @keyframes heatmap {
-    0% {
-     transform: translate(-10%, -10%);
-    }
+        /* Footer Styles */
+        footer {
+            background-color: #f0f0f0;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+        }
 
-    100% {
-     transform: translate(10%, 10%);
-    }
-   }
+        #timer {
+            font-size: 1.2em;
+        }
 
-   /* Portfolio Website */
-   .portfolio-website-mirror {
-    position: relative;
-    overflow: hidden;
-    border-radius: 5px;
-    margin-bottom: 1em;
-   }
+        #video-popup {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-   .portfolio-website-mirror::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url('portfolio-screenshot.png') no-repeat center center;
-    background-size: cover;
-    filter: blur(10px) brightness(0.5);
-    z-index: -1;
-   }
+        #video-popup iframe {
+            width: 80%;
+            height: 60%;
+            max-width: 800px;
+            max-height: 600px;
+        }
 
-   /* Links */
-   .links-container {
-    text-align: center;
-   }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card-container {
+                flex-direction: column;
+                align-items: center;
+            }
 
-   .social-icons a {
-    display: inline-block;
-    margin: 0 0.5em;
-    color: #00bcd4;
-    font-size: 1.5em;
-    transition: transform 0.3s ease, color 0.3s ease;
-   }
+            .card {
+                width: 80%;
+                margin: 20px 0; /* Add vertical spacing between cards */
+            }
 
-   .social-icons a:hover {
-    transform: scale(1.2);
-    color: #64ffda;
-    text-decoration: none;
-   }
+            #hero {
+                padding: 50px 10px;
+            }
 
-   /* Footer */
-   .footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1em;
-    font-size: 0.8em;
-    color: #999;
-    background-color: #343a40;
-   }
+            #hero h1 {
+                font-size: 2.5em;
+            }
 
-   .timer {
-    font-family: monospace;
-    color: #eee;
-    transition: color 0.8s ease;
-   }
+            #hero p {
+                font-size: 1em;
+            }
 
-   /* Responsive Design */
-   @media (max-width: 768px) {
-    .projects {
-     grid-template-columns: 1fr;
-    }
-   .responsiveHeader{
-      display: block;
-    }
-   }
+            #video-popup iframe {
+                width: 95%;
+                height: 50%; /* Adjust height as needed */
+            }
+        }
+    </style>
+</head>
+<body>
 
-   @media (max-width: 576px) {
-    .header h1 {
-     font-size: 2.5em;
-    }
-
-    .projects {
-     padding: 1em;
-    }
-
-    .project-box {
-     padding: 1em;
-    }
-   }
-  </style>
- </head>
- <body>
-
-  <header class="header">
-   <h1>Geva Kipper</h1>
-   <h2>Software Engineer at Google</h2>
-   <p>This portfolio is re-designed by AI and therefore always evolving.</p>
-  </header>
-
-  <section class="projects">
-
-   <div class="project-box">
-    <h3>GlglStats</h3>
-    <div class="glglstats-visual"></div>
-    <p class="project-description">LZ77 compression of internet data. Demonstrating data visualization and reduction strategies.</p>
-    <a href="#">GitHub Repository</a><br>
-
-    <!-- PyData TLV video placeholder -->
-    <div class="glglstats-video-container">
-     <iframe class="glglstats-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ?autoplay=0&mute=1"
-      title="PyData TLV Video" frameborder="0"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen></iframe>
+    <div id="background-animation">
+         <canvas id="bgCanvas"></canvas>
     </div>
-   </div>
 
-   <div class="project-box">
-    <h3>Ahuzat Dibuk</h3>
-    <div class="ahuzat-dibuk-map"></div>
-    <p class="project-description">
-     A real-time heatmap of Tel Aviv parking availability using public data.
-     Visualizing urban data challenges.
-    </p>
-    <a href="#">News Article</a> <br>
-    <a href="#">Facebook Post</a>
-   </div>
+    <section id="hero">
+        <h1>Geva Kipper</h1>
+        <p>AI-redesigned daily; expect the unexpected!</p>
+        <p>Software Engineer at Google, working on cutting edge AI projects.</p>
+    </section>
 
-   <div class="project-box">
-    <h3>Portfolio Website</h3>
-    <div class="portfolio-website-mirror"></div>
-    <p class="project-description">
-     Design and implementation of this ever-evolving portfolio page.
-     Showcasing dynamic content driven by AI.
-    </p>
-    <a href="#">Previous Website</a>
-   </div>
+    <section id="projects">
+        <div class="card-container">
+            <div class="card">
+                <h2>GlglStats</h2>
+                <div id="glglstats-graphic"></div>
+                <p>Real-time stats for Glglz, a highly important live-streaming platform.</p>
+                <div class="links">
+                    <a href="https://glglstats.onrender.com/" target="_blank">Website</a>
+                    <a href="#" onclick="openVideoPopup('https://www.youtube.com/embed/jrKAtOsj1Lo')">YouTube Video</a>
+                </div>
+            </div>
 
-   <div class="project-box">
-    <h3>Links</h3>
-    <p class="project-description">
-     Links to the resources inside the other boxes:
-     <ul>
-      <li><a href="#">GlglStats GitHub</a></li>
-      <li><a href="#">GlglStats Demo</a></li>
-      <li><a href="#">Ahuzat Dibuk News Article</a></li>
-      <li><a href="#">Ahuzat Dibuk Facebook Post</a></li>
-      <li><a href="#">Previous Website Source</a></li>
-     </ul>
-    </p>
-       <div class="links-container">
-        <div class="social-icons">
-         <a href="#"><i class="fab fa-github"></i></a>
-         <a href="#"><i class="fab fa-linkedin"></i></a>
-         <a href="#"><i class="fab fa-twitter"></i></a>
-         <a href="#"><i class="fab fa-stack-overflow"></i></a>
+            <div class="card">
+                <h2>Ahuzat Dibuk</h2>
+                <div id="ahuzat-dibuk-graphic"></div>
+                <p>City-wide parking heatmap - because parking in Tel Aviv is a nightmare.</p>
+                <div class="links">
+                    <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank">Mako News</a>
+                    <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank">13TV News</a>
+                    <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/" target="_blank">Facebook Post</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Portfolio Website</h2>
+                <div id="portfolio-graphic"></div>
+                <p>This very website! Constantly evolving, powered by AI experimentation.</p>
+                <div class="links">
+                    <a href="https://gevak.github.io/portfolio/" target="_blank">View on Github</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2>Connect</h2>
+                <p>Let's connect and innovate together!</p>
+                <div id="connect-icons">
+                    <a href="https://github.com/gevak" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6 ABAAMAAAABAAEAAKACAAQAAAABAAAAGaADAAQAAAABAAAAGAAAAABYbb0AAAA2SURBVEgN7JXRccowFMRv9wF7cQe4g4b0QxJ8g0bSD+BEYN0LSCUhK6EnoG5kJE0l6A5wdnZ3N5kHh9Lec87J35v4x/h8p1sIg5N4cQIR6C4RkO1C7350p9d6D6t8bH5L8Yw5YQz0rMXu3zI80t54G/Q4pI9w4LpC6cM80O112QoYm7wN17/0B6t/t0hQ+yCNz5u9s2hT9m7O5w4X5/4YQe2g/XyH0/90u/2B8+n/j/2gH488T9l4KlgAAAAASUVORK5CYII=" alt="GitHub"></a>
+                    <a href="https://www.linkedin.com/in/gevakip" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAAAXNSR0IArs4c6QAAAVBJREFUSEvtlc0NwjAQhecK5AlYAReQCUiEPEAGcAFcgXqE1xAXcAEYgXqETgA3iBMwADdgx4747b7Z74cffo1b937X911sB34NmwS0T3I83k3A/B+h25wX87+wewg7D/k/H05qD/o1YvDtsEKYLh6WbwP7I8Y39hQhAX1APwFfwF3wEvwC8wXsgD+j3c0F5s2R44Wtw54bVn9wYn3/QG2m+5v4K0WpANWqj92k8B4gXFp+3iAWV5j28U7+j6F+g1b6HjAL7O0j35wQ4+B/oE1EAf4P/B4R0r64gD3oXWAWugtY9pW/6Vd0d1l98fAX+WkH1N58I6D1QAW1gYnS7VAAjJc/wPeA3gG70R5pAXrL7+s0P0H+EaUAO/b+g8w3Y9/sA1B/K97kI7dSAAAAAElFTkSuQmCC" alt="LinkedIn"></a>
+                </div>
+            </div>
         </div>
-       </div>
+    </section>
 
-   </div>
+     <!-- Video Popup -->
+    <div id="video-popup">
+        <iframe src="" frameborder="0" allowfullscreen></iframe>
+    </div>
 
-  </section>
+    <footer>
+        <div>© Grok & Claude</div>
+        <div id="timer"></div>
+    </footer>
 
-  <footer class="footer">
-   <div>© Grok & Claude</div>
-   <div class="timer"></div>
-  </footer>
+    <script>
+       // Background animation (simple lines)
+        const canvas = document.getElementById('bgCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        let lines = [];
 
-  <!-- Font Awesome CDN -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-   integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-   crossorigin="anonymous" referrerpolicy="no-referrer" />
+        function Line() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.length = Math.random() * 100 + 50;
+            this.angle = Math.random() * Math.PI * 2; // Random angle in radians
+            this.speed = Math.random() * 0.5 + 0.2;
+            this.opacity = Math.random() * 0.3 + 0.1;
 
-  <script>
-   // Dynamic Background Gradient
-   function setDynamicBackground() {
-    const colors = ["#343a40", "#495057", "#6c757d"];
-    const angle = Math.floor(Math.random() * 360);
-    const color1 = colors[Math.floor(Math.random() * colors.length)];
-    const color2 = "#f8f9fa"; // Off-white
-    document.body.style.background = `linear-gradient(${angle}deg, ${color1}, ${color2})`;
-   }
+            this.update = function() {
+                 this.x += Math.cos(this.angle) * this.speed;
+                this.y += Math.sin(this.angle) * this.speed;
 
-   // Timer
-   function updateTimer() {
-    const startDate = new Date('2025-03-15T00:00:00');
-    const now = new Date();
-    const difference = now.getTime() - startDate.getTime();
+                 // Bounce off edges
+                 if (this.x < 0 || this.x > canvas.width) {
+                    this.angle = Math.PI - this.angle;
+                }
 
-    const seconds = Math.floor(difference / 1000) % 60;
-    const minutes = Math.floor(difference / (1000 * 60)) % 60;
-    const hours = Math.floor(difference / (1000 * 60 * 60)) % 24;
-    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                if (this.y < 0 || this.y > canvas.height) {
+                    this.angle = -this.angle;
+                }
 
-    const timerElement = document.querySelector('.timer');
-    timerElement.textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+                // Reset position if line goes too far off-screen
+                if (this.x < -100 || this.x > canvas.width + 100 || this.y < -100 || this.y > canvas.height + 100) {
+                     this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                }
+             };
 
-    // Subtle timer color shift
-    const colors2 = ["#eee", "#ddd", "#ccc"];
-    timerElement.style.color = colors2[Math.floor(Math.random() * colors2.length)];
+            this.draw = function() {
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + Math.cos(this.angle) * this.length, this.y + Math.sin(this.angle) * this.length);
 
-   }
+                ctx.strokeStyle = `rgba(76, 175, 80, ${this.opacity})`;
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            };
+        }
 
-   // Accent Color Shift
-   function setDailyAccentColor() {
-    const accentColors = ["#00bcd4", "#64ffda", "#a7ffeb"]; // example accent colors
-    const color = accentColors[Math.floor(Math.random() * accentColors.length)];
-    const styleSheet = document.styleSheets[0];
+        function initLines(numLines = 50) {
+             lines = [];
+             for (let i = 0; i < numLines; i++) {
+                lines.push(new Line());
+            }
+        }
 
-    // Find existing rules that use the accent color and update them
-    for (let i = 0; i < styleSheet.cssRules.length; i++) {
-     const rule = styleSheet.cssRules[i];
-     if (rule.cssText.includes("#00bcd4") || rule.cssText.includes("#64ffda") || rule.cssText.includes("#a7ffeb")) { // Check if the rule contains the accent color
-      styleSheet.deleteRule(i); // Delete the rule
-      i--; // Adjust the index because a rule was removed
-     }
-    }
+        function animateLines() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            lines.forEach(line => {
+                line.update();
+                line.draw();
+            });
+            requestAnimationFrame(animateLines);
+        }
 
-    // Add new rules with dynamic accent color
-    styleSheet.insertRule(`.social-icons a { color: ${color}; }`, styleSheet.cssRules.length);
-    styleSheet.insertRule(`.social-icons a:hover {color:  #00bcd4 ;}`, styleSheet.cssRules.length);
+         window.addEventListener('resize', function() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            initLines();
+         });
 
-    // Update accent color globally (example: links, other elements)
-    const links = document.querySelectorAll('a');
-    links.forEach(link => link.style.color = color);
-   }
+        initLines(); //Initialize lines
+        animateLines(); //Start the animation
 
-   // Initialization
-   setDynamicBackground();
-   setDailyAccentColor();
-   setInterval(updateTimer, 1000);
-   updateTimer(); // Initial call
-  </script>
- </body>
- </html>
+
+        // Timer Functionality
+        function updateTimer() {
+            const startDate = new Date('2025-03-16T01:00:47');
+            const now = new Date();
+            const diff = now.getTime() - startDate.getTime();
+
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('timer').textContent = `Time since 2025-03-16 01:00:47: ${hours}h:${minutes}m:${seconds}s`;
+        }
+
+        setInterval(updateTimer, 1000); // Update every second
+        updateTimer(); // Initial call
+
+        // Video Popup functionality
+        function openVideoPopup(videoUrl) {
+            const popup = document.getElementById('video-popup');
+            const iframe = popup.querySelector('iframe');
+            iframe.src = videoUrl; //set the URL
+            popup.style.display = 'flex';  //Show the popup
+             // Close the popup when clicking outside the iframe.
+            popup.addEventListener('click', function(event) {
+                if (event.target === this) {
+                    closeVideoPopup();
+                }
+            });
+        }
+
+        function closeVideoPopup() {
+            const popup = document.getElementById('video-popup');
+            const iframe = popup.querySelector('iframe');
+            iframe.src = ''; //Clear the url
+            popup.style.display = 'none'; //Hide the popup
+        }
+    </script>
+</body>
+</html>
