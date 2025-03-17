@@ -1,0 +1,58 @@
+## Portfolio Website Design for Geva Kipper
+
+**Overall Aesthetic:** Clean, minimalist, with a touch of controlled chaos. Focus on visual impact rather than heavy text. The site should feel cutting-edge and convey intelligence and playfulness.
+
+**Layout:** Single page, vertically scrolling.
+
+*   **Hero Section:**
+    *   Full-width banner at the top.
+    *   Background: Subtle, animated gradient that shifts slowly. Subtle pattern overlaid like a spectrogram, changing with the stopwatch.
+    *   Centered text: "Geva Kipper" in a large, sans-serif font.
+    *   Below: "Software Engineer at Google." in a smaller, lighter font.
+   *    Subtitle: "*Redesigned daily by AI, so come back tomorrow!*" (Itallicized) in a smaller font below it.
+    *   Slight blur effect on all text.
+
+*   **Project Sections (Boxes):**
+    *   Four equally sized sections arranged in either a 2x2 grid on larger screens or a single column on smaller screens (responsive).
+    *   Each box has a slightly raised effect (box shadow).
+    *   Subtle thin border around each box. Color shifts slowly following the background.
+    *   **Content:** Each box contains:
+        *   Project title (e.g., "GlglStats") in a medium-sized, bold sans-serif font.
+        *   Brief description. A single sentence should suffice.
+        *   Visual element:
+            *   GlglStats: A simplified, abstract representation of the LZ77 compression algorithm at work; perhaps a dynamic, animated bar chart showing the repetition patterns of a dummy song or visualization of the song frequency across a few songs.
+            *    YouTube video should appear below with a play icon.
+            *   Ahuzat Dibuk: Mini-heatmap visual using pastel colors (blues, greens, yellows) that represent parking density. An icon of a parked car that slowly flashes on different locations.
+            *   Directly link to the relevant URLs as "Learn More", "View News Articles", or respective titles.
+            *   Portfolio Website: A single sentence of how cool the project being presented is (meta!). An icon linking to the page.
+        *   The layout of the information should be balanced with the title, the description, and the visual element having equal prominence.
+
+*   **Icons:**
+    *   GitHub, LinkedIn, and Facebook icons in a horizontal row.
+    *   Placed near the bottom of the first project box (GlglStats).
+    *   The icons should be simple and modern, filled with a specific color relating to the platform color.
+    *   Slightly animated: subtle hover effect (color change/scale-up).
+
+*   **Footer:**
+    *   Fixed to the bottom of the viewport.
+    *   Semi-transparent dark background.
+    *   Small text on the left: "© Grok & Claude – All rights reserved."
+    *   Stopwatch on the right: Shows elapsed time since `2025-03-17 00:58:31`. Font: Digital-style, high contrast.
+    *   Subtle animation for the stopwatch: a blinking colon between hours, minutes, and seconds.
+
+**Typography:**
+
+*   Sans-serif font throughout, clean and modern. Example: Roboto, Open Sans, Montserrat.
+*   Vary font weights and sizes to create hierarchy.
+
+**Color Palette:**
+*   Generally dark theme to highlight colorful visualizations.
+*   Primary color: Teal or Electric Blue (for highlights, links, and accents).
+*   Secondary colors: Soft grays, light blues, white.
+*   Focus on readability.
+
+**Animations/Interactions:**
+
+*   Smooth scrolling between sections.
+*   Subtle hover effects on links and images (color change, underline, scale).
+*   Loading animations (e.g., progress bar) to create a sense of advancement.
