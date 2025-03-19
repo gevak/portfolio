@@ -1,318 +1,321 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: sans-serif;
-            margin: 0;
-            color: #ddd;
-            background-color: #222;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geva Kipper</title>
+  <style>
+    /* General Styles */
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif; /* Or Montserrat */
+      overflow: hidden; /* Hide scrollbars */
+      color: #333;
+    }
 
-        a {
-            color: #00bcd4; /* Teal accent */
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
+    #gradient-background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transition: background 0.5s ease;
+      background: linear-gradient(45deg, #4CAF50, #2196F3, #F44336, #9C27B0);
+      background-size: 400% 400%;
+      animation: gradientAnimation 15s ease infinite;
+    }
 
-        a:hover {
-            color: #03a9f4; /* Lighter Teal on hover */
-        }
+    @keyframes gradientAnimation {
+      0% {
+        background-position: 0% 50%;
+      }
+      50% {
+        background-position: 100% 50%;
+      }
+      100% {
+        background-position: 0% 50%;
+      }
+    }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      padding: 20px; /* Space between content and edges */
+      box-sizing: border-box; /* Include padding and border in element's total width and height */
+    }
 
-        .hero::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #3f51b5, #e91e63, #00bcd4, #4caf50);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            opacity: 0.7;
-            z-index: -1;
-        }
+    /* Header Styles */
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
 
-        @keyframes gradient {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
+    .header h1 {
+      font-size: 3em;
+      margin-bottom: 5px;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .hero-title {
-            font-size: 4em;
-            font-weight: bold;
-            margin-bottom: 0.2em;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            filter: blur(2px);
-        }
+    .header h2 {
+      font-size: 1.5em;
+      font-weight: 300;
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+    }
 
-        .hero-subtitle {
-            font-size: 1.5em;
-            font-weight: 300;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            filter: blur(2px);
+    .header p {
+      font-size: 1em;
+      font-weight: 200;
+      color: #777;
+      font-family: 'Inter', sans-serif;
+    }
 
-        }
-        .hero-subtitle-small {
-            font-size: 1.0em;
-            font-weight: 300;
-            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
-            filter: blur(2px);
-            font-style: italic;
+    /* Card Styles */
+    .card {
+      background-color: rgba(255, 255, 255, 0.9);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      width: 80%;
+      max-width: 800px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
 
-        }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      font-size: 1.8em;
+      margin-bottom: 10px;
+      font-family: 'Inter', sans-serif;
+      display: flex;
+      align-items: center;
+    }
+
+    .card h3 i {
+      margin-right: 5px;
+    }
+
+    .card p {
+      font-size: 1.1em;
+      line-height: 1.5;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .card a {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      margin-top: 10px;
+      margin-right: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    .card a:hover {
+      background-color: #0056b3;
+    }
+
+    /* Special Card Styles */
+    .glglstats-card {
+      background-color: rgba(144, 238, 144, 0.8); /* LightGreen-like, with some transparency */
+    }
+
+    .ahuzat-dibuk-card {
+      background-color: rgba(245, 222, 179, 0.8); /* Beige-like, with some transparency */
+    }
+
+    .ahuzat-dibuk-card a.facebook-link {
+      background-color: #4267B2; /* Facebook blue-ish */
+    }
+
+    .portfolio-card {
+      background-color: rgba(240, 240, 240, 0.8); /* Light Gray */
+      text-align: center;
+    }
+    .portfolio-card h3 {
+       justify-content: center;
+    }
+
+    /* Footer Styles */
+    .footer {
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 15px;
+      text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative; /* Required for shadow effect */
+    }
+
+    .footer::before {
+      content: "";
+      position: absolute;
+      top: -10px;  /* Adjust this value to change the "height" of the shadow.  Negative value puts shadow at the top */
+      left: 0;
+      width: 100%;
+      height: 10px;
+      background: rgba(0, 0, 0, 0.2);  /* Adjust alpha for shadow darkness */
+      filter: blur(5px);  /* Adjust blur radius for blur intensity */
+      z-index: -1;  /* Put the shadow behind the footer content */
+
+    }
+
+    .footer-left {
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .footer-right {
+      text-align: right;
+      font-family: monospace;
+      font-size: 1.2em; /* Make stopwatch easier to read */
+    }
+
+    i {
+       font-style: normal;
+       display: inline-block; /* Needed some browsers */
+       margin-top: -.25em;
+       margin-bottom: -.25em;
+       padding-top: .25em;
+       padding-bottom: .25em;
+    }
+
+    /* Font Awesome (replace with your preferred icon library or inline SVGs) */
+    .fa {
+      display: inline-block;
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Replace with actual font-awesome link */
+    [class*="fa-"] { font-family: Consolas; }
+    .fa-chart-bar:before { content: '\2305';} /* U+F080 Chart Bar (Font Awesome 5) */
+    .fa-map-marker-alt:before { content: "\E77F";}  /* U+F3C5 Map Marker Alt (Font Awesome 5) */
+    .fa-code:before { content: '[]'; }
+    .fa-envelope:before { content: '@'; }
 
 
-        /* Project Sections */
-        .projects {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 2em;
-        }
+  /* Icon Styles */
+    .icon {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+    }
 
-        .project-box {
-            width: calc(50% - 4em); /* Two boxes per row, with margin */
-            margin: 2em;
-            padding: 1.5em;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            background-color: #333;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
-            overflow: hidden; /* Ensures background-border animation stays within the box */
-        }
-
-        .project-box::before {
-          content: '';
-          position: absolute;
-          top: 0; right: 0; bottom: 0; left: 0;
-          margin: -1px; /* Keep the border width. */
-          border-radius: inherit; /* inherit the container's border-radius */
-          background: linear-gradient(45deg, #3f51b5, #e91e63, #00bcd4, #4caf50);
-          background-size: 400% 400%;
-          animation: gradient 15s ease infinite;
-          z-index: -1;
-        }
-        .project-box:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
-        }
-
-        .project-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 0.5em;
-        }
-
-        .project-description {
-            font-size: 1em;
-            margin-bottom: 1em;
-        }
-
-        .project-visual {
-            width: 100%;
-            height: 200px; /* Adjust as needed */
-            background-color: #444;
-            border-radius: 5px;
-            margin-bottom: 1em;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-
-           /* Placeholder just for demo */
-        }
-        .project-visual img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-
-        /* Icons */
-        .icons {
-            display: flex;
-            justify-content: flex-start;
-            margin-top: 1em;
+    .pydata-logo {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: white;  /* Add a background to ensure logo contrast */
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 24px; /* Adjust as needed */
+        font-weight: bold;
+        color: #007bff; /* Accent color to highlight logo */
+        margin-left: 10px; /* Adjust spacing between text and image */
+    }
 
 
-        }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
 
-        .icon {
-            width: 30px;
-            height: 30px;
-            margin-right: 10px;
-            transition: transform 0.3s ease, filter 0.3s ease;
-            filter: grayscale(80%); /* initially grayscale */
-        }
-
-        .icon:hover {
-            transform: scale(1.2);
-            filter: grayscale(0%); /* remove grayscale on hover */
-        }
-
-        /* Footer */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #fff;
-            padding: 0.5em 1em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8em;
-        }
-
-        .stopwatch {
-            font-family: monospace;
-            font-size: 1.2em;
-        }
-
-        .stopwatch .colon {
-            animation: blinker 1s linear infinite;
-        }
-
-        @keyframes blinker {
-            50% {
-                opacity: 0;
-            }
-        }
-
-         /*Media Queries*/
-        @media (max-width: 768px) {
-            .projects {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .project-box {
-                width: 80%;
-                margin: 1em 0;
-            }
-            .hero-title {
-              font-size: 3em;
-            }
-            .hero-subtitle {
-               font-size: 1.2em;
-            }
-
-        }
-    </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-    <section class="hero">
-        <h1 class="hero-title">Geva Kipper</h1>
-        <p class="hero-subtitle">Software Engineer at Google</p>
-        <p class = "hero-subtitle-small"> <i>Redesigned daily by AI, so come back tomorrow!</i></p>
-    </section>
+  <div id="gradient-background"></div>
 
-    <section class="projects">
+  <div class="container">
 
-        <div class="project-box">
-            <h2 class="project-title">GlglStats</h2>
-            <p class="project-description">Real-time data visualizations and analytics for music tracks.</p>
-            <div class="project-visual">
-                <img src="https://placehold.co/400x200" alt="GlglStats Visualization">
-            </div>
-              <div class="icons">
-                <a href="#" class="icon">
-                  <i class="fab fa-github fa-2x" style="color: #333;"></i>
-                </a>
-                <a href="#" class="icon">
-                    <i class="fab fa-linkedin fa-2x" style="color: #0077B5;"></i>
-                </a>
-                <a href="#" class="icon">
-                    <i class="fab fa-facebook fa-2x" style="color: #4267B2;"></i>
-                </a>
-            </div>
+    <header class="header">
+      <h1>Geva Kipper</h1>
+      <h2>Software Engineer at Google</h2>
+      <p>Working on improving the search experience for users around the world. Focuses on using machine learning to understand queries and provide relevant results.</p>
+      <p style="font-size: 0.9em; font-weight: 100; color: #999;">Re-designed daily by AI. Expect the unexpected.</p>
+    </header>
 
+    </div>
 
-            <a href="#">Learn More</a>
-        </div>
+    <div class="card glglstats-card">
+      <h3><i class="fa fa-chart-bar"></i> GlglStats <span class="pydata-logo">Py</span></h3>
+      <p>A visualization project showing the number of lines of code added and removed on a variety of open source projects written in javascript that are popular enough to be compiled by Glgl, Googles internal javascript compiler for server-side code. Displays various statistics that are useful for developers that build large projects</p>
+      <a href="#">Website</a>
+      <a href="#">YouTube Video</a>
+    </div>
 
-        <div class="project-box">
-            <h2 class="project-title">YouTube Summarizer</h2>
-            <p class="project-description">Generate concise summaries of given YouTube videos.</p>
-            <div class="project-visual">
-            <iframe width="400" height="200" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>
-            <i class="fa fa-play fa-3x"></i>
-            <a href="#">Watch YouTube Video</a>
-        </div>
+    <div class="card ahuzat-dibuk-card">
+      <h3><i class="fa fa-map-marker-alt"></i> Ahuzat Dibuk</h3>
+      <p>Tel-Aviv Parking Statistics. Ahuzat Dibuk is a website with various javascript visualizations of the parking statistics near my neighborhood in Tel-Aviv.</p>
+      <a href="#">Article 1</a>
+      <a href="#">Article 2</a>
+      <a href="#" class="facebook-link">Facebook Post</a>
+    </div>
 
-        <div class="project-box">
-            <h2 class="project-title">Ahuzat Dibuk Parking</h2>
-            <p class="project-description">AI-powered parking management system for Ahuzat Dibuk.</p>
-            <div class="project-visual">
-              <img src="https://placehold.co/400x200" alt="Ahuzat Dibuk Visualization">
-            </div>
-            <a href="#">View News Articles</a>
-        </div>
+    <div class="card portfolio-card">
+      <h3><i class="fa fa-code"></i> Portfolio Website</h3>
+      <p>This website! A demonstration of front-end skills and creative design re-designed daily.</p>
+    </div>
 
-        <div class="project-box">
-            <h2 class="project-title">This Portfolio Website</h2>
-            <p class="project-description">An attempt to present AI in design and coding practices.</p>
-            <div class="project-visual">
-               <i class="fa fa-link fa-3x"></i>
-            </div>
-             <a href="#">View This Page</a>
-        </div>
-    </section>
+    <div class="card">
+      <h3><i class="fa fa-envelope"></i> Contact</h3>
+      <p>Reach out via email to discuss collaborations, opportunities, or just to say hello!</p>
+      <a href="#">Email Me</a>
+    </div>
 
-    <footer class="footer">
-        <div>© Grok & Claude – All rights reserved.</div>
-        <div class="stopwatch">
-            <span id="hours">00</span><span class="colon">:</span><span id="minutes">00</span><span class="colon">:</span><span id="seconds">00</span>
-        </div>
-    </footer>
+  </div>
 
-    <script>
-        const targetDate = new Date('2025-03-17T00:58:31');
+  <footer class="footer">
+    <div class="footer-left">&copy; GroK and Claude</div>
+    <div class="footer-right">Stopwatch: <span id="stopwatch">00:00:00</span></div>
+  </footer>
 
-        function updateStopwatch() {
-            const now = new Date();
-            const difference = now.getTime() - targetDate.getTime();
+  <script>
+    // Gradient Animation
+    const gradientBackground = document.getElementById('gradient-background');
+    let angle = 0;
 
-            const hours = Math.floor(difference / (1000 * 60 * 60));
-            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    function animateGradient() {
+      angle = (angle + 0.2) % 360; // Reduced speed for subtle effect
+      gradientBackground.style.background = `linear-gradient(${angle}deg, #4CAF50, #2196F3, #F44336, #9C27B0)`;
+      requestAnimationFrame(animateGradient);
+    }
 
-            document.getElementById('hours').innerText = String(hours).padStart(2, '0');
-            document.getElementById('minutes').innerText = String(minutes).padStart(2, '0');
-            document.getElementById('seconds').innerText = String(seconds).padStart(2, '0');
-        }
+    animateGradient();
 
-        setInterval(updateStopwatch, 1000);
-    </script>
+    // Stopwatch
+    const startTime = new Date("2025-03-19 00:57:07").getTime();
+
+    function updateStopwatch() {
+      const now = new Date().getTime();
+      const distance = now - startTime;
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        document.getElementById("stopwatch").innerHTML =
+          ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);  //HH:MM:SS
+        requestAnimationFrame(updateStopwatch);
+    }
+
+    updateStopwatch();
+  </script>
+
 </body>
 </html>
