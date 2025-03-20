@@ -2,396 +2,416 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - AI Re-designed Portfolio</title>
+    <title>Geva Kipper - AI Re-Imagined Portfolio</title>
     <style>
         /* General Styles */
         body {
+            font-family: 'Open Sans', sans-serif;
             margin: 0;
-            font-family: sans-serif;
-            background-color: #1a1a2e;
-            color: #f0f0f0;
+            padding: 0;
+            color: #333;
+            background-color: #f5f5f5;
             overflow-x: hidden; /* Prevent horizontal scroll */
-            transition: all 0.3s ease;
         }
 
-        /* Initial Page Load Flash */
-        body::before {
-            content: '';
-            position: fixed;
+        a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(45deg, #4b0082, #2f4f4f); /*Updated Indigo gradient*/
+            color: #fff;
+            padding: 2rem;
+            text-align: left;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: "";
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: white;
-            z-index: 1000;
-            animation: initialFlash 0.5s forwards;
+            background: rgba(255, 255, 255, 0.05); /* Subtle overlay texture */
+            pointer-events: none;
         }
 
-        @keyframes initialFlash {
-            to {
-                background-color: transparent;
-                display:none;
+        header h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header h2 {
+            font-family: 'Arial', sans-serif; /*Elegant font*/
+            font-size: 1.2rem;
+            font-weight: lighter;
+            margin-top: 0.3rem;
+            margin-bottom: 1.5rem; /* Space before sub-header */
+            font-style: italic;
+        }
+
+          /* Animated Background (Example using keyframes) */  /* Animated Background (Example using keyframes)*/
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
             }
         }
 
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 50px;
-            margin-bottom: 30px;
+        header {
+            background: linear-gradient(300deg, #4b0082, #2f4f4f, #008080);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite; /* Slower, more subtle animation */
         }
 
-        .hero h1 {
-            font-size: 3em;
-            font-family: sans-serif;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            animation: glitch 1s steps(5, end) infinite;
-        }
 
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            25% { transform: translate(2px, -1px); }
-            50% { transform: translate(-1px, 1px); }
-            75% { transform: translate(-2px, -2px); }
-            100% { transform: translate(0);}
-        }
-        .hero h2 {
-            font-size: 1.5em;
-            font-weight: normal;
-            margin-bottom: 5px;
-        }
-
-        .hero p {
-            font-size: 0.9em;
-            font-style: italic;
-            color: #aaa;
-        }
-
-        .hero .underline {
-            width: 100px;
-            height: 2px;
-            background-color: #00ffff;
-            margin: 10px auto;
-            animation: pixelateLine 2s linear infinite;
-        }
-
-        @keyframes pixelateLine {
-            0% { width: 100px; }
-            50% { width: 50px; }
-            100% { width: 100px; }
-        }
-
-        /* Project Boxes */
-        .projects {
+        /* Main Content Styles */
+        .main-content {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            padding: 20px;
+            min-height: calc(100vh - 8rem); /* Adjust for header and footer */
         }
 
-        .project-card {
-            width: 23%; /* Adjusted for more spacing */
-            margin-bottom: 20px;
-            border-radius: 10px;
-            border: 1px solid #00ffff20;
-            background-color: #28283f;
-            padding: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-
+        .left-section, .right-section {
+            padding: 2rem;
+            width: 50%;
+            box-sizing: border-box;
         }
 
-        .project-card:hover {
-            border-color: #00ffff;
-            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
-            transform: translateY(-3px);
-
+        .left-section {
+            border-right: 1px solid #eee; /*Seperator*/
         }
 
-        .project-card h3 {
-            font-size: 1.2em;
-            margin-bottom: 5px;
-             color: #eee;
+        .project-box {
+            background-color: #fff;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
         }
 
-        .project-card p {
-            font-size: 0.9em;
-            line-height: 1.4;
-            color: #ccc;
-            font-family: monospace;
+        .project-box:hover {
+            transform: translateY(-5px);
         }
 
-        .project-card img {
-            width: 100%;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
+        .project-box h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
         }
 
-        .project-card .play-button {
-            position: absolute;
-            bottom: 10px;
-            left: 10px;
-            font-size: 1.5em;
-            color: #00ffff;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s ease;
+        .project-box p {
+            font-size: 1rem;
+            color: #555;
+            margin-bottom: 1rem;
         }
 
-        .project-card:hover .play-button {
-            opacity: 1;
-        }
-
-        .project-card .links {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            display: flex;
-            justify-content: space-around;
-            padding: 5px;
-            background-color: rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            transform: translateY(100%);
-            transition: all 0.3s ease;
-        }
-
-        .project-card:hover .links {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .project-card a {
-            color: #00ffff;
-            text-decoration: none;
-            font-size: 0.8em;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background-color: rgba(0, 255, 255, 0.1);
-        }
-
-        .project-card a:hover {
-          color: #fff;
-          background-color: #00ffff;
-          opacity:1;
-          color:#000;
-
-        }
-
-        /* Social Links */
-        .social-links {
-            text-align: center;
-            margin: 30px 0;
-        }
-
-        .social-links a {
+        .project-box .cta {
             display: inline-block;
-            margin: 0 15px;
+            background-color: #007bff;
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
         }
 
-        .social-links img {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+        .project-box .cta:hover {
+            background-color: #0056b3;
         }
 
-        .social-links img:hover {
-            opacity: 1;
+        .project-box ul {
+            list-style: none;
+            padding: 0;
         }
 
-        .social-links span {
-            display: block;
-            margin-top: 5px;
-            font-size: 0.8em;
-            color: #aaa;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+        .project-box ul li {
+            margin-bottom: 0.3rem;
         }
 
-        .social-links a:hover span {
-            opacity: 1;
-        }
-
-        /* Footer */
-        footer {
-            position: fixed;
-            bottom: 0;
-            left: 0;
+        .project-box iframe {
             width: 100%;
-            background-color: #111122;
-            color: #ddd;
-            padding: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.9em;
-            z-index: 10;
-            /* Example repeating pattern */
-            background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 10px, transparent 10px, transparent 20px);
-            animation: shiftPattern 20s linear infinite;
+            max-width: 300px;
+            height: auto;
         }
 
-        @keyframes shiftPattern {
-            0% { background-position: 0 0; }
-            100% { background-position: 200px 0; }
+        /* Contact Styles */
+        .contact-icons {
+            margin-top: 1rem;
+        }
+
+        .contact-icons a {
+            display: inline-block;
+            margin-right: 1rem;
+            font-size: 1.5rem; /*Size for icons*/
+        }
+
+         .contact-icons a i { /*Adjust Margin around the icon.  Use font library*/
+            margin-right: 0.3rem;
+        }
+         .get-in-touch-description {
+          font-size: 0.9rem;
+          color: #555;
+          margin-top: 0.5rem;
+          }
+
+        /* Footer Styles */
+        footer {
+            background-color: #222;  /* Dark Theme */
+            color: #eee;           /* Light Text */
+            padding: 1rem;
+            text-align: center;
+            display: flex;         /* Flex layout */
+            justify-content: space-between; /* Space between items */
+            align-items: center;    /* Vertical alignment */
+            font-size: 0.8rem;
         }
 
         .stopwatch {
-            font-family: monospace;
-            font-size: 1.2em;
-            font-weight: bold;
-            letter-spacing: 2px;
+            font-family: monospace; /* Fixed width for digits */
+            font-size: 1rem;
+
+            text-align: right; /*  right alignment in the footer */
         }
 
-        /* Responsive Design */
+
+        /*Responsive Design*/
         @media (max-width: 768px) {
-            .project-card {
-                width: 48%;
+            .main-content {
+                flex-direction: column;
+            }
+
+            .left-section, .right-section {
+                width: 100%;
+                border-right: none;
             }
         }
 
-        @media (max-width: 480px) {
-            .project-card {
-                width: 95%;
-            }
-        }
-        /*Random Color Generation*/
-
+        /* AI-Driven Styles -  These would change daily */
         :root {
-        --accent-color: #00ffff; /* Default color */
+            --accent-color: #66ff99; /* Mint Green */
+            --font-family-headings: 'Montserrat', sans-serif;
+            --hover-color: #00aaff;
+            --background-pattern: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath fill='%23f0f0f0' d='M0 0h20v20H0z'/%3E%3Ccircle cx='10' cy='10' r='2' fill='%23ddd'/%3E%3C/svg%3E"); /* Subtle Dot Pattern */
+
+
+            --project-description-color: #666;  /* Darker grey */
         }
 
-        a, .play-button {
-            color: var(--accent-color);
+        .project-box p {
+           color: var(--project-description-color);  /*Project description text color - can be varied*/
         }
-        .hero .underline{
-          background-color:var(--accent-color);
+
+        .project-box .cta {
+            background-color: var(--accent-color);
+            color: #333;  /*Dark Text*/
         }
+
+        .project-box .cta:hover {
+            background-color: var(--hover-color);
+             color: white;  /*WhiteText on hover*/
+        }
+
+        header h1 {
+            font-family: var(--font-family-headings);
+        }
+
+        body { /*Subtle repeated background pattern from the variable*/
+          background-image: var(--background-pattern);
+
+        }
+
+
+        /* Additional Styles (Example using Font Awesome) */
+         .contact-icons i {
+             font-size: 24px; /* Larger icon size */
+             color: #007bff;    /* Icon color */
+               transition: color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+            }
+
+        .contact-icons a:hover i {  /*Hover effect for icons*/
+             color: #0056b3;
+               transform: scale(1.1); /* Slightly larger */
+          }
+
+          label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+          }
 
     </style>
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="hero">
+    <header>
         <h1>Geva Kipper</h1>
-        <h2>Software Engineer at Google</h2>
-        <p>*Re-designed daily by artificial intelligence.*</p>
-        <div class="underline"></div>
-    </div>
+        <p>Software Engineer at Google</p>
+        <h2>Re-designed daily by AI</h2>
+    </header>
 
-    <div class="projects">
-        <div class="project-card">
-            <h3>GlglStats</h3>
-            <p>A service to track popularity metrics for local music festivals.  This project aggregates social media buzz and ticket activity to estimate demand. An analytics dashboard is provided where venues can easily view these data points to plan the most effective ways towards improved attendance.</p>
-            <img src="https://via.placeholder.com/300x150?text=GlglStats" alt="GlglStats">
-            <i class="play-button">▶</i>
-            <div class="links">
-                <a href="#">Project URL</a>
-                <a href="#">PyData TLV</a>
+    <main class="main-content">
+        <section class="left-section">
+            <div class="project-box">
+                <h3>GlglStats</h3>
+                <p>Measures repetitiveness of Israeli pop-chart songs based on LZ77 compression. Visualizes repetition patterns in famous songs.</p>
+                <a href="https://glglstats.onrender.com/" class="cta">Visit the project</a>
+                <iframe width="560" height="315" src="https://www.youtube.com/embed/YOUR_YOUTUBE_VIDEO_ID" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
-        </div>
 
-        <div class="project-card">
-            <h3>Ahuzat Dibuk</h3>
-            <p>Web application displaying interactive heatmaps based on sensor data. Realtime readings are transformed via a machine learning algorithm into informative charts.</p>
-            <img src="https://via.placeholder.com/300x150?text=Heatmap" alt="Ahuzat Dibuk">
-            <div class="links">
-                <a href="#">News 1</a>
-                <a href="#">Social Post</a>
+            <div class="project-box">
+                <h3>Ahuzat Dibuk</h3>
+                <p>Collecting statistics for Tel-Aviv car parking lots, generating heat-maps for residents.</p>
+                <p>Project links:</p>
+                <ul>
+                    <li><a href="#">13tv</a></li>
+                    <li><a href="#">Mako</a></li>
+                    <li><a href="#">Facebook</a></li>
+                </ul>
             </div>
-        </div>
+        </section>
 
-        <div class="project-card">
-            <h3>Portfolio Website</h3>
-            <p>This website is dynamically generated and is often remade due to AI. It is an demonstration of machine learning capabilities.</p>
-            <img src="https://via.placeholder.com/300x150?text=Portfolio" alt="Dynamic Portfolio">
-            <div class="links">
-                <a href="#">Portfolio URL</a>
+        <section class="right-section">
+            <div class="project-box">
+                <h3>This Very Site</h3>
+                <p>An ever-evolving portfolio, crafted with code and re-imagined daily by AI.</p>
+                <a href="https://gevak.github.io/portfolio/" class="cta">See what I did before!</a>
             </div>
-        </div>
 
-    </div>
+            <div class="project-box">
+                <h3>Get in Touch</h3>
+                <div class="contact-icons">
+                    <a href="#"><i class="fab fa-github"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-facebook"></i></a>
 
-    <div class="social-links">
-        <a href="#">
-            <img src="https://via.placeholder.com/32x32?text=GH" alt="GitHub">
-            <span>GitHubUser</span>
-        </a>
-        <a href="#">
-            <img src="https://via.placeholder.com/32x32?text=LI" alt="LinkedIn">
-            <span>LinkedInProfile</span>
-        </a>
-        <a href="#">
-            <img src="https://via.placeholder.com/32x32?text=FB" alt="Facebook">
-            <span>FacebookPage</span>
-        </a>
-    </div>
+                </div>
+
+                <p class="get-in-touch-description">Connect with me.</p>
+            </div>
+
+         <div class="project-box">
+           <h3>Contact Form</h3>
+           <form id="contactForm">
+             <label for="name">Name:</label>
+             <input type="text" id="name" name="name" required><br><br>
+
+             <label for="email">Email:</label>
+             <input type="email" id="email" name="email" required><br><br>
+
+             <label for="message">Message:</label>
+             <textarea id="message" name="message" rows="4" required></textarea><br><br>
+
+             <button type="submit">Submit</button>
+
+             <div id="form-messages"></div>
+           </form>
+         </div>
+        </section>
+    </main>
 
     <footer>
-        <span>© Grok and Claude Reserved</span>
-        <span class="stopwatch">00:00:00</span>
+        <span>Designed by AI Model X</span>
+        <span>Maintained by Geva Kipper</span>
+
+        <div class="stopwatch" id="stopwatch">
+            <span id="hours">00</span>:<span id="minutes">00</span>:<span id="seconds">00</span>
+        </div>
     </footer>
 
     <script>
-    // Function to generate random color to demonstrate AI control and daily change.
-    function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-          }
-
-          document.addEventListener('DOMContentLoaded', () => {
-          // Generate random color
-           const randomColor = getRandomColor();
-           document.documentElement.style.setProperty('--accent-color', randomColor);
-         });
-
-        // Stopwatch functionality
+        // Stopwatch Functionality
         function updateStopwatch() {
-            const startDate = new Date('2025-03-20T00:56:08');
+            const startTime = new Date('2025-03-20T13:35:04');
             const now = new Date();
-            const diff = now.getTime() - startDate.getTime();
+            const difference = now.getTime() - startTime.getTime();
 
-            let seconds = Math.floor(diff / 1000) % 60;
-            let minutes = Math.floor(diff / (1000 * 60)) % 60;
-            let hours = Math.floor(diff / (1000 * 60 * 60));
+            let seconds = Math.floor((difference / 1000) % 60);
+            let minutes = Math.floor((difference / (1000 * 60)) % 60);
+            let hours = Math.floor((difference / (1000 * 60 * 60)));
 
             seconds = (seconds < 10) ? "0" + seconds : seconds;
             minutes = (minutes < 10) ? "0" + minutes : minutes;
             hours = (hours < 10) ? "0" + hours : hours;
 
-            const stopwatchElement = document.querySelector('.stopwatch');
-            if (stopwatchElement) {
-                stopwatchElement.textContent = `${hours}:${minutes}:${seconds}`;
-            }
+            document.getElementById('hours').innerText = hours;
+            document.getElementById('minutes').innerText = minutes;
+            document.getElementById('seconds').innerText = seconds;
         }
 
-        setInterval(updateStopwatch, 1000);
+        setInterval(updateStopwatch, 1000); // Update every second
+        updateStopwatch();  //Initial Display
 
-        // Project shuffling (for demonstration purposes - this doesn't persist daily)
-        function shuffleProjects() {
-            const projectsContainer = document.querySelector('.projects');
-            const projectsArray = Array.from(projectsContainer.children);
+        // Function to simulate daily AI refresh.  In a real implementation, the AI would generate these values each day. And change be served from a server
+        function aiDailyRefresh() {
+           const accentColors = ['#ff6b6b', '#4CAF50', '#ffca28', '#8e44ad', '#3498db']; //Example colors
+           const headingFonts = ['Arial', 'Georgia', 'Verdana', 'Lato', 'Roboto'];
+           const backgroundPatterns = [
+               "url('data:image/svg+xml,%3Csvg xmlns=\"http://www.w3.org/2000/svg\" width=\"4\" height=\"4\" viewBox=\"0 0 4 4\"%3E%3Cpath fill=\"%23f0f0f0\" d=\"M1 3h1v1H1zm2-2h1v1H3zm-2 0h1v1H1zm2 2h1v1H3z\"/%3E%3C/svg%3E')",
+               "url('data:image/svg+xml,%3Csvg width=\"52\" height=\"52\" viewBox=\"0 0 52 52\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg%3E%3Cpath d=\"M0 0h52v52H0z\" fill=\"%23f0f0f0\"/%3E%3Cpath d=\"M0 0h26v26H0zM26 26h26v26H26z\" fill=\"%23eee\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')"
+           ]
+           function getRandomElement(arr) {
+               return arr[Math.floor(Math.random() * arr.length)];
+           }
 
-            for (let i = projectsArray.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [projectsArray[i], projectsArray[j]] = [projectsArray[j], projectsArray[i]];
-            }
+           //Apply new style variables
+           document.documentElement.style.setProperty('--accent-color', getRandomElement(accentColors));
+           document.documentElement.style.setProperty('--font-family-headings', getRandomElement(headingFonts));
+           document.documentElement.style.setProperty('--background-pattern', getRandomElement(backgroundPatterns));
+       }
 
-            projectsArray.forEach(project => projectsContainer.appendChild(project));
-        }
+       //Call this at startup (or whenever you want the AI to refresh)
+       aiDailyRefresh();
 
-        // Call shuffleProjects on page load to simulate daily reshuffle
-        window.onload = shuffleProjects;
+
+       document.getElementById('contactForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        var formData = new FormData(this);
+
+        fetch('https://httpbin.org/post', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            document.getElementById('form-messages').textContent = 'Form successfully submitted!';
+           // Clear Form
+             document.getElementById('contactForm').reset();
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            document.getElementById('form-messages').textContent = 'Error submitting form.';
+        });
+    });
+
+    </script>
+<!-- Add this block to embed the like button -->
+    <script src="/static/js/like_button.js"></script>
+    <script>
+        LikeButton.init({
+          pageId: "20250320",
+          position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
+        });
     </script>
 
 </body>
