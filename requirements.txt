@@ -6,3 +6,4 @@ pillow
 waitress
 flask
 flask_socketio
+python-dotenv
