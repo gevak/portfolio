@@ -28,7 +28,7 @@ https://github.com/gevak
 www.linkedin.com/in/gevakip
 
 
-At the bottom of the page, a copyright reserved to Grok and Claude, and a stopwatch showing how much time (hours, minutes, seconds) has passed since {current_time}.
+At the bottom of the page, credit to yourself, the AI model who created the site, and a stopwatch showing how much time (hours, minutes, seconds) has passed since {current_time}.
 
 Make the design elegant and minimalistic, but also creative and interesting.
 Do not write code, simply describe your idea for a unique design in several paragraphs.

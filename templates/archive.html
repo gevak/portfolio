@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Archive</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            margin-bottom: 2rem;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 1rem;
+        }
+        
+        h1 {
+            color: #2c3e50;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+        
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f5f5f5;
+            cursor: pointer;
+            position: relative;
+        }
+        
+        th:hover {
+            background-color: #e5e5e5;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        a:hover {
+            text-decoration: underline;
+        }
+        
+        .date {
+            color: #7f8c8d;
+        }
+        
+        .sort-indicator {
+            display: inline-block;
+            margin-left: 5px;
+            font-size: 0.8em;
+        }
+        
+        .sort-active {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Portfolio Archive</h1>
+        <p>All past portfolio versions</p>
+    </header>
+    
+    <table id="archive-table">
+        <thead>
+            <tr>
+                <th data-sort="date">Date <span class="sort-indicator sort-active">▼</span></th>
+                <th data-sort="title">Title <span class="sort-indicator"></span></th>
+                <th data-sort="likes">Likes <span class="sort-indicator"></span></th>
+            </tr>
+        </thead>
+        <tbody id="table-body">
+            <!-- Table will be populated by JavaScript -->
+        </tbody>
+    </table>
+    
+    <script>
+        // Mock database data
+        pastVersions = [];
+
+        function fetchVersionArchive() {
+        fetch('/api/archive')
+            .then(response => response.json())
+            .then(data => {
+                pastVersions = data.archive;
+                sortTable('date');
+            })
+            .catch(error => {
+                console.error('Error fetching archive:', error);
+            });
+        }
+        fetchVersionArchive();
+        
+        // Format the date from page_id (YYYYMMDD) to more readable format
+        function formatDate(dateString) {
+            const year = dateString.substring(0, 4);
+            const month = dateString.substring(4, 6);
+            const day = dateString.substring(6, 8);
+            
+            const date = new Date(year, month - 1, day);
+            return date.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+        }
+        
+        // Current sort state
+        let currentSort = {
+            column: 'date',
+            direction: 'desc'
+        };
+        
+        // Populate the table with data
+        function populateTable(entries) {
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = '';
+            
+            entries.forEach(entry => {
+                const row = document.createElement('tr');
+                
+                const dateCell = document.createElement('td');
+                dateCell.className = 'date';
+                dateCell.textContent = formatDate(entry.page_id);
+                row.appendChild(dateCell);
+                
+                const titleCell = document.createElement('td');
+                const titleLink = document.createElement('a');
+                titleLink.href = `/static/archive/${entry.page_id}/index.html`;
+                titleLink.textContent = entry.title;
+                titleCell.appendChild(titleLink);
+                row.appendChild(titleCell);
+                
+                const likesCell = document.createElement('td');
+                likesCell.textContent = entry.count;
+                row.appendChild(likesCell);
+                
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Sort table data
+        function sortTable(column) {
+            // Toggle direction if clicking the same column
+            if (column === currentSort.column) {
+                currentSort.direction = currentSort.direction === 'asc' ? 'desc' : 'asc';
+            } else {
+                currentSort.column = column;
+                // Default sort directions based on column type
+                currentSort.direction = column === 'date' ? 'desc' : 'asc';
+            }
+            
+            const sorted = [...pastVersions].sort((a, b) => {
+                let valueA, valueB;
+                
+                switch(column) {
+                    case 'date':
+                        valueA = a.page_id;
+                        valueB = b.page_id;
+                        break;
+                    case 'title':
+                        valueA = a.title.toLowerCase();
+                        valueB = b.title.toLowerCase();
+                        break;
+                    case 'likes':
+                        valueA = a.count;
+                        valueB = b.count;
+                        break;
+                }
+                
+                // For strings
+                if (typeof valueA === 'string') {
+                    if (currentSort.direction === 'asc') {
+                        return valueA.localeCompare(valueB);
+                    } else {
+                        return valueB.localeCompare(valueA);
+                    }
+                }
+                // For numbers
+                else {
+                    if (currentSort.direction === 'asc') {
+                        return valueA - valueB;
+                    } else {
+                        return valueB - valueA;
+                    }
+                }
+            });
+            
+            updateSortIndicators();
+            populateTable(sorted);
+        }
+        
+        // Update the sort indicators in column headers
+        function updateSortIndicators() {
+            const headers = document.querySelectorAll('th');
+            headers.forEach(header => {
+                const indicator = header.querySelector('.sort-indicator');
+                const column = header.getAttribute('data-sort');
+                
+                // Reset all indicators
+                indicator.textContent = '';
+                indicator.classList.remove('sort-active');
+                
+                // Set active indicator
+                if (column === currentSort.column) {
+                    indicator.classList.add('sort-active');
+                    indicator.textContent = currentSort.direction === 'asc' ? '▲' : '▼';
+                }
+            });
+        }
+        
+        // Add click event listeners to column headers
+        document.querySelectorAll('th').forEach(header => {
+            header.addEventListener('click', function() {
+                const column = this.getAttribute('data-sort');
+                sortTable(column);
+            });
+        });
+        
+        // Initial sort by date (newest first)
+        sortTable('date');
+    </script>
+</body>
+</html>

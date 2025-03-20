@@ -7,20 +7,47 @@ import utils
 
 MODEL = 'openrouter/google/gemini-2.0-flash-exp:free'
 
+LIKE_BUTTON_CODE = """<!-- Add this block to embed the like button -->
+    <script src="/static/js/like_button.js"></script>
+    <script>
+        LikeButton.init({{
+          pageId: "{page_id}",
+          position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
+        }});
+    </script>
+"""
+
 # Minimal logging setup for console only
 logging.basicConfig(level=logging.INFO)
 
 
+def perform_overrides(code: str, metadata: dict[str, str]) -> str:
+    """Perform overrides on the AI-generated code based on metadata.
+    
+    Used to force some things in the resulting website.
+    """
+    # Add like button code before the closing body tag.
+    assert "</body>" in code, "No </body> tag found in the code: %s" % code
+    # Escape the curly braces in the code.
+    code = code.replace("{", "{{").replace("}", "}}")
+    code = code.replace("</body>", "{like_button_code}\n</body>")
+    return code.format(**metadata)
+
 def generate_page(model: str):
-    design_text = utils.get_design(MODEL)
+    page_id = datetime.now().strftime("%Y%m%d")
+    design_text = utils.get_design(model)
 
     # Log the design
     logging.info("Generated design: %s", design_text)
 
-    impl_code = utils.get_impl(design_text, MODEL)
+    impl_code = utils.get_impl(design_text, model)
+    
+    # Perform overrides in the code.
+    like_button_code = LIKE_BUTTON_CODE.format(page_id=page_id)
+    impl_code = perform_overrides(impl_code, {"like_button_code": like_button_code})
     
     # Create result path dirs
-    today_dir = os.path.join('archive', datetime.now().strftime("%Y%m%d"))
+    today_dir = os.path.join('static', 'archive', page_id)
     os.makedirs(today_dir, exist_ok=True)
     os.makedirs('templates', exist_ok=True)
     # Save the results 

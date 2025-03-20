@@ -2,6 +2,10 @@ from google import genai
 from openai import OpenAI
 import os
 import anthropic
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 
 def prompt_gemini(prompt: str) -> str:
