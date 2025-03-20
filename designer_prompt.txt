@@ -21,7 +21,7 @@ https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/
 
 3. Presenting a portfolio website project (how meta! That's the site you are building)
 Add a self-reference link to: 
-https://gevak.github.io/portfolio/
+https://portfolio-dor1.onrender.com/
 
 4. The fourth and last box will include links to GitHub, LinkedIn and Facebook:
 https://github.com/gevak
