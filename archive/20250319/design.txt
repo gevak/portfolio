@@ -1,0 +1,15 @@
+The site opens with a full-screen, dynamically generated gradient background shifting colors subtly. Top center, in a clean, modern sans-serif font (like Inter or Montserrat), "Geva Kipper" is displayed. Below that, in a smaller, slightly lighter font weight, "Software Engineer at Google." followed by a sentence or two explaining Mr. Kipper's work at google.
+
+Directly beneath this information is the subtitle: "Re-designed daily by AI. Expect the unexpected."  This text should also be in a similar font but even lighter, perhaps with a slightly desaturated color to emphasize its transitory nature.
+
+The main content is arranged into four distinct sections, visually similar to interactive cards hovering slightly above background.
+
+**GlglStats:** This section utilizes a color scheme derived from the visualization in the GlglStats project itself – perhaps using the most prominent color as a background accent. Its title "GlglStats" appears prominently, followed by a concise description of the project and the two links (website and YouTube video). The PyData TLV conference logo should be displayed on the card in a small circle.
+
+**Ahuzat Dibuk:** This section adopts a color palette inspired by Tel Aviv – sandy beige and azure blues, as found on the coastline. The "Ahuzat Dibuk" title is displayed, followed by its description ("Tel-Aviv Parking Statistics"). The three links (articles and Facebook post) are presented as neatly stylized buttons. Perhaps stylize the facebook link with a blueish tone.
+
+**Portfolio Website (Meta):** This section features a monochrome design, with shades of gray and white and is arranged at the horizontal center of the page. The title "Portfolio Website" stands out. This section subtly highlights that the site links back to itself.
+
+**Contact:** Utilizes a clean, minimalist aesthetic. The titles on all the boxes, with the possible exception of the self-reference-box, should contain a subtle icon associated with the topic.
+
+The footer spans the entire width of the screen, separated from the main content by a subtle, blurred shadow. The copyright notice ("©GroK and Claude") is placed on the left. On the right, the real-time stopwatch is displayed, counting up since "2025-03-19 00:57:07" in a clean, easily readable font.
