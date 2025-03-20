@@ -1,30 +1,57 @@
-## Website Design: Geva Kipper - AI Re-Imagined Portfolio
+Here's a design concept for Geva Kipper's AI-redesigned portfolio website:
 
-**Overall Concept:** A dynamic, visually striking single-page portfolio utilizing a split-screen aesthetic and a constantly evolving style influenced by AI-generated design elements. Each day, sections of the page, such as color scheme, fonts, and small animations, subtly change, offering a fresh experience.
+**Overall Aesthetic:** Minimalist, clean, and slightly offbeat, embracing the ephemeral and AI-generated nature of the site. Think Brutalist design principles meeting playful, data-driven visuals. The color palette is muted with one vibrant accent that shifts subtly each day, driven by a color generated from the current Unix timestamp.
 
-**Header Section:** The page opens with a full-width header. On the left side, prominently display "Geva Kipper" in a clean, modern typeface (e.g., Montserrat, Open Sans). Underneath, a concise statement: "Software Engineer at Google." Below that, a sub-header in a smaller, elegant font: "Re-designed daily by AI." A subtle, animated gradient or parallax effect can be added to the background of the header to provide dynamism.
+**Hero Section:**
 
-**Split-Screen Main Content:** The main content area is divided into two vertical sections. These sections do not have to be equal in size.
+*   Full-screen background: a softly pulsing, procedural gradient generated with JavaScript. The gradient changes subtly each second.
+*   Overlaid text: "Geva Kipper // Software Engineer at Google." (Bold, modern sans-serif). Centered.
+*   Subtitle: "A portfolio constantly evolving, re-designed by AI each day." (Smaller, italicized font, positioned beneath the name).
 
-**Left Section (Project Showcases):** This section features the project boxes.
+**Project Sections:**
 
-*   **Box 1: GlglStats:** Title: "GlglStats." Description: "Measures repetitiveness of Israeli pop-chart songs based on LZ77 compression. Visualizes repetition patterns in famous songs." A striking visual element could be an abstract representation of LZ77 compression, or a visual waveform with highlighted repetitive sections. A clear call to action: "Visit the project" linked to https://glglstats.onrender.com/. A small thumbnail-sized embedded YouTube player displays Geva presenting the project.
+*   **Layout:** Four equally sized, visually distinct "cards" or sections arranged in a clean grid system. The grid layout will also adapt elegantly to mobile devices.
+*   **GlglStats:**
+    *   Headline: "GlglStats: Quantifying Repetition in Israeli Pop"
+    *   Description: "Measures repetitiveness of Israeli pop-chart songs using LZ77 compression. Visualizes repetition patterns in famous songs."
+    *   Visual Element: A simplified, abstract visualization of a song's repetition pattern (e.g., color-coded blocks representing repeating verses/choruses).
+    *   Links: "Website" (Link), "PyData TLV Talk" (Link)
+    *Visual element is a thumbnail from the video.
+*   **Ahuzat Dibuk:**
+    *   Headline: "Ahuzat Dibuk: Tel-Aviv Parking Data Project"
+    *   Description: "Collecting statistics for Tel-Aviv car parking lots, generating heat-maps for residents."
+    *   Visual Element: Faded, heatmap overlay of Tel Aviv, showing carparking density.
+    *   Links: "News Coverage" (links to the two articles), "Facebook Post" (Link)
+Image: thumbnail of the video
+*   **Meta-Portfolio:**
+    *   Headline: "This AI-Generated Portfolio"
+    *   Description: (Implicit) "A self-referential demonstration of dynamic web design."
+    *   Visual Element: A stylized pixelated representation of the current website design.
+    *   Link: "View Source" (links to the portfolio)
+    Screenshot of the current site.
+*   **Contact/Links:**
+    *   Headline: "Connect"
+    *   Description: (Optional) A short tagline like "Let's build something great!"
+    *   Visual Element: A simple, animated icon representing connections (e.g., pulsating circles, flowing lines).
+    *   Links: GitHub, LinkedIn, Facebook (Each with a subtle hover effect, e.g., a color shift or a 3D skew).
 
-*   **Box 2: Ahuzat Dibuk:** Title: "Ahuzat Dibuk." Description: "Collecting statistics for Tel-Aviv car parking lots, generating heat-maps for residents." The visual element could be a stylized heatmap representing parking lot occupancy. Call to action: "Read about the project" with links to the 13tv, Mako, and Facebook URLs below each other in a list.
+**Footer:**
 
-**Right Section (Project Showcases, Meta-Portfolio & Footer):**
+*   "Designed with ❤️ by AI (This project would not have been written without the help of AI.)" (Smaller font, subdued color).
+*   "Site design initiated by [Your Name]".
+*   Stopwatch: A minimalist digital-style timer displaying "Time Since Genesis: HH:MM:SS" using a high-contrast font, updated every second via JavaScript.
 
-*   **Box 3: Meta-Portfolio:** Title: "This Very Site." Description: "An ever-evolving portfolio, crafted with code and re-imagined daily by AI." The visual element could feature a swirling, animated representation of code morphing into abstract design elements. Call to Action: "See what I did before!" Linking to: https://gevak.github.io/portfolio/
+**Interactions and Animations:**
 
-*   **Box 4: Get in Touch:** This box is simpler and includes icons for GitHub, LinkedIn, and Facebook, each linked to the respective profile. Below it, a brief description: "Connect with me."
+*   Subtle hover effects on links and project cards.
+*   Smooth scrolling between sections.
+*   The background gradient should breathe and animate slightly, adding a dynamic feel.
+* The page loads with a smooth fade-in animation for the top part.
 
-**Footer:** At the very bottom of the page, a dark, subtle bar includes the following: `Designed by [AI Model Name]`. `Maintained by Geva Kipper`. To the right, a prominent digital stopwatch counting up from `2025-03-20 13:35:04`, displayed with clear hour, minute, and second readouts. The stopwatch has a modern, minimalist design.
+**Technical Considerations:**
 
-**Visual Style:**
-
-*   **Color Palette:** The initial color scheme is a muted, elegant combination of modern neutral colors, like: deep indigo and light sand, with an accent of mint green. 
-*   **Typography:** Clean, readable fonts are important.
-*   **Animations:** Subtle animations are used throughout the site to highlight interactivity and give the site a sense of life. Examples: Hover effects, animated gradients, the stopwatch, and dynamic AI-generated design elements.
-*   **Responsiveness:** The layout is fully responsive, adapting seamlessly to different screen sizes.
-
-The AI's "re-design" should influence aspects like color accents, font pairings, micro-interactions, and background patterns each day, providing a unique and evolving portfolio experience.
+*   Use a modern JavaScript framework (e.g., React, Vue, or Svelte) for componentization and dynamic data handling.
+*   Employ GSAP (GreenSock Animation Platform) for smooth, performant animations.
+*   Optimize images and code for fast loading times.
+*   Ensure accessibility with semantic HTML and ARIA attributes.
+*   Clean clear CSS for easy adaptation by AI.
