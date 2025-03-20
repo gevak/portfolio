@@ -1,321 +1,398 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geva Kipper</title>
-  <style>
-    /* General Styles */
-    body {
-      margin: 0;
-      font-family: 'Inter', sans-serif; /* Or Montserrat */
-      overflow: hidden; /* Hide scrollbars */
-      color: #333;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geva Kipper - AI Re-designed Portfolio</title>
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #1a1a2e;
+            color: #f0f0f0;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+            transition: all 0.3s ease;
+        }
 
-    #gradient-background {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      transition: background 0.5s ease;
-      background: linear-gradient(45deg, #4CAF50, #2196F3, #F44336, #9C27B0);
-      background-size: 400% 400%;
-      animation: gradientAnimation 15s ease infinite;
-    }
+        /* Initial Page Load Flash */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 1000;
+            animation: initialFlash 0.5s forwards;
+        }
 
-    @keyframes gradientAnimation {
-      0% {
-        background-position: 0% 50%;
-      }
-      50% {
-        background-position: 100% 50%;
-      }
-      100% {
-        background-position: 0% 50%;
-      }
-    }
+        @keyframes initialFlash {
+            to {
+                background-color: transparent;
+                display:none;
+            }
+        }
 
-    .container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-      padding: 20px; /* Space between content and edges */
-      box-sizing: border-box; /* Include padding and border in element's total width and height */
-    }
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 50px;
+            margin-bottom: 30px;
+        }
 
-    /* Header Styles */
-    .header {
-      text-align: center;
-      margin-bottom: 20px;
-    }
+        .hero h1 {
+            font-size: 3em;
+            font-family: sans-serif;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            animation: glitch 1s steps(5, end) infinite;
+        }
 
-    .header h1 {
-      font-size: 3em;
-      margin-bottom: 5px;
-      font-family: 'Inter', sans-serif;
-    }
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            25% { transform: translate(2px, -1px); }
+            50% { transform: translate(-1px, 1px); }
+            75% { transform: translate(-2px, -2px); }
+            100% { transform: translate(0);}
+        }
+        .hero h2 {
+            font-size: 1.5em;
+            font-weight: normal;
+            margin-bottom: 5px;
+        }
 
-    .header h2 {
-      font-size: 1.5em;
-      font-weight: 300;
-      margin-bottom: 10px;
-      font-family: 'Inter', sans-serif;
-    }
+        .hero p {
+            font-size: 0.9em;
+            font-style: italic;
+            color: #aaa;
+        }
 
-    .header p {
-      font-size: 1em;
-      font-weight: 200;
-      color: #777;
-      font-family: 'Inter', sans-serif;
-    }
+        .hero .underline {
+            width: 100px;
+            height: 2px;
+            background-color: #00ffff;
+            margin: 10px auto;
+            animation: pixelateLine 2s linear infinite;
+        }
 
-    /* Card Styles */
-    .card {
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 10px;
-      padding: 20px;
-      margin-bottom: 20px;
-      width: 80%;
-      max-width: 800px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-    }
+        @keyframes pixelateLine {
+            0% { width: 100px; }
+            50% { width: 50px; }
+            100% { width: 100px; }
+        }
 
-    .card:hover {
-      transform: translateY(-5px);
-    }
+        /* Project Boxes */
+        .projects {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding: 20px;
+        }
 
-    .card h3 {
-      font-size: 1.8em;
-      margin-bottom: 10px;
-      font-family: 'Inter', sans-serif;
-      display: flex;
-      align-items: center;
-    }
+        .project-card {
+            width: 23%; /* Adjusted for more spacing */
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #00ffff20;
+            background-color: #28283f;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
 
-    .card h3 i {
-      margin-right: 5px;
-    }
+        }
 
-    .card p {
-      font-size: 1.1em;
-      line-height: 1.5;
-      font-family: 'Inter', sans-serif;
-    }
+        .project-card:hover {
+            border-color: #00ffff;
+            box-shadow: 0 4px 10px rgba(0, 255, 255, 0.1);
+            transform: translateY(-3px);
 
-    .card a {
-      display: inline-block;
-      padding: 10px 20px;
-      background-color: #007bff;
-      color: white;
-      text-decoration: none;
-      border-radius: 5px;
-      margin-top: 10px;
-      margin-right: 10px;
-      transition: background-color 0.3s ease;
-    }
+        }
 
-    .card a:hover {
-      background-color: #0056b3;
-    }
+        .project-card h3 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+             color: #eee;
+        }
 
-    /* Special Card Styles */
-    .glglstats-card {
-      background-color: rgba(144, 238, 144, 0.8); /* LightGreen-like, with some transparency */
-    }
+        .project-card p {
+            font-size: 0.9em;
+            line-height: 1.4;
+            color: #ccc;
+            font-family: monospace;
+        }
 
-    .ahuzat-dibuk-card {
-      background-color: rgba(245, 222, 179, 0.8); /* Beige-like, with some transparency */
-    }
+        .project-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
 
-    .ahuzat-dibuk-card a.facebook-link {
-      background-color: #4267B2; /* Facebook blue-ish */
-    }
+        .project-card .play-button {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            font-size: 1.5em;
+            color: #00ffff;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
 
-    .portfolio-card {
-      background-color: rgba(240, 240, 240, 0.8); /* Light Gray */
-      text-align: center;
-    }
-    .portfolio-card h3 {
-       justify-content: center;
-    }
+        .project-card:hover .play-button {
+            opacity: 1;
+        }
 
-    /* Footer Styles */
-    .footer {
-      background-color: rgba(255, 255, 255, 0.9);
-      padding: 15px;
-      text-align: center;
-      width: 100%;
-      box-sizing: border-box;
-      box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative; /* Required for shadow effect */
-    }
+        .project-card .links {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 5px;
+            background-color: rgba(0, 0, 0, 0.3);
+            opacity: 0;
+            transform: translateY(100%);
+            transition: all 0.3s ease;
+        }
 
-    .footer::before {
-      content: "";
-      position: absolute;
-      top: -10px;  /* Adjust this value to change the "height" of the shadow.  Negative value puts shadow at the top */
-      left: 0;
-      width: 100%;
-      height: 10px;
-      background: rgba(0, 0, 0, 0.2);  /* Adjust alpha for shadow darkness */
-      filter: blur(5px);  /* Adjust blur radius for blur intensity */
-      z-index: -1;  /* Put the shadow behind the footer content */
+        .project-card:hover .links {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-    }
+        .project-card a {
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 0.8em;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: rgba(0, 255, 255, 0.1);
+        }
 
-    .footer-left {
-      text-align: left;
-      font-family: 'Inter', sans-serif;
-    }
+        .project-card a:hover {
+          color: #fff;
+          background-color: #00ffff;
+          opacity:1;
+          color:#000;
 
-    .footer-right {
-      text-align: right;
-      font-family: monospace;
-      font-size: 1.2em; /* Make stopwatch easier to read */
-    }
+        }
 
-    i {
-       font-style: normal;
-       display: inline-block; /* Needed some browsers */
-       margin-top: -.25em;
-       margin-bottom: -.25em;
-       padding-top: .25em;
-       padding-bottom: .25em;
-    }
+        /* Social Links */
+        .social-links {
+            text-align: center;
+            margin: 30px 0;
+        }
 
-    /* Font Awesome (replace with your preferred icon library or inline SVGs) */
-    .fa {
-      display: inline-block;
-      font-style: normal;
-      font-variant: normal;
-      text-rendering: auto;
-      -webkit-font-smoothing: antialiased;
-    }
+        .social-links a {
+            display: inline-block;
+            margin: 0 15px;
+        }
 
-    /* Replace with actual font-awesome link */
-    [class*="fa-"] { font-family: Consolas; }
-    .fa-chart-bar:before { content: '\2305';} /* U+F080 Chart Bar (Font Awesome 5) */
-    .fa-map-marker-alt:before { content: "\E77F";}  /* U+F3C5 Map Marker Alt (Font Awesome 5) */
-    .fa-code:before { content: '[]'; }
-    .fa-envelope:before { content: '@'; }
+        .social-links img {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
 
+        .social-links img:hover {
+            opacity: 1;
+        }
 
-  /* Icon Styles */
-    .icon {
-        width: 20px;
-        height: 20px;
-        margin-right: 8px;
-    }
+        .social-links span {
+            display: block;
+            margin-top: 5px;
+            font-size: 0.8em;
+            color: #aaa;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-    .pydata-logo {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: white;  /* Add a background to ensure logo contrast */
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 24px; /* Adjust as needed */
-        font-weight: bold;
-        color: #007bff; /* Accent color to highlight logo */
-        margin-left: 10px; /* Adjust spacing between text and image */
-    }
+        .social-links a:hover span {
+            opacity: 1;
+        }
 
+        /* Footer */
+        footer {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #111122;
+            color: #ddd;
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+            z-index: 10;
+            /* Example repeating pattern */
+            background-image: repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05) 10px, transparent 10px, transparent 20px);
+            animation: shiftPattern 20s linear infinite;
+        }
 
-  </style>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+        @keyframes shiftPattern {
+            0% { background-position: 0 0; }
+            100% { background-position: 200px 0; }
+        }
 
+        .stopwatch {
+            font-family: monospace;
+            font-size: 1.2em;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .project-card {
+                width: 48%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .project-card {
+                width: 95%;
+            }
+        }
+        /*Random Color Generation*/
+
+        :root {
+        --accent-color: #00ffff; /* Default color */
+        }
+
+        a, .play-button {
+            color: var(--accent-color);
+        }
+        .hero .underline{
+          background-color:var(--accent-color);
+        }
+
+    </style>
 </head>
 <body>
 
-  <div id="gradient-background"></div>
+    <div class="hero">
+        <h1>Geva Kipper</h1>
+        <h2>Software Engineer at Google</h2>
+        <p>*Re-designed daily by artificial intelligence.*</p>
+        <div class="underline"></div>
+    </div>
 
-  <div class="container">
+    <div class="projects">
+        <div class="project-card">
+            <h3>GlglStats</h3>
+            <p>A service to track popularity metrics for local music festivals.  This project aggregates social media buzz and ticket activity to estimate demand. An analytics dashboard is provided where venues can easily view these data points to plan the most effective ways towards improved attendance.</p>
+            <img src="https://via.placeholder.com/300x150?text=GlglStats" alt="GlglStats">
+            <i class="play-button">▶</i>
+            <div class="links">
+                <a href="#">Project URL</a>
+                <a href="#">PyData TLV</a>
+            </div>
+        </div>
 
-    <header class="header">
-      <h1>Geva Kipper</h1>
-      <h2>Software Engineer at Google</h2>
-      <p>Working on improving the search experience for users around the world. Focuses on using machine learning to understand queries and provide relevant results.</p>
-      <p style="font-size: 0.9em; font-weight: 100; color: #999;">Re-designed daily by AI. Expect the unexpected.</p>
-    </header>
+        <div class="project-card">
+            <h3>Ahuzat Dibuk</h3>
+            <p>Web application displaying interactive heatmaps based on sensor data. Realtime readings are transformed via a machine learning algorithm into informative charts.</p>
+            <img src="https://via.placeholder.com/300x150?text=Heatmap" alt="Ahuzat Dibuk">
+            <div class="links">
+                <a href="#">News 1</a>
+                <a href="#">Social Post</a>
+            </div>
+        </div>
+
+        <div class="project-card">
+            <h3>Portfolio Website</h3>
+            <p>This website is dynamically generated and is often remade due to AI. It is an demonstration of machine learning capabilities.</p>
+            <img src="https://via.placeholder.com/300x150?text=Portfolio" alt="Dynamic Portfolio">
+            <div class="links">
+                <a href="#">Portfolio URL</a>
+            </div>
+        </div>
 
     </div>
 
-    <div class="card glglstats-card">
-      <h3><i class="fa fa-chart-bar"></i> GlglStats <span class="pydata-logo">Py</span></h3>
-      <p>A visualization project showing the number of lines of code added and removed on a variety of open source projects written in javascript that are popular enough to be compiled by Glgl, Googles internal javascript compiler for server-side code. Displays various statistics that are useful for developers that build large projects</p>
-      <a href="#">Website</a>
-      <a href="#">YouTube Video</a>
+    <div class="social-links">
+        <a href="#">
+            <img src="https://via.placeholder.com/32x32?text=GH" alt="GitHub">
+            <span>GitHubUser</span>
+        </a>
+        <a href="#">
+            <img src="https://via.placeholder.com/32x32?text=LI" alt="LinkedIn">
+            <span>LinkedInProfile</span>
+        </a>
+        <a href="#">
+            <img src="https://via.placeholder.com/32x32?text=FB" alt="Facebook">
+            <span>FacebookPage</span>
+        </a>
     </div>
 
-    <div class="card ahuzat-dibuk-card">
-      <h3><i class="fa fa-map-marker-alt"></i> Ahuzat Dibuk</h3>
-      <p>Tel-Aviv Parking Statistics. Ahuzat Dibuk is a website with various javascript visualizations of the parking statistics near my neighborhood in Tel-Aviv.</p>
-      <a href="#">Article 1</a>
-      <a href="#">Article 2</a>
-      <a href="#" class="facebook-link">Facebook Post</a>
-    </div>
+    <footer>
+        <span>© Grok and Claude Reserved</span>
+        <span class="stopwatch">00:00:00</span>
+    </footer>
 
-    <div class="card portfolio-card">
-      <h3><i class="fa fa-code"></i> Portfolio Website</h3>
-      <p>This website! A demonstration of front-end skills and creative design re-designed daily.</p>
-    </div>
+    <script>
+    // Function to generate random color to demonstrate AI control and daily change.
+    function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+          }
 
-    <div class="card">
-      <h3><i class="fa fa-envelope"></i> Contact</h3>
-      <p>Reach out via email to discuss collaborations, opportunities, or just to say hello!</p>
-      <a href="#">Email Me</a>
-    </div>
+          document.addEventListener('DOMContentLoaded', () => {
+          // Generate random color
+           const randomColor = getRandomColor();
+           document.documentElement.style.setProperty('--accent-color', randomColor);
+         });
 
-  </div>
+        // Stopwatch functionality
+        function updateStopwatch() {
+            const startDate = new Date('2025-03-20T00:56:08');
+            const now = new Date();
+            const diff = now.getTime() - startDate.getTime();
 
-  <footer class="footer">
-    <div class="footer-left">&copy; GroK and Claude</div>
-    <div class="footer-right">Stopwatch: <span id="stopwatch">00:00:00</span></div>
-  </footer>
+            let seconds = Math.floor(diff / 1000) % 60;
+            let minutes = Math.floor(diff / (1000 * 60)) % 60;
+            let hours = Math.floor(diff / (1000 * 60 * 60));
 
-  <script>
-    // Gradient Animation
-    const gradientBackground = document.getElementById('gradient-background');
-    let angle = 0;
+            seconds = (seconds < 10) ? "0" + seconds : seconds;
+            minutes = (minutes < 10) ? "0" + minutes : minutes;
+            hours = (hours < 10) ? "0" + hours : hours;
 
-    function animateGradient() {
-      angle = (angle + 0.2) % 360; // Reduced speed for subtle effect
-      gradientBackground.style.background = `linear-gradient(${angle}deg, #4CAF50, #2196F3, #F44336, #9C27B0)`;
-      requestAnimationFrame(animateGradient);
-    }
+            const stopwatchElement = document.querySelector('.stopwatch');
+            if (stopwatchElement) {
+                stopwatchElement.textContent = `${hours}:${minutes}:${seconds}`;
+            }
+        }
 
-    animateGradient();
+        setInterval(updateStopwatch, 1000);
 
-    // Stopwatch
-    const startTime = new Date("2025-03-19 00:57:07").getTime();
+        // Project shuffling (for demonstration purposes - this doesn't persist daily)
+        function shuffleProjects() {
+            const projectsContainer = document.querySelector('.projects');
+            const projectsArray = Array.from(projectsContainer.children);
 
-    function updateStopwatch() {
-      const now = new Date().getTime();
-      const distance = now - startTime;
+            for (let i = projectsArray.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [projectsArray[i], projectsArray[j]] = [projectsArray[j], projectsArray[i]];
+            }
 
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            projectsArray.forEach(project => projectsContainer.appendChild(project));
+        }
 
-        document.getElementById("stopwatch").innerHTML =
-          ("0" + hours).slice(-2) + ":" + ("0" + minutes).slice(-2) + ":" + ("0" + seconds).slice(-2);  //HH:MM:SS
-        requestAnimationFrame(updateStopwatch);
-    }
-
-    updateStopwatch();
-  </script>
+        // Call shuffleProjects on page load to simulate daily reshuffle
+        window.onload = shuffleProjects;
+    </script>
 
 </body>
 </html>
