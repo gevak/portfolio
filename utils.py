@@ -44,7 +44,7 @@ def get_idea_title(model: str) -> str:
   ideas = [l for l in response.splitlines() if l.lower().startswith('idea') and ':' in l]
   assert len(ideas) > 0
   idea = random.choice(ideas)
-  idea = idea[idea.find(':'):].strip()
+  idea = idea[idea.find(':') + 1:].strip()
   return idea
 
 def convert_png_to_jpg(bytes_image_png: bytes, jpg_quality: int) -> Image.Image:
