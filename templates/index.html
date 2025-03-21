@@ -2,295 +2,356 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - AI-Redesigned Portfolio</title>
+    <title>Geva Kipper - Portfolio</title>
     <style>
-        /* General Styles */
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f0f0f0;
-            color: #333;
+            background-color: #002030; /* Deep Cyan */
+            color: #fff;
             overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        a {
-            color: #007bff;
-            text-decoration: none;
+        /* Parallax effect */
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
         }
 
-        a:hover {
-            text-decoration: underline;
+        /* Header */
+        header {
+            text-align: center;
+            padding: 100px 0;
+            background-color: #002030;
         }
 
-        /* Helper classes */
-        .fade-in {
-          animation: fadeIn ease 1s;
-          animation-iteration-count: 1;
-          animation-fill-mode: forwards;
-          opacity: 0;           
+        header h1 {
+            font-size: 3em;
+            font-weight: 300;
+            margin-bottom: 10px;
         }
 
-        @keyframes fadeIn {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
+        header p {
+            font-size: 1.5em;
+            font-weight: 200;
+            margin-bottom: 20px;
         }
 
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            width: 100%;
+        header em {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #eee;
+        }
+
+        /* Project Sections */
+        .project-section {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden; /* Hide gradient overflows */
-            transition: opacity 1s ease;
+            justify-content: center; /* Vertically centers content */
+            padding: 50px;
+            background-color: #002f45; /* Slightly offset cyan */
+            position: relative; /* For tilt effect */
+            overflow: hidden; /* Hides tilted overflow */
+            box-sizing: border-box; /* Include padding in height calculation */
         }
 
-        .hero::before {
+        .project-section:nth-child(even) {
+            background-color: #003852; /* Another slightly offset cyan */
+        }
+
+        .project-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .project-section h2 {
+            font-size: 2.5em;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        .project-section h3 {
+            font-size: 1.8em;
+            margin-bottom: 10px;
+            text-align: left;
+        }
+
+        .project-section p {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        /* Underline Animation */
+        .underline {
+            position: relative;
+            display: inline-block;
+
+        }
+
+        .underline::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px; /* Adjust for desired placement */
+            width: 100%;
+            height: 2px;
+            background-color: #00ffff; /* Bright cyan underline */
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease-in-out;
+
+        }
+
+        .underline:hover::after {
+            transform: scaleX(1);
+        }
+
+
+        /* Button Styles */
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 24px;
+            font-size: 1em;
+            text-decoration: none;
+            color: #fff;
+            border: 2px solid #00ffff;
+            border-radius: 8px;
+            background-color: transparent;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .button:hover {
+            color: #002030;  /* Deep Cyan */
+            background-color: #00ffff; /* Bright Cyan*/
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5); /*Cyan glow*/
+        }
+
+        .button::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #2980b9, #8e44ad); /* Initial gradient */
+            background: linear-gradient(45deg, #00ffff, transparent); /*Adding glowing effect*/
+            opacity: 0;
+            transition: opacity 0.3s ease;
             z-index: -1;
-            animation: gradientAnimation 5s ease infinite;
-            background-size: 200% 200%; /* For smooth transitions in gradientAnimation */
         }
 
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0%center;
-            }
-            50% {
-                background-position: 100%center;
-            }
-            100% {
-                background-position: 0%center;
-            }
+        .button:hover::before {
+            opacity: 1;
         }
 
-        .hero h1 {
-            font-size: 3em;
-            font-weight: bold;
-            margin-bottom: 0.5em;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Emboss effect */
+        /* GLGL Stats Section */
+        .glglstats-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwcIChsICQkKCgwMDQ0MDBERERQRDA0RDh0MDhoRDx4RExEiIyEhIiIuKRAwMC00MDBAQEBAQEBAQEBAQEBAAREQQ/8AAQgAAgACAwERAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dWv/AADCAQEA//aAAwDAQACEQMRAD8A7+jB//2Q=='); /* Replace with base64 or URL */
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px) brightness(0.3);
+            z-index: -1;
         }
 
-        .hero p {
-            font-style: italic;
-            font-size: 1.2em;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3); /* Subtle shadow for readability */
+        /* Ahuzat Dibuk Section */
+        .ahuzat-dibuk-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwcIChsICQkKCgwMDQ0MDBERERQRDA0RDh0MDhoRDx4RExEiIyEhIiIuKRAwMC00MDBAQEBAQEBAQEBAQEBAAREQQ/8AAQgAAgACAwERAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dWv/AADCAQEA//aAAwDAQACEQMRAD8A7+jB//2Q=='); /* Replace with base64 or URL */
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px) brightness(0.3);
+            z-index: -1;
         }
 
-        /* Project Sections */
-        .projects {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            padding: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Portfolio Project Section */
+        .portfolio-project-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwcIChsICQkKCgwMDQ0MDBERERQRDA0RDh0MDhoRDx4RExEiIyEhIiIuKRAwMC00MDBAQEBAQEBAQEBAQEBAAREQQ/8AAQgAAgACAwERAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dWv/AADCAQEA//aAAwDAQACEQMRAD8A7+jB//2Q=='); /* Replace with base64 or URL */
+            background-size: cover;
+            background-position: center;
+            filter: blur(5px) brightness(0.3);
+            z-index: -1;
         }
-
-        .project-card {
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .project-card h2 {
-            font-size: 1.5em;
-            margin-bottom: 0.5em;
-        }
-
-        .project-card p {
-            margin-bottom: 1em;
-        }
-
-        .project-card .links {
-            display: flex;
-            flex-direction: column; /* Stack links vertically for better spacing */
-        }
-
-       .project-card .links a {
-            margin-bottom: 0.5em; /* Add spacing between links */
-            display: inline-block; /* Make the whole area clickable */
-        }
-
-       .project-card .links a:hover {
-        opacity: 0.8;
-    }
-
-        /* Mobile-friendly adjustments for project cards */
-        @media (max-width: 600px) {
-            .projects {
-                grid-template-columns: 1fr; /* Stack cards on smaller screens */
-            }
-             .project-card {
-            padding: 10px;
-            }
-        }
-
 
         /* Footer */
         footer {
+            background-color: #002030;
+            color: #fff;
             text-align: center;
-            padding: 20px;
-            background-color: #eee;
-            color: #777;
+            padding: 30px 0;
             font-size: 0.8em;
+            border-top: 1px solid #002f45; /* Subtle border */
         }
 
-        /* Stopwatch Styles */
-        .stopwatch {
+        footer p {
+            margin: 5px 0;
+        }
+
+        #stopwatch {
             font-family: monospace;
             font-size: 1.2em;
             margin-top: 10px;
-            color: #555;
         }
 
-        /* Accent Color */
-        :root {
-            --accent-color: #e74c3c; /* Initial accent color (red) */
+        /* Stopwatch Pulsing Animation */
+        .pulsing {
+            animation: pulse 1s infinite alternate;
         }
 
-        body {
-            color: var(--accent-color);
+        @keyframes pulse {
+            0% {
+                opacity: 0.8;
+            }
+            100% {
+                opacity: 1;
+            }
         }
 
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
+        .social-links a {
+            color: #00ffff;
+            text-decoration: none;
+            font-size: 1.5em;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body>
 
-    <section class="hero fade-in">
-        <h1>Geva Kipper // Software Engineer at Google</h1>
-        <p>A portfolio constantly evolving, re-designed by AI each day.</p>
-    </section>
+    <header>
+        <h1>Geva Kipper</h1>
+        <p>Software Engineer at Google</p>
+        <em>This website is redesigned daily by AI, embracing constant evolution.</em>
+    </header>
 
-    <section class="projects">
-        <div class="project-card">
-            <h2>GlglStats: Quantifying Repetition in Israeli Pop</h2>
-            <p>Measures repetitiveness of Israeli pop-chart songs using LZ77 compression. Visualizes repetition patterns in famous songs.</p>
-            <img src="https://i.ytimg.com/vi/9P7FfN5vjRQ/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD8AEQt82IQEfgAQ==&rs=AOn4CLAaO2GvUq1f9WvL5Wz68GjBsCzJHQ" alt="GlglStats Visualization" style="width:100%;">
-            <div class="links">
-                <a href="#">Website</a>
-                <a href="#">PyData TLV Talk</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <h2>Ahuzat Dibuk: Tel-Aviv Parking Data Project</h2>
-            <p>Collecting statistics for Tel-Aviv car parking lots, generating heat-maps for residents.</p>
-            <img src="https://i.ytimg.com/vi/0f_bX_--l7g/maxresdefault.jpg" alt="Ahuzat Dibuk Heatmap" style="width:100%;">
-            <div class="links">
-                <a href="#">News Coverage 1</a>
-                <a href="#">News Coverage 2</a>
-                <a href="#">Facebook Post</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <h2>This AI-Generated Portfolio</h2>
-            <p>A self-referential demonstration of dynamic web design.</p>
-            <img src="screenshot.png" alt="AI-Generated Portfolio" style="width:100%;opacity: 0.5">
-            <div class="links">
-                <a href="#">View Source</a>
-            </div>
-        </div>
-
-        <div class="project-card">
-            <h2>Connect</h2>
-            <p>Let's build something great!</p>
-            <div class="links">
-                <a href="#">GitHub</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Facebook</a>
+    <section class="project-section">
+        <div class="glglstats-bg"></div>
+        <div class="project-content">
+            <h2><Underline>Featured</Underline></h2>
+            <h3>GlglStats</h3>
+            <p class="underline">Real-time analytics and visualization of community video views and engagement.  Developed for PyData TLV</p>
+            <div class="button-container">
+                <a href="#" class="button">View Video</a>
+                <a href="#" class="button">GitHub</a>
             </div>
         </div>
     </section>
+
+    <section class="project-section">
+        <div class="ahuzat-dibuk-bg"></div>
+        <div class="project-content">
+            <h2><Underline>Archaeological project</Underline></h2>
+            <h3>Ahuzat Dibuk</h3>
+            <p class="underline">Interactive heatmap visualization of unearthed artifacts over a dig site, showcasing artifact density and distribution patterns.</p>
+            <div class="button-container">
+                <a href="#" class="button">Explore the dig.</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-section">
+        <div class="portfolio-project-bg"></div>
+        <div class="project-content">
+            <h2><Underline>The self-referencial project</Underline></h2>
+            <h3>Portfolio Project</h3>
+            <p class="underline">Meta-portfolio: A showcase of my original portfolio design, highlighting continuous AI-driven updates and improvements.</p>
+            <div class="button-container">
+                <a href="https://portfolio-dor1.onrender.com/" class="button">View the Original Web-site</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="project-section">
+        <div class="project-content">
+            <h2><Underline>Connect</Underline></h2>
+           <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-github">GitHub</i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin">LinkedIn</i></a>
+                <a href="#" target="_blank"><i class="fab fa-facebook">Facebook</i></a>
+            </div>
+        </div>
+    </section>
+
+
 
     <footer>
-        <p>Designed with ❤️ by AI (This project would not have been written without the help of AI.)</p>
-        <p>Site design initiated by [Your Name]</p>
-        <div class="stopwatch">Time Since Genesis: <span id="time">00:00:00</span></div>
+        <p>Created by AI Model</p>
+        <p id="stopwatch" class="pulsing">00:00:00</p>
     </footer>
 
     <script>
-        // Gradient Animation
-        function updateGradient() {
-            const hero = document.querySelector('.hero::before');
-            const timestamp = new Date().getTime();
-            const hue = timestamp % 360;
-            const newColor1 = `hsl(${hue}, 70%, 50%)`;
-            const newColor2 = `hsl(${(hue + 120) % 360}, 70%, 50%)`;
+        const startTime = new Date("2025-03-21 00:57:43").getTime();
 
-            document.querySelector('.hero::before').style.background = `linear-gradient(45deg, ${newColor1}, ${newColor2})`;
-        }
-
-        // Stopwatch
         function updateStopwatch() {
-            const startTime = new Date(0); // Start at the Unix epoch (Jan 1, 1970)
-            const now = new Date();
-            const elapsed = now.getTime() - startTime.getTime();
+            const now = new Date().getTime();
+            const elapsedTime = now - startTime;
 
-            const hours = Math.floor((elapsed % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
+            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
+            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
+            const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
             const formattedTime = String(hours).padStart(2, '0') + ":" +
-                                 String(minutes).padStart(2, '0') + ":" +
-                                 String(seconds).padStart(2, '0');
+                                  String(minutes).padStart(2, '0') + ":" +
+                                  String(seconds).padStart(2, '0');
 
-            document.getElementById('time').textContent = formattedTime;
+            document.getElementById("stopwatch").textContent = formattedTime;
         }
 
+        setInterval(updateStopwatch, 1000); // Update every second
+        updateStopwatch(); // Initial call
 
-
-        // Accent Color - Simple and ineffective, as CSS variables set once statically can't be changed like this.
-       function updateAccentColor() {
-            const timestamp = new Date().getTime();
-            const hue = timestamp % 360;
-            const newAccentColor = `hsl(${hue}, 80%, 60%)`;
-            document.documentElement.style.setProperty('--accent-color', newAccentColor);
-        }
-
-        // Call functions to start the animations and updates
-
-        // Initialize gradient update on page load, then set interval
-        updateGradient();
-        setInterval(updateGradient, 1000);
-
-        //Init accent color on page load, then interval
-        updateAccentColor()
-        setInterval(updateAccentColor, 1000);
-
-        // Initialize stopwatch update on page load, then set interval
-        updateStopwatch();
-        setInterval(updateStopwatch, 1000);
-
+           //Dynamically adds fontawesome to support showing Github, Linkidin etc links
+          const fontAwesomeLink = document.createElement('link');
+            fontAwesomeLink.rel = 'stylesheet';
+            fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
+            document.head.appendChild(fontAwesomeLink);
 
     </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250320",
+          pageId: "20250321",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>

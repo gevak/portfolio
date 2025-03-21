@@ -1,0 +1,17 @@
+The portfolio would be a single, vertically scrolling page with a smooth parallax effect. Dominant colors would be shades of deep cyan and white for text, giving an airy, tech-focused feel.
+
+The page opens with "Geva Kipper" in a large, clean sans-serif font center-aligned at the top. Beneath, “Software Engineer at Google.” in a smaller, slightly lighter weight font. Directly under, a thin, italicized line reads: "This website is redesigned daily by AI, embracing constant evolution."
+
+Next, the four project sections are stacked vertically. Each occupies roughly the same screen height. Backgrounds are slightly offset shades of cyan, creating visual separation.
+
+Each section follows a similar layout but with varying slight tilts for visual interest: A heading in bold white text, the project name and a brief description, both left-aligned. A subtle, animated line underlines the description. Underneath, the key links will be displayed as tactile, glowing buttons. These buttons utilize hover effects.
+
+For 'GlglStats', display a cropped, blurred, and dark photograph showing the PyData TLV conference video in the background. The video link and github link will be prominent, while the picture acts to draw the eye.
+
+For 'Ahuzat Dibuk', use a similarly cropped photograph. This time showing some of the heat-maps that were generated. The link is still very visible, and designed to appear like a button.
+
+The self-reference to https://portfolio-dor1.onrender.com/ also has an equally prominent link. The project title will be called 'Portfolio Project' - a portfolio of a portfolio! Use a screenshot of the original site behind the description.
+
+Finally, the link to github, linked in, and Facebook, will be in cyan color, glow on hover.
+
+At the bottom of the page, a simple white footer with nearly invisible cyan lines will contain: "Created by [AI Model Name]". Below that, displayed in a monospace font, is the stopwatch, updating in real-time, showing the time elapsed since "2025-03-21 00:57:43". The stopwatch will have a very gentle pulsing animation to reinforce its active nature.
