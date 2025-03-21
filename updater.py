@@ -72,10 +72,10 @@ def generate_page(model: str):
     archive.save_like_count(0, page_id, title=idea_title)
 
     # Save screenshot
-    # screenshot_jpg = asyncio.run(utils.get_screenshot(impl_code))
-    # screenshot_file = os.path.join(today_dir, 'screenshot.jpg')
-    # screenshot_jpg.save(screenshot_file)
-    # logging.info(f"Screenshot saved to {screenshot_file}")
+    screenshot_jpg = asyncio.run(utils.get_screenshot(impl_code))
+    screenshot_file = os.path.join(today_dir, 'screenshot.jpg')
+    screenshot_jpg.save(screenshot_file)
+    logging.info(f"Screenshot saved to {screenshot_file}")
 
 
 def main():
