@@ -1,5 +1,6 @@
 import models
 
+import logging
 import random
 from PIL import Image
 from io import BytesIO
@@ -38,11 +39,12 @@ def get_impl(design: str, model: str) -> str:
 
 def get_idea_title(model: str) -> str:
   dreamer_prompt = open(_DREAMER_PROMPT_FILE, 'r').read()
-  text = prompt(dreamer_prompt, model)
-  ideas = [l for l in text.splitlines() if l.lower().startswith('idea:')]
+  response = prompt(dreamer_prompt, model)
+  logging.info("Got ideas response: %s", response)
+  ideas = [l for l in response.splitlines() if l.lower().startswith('idea') and ':' in l]
   assert len(ideas) > 0
   idea = random.choice(ideas)
-  idea = idea[len('idea:'):].strip()
+  idea = idea[idea.find(':'):].strip()
   return idea
 
 def convert_png_to_jpg(bytes_image_png: bytes, jpg_quality: int) -> Image.Image:
