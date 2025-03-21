@@ -4,7 +4,7 @@ import json
 import os
 import threading
 
-import archive
+import archive_utils
 
 app = Flask(__name__)
 
@@ -22,13 +22,13 @@ def archive_page():
 def get_likes():
     """API endpoint to get current like count"""
     page_id = request.args.get('pageId', default='default')
-    count = archive.get_like_count(page_id)
+    count = archive_utils.get_like_count(page_id)
     return jsonify({"count": count})
 
 @app.route('/api/archive', methods=['GET'])
 def get_archive_json():
     """API endpoint to get portfolio archive"""
-    archive = archive.get_archive_list()
+    archive = archive_utils.get_archive_list()
     return jsonify({"archive": archive})
 
 @app.route('/api/likes', methods=['POST'])
@@ -36,8 +36,8 @@ def increment_likes():
     """API endpoint to increment like count"""
     print(request.json)
     page_id = request.json.get('pageId', 'default')
-    count = archive.get_like_count(page_id) + 1
-    archive.save_like_count(count, page_id)
+    count = archive_utils.get_like_count(page_id) + 1
+    archive_utils.save_like_count(count, page_id)
     return jsonify({"count": count})
 
 @app.route('/favicon.ico')

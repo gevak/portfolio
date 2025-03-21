@@ -3,7 +3,7 @@ import logging
 import os
 from datetime import datetime
 
-import archive
+import archive_utils
 import utils
 
 MODEL = 'openrouter/google/gemini-2.0-flash-exp:free'
@@ -69,7 +69,7 @@ def generate_page(model: str):
         f.write(impl_code)
     logging.info("HTML template used to replace docs/index.html")
     logging.info("Creating DB entry")
-    archive.save_like_count(0, page_id, title=idea_title)
+    archive_utils.save_like_count(0, page_id, title=idea_title)
 
     # Save screenshot
     screenshot_jpg = asyncio.run(utils.get_screenshot(impl_code))
