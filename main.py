@@ -14,7 +14,7 @@ def index():
     return render_template('index.html')
 
 @app.route('/archive')
-def archive():
+def archive_page():
     """Serve the archive template"""
     return send_from_directory('templates', 'archive.html')
 
@@ -26,7 +26,7 @@ def get_likes():
     return jsonify({"count": count})
 
 @app.route('/api/archive', methods=['GET'])
-def get_archive():
+def get_archive_json():
     """API endpoint to get portfolio archive"""
     archive = archive.get_archive_list()
     return jsonify({"archive": archive})
