@@ -2,349 +2,469 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - Portfolio</title>
+    <title>Geva Kipper - AI-Powered Portfolio</title>
     <style>
+        /* --- General Styles --- */
         body {
-            font-family: sans-serif;
+            font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #002030; /* Deep Cyan */
-            color: #fff;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            background-color: #121212; /* Dark Background */
+            color: #f0f0f0; /* Light Text */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+
+            --primary-font:  "Helvetica Neue", Helvetica, Arial, sans-serif;
+            --secondary-font: Menlo, Monaco, Consolas, "Courier New", monospace;
+
+            --primary-color: #64ffda; /* Tealish Blue */
+            --secondary-color: #f44336; /* Red */
+            --tertiary-color: #ffeb3b; /* Yellow */
+            --grid-gap: 20px;
+            --box-border-radius: 4px;
+            --link-border-radius: 4px;
         }
 
-        /* Parallax effect */
-        .parallax {
-            background-attachment: fixed;
-            background-position: center;
-            background-repeat: no-repeat;
-            background-size: cover;
+        main {
+            flex: 1; /* Take up remaining vertical space */
         }
 
-        /* Header */
+        a {
+          color: var(--tertiary-color);
+          text-decoration: none;
+        }
+
+        /* -- random-color-generator -- */
+        :root {
+           --bg: hsl(210, 25%, 98%);
+            --bg-card: hsl(0, 0%, 100%);
+            --border-radius: 0.75rem;
+            --color-heading: hsl(210, 10%, 30%);
+            --color-text: hsl(210, 10%, 50%);
+            --ff-primary: "General Sans", sans-serif;
+            --gradient-heading: linear-gradient(
+              0deg,
+              hsl(210, 10%, 30%) 0%,
+              hsl(210, 10%, 30%) 100%
+            );
+            --gradient-text: linear-gradient(
+              0deg,
+              hsl(210, 10%, 50%) 0%,
+              hsl(210, 10%, 50%) 100%
+            );
+
+
+            --primary:  #ffffff;
+            --secondary:  #e8e1e9;
+            --neutral:    #232c2b;
+            --font-color: #000000;
+            --background-color: #ffffff;
+        }
+
+        @media (prefers-color-scheme: light) {
+           :root {
+           --bg: hsl(210, 25%, 98%);
+            --bg-card: hsl(0, 0%, 100%);
+            --border-radius: 0.75rem;
+            --color-heading: hsl(210, 10%, 30%);
+            --color-text: hsl(210, 10%, 50%);
+            --ff-primary: "General Sans", sans-serif;
+            --gradient-heading: linear-gradient(
+              0deg,
+              hsl(210, 10%, 30%) 0%,
+              hsl(210, 10%, 30%) 100%
+            );
+            --gradient-text: linear-gradient(
+              0deg,
+              hsl(210, 10%, 50%) 0%,
+              hsl(210, 10%, 50%) 100%
+            );
+
+
+            --primary:  #ffffff;
+            --secondary:  #e8e1e9;
+            --neutral:    #232c2b;
+            --font-color: #000000;
+            --background-color: #ffffff;
+        }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+            --bg: hsl(230, 30%, 12%);
+            --bg-card: hsla(230, 30%, 22%, 0.78);
+            --border-radius: 0.75rem;
+            --color-heading: hsl(230, 70%, 90%);
+            --color-text: hsl(230, 50%, 70%);
+            --ff-primary: "General Sans", sans-serif;
+            --gradient-heading: linear-gradient(
+              0deg,
+              hsl(230, 70%, 90%) 0%,
+              hsl(230, 70%, 90%) 100%
+            );
+            --gradient-text: linear-gradient(
+              0deg,
+              hsl(230, 50%, 70%) 0%,
+              hsl(230, 50%, 70%) 100%
+            );
+
+            --primary:  #0b1517;
+            --secondary:  #56577c;
+            --neutral:    #67dbdd;
+            --font-color: #ffffff;
+            --background-color: #000000;
+            }
+        }
+
+
+        /* --- Header Styles --- */
         header {
+            padding: 20px;
             text-align: center;
-            padding: 100px 0;
-            background-color: #002030;
         }
 
         header h1 {
-            font-size: 3em;
-            font-weight: 300;
-            margin-bottom: 10px;
+            font-size: 2.5em;
+            margin-bottom: 5px;
+            font-family: var(--primary-font);
+            animation: blurShift 5s infinite alternate;
         }
 
         header p {
-            font-size: 1.5em;
-            font-weight: 200;
-            margin-bottom: 20px;
-        }
-
-        header em {
-            font-style: italic;
-            font-size: 0.9em;
-            color: #eee;
-        }
-
-        /* Project Sections */
-        .project-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Vertically centers content */
-            padding: 50px;
-            background-color: #002f45; /* Slightly offset cyan */
-            position: relative; /* For tilt effect */
-            overflow: hidden; /* Hides tilted overflow */
-            box-sizing: border-box; /* Include padding in height calculation */
-        }
-
-        .project-section:nth-child(even) {
-            background-color: #003852; /* Another slightly offset cyan */
-        }
-
-        .project-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .project-section h2 {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        .project-section h3 {
-            font-size: 1.8em;
+            font-size: 1.1em;
+            color: #ccc;
             margin-bottom: 10px;
-            text-align: left;
         }
 
-        .project-section p {
-            font-size: 1.2em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            text-align: left;
-        }
-
-        /* Underline Animation */
-        .underline {
-            position: relative;
-            display: inline-block;
-
-        }
-
-        .underline::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: -5px; /* Adjust for desired placement */
-            width: 100%;
-            height: 2px;
-            background-color: #00ffff; /* Bright cyan underline */
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.3s ease-in-out;
-
-        }
-
-        .underline:hover::after {
-            transform: scaleX(1);
-        }
-
-
-        /* Button Styles */
-        .button-container {
-            display: flex;
-            gap: 20px;
-            margin-top: 30px;
-        }
-
-        .button {
-            display: inline-block;
-            padding: 12px 24px;
-            font-size: 1em;
-            text-decoration: none;
-            color: #fff;
-            border: 2px solid #00ffff;
-            border-radius: 8px;
-            background-color: transparent;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .button:hover {
-            color: #002030;  /* Deep Cyan */
-            background-color: #00ffff; /* Bright Cyan*/
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 255, 255, 0.5); /*Cyan glow*/
-        }
-
-        .button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, #00ffff, transparent); /*Adding glowing effect*/
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: -1;
-        }
-
-        .button:hover::before {
-            opacity: 1;
-        }
-
-        /* GLGL Stats Section */
-        .glglstats-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwcIChsICQkKCgwMDQ0MDBERERQRDA0RDh0MDhoRDx4RExEiIyEhIiIuKRAwMC00MDBAQEBAQEBAQEBAQEBAAREQQ/8AAQgAAgACAwERAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dWv/AADCAQEA//aAAwDAQACEQMRAD8A7+jB//2Q=='); /* Replace with base64 or URL */
-            background-size: cover;
-            background-position: center;
-            filter: blur(5px) brightness(0.3);
-            z-index: -1;
-        }
-
-        /* Ahuzat Dibuk Section */
-        .ahuzat-dibuk-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwcIChsICQkKCgwMDQ0MDBERERQRDA0RDh0MDhoRDx4RExEiIyEhIiIuKRAwMC00MDBAQEBAQEBAQEBAQEBAAREQQ/8AAQgAAgACAwERAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dWv/AADCAQEA//aAAwDAQACEQMRAD8A7+jB//2Q=='); /* Replace with base64 or URL */
-            background-size: cover;
-            background-position: center;
-            filter: blur(5px) brightness(0.3);
-            z-index: -1;
-        }
-
-        /* Portfolio Project Section */
-        .portfolio-project-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAYEBQYFBAYGBQYHBwcIChsICQkKCgwMDQ0MDBERERQRDA0RDh0MDhoRDx4RExEiIyEhIiIuKRAwMC00MDBAQEBAQEBAQEBAQEBAAREQQ/8AAQgAAgACAwERAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dWv/AADCAQEA//aAAwDAQACEQMRAD8A7+jB//2Q=='); /* Replace with base64 or URL */
-            background-size: cover;
-            background-position: center;
-            filter: blur(5px) brightness(0.3);
-            z-index: -1;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #002030;
-            color: #fff;
-            text-align: center;
-            padding: 30px 0;
+       header .ever-changing-note {
             font-size: 0.8em;
-            border-top: 1px solid #002f45; /* Subtle border */
+            color: #888;
+            font-style: italic;
         }
 
-        footer p {
-            margin: 5px 0;
+
+        @keyframes blurShift {
+            0% { text-shadow: 0 0 2px rgba(255, 255, 255, 0.3); }
+            100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
+        }
+
+        /* --- Grid Layout Styles --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: var(--grid-gap);
+            padding: var(--grid-gap);
+        }
+
+        .grid-box {
+            background-color: #222;
+            border-radius: var(--box-border-radius);
+            padding: 20px;
+            transition: transform 0.3s ease;
+            position: relative;
+            overflow: hidden; /* Ensure background images stay within boundaries */
+        }
+
+        .grid-box:hover {
+            transform: translateY(-5px);
+        }
+
+        /* --- Content Box Styles --- */
+        .box-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        .box-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-family: var(--primary-font);
+        }
+
+        .box-description {
+            font-size: 1em;
+            line-height: 1.4;
+        }
+
+        .box-links {
+            margin-top: 15px;
+        }
+
+        .box-links a {
+            display: inline-block;
+            padding: 8px 15px;
+            background-color: var(--primary-color);
+            color: #121212;
+            text-decoration: none;
+            border-radius: var(--link-border-radius);
+            margin-right: 10px;
+            font-family: var(--secondary-font);
+            transition: background-color 0.3s ease;
+        }
+
+        .box-links a:hover {
+            background-color: var(--secondary-color);
+            color: #fff;
+        }
+
+        /* Specific Box Styles */
+        #glglstats-box {
+            /* No Specific Styles Here - keeping it general */
+             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="lz77Pattern" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 0 L20 20 M20 0 L0 20" stroke="%23444" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23lz77Pattern)" fill-opacity="0.1"/></svg>');
+            background-size: cover;
+        }
+
+        #ahuzat-dibuk-box {
+            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Tel_Aviv_Montage_2023.jpg/640px-Tel_Aviv_Montage_2023.jpg'); /* Replace with Tel Aviv Map Image */
+            background-size: cover;
+            background-position: center;
+            filter: blur(3px);
+        }
+
+         #meta-portfolio-box {
+            /*  Nothing special  */
+            /* Ensure content is readable */
+            background-color: rgba(34, 34, 34, 0.7); /* Add a semi-transparent background */
+        }
+
+        /* --- Social Links Box --- */
+        #social-box {
+            text-align: center;
+        }
+
+        #social-box a {
+            display: inline-block;
+            margin: 10px;
+        }
+
+        #social-box img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%; /* Circular Profile Picture */
+             transition: transform 0.3s ease;
+        }
+
+         #social-box img:hover {
+            transform: scale(1.1);
+        }
+
+        /* --- Footer Styles --- */
+        footer {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.8em;
+            color: #777;
         }
 
         #stopwatch {
-            font-family: monospace;
-            font-size: 1.2em;
-            margin-top: 10px;
+            display: inline-block;
+            margin-top: 5px;
         }
 
-        /* Stopwatch Pulsing Animation */
-        .pulsing {
-            animation: pulse 1s infinite alternate;
-        }
-
-        @keyframes pulse {
-            0% {
-                opacity: 0.8;
+        /* --- Responsiveness --- */
+        @media (max-width: 600px) {
+            .grid-container {
+                grid-template-columns: 1fr;
             }
-            100% {
-                opacity: 1;
+
+            header h1 {
+                font-size: 2em;
             }
         }
 
-        /* Social Links */
-        .social-links {
+        /* ---Theme Toggles--- */
+
+        .theme-toggle-container {
             display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            color: #00ffff;
-            text-decoration: none;
-            font-size: 1.5em;
-            transition: color 0.3s ease, transform 0.3s ease;
-        }
-
-        .social-links a:hover {
+            justify-content: space-between;
+            padding: 1rem;
+            background-color: #333; /* Darker background for contrast */
             color: #fff;
-            transform: scale(1.1);
+            align-items: center;
         }
+
+        .theme-selector {
+            display: flex;
+            gap: 1rem; /* Spacing between theme options */
+        }
+
+        .theme-button {
+            background-color: #555; /* Slightly lighter than the container */
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-button:hover {
+            background-color: #777; /* Even lighter on hover */
+        }
+
+        .ai-suggestion {
+            font-style: italic;
+            color: #ddd;
+        }
+
+
     </style>
 </head>
 <body>
 
     <header>
         <h1>Geva Kipper</h1>
-        <p>Software Engineer at Google</p>
-        <em>This website is redesigned daily by AI, embracing constant evolution.</em>
+        <p>A Software Engineer at Google</p>
+        <p class="ever-changing-note">Re-designed daily by Artificial Intelligence. Come back tomorrow to see what changed.</p>
     </header>
 
-    <section class="project-section">
-        <div class="glglstats-bg"></div>
-        <div class="project-content">
-            <h2><Underline>Featured</Underline></h2>
-            <h3>GlglStats</h3>
-            <p class="underline">Real-time analytics and visualization of community video views and engagement.  Developed for PyData TLV</p>
-            <div class="button-container">
-                <a href="#" class="button">View Video</a>
-                <a href="#" class="button">GitHub</a>
-            </div>
+    <div class="theme-toggle-container">
+        <div class="theme-selector">
+            <button class="theme-button" onclick="setTheme('pastel')">Pastel Day</button>
+            <button class="theme-button" onclick="setTheme('monochrome')">Monochrome Day</button>
+            <button class="theme-button" onclick="setTheme('default')">Default</button>
+
         </div>
-    </section>
+        <div class="ai-suggestion">AI Suggestion: Try a "Retro Wave" theme tomorrow!</div>
+    </div>
 
-    <section class="project-section">
-        <div class="ahuzat-dibuk-bg"></div>
-        <div class="project-content">
-            <h2><Underline>Archaeological project</Underline></h2>
-            <h3>Ahuzat Dibuk</h3>
-            <p class="underline">Interactive heatmap visualization of unearthed artifacts over a dig site, showcasing artifact density and distribution patterns.</p>
-            <div class="button-container">
-                <a href="#" class="button">Explore the dig.</a>
+    <main>
+        <div class="grid-container">
+            <div class="grid-box" id="glglstats-box">
+                <div class="box-icon">📊</div>
+                <h2 class="box-title">GlglStats</h2>
+                <p class="box-description">Website to inspect and analyze data compression of text-based inputs. See impact of LZ77 algorithm.</p>
+                <div class="box-links">
+                    <a href="https://glglstats.onrender.com/" target="_blank">Website</a>
+                    <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank">Conference Presentation</a>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section class="project-section">
-        <div class="portfolio-project-bg"></div>
-        <div class="project-content">
-            <h2><Underline>The self-referencial project</Underline></h2>
-            <h3>Portfolio Project</h3>
-            <p class="underline">Meta-portfolio: A showcase of my original portfolio design, highlighting continuous AI-driven updates and improvements.</p>
-            <div class="button-container">
-                <a href="https://portfolio-dor1.onrender.com/" class="button">View the Original Web-site</a>
+            <div class="grid-box" id="ahuzat-dibuk-box">
+                 <div class="box-icon">🅿️</div>
+                <h2 class="box-title">Ahuzat Dibuk</h2>
+                <p class="box-description">Crowd-sourced data on availability of street parking, based on real-time parking patrols in Tel Aviv.</p>
+                <div class="box-links">
+                      <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank">Facebook Post</a>
+                      <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank">Media Mention 13TV</a>
+                      <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank">Media Mention Mako</a>
+
+                </div>
             </div>
-        </div>
-    </section>
 
-    <section class="project-section">
-        <div class="project-content">
-            <h2><Underline>Connect</Underline></h2>
-           <div class="social-links">
-                <a href="#" target="_blank"><i class="fab fa-github">GitHub</i></a>
-                <a href="#" target="_blank"><i class="fab fa-linkedin">LinkedIn</i></a>
-                <a href="#" target="_blank"><i class="fab fa-facebook">Facebook</i></a>
+            <div class="grid-box" id="meta-portfolio-box">
+                <div class="box-icon">💻</div>
+                <h2 class="box-title">Meta-Portfolio</h2>
+                <p class="box-description">This very website! Showcasing AI-driven design variations and project information.</p>
+                <div class="box-links">
+                    <a href="https://portfolio-dor1.onrender.com/" target="_blank">This Website!</a>
+                </div>
             </div>
+
+             <div class="grid-box" id="social-box">
+              <div class="box-icon">🔗</div>
+              <h2 class="box-title">Social Links</h2>
+              <div>
+                <a href="https://github.com/gevak" target="_blank">
+                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="GitHub Profile">
+                </a>
+                <a href="https://www.linkedin.com/in/gevakip" target="_blank">
+                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="LinkedIn Profile">
+                </a>
+                <a href="https://www.facebook.com/gevak" target="_blank">
+                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="Facebook Profile">
+                </a>
+              </div>
+            </div>
+
         </div>
-    </section>
-
-
+    </main>
 
     <footer>
-        <p>Created by AI Model</p>
-        <p id="stopwatch" class="pulsing">00:00:00</p>
+        <p>Designed by: AI Model (generated using prompt by Designer)</p>
+        <div id="stopwatch"></div>
     </footer>
 
     <script>
-        const startTime = new Date("2025-03-21 00:57:43").getTime();
-
+        // --- Stopwatch ---
         function updateStopwatch() {
-            const now = new Date().getTime();
-            const elapsedTime = now - startTime;
+            const startTime = new Date("2025-03-21 15:24:22");
+            const now = new Date();
+            const elapsed = now.getTime() - startTime.getTime();
 
-            const seconds = Math.floor((elapsedTime % (1000 * 60)) / 1000);
-            const minutes = Math.floor((elapsedTime % (1000 * 60 * 60)) / (1000 * 60));
-            const hours = Math.floor((elapsedTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const seconds = Math.floor((elapsed / 1000) % 60);
+            const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
+            const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
+            const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
 
-            const formattedTime = String(hours).padStart(2, '0') + ":" +
-                                  String(minutes).padStart(2, '0') + ":" +
-                                  String(seconds).padStart(2, '0');
-
-            document.getElementById("stopwatch").textContent = formattedTime;
+            document.getElementById("stopwatch").innerText = `Time since start: ${days}d ${hours}h ${minutes}m ${seconds}s`;
         }
 
-        setInterval(updateStopwatch, 1000); // Update every second
-        updateStopwatch(); // Initial call
+        setInterval(updateStopwatch, 1000);
 
-           //Dynamically adds fontawesome to support showing Github, Linkidin etc links
-          const fontAwesomeLink = document.createElement('link');
-            fontAwesomeLink.rel = 'stylesheet';
-            fontAwesomeLink.href = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css';
-            document.head.appendChild(fontAwesomeLink);
+
+        // --- Random Color Generator (Simplified) ---
+        function getRandomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Example usage: Add random background colors (will be overriden by themes, if applied)
+        const boxes = document.querySelectorAll('.grid-box');
+        boxes.forEach(box => {
+            //box.style.backgroundColor = getRandomColor();
+        });
+
+        // --- Font Swapper (Simplified) ---
+        function getRandomFont() {
+         const fonts = [
+             "Helvetica Neue, Helvetica, Arial, sans-serif",
+             "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
+             "Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
+         ];
+         return fonts[Math.floor(Math.random() * fonts.length)];
+        }
+
+        function swapFonts() {
+            document.body.style.setProperty('--primary-font', getRandomFont());
+        }
+
+        //swapFonts(); // Invoke once on load
+
+
+    // --- Theme Toggles ---
+    function setTheme(themeName) {
+        switch (themeName) {
+            case 'pastel':
+                document.body.style.setProperty('--primary-color', '#ccebc5');
+                document.body.style.setProperty('--secondary-color', '#ffb3e2');
+                document.body.style.setProperty('--tertiary-color', '#fbb4ae');
+                document.body.style.backgroundColor = '#f0f0f0';
+                document.body.style.color = '#333';
+            break;
+            case 'monochrome':
+               document.body.style.setProperty('--primary-color', '#888');
+                document.body.style.setProperty('--secondary-color', '#aaa');
+                document.body.style.setProperty('--tertiary-color', '#bbb');
+                document.body.style.backgroundColor = '#333';
+                document.body.style.color = '#eee';
+               break;
+            case 'default':
+                document.body.style.setProperty('--primary-color', '#64ffda');
+                document.body.style.setProperty('--secondary-color', '#f44336');
+                document.body.style.setProperty('--tertiary-color', '#ffeb3b');
+                document.body.style.backgroundColor = '#121212';
+                document.body.style.color = '#f0f0f0';
+                break;
+        }
+    }
 
     </script>
 <!-- Add this block to embed the like button -->

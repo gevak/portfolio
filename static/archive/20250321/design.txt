@@ -1,17 +1,53 @@
-The portfolio would be a single, vertically scrolling page with a smooth parallax effect. Dominant colors would be shades of deep cyan and white for text, giving an airy, tech-focused feel.
+Here’s a design concept for Geva Kipper’s AI-powered, ever-changing portfolio website:
+## Overall Aesthetic:
 
-The page opens with "Geva Kipper" in a large, clean sans-serif font center-aligned at the top. Beneath, “Software Engineer at Google.” in a smaller, slightly lighter weight font. Directly under, a thin, italicized line reads: "This website is redesigned daily by AI, embracing constant evolution."
+Clean, minimalist with an "algorithmic art" vibe. Think a canvas where AI experiments with layouts, colour palettes, and typography each day, resulting in subtle but noticeable daily transformations. Use a dark background with light (but not harsh) text for readability and a modern feel.
 
-Next, the four project sections are stacked vertically. Each occupies roughly the same screen height. Backgrounds are slightly offset shades of cyan, creating visual separation.
+## Structure:
 
-Each section follows a similar layout but with varying slight tilts for visual interest: A heading in bold white text, the project name and a brief description, both left-aligned. A subtle, animated line underlines the description. Underneath, the key links will be displayed as tactile, glowing buttons. These buttons utilize hover effects.
+Single-page layout, dynamically updated, using a grid system.
 
-For 'GlglStats', display a cropped, blurred, and dark photograph showing the PyData TLV conference video in the background. The video link and github link will be prominent, while the picture acts to draw the eye.
+## Elements:
 
-For 'Ahuzat Dibuk', use a similarly cropped photograph. This time showing some of the heat-maps that were generated. The link is still very visible, and designed to appear like a button.
+### Header:
 
-The self-reference to https://portfolio-dor1.onrender.com/ also has an equally prominent link. The project title will be called 'Portfolio Project' - a portfolio of a portfolio! Use a screenshot of the original site behind the description.
+*   **Developer's Name:** "Geva Kipper" displayed prominently in a clean, modern typeface. A subtle animated effect (like a slight gaussian blur that shifts) would emphasize the dynamic nature.
+*   **Subtitle:** "A Software Engineer at Google" positioned beneath the name. Keep the text subtle.
+*   **Ever-Changing Website Note:** Below the first two lines: ”Re-designed daily by Artificial Intelligence. Come back tomorrow to see what changed.”
 
-Finally, the link to github, linked in, and Facebook, will be in cyan color, glow on hover.
+### Content Boxes (Presenting Projects):
 
-At the bottom of the page, a simple white footer with nearly invisible cyan lines will contain: "Created by [AI Model Name]". Below that, displayed in a monospace font, is the stopwatch, updating in real-time, showing the time elapsed since "2025-03-21 00:57:43". The stopwatch will have a very gentle pulsing animation to reinforce its active nature.
+These are the four core sections. Each box should have the following structure:
+
+*   **Box Shape:** all boxes have a similar shape. For example rectangular boxes with slightly rounded corners.
+*   **Visual Cue:** Each box contains a simple, abstract icon that represents the project's essence (e.g., GlglStats – a waveform, Ahuzat Dibuk – a parking space icon, the meta portfolio project – a stylized monitor screen). The icon should be AI-generated (using an API that delivers it on-the-fly).
+*   **Title:** the Project name (GlglStats, Ahuzat Dibuk, Meta-Portfolio) will be in a bold, sans-serif font.
+*   **Description:** Concise text description, ideally generated/edited with AI for variations over time.
+*   **Links:** Styled buttons or links to external resources (GlglStats site, news articles, Facebook post, self-reference). Links in a specific font to set them apart.
+
+**Colour coding:** Each box get assigned a primary colour, chosen at random when the website loads. These colours can shift slightly over time.
+
+**Box 1: GlglStats**. A background visual could display a very simplified visual example of an LZ77 compression, but not too busy.
+
+**Box 2: Ahuzat Dibuk**. A subtle heatmap overlayed on a Tel-Aviv map (slightly blurred) as a background image.
+
+**Box 3: Meta-Portfolio**. Keep the design clean, drawing attention to the irony of AI designing the design, but not distracting from the rest of the information.
+
+**Box 4: Social Links**. Standard icons for GitHub and LinkedIn, and Facebook, aligned horizontally within the box. Use Geva's profile picture for all links.
+
+### Footer:
+
+*   **Credits:** "Designed by: [AI Model Name] (generated using prompt by Designer)" This should be subtly placed.
+*   **Stopwatch:** A live stopwatch, very discreetly styled, displaying the time elapsed since "2025-03-21 15:24:22".
+
+## Visual & Animation:
+
+*   **Subtle Animations:** Use subtle CSS animations for transitions and hover effects. Every element should have a little "life".
+*   **Typeface:** Use two clean, modern sans-serif fonts for the main text and the links. The font for links should be slightly more industrial looking. The fonts should change slightly on each reload.
+*   **Colour Palette:** Limited to 3-4 colours (including the black / dark grey background) that change slightly each day. Colour selection can be loosely themed (e.g., "Pastel Day", "Monochrome Day").
+*   **Grid Layout:** the position of the grid can change slightly each day. The changes must be consistent.
+*   **Theme Toggles**: Include a theme selector, and an AI suggestion for the next theme toggle.
+
+## Responsiveness:
+
+The site is should be responsive, adjusting to different screen sizes.
