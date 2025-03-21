@@ -1,4 +1,5 @@
 Describe the design for a unique, out-of-the-box portfolio website for a software engineer. 
+The idea or theme of the website should be: {idea_title}.
 
 The site should be a single page and use modern HTML, JavaScript and CSS. 
 It should include: 
@@ -12,7 +13,7 @@ Add a link to the site: https://glglstats.onrender.com/
 As well as a video of myself presenting the project in PyData TLV conference:
 https://www.youtube.com/watch?v=jrKAtOsj1Lo 
 
-2. Presenting a project called 'Ahuzat dibuk' which involves collecting statistics for Tel-Aviv car parking lots, generating heat-maps to be used by residents. Add a link to the news stories about the project:  
+2. Presenting a project called 'Ahuzat Dibuk' which involves collecting statistics for Tel-Aviv car parking lots, generating heat-maps to be used by residents. Add a link to the news stories about the project:  
 https://13tv.co.il/item/news/domestic/internal/parking-902956407/
 https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm
 

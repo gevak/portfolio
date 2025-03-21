@@ -1,3 +1,16 @@
 Build a website in a single file using modern HTML and JavaScript based on the following specification:
 
 {design}
+
+Some references and links for the projects:
+GlglStats website: https://glglstats.onrender.com/
+GlglStats conference presentation video: https://www.youtube.com/watch?v=jrKAtOsj1Lo
+'Ahuzat Dibuk' publication post: https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943
+'Ahuzat Dibuk' media mentions:
+https://13tv.co.il/item/news/domestic/internal/parking-902956407/
+https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm
+Address of this portfolio website:
+https://portfolio-dor1.onrender.com/
+Social links:
+https://github.com/gevak
+www.linkedin.com/in/gevakip

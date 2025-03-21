@@ -1,0 +1,4 @@
+
+I need a creative idea for the portfolio website for a programmer.
+Can you list 20 such ideas that are cool and out of the box, with a brief description of each one (phrase it in under 8 words)?
+Start each list item with 'Idea <number>: ' follwed by the description. 
