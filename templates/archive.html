@@ -72,6 +72,46 @@
         .sort-active {
             font-weight: bold;
         }
+
+        .hover-link {
+            position: relative;
+            display: inline-block;
+            color: #0066cc;
+            text-decoration: none;
+            font-family: Arial, sans-serif;
+        }
+        
+        .hover-link:hover {
+            text-decoration: underline;
+        }
+        
+        .image-preview {
+            position: absolute;
+            display: none;
+            width: 200px;
+            height: auto;
+            top: 100%;
+            left: 0;
+            margin-top: 8px;
+            border-radius: 8px;
+            border: 1px solid #000;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            transition: opacity 0.2s ease-in-out;
+            opacity: 0;
+        }
+        
+        .hover-link:hover .image-preview {
+            display: block;
+            opacity: 1;
+        }
+        
+        .image-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -145,8 +185,15 @@
                 
                 const titleCell = document.createElement('td');
                 const titleLink = document.createElement('a');
+                const titleHoverImage = document.createElement('span');
+                const titleScreenshot = document.createElement('img');
                 titleLink.href = `/static/archive/${entry.page_id}/index.html`;
+                titleLink.className = 'hover-link'
                 titleLink.textContent = entry.title;
+                titleHoverImage.className = 'image-preview';
+                titleScreenshot.src = `/static/archive/${entry.page_id}/screenshot.jpg`
+                titleHoverImage.appendChild(titleScreenshot)
+                titleLink.appendChild(titleHoverImage);
                 titleCell.appendChild(titleLink);
                 row.appendChild(titleCell);
                 
