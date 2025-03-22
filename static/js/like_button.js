@@ -178,6 +178,7 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             font-weight: bold;
             white-space: nowrap;
+            color: #333333;
         }
         
         .archive-link {
