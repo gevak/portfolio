@@ -2,476 +2,320 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - AI-Powered Portfolio</title>
+    <title>Geva Kipper - Deconstructed Complexity</title>
     <style>
-        /* --- General Styles --- */
         body {
-            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #121212; /* Dark Background */
-            color: #f0f0f0; /* Light Text */
+            overflow-x: hidden;
+        }
+
+        #container {
             display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-
-            --primary-font:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --secondary-font: Menlo, Monaco, Consolas, "Courier New", monospace;
-
-            --primary-color: #64ffda; /* Tealish Blue */
-            --secondary-color: #f44336; /* Red */
-            --tertiary-color: #ffeb3b; /* Yellow */
-            --grid-gap: 20px;
-            --box-border-radius: 4px;
-            --link-border-radius: 4px;
-        }
-
-        main {
-            flex: 1; /* Take up remaining vertical space */
-        }
-
-        a {
-          color: var(--tertiary-color);
-          text-decoration: none;
-        }
-
-        /* -- random-color-generator -- */
-        :root {
-           --bg: hsl(210, 25%, 98%);
-            --bg-card: hsl(0, 0%, 100%);
-            --border-radius: 0.75rem;
-            --color-heading: hsl(210, 10%, 30%);
-            --color-text: hsl(210, 10%, 50%);
-            --ff-primary: "General Sans", sans-serif;
-            --gradient-heading: linear-gradient(
-              0deg,
-              hsl(210, 10%, 30%) 0%,
-              hsl(210, 10%, 30%) 100%
-            );
-            --gradient-text: linear-gradient(
-              0deg,
-              hsl(210, 10%, 50%) 0%,
-              hsl(210, 10%, 50%) 100%
-            );
-
-
-            --primary:  #ffffff;
-            --secondary:  #e8e1e9;
-            --neutral:    #232c2b;
-            --font-color: #000000;
-            --background-color: #ffffff;
-        }
-
-        @media (prefers-color-scheme: light) {
-           :root {
-           --bg: hsl(210, 25%, 98%);
-            --bg-card: hsl(0, 0%, 100%);
-            --border-radius: 0.75rem;
-            --color-heading: hsl(210, 10%, 30%);
-            --color-text: hsl(210, 10%, 50%);
-            --ff-primary: "General Sans", sans-serif;
-            --gradient-heading: linear-gradient(
-              0deg,
-              hsl(210, 10%, 30%) 0%,
-              hsl(210, 10%, 30%) 100%
-            );
-            --gradient-text: linear-gradient(
-              0deg,
-              hsl(210, 10%, 50%) 0%,
-              hsl(210, 10%, 50%) 100%
-            );
-
-
-            --primary:  #ffffff;
-            --secondary:  #e8e1e9;
-            --neutral:    #232c2b;
-            --font-color: #000000;
-            --background-color: #ffffff;
-        }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-            --bg: hsl(230, 30%, 12%);
-            --bg-card: hsla(230, 30%, 22%, 0.78);
-            --border-radius: 0.75rem;
-            --color-heading: hsl(230, 70%, 90%);
-            --color-text: hsl(230, 50%, 70%);
-            --ff-primary: "General Sans", sans-serif;
-            --gradient-heading: linear-gradient(
-              0deg,
-              hsl(230, 70%, 90%) 0%,
-              hsl(230, 70%, 90%) 100%
-            );
-            --gradient-text: linear-gradient(
-              0deg,
-              hsl(230, 50%, 70%) 0%,
-              hsl(230, 50%, 70%) 100%
-            );
-
-            --primary:  #0b1517;
-            --secondary:  #56577c;
-            --neutral:    #67dbdd;
-            --font-color: #ffffff;
-            --background-color: #000000;
-            }
-        }
-
-
-        /* --- Header Styles --- */
-        header {
+            flex-wrap: wrap;
+            justify-content: center;
             padding: 20px;
+            gap: 20px;
+            transition: filter 0.3s ease;
+          
+        }
+
+        .project-box {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-align: center;
-        }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-            font-family: var(--primary-font);
-            animation: blurShift 5s infinite alternate;
-        }
-
-        header p {
-            font-size: 1.1em;
-            color: #ccc;
-            margin-bottom: 10px;
-        }
-
-       header .ever-changing-note {
-            font-size: 0.8em;
-            color: #888;
-            font-style: italic;
-        }
-
-
-        @keyframes blurShift {
-            0% { text-shadow: 0 0 2px rgba(255, 255, 255, 0.3); }
-            100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
-        }
-
-        /* --- Grid Layout Styles --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--grid-gap);
-            padding: var(--grid-gap);
-        }
-
-        .grid-box {
-            background-color: #222;
-            border-radius: var(--box-border-radius);
-            padding: 20px;
-            transition: transform 0.3s ease;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
-            overflow: hidden; /* Ensure background images stay within boundaries */
+            overflow: hidden;
         }
 
-        .grid-box:hover {
-            transform: translateY(-5px);
+        .project-box:hover {
+           transform: scale(1.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+        .project-box h2 {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        /* --- Content Box Styles --- */
-        .box-icon {
+        .project-box:hover h2 {
+            opacity: 1;
+        }
+
+        #expanded-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+            padding: 20px;
+            box-sizing: border-box;
+            overflow: auto;
+        }
+
+        #expanded-content {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #121212; /* Match background */
+            border: 1px solid #333;
+            color: #fff;
+            border-radius: 5px;
+        }
+
+        #expanded-content h1 {
             font-size: 2em;
             margin-bottom: 10px;
-            color: #fff;
         }
 
-        .box-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 10px;
-            font-family: var(--primary-font);
+        #expanded-content p {
+            margin-bottom: 20px;
         }
 
-        .box-description {
-            font-size: 1em;
-            line-height: 1.4;
-        }
-
-        .box-links {
-            margin-top: 15px;
-        }
-
-        .box-links a {
+        .project-link {
             display: inline-block;
-            padding: 8px 15px;
-            background-color: var(--primary-color);
-            color: #121212;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
             text-decoration: none;
-            border-radius: var(--link-border-radius);
+            border-radius: 5px;
             margin-right: 10px;
-            font-family: var(--secondary-font);
-            transition: background-color 0.3s ease;
+            margin-bottom: 10px;/*Added margin to the bottom of the projects to prevent links being cutoff*/
+        }
+        
+        #close-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2em;
+            cursor: pointer;
+            color: white;
+            transition: color 0.3s ease;
         }
 
-        .box-links a:hover {
-            background-color: var(--secondary-color);
-            color: #fff;
+        #close-button:hover {
+            color: #aaa;
         }
 
-        /* Specific Box Styles */
-        #glglstats-box {
-            /* No Specific Styles Here - keeping it general */
-             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="lz77Pattern" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 0 L20 20 M20 0 L0 20" stroke="%23444" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23lz77Pattern)" fill-opacity="0.1"/></svg>');
-            background-size: cover;
+
+        /* Project Specific Styles - Abstract Visuals */
+        .glglstats { background: linear-gradient(to right, cyan, violet); }
+        .ahuzatdibuk { background: linear-gradient(to right, red, yellow); }
+        .thisportfolio { background: linear-gradient(to right, green, fuchsia, purple); filter:contrast(130%); }
+        .socials { background: linear-gradient(to right, lightblue, lightgreen); }
+
+        /* Socials Network */
+        #socials-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
         }
 
-        #ahuzat-dibuk-box {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Tel_Aviv_Montage_2023.jpg/640px-Tel_Aviv_Montage_2023.jpg'); /* Replace with Tel Aviv Map Image */
-            background-size: cover;
-            background-position: center;
-            filter: blur(3px);
-        }
-
-         #meta-portfolio-box {
-            /*  Nothing special  */
-            /* Ensure content is readable */
-            background-color: rgba(34, 34, 34, 0.7); /* Add a semi-transparent background */
-        }
-
-        /* --- Social Links Box --- */
-        #social-box {
-            text-align: center;
-        }
-
-        #social-box a {
-            display: inline-block;
-            margin: 10px;
-        }
-
-        #social-box img {
+        .social-icon {
             width: 50px;
             height: 50px;
-            border-radius: 50%; /* Circular Profile Picture */
-             transition: transform 0.3s ease;
-        }
-
-         #social-box img:hover {
-            transform: scale(1.1);
-        }
-
-        /* --- Footer Styles --- */
-        footer {
-            padding: 10px;
-            text-align: center;
-            font-size: 0.8em;
-            color: #777;
-        }
-
-        #stopwatch {
-            display: inline-block;
-            margin-top: 5px;
-        }
-
-        /* --- Responsiveness --- */
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr;
-            }
-
-            header h1 {
-                font-size: 2em;
-            }
-        }
-
-        /* ---Theme Toggles--- */
-
-        .theme-toggle-container {
+            border-radius: 50%;
+            background-color: #333;
+            margin: 10px;
             display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            background-color: #333; /* Darker background for contrast */
-            color: #fff;
+            justify-content: center;
             align-items: center;
-        }
-
-        .theme-selector {
-            display: flex;
-            gap: 1rem; /* Spacing between theme options */
-        }
-
-        .theme-button {
-            background-color: #555; /* Slightly lighter than the container */
+            font-size: 1.5em;
             color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+            text-decoration: none;
+            transition: box-shadow 0.3s ease;
         }
 
-        .theme-button:hover {
-            background-color: #777; /* Even lighter on hover */
+        .social-icon:hover {
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
 
-        .ai-suggestion {
-            font-style: italic;
-            color: #ddd;
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 0.8em;
         }
 
+        #uptime {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            font-family: Roboto, sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+        }
+
+        /* Intro Header Styles */
+
+        #intro {
+            text-align: center;
+            padding: 50px 20px;
+        }
+
+        #intro h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+        }
+
+        #intro p {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        #container.blurred {
+          filter: blur(5px);
+          pointer-events: none; /* prevent hover events on blurred elements */
+        }
 
     </style>
 </head>
 <body>
 
-    <header>
+    <div id="intro">
         <h1>Geva Kipper</h1>
-        <p>A Software Engineer at Google</p>
-        <p class="ever-changing-note">Re-designed daily by Artificial Intelligence. Come back tomorrow to see what changed.</p>
-    </header>
-
-    <div class="theme-toggle-container">
-        <div class="theme-selector">
-            <button class="theme-button" onclick="setTheme('pastel')">Pastel Day</button>
-            <button class="theme-button" onclick="setTheme('monochrome')">Monochrome Day</button>
-            <button class="theme-button" onclick="setTheme('default')">Default</button>
-
-        </div>
-        <div class="ai-suggestion">AI Suggestion: Try a "Retro Wave" theme tomorrow!</div>
+        <p>Currently contributing to innovative search initiatives at Google.</p>
+        <p><em>Re-designed daily by Artificial Intelligence. Expect the unexpected.</em></p>
     </div>
 
-    <main>
-        <div class="grid-container">
-            <div class="grid-box" id="glglstats-box">
-                <div class="box-icon">📊</div>
-                <h2 class="box-title">GlglStats</h2>
-                <p class="box-description">Website to inspect and analyze data compression of text-based inputs. See impact of LZ77 algorithm.</p>
-                <div class="box-links">
-                    <a href="https://glglstats.onrender.com/" target="_blank">Website</a>
-                    <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank">Conference Presentation</a>
-                </div>
-            </div>
+    <div id="container">
+        <div class="project-box glglstats" data-project="glglstats"><h2>GlglStats</h2></div>
+        <div class="project-box ahuzatdibuk" data-project="ahuzatdibuk"><h2>Ahuzat Dibuk</h2></div>
+        <div class="project-box thisportfolio" data-project="thisportfolio"><h2>This Portfolio</h2></div>
+        <div class="project-box socials" data-project="socials"><h2>Socials</h2></div>
+    </div>
 
-            <div class="grid-box" id="ahuzat-dibuk-box">
-                 <div class="box-icon">🅿️</div>
-                <h2 class="box-title">Ahuzat Dibuk</h2>
-                <p class="box-description">Crowd-sourced data on availability of street parking, based on real-time parking patrols in Tel Aviv.</p>
-                <div class="box-links">
-                      <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank">Facebook Post</a>
-                      <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank">Media Mention 13TV</a>
-                      <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank">Media Mention Mako</a>
+    <div id="expanded-view">
+        <div id="close-button">&times;</div>
+        <div id="expanded-content"></div>
+    </div>
 
-                </div>
-            </div>
 
-            <div class="grid-box" id="meta-portfolio-box">
-                <div class="box-icon">💻</div>
-                <h2 class="box-title">Meta-Portfolio</h2>
-                <p class="box-description">This very website! Showcasing AI-driven design variations and project information.</p>
-                <div class="box-links">
-                    <a href="https://portfolio-dor1.onrender.com/" target="_blank">This Website!</a>
-                </div>
-            </div>
-
-             <div class="grid-box" id="social-box">
-              <div class="box-icon">🔗</div>
-              <h2 class="box-title">Social Links</h2>
-              <div>
-                <a href="https://github.com/gevak" target="_blank">
-                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="GitHub Profile">
-                </a>
-                <a href="https://www.linkedin.com/in/gevakip" target="_blank">
-                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="LinkedIn Profile">
-                </a>
-                <a href="https://www.facebook.com/gevak" target="_blank">
-                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="Facebook Profile">
-                </a>
-              </div>
-            </div>
-
-        </div>
-    </main>
+    <div id="socials-container">
+        <a href="https://github.com/gevak" class="social-icon">GitHub</a>
+        <a href="www.linkedin.com/in/gevakip" class="social-icon">LinkedIn</a>
+        <a href="https://www.facebook.com/notarealpage" class="social-icon">Facebook</a>
+    </div>
 
     <footer>
-        <p>Designed by: AI Model (generated using prompt by Designer)</p>
-        <div id="stopwatch"></div>
+        <p>AI Design by Gemini</p>
+        <p>Portfolio designed by Dor Levi</p>
     </footer>
 
+    <div id="uptime">Uptime: <span id="uptime-value"></span></div>
+
+
     <script>
-        // --- Stopwatch ---
-        function updateStopwatch() {
-            const startTime = new Date("2025-03-21 15:24:22");
-            const now = new Date();
-            const elapsed = now.getTime() - startTime.getTime();
+        const container = document.getElementById('container');
+      const expandedView = document.getElementById('expanded-view');
+      const expandedContent = document.getElementById('expanded-content');
+      const closeButton = document.getElementById('close-button');
 
-            const seconds = Math.floor((elapsed / 1000) % 60);
-            const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
-            const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
-            const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
+      function openProject(project) {
+        let content = '';
 
-            document.getElementById("stopwatch").innerText = `Time since start: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
-
-        setInterval(updateStopwatch, 1000);
-
-
-        // --- Random Color Generator (Simplified) ---
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
-            }
-            return color;
-        }
-
-        // Example usage: Add random background colors (will be overriden by themes, if applied)
-        const boxes = document.querySelectorAll('.grid-box');
-        boxes.forEach(box => {
-            //box.style.backgroundColor = getRandomColor();
-        });
-
-        // --- Font Swapper (Simplified) ---
-        function getRandomFont() {
-         const fonts = [
-             "Helvetica Neue, Helvetica, Arial, sans-serif",
-             "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
-             "Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
-         ];
-         return fonts[Math.floor(Math.random() * fonts.length)];
-        }
-
-        function swapFonts() {
-            document.body.style.setProperty('--primary-font', getRandomFont());
-        }
-
-        //swapFonts(); // Invoke once on load
-
-
-    // --- Theme Toggles ---
-    function setTheme(themeName) {
-        switch (themeName) {
-            case 'pastel':
-                document.body.style.setProperty('--primary-color', '#ccebc5');
-                document.body.style.setProperty('--secondary-color', '#ffb3e2');
-                document.body.style.setProperty('--tertiary-color', '#fbb4ae');
-                document.body.style.backgroundColor = '#f0f0f0';
-                document.body.style.color = '#333';
+        switch (project) {
+          case 'glglstats':
+            content = `
+                            <h1>GlglStats</h1>
+                            <p>Abstract representation of sound waves distorting a pie chart. The project visualizes website visit metrics as an audio frequency.</p>
+                            <a href="https://glglstats.onrender.com/" class="project-link">Website</a>
+                            <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" class="project-link">Conference Presentation Video</a>
+                            <p>Project video:</p>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/jrKAtOsj1Lo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        `;
             break;
-            case 'monochrome':
-               document.body.style.setProperty('--primary-color', '#888');
-                document.body.style.setProperty('--secondary-color', '#aaa');
-                document.body.style.setProperty('--tertiary-color', '#bbb');
-                document.body.style.backgroundColor = '#333';
-                document.body.style.color = '#eee';
-               break;
-            case 'default':
-                document.body.style.setProperty('--primary-color', '#64ffda');
-                document.body.style.setProperty('--secondary-color', '#f44336');
-                document.body.style.setProperty('--tertiary-color', '#ffeb3b');
-                document.body.style.backgroundColor = '#121212';
-                document.body.style.color = '#f0f0f0';
-                break;
+          case 'ahuzatdibuk':
+            content = `
+                            <h1>Ahuzat Dibuk</h1>
+                            <p>A stylized map with heatmap-like color gradients. Presents 'black market' parking spots in Tel Aviv as reported by mobile users.</p>
+                            <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" class="project-link">Publication Post</a>
+                            <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" class="project-link">Media Mention 1</a>
+                            <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" class="project-link">Media Mention 2</a>
+              <p>Heatmap Example:</p>
+              <img src="https://static.mako.co.il/nexter/news_articles/Article-ae43964b891bf71027.htm/ALT/1098447_parking_spotting_i.jpg" alt="Ahuzat Dibuk Heatmap Example" style="max-width:100%;">
+                        `;
+            break;
+          case 'thisportfolio':
+            content = `
+                            <h1>This Portfolio</h1>
+                            <p>A broken down structure of code visualized in a variety of bright colors. A single-page portfolio that gradually "deconstructs" to reveal the project's complexity.</p>
+                            <a href="https://portfolio-dor1.onrender.com/" class="project-link">Website</a>`;
+            break;
+          case 'socials':
+            content = `
+                            <h1>Socials</h1>
+                            <p>Overlapping and intertwined circles representing my professional network.</p>
+                            <a href="https://github.com/gevak" class="project-link">GitHub</a>
+                            <a href="www.linkedin.com/in/gevakip" class="project-link">LinkedIn</a>
+                            <a href="https://www.facebook.com/notarealpage" class="project-link">Facebook</a>
+                        `;
+            break;
+          default:
+            content = `<p>Project details not found.</p>`;
         }
-    }
 
+        expandedContent.innerHTML = content;
+        expandedView.style.display = 'flex'; // Show the expanded view
+        container.classList.add('blurred');
+
+      }
+
+
+      function closeProject() {
+        expandedView.style.display = 'none';
+        container.classList.remove('blurred');
+      }
+
+      // Event listeners for projects and Close button
+      const projectBoxes = document.querySelectorAll('.project-box');
+      projectBoxes.forEach(box => {
+
+        box.addEventListener('click', () => {
+          openProject(box.dataset.project);
+        });
+      });
+
+      closeButton.addEventListener('click', closeProject);
+
+      // Uptime counter
+      function updateUptime() {
+        const startTime = new Date('2025-03-22T13:29:38Z').getTime();
+        const now = new Date().getTime();
+        const diff = now - startTime;
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById('uptime-value').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      setInterval(updateUptime, 1000);
+      updateUptime(); // Initial call
     </script>
+
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250321",
+          pageId: "20250322",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>

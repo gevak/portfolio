@@ -1,0 +1,33 @@
+## Portfolio Design: Geva Kipper - Deconstructed Complexity
+
+Geva Kipper. Currently contributing to innovative search initiatives at Google.
+
+*Re-designed daily by Artificial Intelligence. Expect the unexpected.*
+
+The core concept is a single-page portfolio that gradually "deconstructs" to reveal the project's complexity. Think opening a black box that exposes its inner workings with increasing interaction. The initial view presents abstract shapes relating to the project, that become more refined and information rich when moused over and eventually present a fully-fledged presentation.
+
+**Initial Load:** The page opens with a dark theme (background color #121212) and white text (#FFFFFF). Each project initially appears as a clean, geometrically abstract box. Boxes have a slightly different geometric construction, and colors schemes based on their project:
+*   **GlglStats:** Abstract representation of sound waves distorting a pie chart. Color Palette: primary cyan, secondary violet, and white.
+*   **Ahuzat Dibuk:** A stylized map with heatmap-like color gradients. Color Palette: varying shades of warm red to yellow, fading into the background
+*   **This Portfolio:** A broken down structure of code. Color Palette: A mix or bright green, fuchsia and purple.
+*   **Socials:** Overlapping and intertwined circles
+
+**Mouse Hover:** Hovering reveals more about the project. The title slides into view (e.g., "GlglStats"), plus a brief description. The abstract box transforms into a slightly more detailed visualization of the project's underlying components/data flow. For example "GlglStats" showcases simplified compression process steps and their LZ77 ratios.
+
+**Click:** Clicking on a project box expands it to occupy nearly the entire viewport. The background dims slightly. The expansion should be animated with a smooth transition.
+
+**Detailed View:**
+
+*   **Title:** Distinct h1 style (e.g., "GlglStats")
+*   **Description:** The concise explanation from the requirements.
+*   **Project Links:** Presented as clean, interactive buttons.
+*   **Project-Specific Media:** Project video / heatmap image embedded here.
+*   **Back Button:** A floating 'X' icon in the top right corner of the expanded view to return to the main abstract layout.
+
+**Socials Section:** Links to GitHub, LinkedIn, and Facebook are displayed as interconnected icons forming a simple, visually engaging network graph. Each icon glows gently upon hover.
+
+**Footer:**
+
+*   **Credit:** "AI Design by [AI Model Name]" (small font)
+*   **Developer Credit:** "Portfolio designed by Dor Levi" (small font)
+*   **Uptime Stopwatch:** Simple, unobtrusive display counting time since 2025-03-22 13:29:38. Font: Roboto, weight 300. Position: lower right corner.
