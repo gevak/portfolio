@@ -2,6 +2,7 @@ import models
 
 import logging
 import random
+import re
 from PIL import Image
 from io import BytesIO
 from playwright.async_api import async_playwright
@@ -41,7 +42,13 @@ def get_idea_title(model: str) -> str:
   dreamer_prompt = open(_DREAMER_PROMPT_FILE, 'r').read()
   response = prompt(dreamer_prompt, model)
   logging.info("Got ideas response: %s", response)
-  ideas = [l for l in response.splitlines() if l.lower().startswith('idea') and ':' in l]
+  pattern = r'\**\s*idea\s+\d+:\s*\**\s*(.*)'
+  ideas = []
+  for line in response.splitlines():
+    match = re.match(pattern, text, re.IGNORECASE) 
+    if match:
+      extracted_idea = match.group(1)
+      ideas.append(extracted_idea)
   assert len(ideas) > 0
   idea = random.choice(ideas)
   idea = idea[idea.find(':') + 1:].strip()
