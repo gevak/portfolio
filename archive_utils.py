@@ -11,6 +11,8 @@ load_dotenv()
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SUPABASE_KEY = os.environ.get("SUPABASE_KEY")
 
+DEFAULT_TITLE = 'Missing title'
+
 supabase = None
 
 def get_db_client():
@@ -53,7 +55,7 @@ def get_like_count(page_id="default"):
         return 0
     
 def save_like_count(
-        count: int, page_id: str = '', title: str = 'Missing title') -> bool:
+        count: int, page_id: str = '', title: str = '') -> bool:
     """Save like count to Supabase"""
     if not is_valid_page_id(page_id):
         print(f"Invalid page_id format: {page_id}. Ignoring save request.")
@@ -73,9 +75,13 @@ def save_like_count(
         if response.data:
             # Update existing record
             client.table('likes').update({'count': count}).eq('page_id', page_id).execute()
+            if title:
+                client.table('likes').update({'title': title}).eq('page_id', page_id).execute()
         else:
             # Insert new record
-            client.table('likes').insert({'page_id': page_id, 'count': count, 'title': title}).execute()
+            client.table('likes').insert(
+                {'page_id': page_id, 'count': count, 'title': title or DEFAULT_TITLE}
+                ).execute()
             
         return True
     except Exception as e:
