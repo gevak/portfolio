@@ -45,7 +45,7 @@ def get_idea_title(model: str) -> str:
   pattern = r'\**\s*idea\s+\d+:\s*\**\s*(.*)'
   ideas = []
   for line in response.splitlines():
-    match = re.match(pattern, text, re.IGNORECASE) 
+    match = re.match(pattern, line, re.IGNORECASE) 
     if match:
       extracted_idea = match.group(1)
       ideas.append(extracted_idea)
