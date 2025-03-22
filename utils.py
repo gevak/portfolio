@@ -38,16 +38,22 @@ def get_impl(design: str, model: str) -> str:
   html_code = text[text.find('<html'):text.find('</html>')+len('</html>')]
   return html_code
 
+def extract_idea(text: str) -> str:
+  pattern = r'.*\**\s*idea\s+\d+:\s*\**\s*(.*)'
+  match = re.match(pattern, text, re.IGNORECASE) 
+  if match:
+    return match.group(1).strip('* \t')
+  return ''
+
 def get_idea_title(model: str) -> str:
   dreamer_prompt = open(_DREAMER_PROMPT_FILE, 'r').read()
   response = prompt(dreamer_prompt, model)
   logging.info("Got ideas response: %s", response)
-  pattern = r'\**\s*idea\s+\d+:\s*\**\s*(.*)'
+  
   ideas = []
   for line in response.splitlines():
-    match = re.match(pattern, line, re.IGNORECASE) 
-    if match:
-      extracted_idea = match.group(1).strip('* \t')
+    extracted_idea = extract_idea(line)
+    if extracted_idea:
       ideas.append(extracted_idea)
   assert len(ideas) > 0
   idea = random.choice(ideas)
