@@ -68,15 +68,18 @@ def generate_page(model: str):
     with open(os.path.join('docs', 'index.html'), 'w', encoding='utf-8') as f:
         f.write(impl_code)
     logging.info("HTML template used to replace docs/index.html")
-    logging.info("Creating DB entry")
-    archive_utils.save_like_count(0, page_id, title=idea_title)
 
     # Save screenshot
-    screenshot_jpg = asyncio.run(utils.get_screenshot(impl_code))
-    screenshot_file = os.path.join(today_dir, 'screenshot.jpg')
-    screenshot_jpg.save(screenshot_file)
-    logging.info(f"Screenshot saved to {screenshot_file}")
+    try:
+        screenshot_jpg = asyncio.run(utils.get_screenshot(impl_code))
+        screenshot_file = os.path.join(today_dir, 'screenshot.jpg')
+        screenshot_jpg.save(screenshot_file)
+        logging.info(f"Screenshot saved to {screenshot_file}")
+    except Exception as e:
+        logging.warning('Failed to save screenshot: %s', e)
 
+    logging.info("Creating DB entry")
+    archive_utils.save_like_count(0, page_id, title=idea_title)
 
 def main():
     generate_page(model=MODEL)
