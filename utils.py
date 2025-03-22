@@ -42,7 +42,7 @@ def extract_idea(text: str) -> str:
   pattern = r'.*\**\s*idea\s+\d+:\s*\**\s*(.*)'
   match = re.match(pattern, text, re.IGNORECASE) 
   if match:
-    return match.group(1).strip('* \t')
+    return match.group(1).strip('* \t.')
   return ''
 
 def get_idea_title(model: str) -> str:
