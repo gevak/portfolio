@@ -1,33 +1,63 @@
-## Portfolio Design: Geva Kipper - Deconstructed Complexity
+## Geva Kipper's Portfolio: Interactive Data Visualization
 
-Geva Kipper. Currently contributing to innovative search initiatives at Google.
+**Overall Theme:** Modern, minimalist, and visually driven by data. The website feels like a living data landscape. Soft, desaturated color palette (think blues, greys, and whites) with pops of primary color highlighting interactive elements.
 
-*Re-designed daily by Artificial Intelligence. Expect the unexpected.*
+**Hero Section:**
 
-The core concept is a single-page portfolio that gradually "deconstructs" to reveal the project's complexity. Think opening a black box that exposes its inner workings with increasing interaction. The initial view presents abstract shapes relating to the project, that become more refined and information rich when moused over and eventually present a fully-fledged presentation.
+*   Large, clean typography for the name "Geva Kipper" at the top. Below it: "Software Engineer at Google."
+*   Subtitle in smaller, italicized font: "This portfolio is redesigned by AI daily, a constantly evolving snapshot of my skills."
+*   The background is a subtle, animated data visualization. Think a flowing stream of abstract shapes representing data points. This stream could be subtly influenced by cursor position.
 
-**Initial Load:** The page opens with a dark theme (background color #121212) and white text (#FFFFFF). Each project initially appears as a clean, geometrically abstract box. Boxes have a slightly different geometric construction, and colors schemes based on their project:
-*   **GlglStats:** Abstract representation of sound waves distorting a pie chart. Color Palette: primary cyan, secondary violet, and white.
-*   **Ahuzat Dibuk:** A stylized map with heatmap-like color gradients. Color Palette: varying shades of warm red to yellow, fading into the background
-*   **This Portfolio:** A broken down structure of code. Color Palette: A mix or bright green, fuchsia and purple.
-*   **Socials:** Overlapping and intertwined circles
+**Main Content Sections (Skillset as Data Visualizations):**
 
-**Mouse Hover:** Hovering reveals more about the project. The title slides into view (e.g., "GlglStats"), plus a brief description. The abstract box transforms into a slightly more detailed visualization of the project's underlying components/data flow. For example "GlglStats" showcases simplified compression process steps and their LZ77 ratios.
+Each of the four sections is presented as a distinct visual element, with interactivity built in.
 
-**Click:** Clicking on a project box expands it to occupy nearly the entire viewport. The background dims slightly. The expansion should be animated with a smooth transition.
+1.  **GlglStats:**
+    *   Presentation format: A dynamic, interactive waveform visualization representing song segments.
+    *   Clicking on a segment in the waveform highlights the identified repeated patterns, using color coding.
+    *   Title: "GlglStats: Measuring Musical Repetition."
+    *   Short description: "Analyzes repetitiveness in Israeli pop chart songs using LZ77 compression."
+    *   "View live" button linking to the GlglStats website.
+    *   Embedded thumbnail image with a play button for the PyData TLV presentation video. On click, the video opens in a modern lightbox.
 
-**Detailed View:**
+2.  **Ahuzat Dibuk:**
+    *   Presentation format: A heatmap visualization of Tel-Aviv parking spot occupancy.
+    *   Data points pulse gently.
+    *   Title: "Ahuzat Dibuk: Real-Time Parking Data Visualization."
+    *   Short description: "Collecting and visualizing Tel-Aviv parking lot statistics for resident use."
+    *   Buttons linking to the news articles and Facebook post, with subtle icons next to the button text.
 
-*   **Title:** Distinct h1 style (e.g., "GlglStats")
-*   **Description:** The concise explanation from the requirements.
-*   **Project Links:** Presented as clean, interactive buttons.
-*   **Project-Specific Media:** Project video / heatmap image embedded here.
-*   **Back Button:** A floating 'X' icon in the top right corner of the expanded view to return to the main abstract layout.
+3.  **Portfolio Website (Self-Referential):**
+    *   Presentation format: A simplified, interactive wireframe model of the current portfolio website. Each section of the wireframe is subtly highlighted on hover.
+    *   Title: "Portfolio Website (This Site!)"
+    *   Short description: "A living portfolio, redesigned daily by AI using data visualization and interactive design."
+    *   A "Explore this site" button takes the user to the top of the page, creating a seamless loop.
 
-**Socials Section:** Links to GitHub, LinkedIn, and Facebook are displayed as interconnected icons forming a simple, visually engaging network graph. Each icon glows gently upon hover.
+4.  **Links:**
+    *   Presentation format: A network graph, where each platform (GitHub, LinkedIn, Facebook) is a node. The links between the nodes subtly animate, showing connections.
+    *   The logos of the mentioned platforms will be used as node icons.
+    *   Title: "Connect with Me."
+    *   Buttons to LinkedIn, GitHub and Facebook. Upon hover, the connected nodes of the network graph should be emphasized.
+
+**Overall Layout:**
+
+*   Clean, grid-based layout with generous spacing.
+*   Smooth scrolling between sections.
+*   The entire page subtly reacts to mouseover events, creating a sense of responsiveness without excessive animation.
 
 **Footer:**
 
-*   **Credit:** "AI Design by [AI Model Name]" (small font)
-*   **Developer Credit:** "Portfolio designed by Dor Levi" (small font)
-*   **Uptime Stopwatch:** Simple, unobtrusive display counting time since 2025-03-22 13:29:38. Font: Roboto, weight 300. Position: lower right corner.
+*   Small, minimalist text.
+*   "Designed with the assistance of [AI Model Name]."
+*   "Created by [Your Name]".
+*   Stopwatch: A subtle, analog-style clock face counting upwards from March 22, 2025 17:49:03. Display Days, Hours, Minutes, and Seconds.
+*   Sticky footer, always visible at the bottom of the screen.
+
+**Typography:**
+
+*   Modern, clean sans-serif font. Use different weights and sizes to create visual hierarchy.
+
+**Color Palette:**
+
+*   Primarily cool and light colors like #f0f8ff (AliceBlue), #e6e6e6 (Gainsboro), and #d3d3d3 (LightGray) for backgrounds and containers.
+*   Accents of a single, vibrant primary color (e.g., #007bff or #28a745) for interactive elements and key information. This color should be used sparingly to draw attention.

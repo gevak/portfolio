@@ -1,1 +1,1 @@
-Portfolio "deconstructs" revealing project complexity.
+Interactive data visualization of skill set

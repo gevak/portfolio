@@ -2,315 +2,585 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - Deconstructed Complexity</title>
+    <title>Geva Kipper's Portfolio</title>
     <style>
+        /* General Styles */
         body {
-            background-color: #121212;
-            color: #FFFFFF;
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            overflow-x: hidden;
+            background-color: #f0f8ff; /* AliceBlue */
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        #container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            padding: 20px;
-            gap: 20px;
-            transition: filter 0.3s ease;
-          
+        a {
+            color: #007bff; /* Primary color for links */
+            text-decoration: none;
         }
 
-        .project-box {
-            width: 200px;
+        a:hover {
+            text-decoration: underline;
+        }
+
+        section {
+            padding: 40px;
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+            transition: transform 0.2s ease-in-out;
+        }
+
+        section:hover {
+            transform: translateY(-3px); /* Gentle lift on hover */
+        }
+
+
+        /* Hero Section */
+        #hero {
+            background-color: #e6e6e6; /* Gainsboro */
+            text-align: center;
+            padding: 100px 0;
+            position: relative; /* For background animation */
+            overflow: hidden; /* Hide overflowing shapes */
+        }
+
+        #hero h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        #hero h2 {
+            font-size: 1.5em;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        #hero p {
+            font-style: italic;
+            color: #777;
+        }
+
+
+        /* Background Animation - Simplified */
+        #hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(0,123,255,0.1)); /* Subtle gradient */
+            opacity: 0.6;
+            z-index: -1; /* Behind content */
+            animation: flow 10s linear infinite; /* Slow, subtle animation */
+        }
+
+        @keyframes flow {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 200% 200%;
+            }
+        }
+
+
+        /* Main Content Sections */
+        .section-title {
+            font-size: 2em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .section-description {
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        /* Skillset Visualizations (placeholders, replace with actual visualizations) */
+        .visualization-container {
             height: 200px;
-            border: 1px solid #333;
+            background-color: #d3d3d3; /* LightGray */
+            border-radius: 8px;
+            margin-bottom: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            position: relative;
+            color: #777;
+            font-style: italic;
             overflow: hidden;
+            position: relative;
         }
 
-        .project-box:hover {
-           transform: scale(1.1);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+
+        /* GlglStats Styling */
+        #glglstats-waveform {
+            /* Placeholder for waveform visualization */
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #007bff, #d3d3d3, #007bff); /* Blue gradient */
+            background-size: 400% 400%;
+            animation: waveformAnimation 5s ease infinite;
         }
-        .project-box h2 {
+
+        @keyframes waveformAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .video-thumbnail {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-thumbnail:hover {
+         opacity: 1;
+        }
+
+        .play-button {
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            font-size: 3em;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            z-index: 1;
         }
 
-        .project-box:hover h2 {
-            opacity: 1;
-        }
-
-        #expanded-view {
+        /* Lightbox */
+        .lightbox {
+            display: none;
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            display: none;
-            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
             align-items: center;
-            z-index: 10;
-            padding: 20px;
-            box-sizing: border-box;
-            overflow: auto;
+            justify-content: center;
         }
 
-        #expanded-content {
-            max-width: 800px;
-            padding: 20px;
-            background-color: #121212; /* Match background */
-            border: 1px solid #333;
-            color: #fff;
-            border-radius: 5px;
+        .lightbox-content {
+            max-width: 80%;
+            max-height: 80%;
         }
 
-        #expanded-content h1 {
-            font-size: 2em;
-            margin-bottom: 10px;
+        .lightbox-content iframe {
+            width: 100%;
+            height: 100%;
         }
 
-        #expanded-content p {
-            margin-bottom: 20px;
-        }
-
-        .project-link {
-            display: inline-block;
-            padding: 10px 20px;
-            background-color: #333;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-right: 10px;
-            margin-bottom: 10px;/*Added margin to the bottom of the projects to prevent links being cutoff*/
-        }
-        
-        #close-button {
+        .lightbox .close-button {
             position: absolute;
             top: 20px;
             right: 20px;
             font-size: 2em;
-            cursor: pointer;
             color: white;
-            transition: color 0.3s ease;
-        }
-
-        #close-button:hover {
-            color: #aaa;
+            cursor: pointer;
         }
 
 
-        /* Project Specific Styles - Abstract Visuals */
-        .glglstats { background: linear-gradient(to right, cyan, violet); }
-        .ahuzatdibuk { background: linear-gradient(to right, red, yellow); }
-        .thisportfolio { background: linear-gradient(to right, green, fuchsia, purple); filter:contrast(130%); }
-        .socials { background: linear-gradient(to right, lightblue, lightgreen); }
+        /* Ahuzat Dibuk Styling */
+        #ahuzat-dibuk-heatmap {
+            /* Placeholder for heatmap visualization */
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.3), rgba(255, 255, 255, 0.1)); /* Red gradient */
+            animation: pulse 2s infinite alternate;
+        }
 
-        /* Socials Network */
-        #socials-container {
-            display: flex;
-            justify-content: center;
+        @keyframes pulse {
+            from {
+                opacity: 0.7;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .icon-link {
+            display: inline-flex;
             align-items: center;
-            padding: 20px;
+            margin-right: 10px;
         }
 
-        .social-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background-color: #333;
-            margin: 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.5em;
-            color: #fff;
-            text-decoration: none;
-            transition: box-shadow 0.3s ease;
+        .icon-link img {
+            width: 20px;
+            height: 20px;
+            margin-right: 5px;
         }
 
-        .social-icon:hover {
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+
+        /* Portfolio Website Styling */
+        #portfolio-wireframe {
+            /* Placeholder for wireframe */
+            background: repeating-linear-gradient(45deg, #eee, #eee 10px, #fff 10px, #fff 20px); /* Wireframe pattern */
         }
 
+
+        /* Links Styling */
+        #links-network {
+            /* Placeholder for network graph */
+            background: radial-gradient(circle, rgba(0, 123, 255, 0.2), rgba(255, 255, 255, 0.1)); /* Blue gradient */
+        }
+
+        /* Buttons */
+        button {
+            background-color: #007bff; /* Primary color for buttons */
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+        }
+
+        button:hover {
+            background-color: #0056b3; /* Darker shade on hover */
+        }
+
+        /* Specific button style for "Explore this Site"*/
+        #explore-this-site-button{
+            background-color: #28a745;
+        }
+
+        #explore-this-site-button:hover{
+            background-color: #218838;
+        }
+
+        /* Footer */
         footer {
-            text-align: center;
+            background-color: #d3d3d3; /* LightGray */
             padding: 20px;
-            font-size: 0.8em;
-        }
-
-        #uptime {
-            position: fixed;
-            bottom: 10px;
-            right: 10px;
-            font-family: Roboto, sans-serif;
-            font-weight: 300;
-            font-size: 14px;
-        }
-
-        /* Intro Header Styles */
-
-        #intro {
             text-align: center;
-            padding: 50px 20px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            font-size: small;
         }
 
-        #intro h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
+        /* Mobile Responsiveness */
+        @media (max-width: 600px) {
+            section {
+                padding: 20px;
+            }
+
+            #hero {
+                padding: 60px 0;
+            }
+
+            #hero h1 {
+                font-size: 2.5em;
+            }
+
+            #hero h2 {
+                font-size: 1.2em;
+            }
+
+            .visualization-container {
+                height: 150px;
+            }
         }
 
-        #intro p {
-            font-size: 1.2em;
-            margin-bottom: 20px;
+        /* Animate the clock numbers coming in*/
+
+        .countdown {
+
+            overflow: hidden;
+
+            grid-area: time;
+
+            color: inherit;
+
+            display: grid;
+
+            grid-template-rows: 1fr;
+
+            grid-template-columns: 1fr 1fr;
+
         }
-        #container.blurred {
-          filter: blur(5px);
-          pointer-events: none; /* prevent hover events on blurred elements */
+
+        .countdown > * {
+
+            position: relative;
+
+            margin: 0;
+
+            padding: 0;
+
+            width: auto;
+
+            grid-column: span 1;
+
+            text-align: center;
+
+        }
+
+        .countdown .countdown-shadow {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 0;
+
+            width: 100%;
+
+            color: rgba(0, 0, 0, 0.3);
+
+            font-variation-settings: 'wght' 700;
+
+            transform: translateY(-50%);
+
+        }
+
+        .countdown-num {
+
+            z-index: 1;
+
+            -webkit-transition: all 0.5s ease-in-out;
+
+            transition: all 0.5s ease-in-out;
+
+            font-variation-settings: 'wght' 500;
+
+            will-change: transform;
+
+        }
+        /* Add for scrolling*/
+        html {
+                scroll-behavior: smooth;
         }
 
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-    <div id="intro">
+    <!-- Hero Section -->
+    <section id="hero">
         <h1>Geva Kipper</h1>
-        <p>Currently contributing to innovative search initiatives at Google.</p>
-        <p><em>Re-designed daily by Artificial Intelligence. Expect the unexpected.</em></p>
-    </div>
+        <h2>Software Engineer at Google</h2>
+        <p><i>This portfolio is redesigned by AI daily, a constantly evolving snapshot of my skills.</i></p>
+    </section>
 
-    <div id="container">
-        <div class="project-box glglstats" data-project="glglstats"><h2>GlglStats</h2></div>
-        <div class="project-box ahuzatdibuk" data-project="ahuzatdibuk"><h2>Ahuzat Dibuk</h2></div>
-        <div class="project-box thisportfolio" data-project="thisportfolio"><h2>This Portfolio</h2></div>
-        <div class="project-box socials" data-project="socials"><h2>Socials</h2></div>
-    </div>
+    <!-- GlglStats Section -->
+    <section id="glglstats">
+        <h2 class="section-title">GlglStats: Measuring Musical Repetition</h2>
+        <p class="section-description">Analyzes repetitiveness in Israeli pop chart songs using LZ77 compression.</p>
+        <div class="visualization-container">
+            <div id="glglstats-waveform"></div>
+        </div>
+        <a href="https://glglstats.onrender.com/" target="_blank"><button>View live</button></a>
 
-    <div id="expanded-view">
-        <div id="close-button">&times;</div>
-        <div id="expanded-content"></div>
-    </div>
+        <!-- Embedded Video Thumbnail and Lightbox -->
+        <div class="video-container">
+            <img src="https://img.youtube.com/vi/jrKAtOsj1Lo/0.jpg" alt="PyData TLV Presentation" class="video-thumbnail" onclick="openLightbox('jrKAtOsj1Lo')">
+            <div class="play-button" onclick="openLightbox('jrKAtOsj1Lo')"><i class="fas fa-play-circle"></i></div>
+        </div>
+
+        <div class="lightbox" id="lightbox">
+            <div class="lightbox-content">
+                <span class="close-button" onclick="closeLightbox()">&times;</span>
+                <iframe id="yt-video" src="" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ahuzat Dibuk Section -->
+    <section id="ahuzat-dibuk">
+        <h2 class="section-title">Ahuzat Dibuk: Real-Time Parking Data Visualization</h2>
+        <p class="section-description">Collecting and visualizing Tel-Aviv parking lot statistics for resident use.</p>
+        <div class="visualization-container">
+            <div id="ahuzat-dibuk-heatmap"></div>
+        </div>
+
+        <div>
+            <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank"  rel="noreferrer noopener">
+                <button>
+                    <span class="icon-link">
+                      <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png"/>
+                      Facebook post
+                    </span>
+                </button>
+            </a>
 
 
-    <div id="socials-container">
-        <a href="https://github.com/gevak" class="social-icon">GitHub</a>
-        <a href="www.linkedin.com/in/gevakip" class="social-icon">LinkedIn</a>
-        <a href="https://www.facebook.com/notarealpage" class="social-icon">Facebook</a>
-    </div>
+            <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank"  rel="noreferrer noopener">
+                <button type="button">
+                    <span class="icon-link">
+                            <img src="https://static.13tv.co.il/res/images/logo-new.svg">
+                            13 News
+                    </span>
+                </button>
+            </a>
 
+            <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank"  rel="noreferrer noopener">
+                <button>
+                    <span class="icon-link">
+                        <img src="https://img.mako.co.il/mako/resources/images//global/mako_logo.svg" />
+
+                        Mako News
+                    </span>
+                </button>
+            </a>
+        </div>
+    </section>
+
+    <!-- Portfolio Website Section -->
+    <section id="portfolio">
+        <h2 class="section-title">Portfolio Website (This Site!)</h2>
+        <p class="section-description">A living portfolio, redesigned daily by AI using data visualization and interactive design.</p>
+        <div class="visualization-container">
+            <div id="portfolio-wireframe"></div>
+        </div>
+        <button id="explore-this-site-button" onclick="scrollToTop()">Explore this site</button>
+    </section>
+
+    <!-- Links Section -->
+    <section id="links">
+        <h2 class="section-title">Connect with Me</h2>
+        <div class="visualization-container">
+            <div id="links-network"></div>
+        </div>
+
+        <a href="https://www.linkedin.com/in/gevakip" target="_blank" rel="noreferrer noopener">
+                <button>
+                <span class="icon-link">
+                    <img src="https://img.icons8.com/color/48/000000/linkedin.png"/>
+                    LinkedIn
+                </span>
+                </button>
+        </a>
+
+        <a href="https://github.com/gevak" target="_blank"  rel="noreferrer noopener">
+                <button>
+                <span class="icon-link">
+                    <img src="https://img.icons8.com/color/48/000000/github--v1.png"/>
+                    GitHub
+                </span>
+                </button>
+        </a>
+
+        <a href="https://www.facebook.com/gevakip" target="_blank" rel="noreferrer noopener">
+                <button>
+                    <span class="icon-link">
+                        <img src="https://img.icons8.com/color/48/000000/facebook-new.png"/>
+                        Facebook
+                    </span>
+                </button>
+         </a>
+
+    </section>
+
+    <!-- Footer -->
     <footer>
-        <p>AI Design by Gemini</p>
-        <p>Portfolio designed by Dor Levi</p>
+        <p>Designed with the assistance of Bard (Google AI Model).</p>
+        <p>Created by [Your Name]</p>
+        <div class="countdown-container">
+          <div class="countdown">
+            <p>It has been:</p>
+            <p class="countdown-day">
+              <span class="countdown-num">00</span><span class="countdown-shadow">00</span>
+            </p>
+            <p>Day</p>
+            <p class="countdown-hour">
+              <span class="countdown-num">00</span>
+              <span class="countdown-shadow">00</span>
+            </p>
+             <p>Hours</p>
+            <p class="countdown-min"><span class="countdown-num">00</span>
+              <span class="countdown-shadow">00</span></p>
+            <p>Mins</p>
+            <p class="countdown-second"><span class="countdown-num">00</span>
+              <span class="countdown-shadow">00</span></p>
+            <p>Secs</p>
+          </div>
+        </div>
     </footer>
 
-    <div id="uptime">Uptime: <span id="uptime-value"></span></div>
-
-
     <script>
-        const container = document.getElementById('container');
-      const expandedView = document.getElementById('expanded-view');
-      const expandedContent = document.getElementById('expanded-content');
-      const closeButton = document.getElementById('close-button');
-
-      function openProject(project) {
-        let content = '';
-
-        switch (project) {
-          case 'glglstats':
-            content = `
-                            <h1>GlglStats</h1>
-                            <p>Abstract representation of sound waves distorting a pie chart. The project visualizes website visit metrics as an audio frequency.</p>
-                            <a href="https://glglstats.onrender.com/" class="project-link">Website</a>
-                            <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" class="project-link">Conference Presentation Video</a>
-                            <p>Project video:</p>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/jrKAtOsj1Lo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        `;
-            break;
-          case 'ahuzatdibuk':
-            content = `
-                            <h1>Ahuzat Dibuk</h1>
-                            <p>A stylized map with heatmap-like color gradients. Presents 'black market' parking spots in Tel Aviv as reported by mobile users.</p>
-                            <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" class="project-link">Publication Post</a>
-                            <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" class="project-link">Media Mention 1</a>
-                            <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" class="project-link">Media Mention 2</a>
-              <p>Heatmap Example:</p>
-              <img src="https://static.mako.co.il/nexter/news_articles/Article-ae43964b891bf71027.htm/ALT/1098447_parking_spotting_i.jpg" alt="Ahuzat Dibuk Heatmap Example" style="max-width:100%;">
-                        `;
-            break;
-          case 'thisportfolio':
-            content = `
-                            <h1>This Portfolio</h1>
-                            <p>A broken down structure of code visualized in a variety of bright colors. A single-page portfolio that gradually "deconstructs" to reveal the project's complexity.</p>
-                            <a href="https://portfolio-dor1.onrender.com/" class="project-link">Website</a>`;
-            break;
-          case 'socials':
-            content = `
-                            <h1>Socials</h1>
-                            <p>Overlapping and intertwined circles representing my professional network.</p>
-                            <a href="https://github.com/gevak" class="project-link">GitHub</a>
-                            <a href="www.linkedin.com/in/gevakip" class="project-link">LinkedIn</a>
-                            <a href="https://www.facebook.com/notarealpage" class="project-link">Facebook</a>
-                        `;
-            break;
-          default:
-            content = `<p>Project details not found.</p>`;
+        // Lightbox functionality
+        function openLightbox(videoId) {
+            document.getElementById('yt-video').src = `https://www.youtube.com/embed/${videoId}`;
+            document.getElementById('lightbox').style.display = 'flex';
         }
 
-        expandedContent.innerHTML = content;
-        expandedView.style.display = 'flex'; // Show the expanded view
-        container.classList.add('blurred');
+        function closeLightbox() {
+            document.getElementById('yt-video').src = ''; // Stop video from playing
+            document.getElementById('lightbox').style.display = 'none';
+        }
 
-      }
+        // Scroll to top function
+        function scrollToTop() {
+                window.scrollTo({
+                  top: 0,
+                  behavior: 'smooth'
+                });
+              }
+        //Clock
+          const second = 1000,
+                minute = second * 60,
+                hour = minute * 60,
+                day = hour * 24;
 
+          let today = new Date("March 22, 2025 17:49:03"),
+              dd = String(today.getDate()).padStart(2, "0"),
+              mm = String(today.getMonth() + 1).padStart(2, "0"),
+              yyyy = today.getFullYear(),
+              nextYear = yyyy + 1,
+              dayMonth = mm + "/" + dd + "/",
+              birthday = dayMonth + yyyy;
 
-      function closeProject() {
-        expandedView.style.display = 'none';
-        container.classList.remove('blurred');
-      }
+          today = new Date();
+          if (birthday > today) {
+            birthday = dayMonth + yyyy;
+          } else {
+            birthday = dayMonth + nextYear;
+          }
+          //end
 
-      // Event listeners for projects and Close button
-      const projectBoxes = document.querySelectorAll('.project-box');
-      projectBoxes.forEach(box => {
+          const countDown = new Date("March 22, 2025 17:49:03").getTime(),
+              x = setInterval(function() {
 
-        box.addEventListener('click', () => {
-          openProject(box.dataset.project);
-        });
-      });
+                const now = new Date().getTime(),
+                      distance = now - countDown;
 
-      closeButton.addEventListener('click', closeProject);
+                document.querySelector(".countdown-day .countdown-num").innerText = Math.floor(distance / (day)),
+                  document.querySelector(".countdown-hour .countdown-num").innerText = Math.floor((distance % (day)) / (hour)),
+                  document.querySelector(".countdown-min .countdown-num").innerText = Math.floor((distance % (hour)) / (minute)),
+                  document.querySelector(".countdown-second .countdown-num").innerText = Math.floor((distance % (minute)) / second);
 
-      // Uptime counter
-      function updateUptime() {
-        const startTime = new Date('2025-03-22T13:29:38Z').getTime();
-        const now = new Date().getTime();
-        const diff = now - startTime;
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('uptime-value').textContent = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-      }
-
-      setInterval(updateUptime, 1000);
-      updateUptime(); // Initial call
+                //do something later when date is reached
+                if (distance < 0) {
+                  clearInterval(x);
+                  //document.getElementById("headline").innerText = "It's my birthday!";
+                  //document.getElementById("content").style.display = "none";
+                  //document.getElementById("greeting").innerText = "Happy birthday! (This portfolio website was created)";
+                }
+                //seconds
+              }, 0)
     </script>
-
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
