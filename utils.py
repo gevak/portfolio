@@ -47,7 +47,7 @@ def get_idea_title(model: str) -> str:
   for line in response.splitlines():
     match = re.match(pattern, line, re.IGNORECASE) 
     if match:
-      extracted_idea = match.group(1)
+      extracted_idea = match.group(1).strip('* \t')
       ideas.append(extracted_idea)
   assert len(ideas) > 0
   idea = random.choice(ideas)
@@ -69,7 +69,7 @@ async def get_screenshot(html_code: str) -> str:
     context = await browser.new_context(user_agent='test', device_scale_factor=2)
     page = await context.new_page()
     await page.set_content(html_code)
-    await page.wait_for_load_state("networkidle")
+    await page.wait_for_load_state("networkidle", timeout=10*1000)
     screenshot_data = await page.screenshot(full_page=True)
     image_jpg = convert_png_to_jpg(bytes_image_png=screenshot_data, jpg_quality=65)
     await context.close()
