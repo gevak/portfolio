@@ -1,480 +1,619 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - AI-Powered Portfolio</title>
+    <title>Geva Kipper | Software Engineer</title>
     <style>
-        /* --- General Styles --- */
-        body {
-            font-family: 'Arial', sans-serif;
+        :root {
+            --bg-color: #1a1a2e;
+            --text-color: #e6e6e6;
+            --accent-glgl: #4ecca3;
+            --accent-ahuzat: #a8a9ad;
+            --accent-portfolio: #f0a500;
+            --accent-social: #e6e6e6;
+            --prompt-color: #4ecca3;
+            --section-bg: rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
             margin: 0;
             padding: 0;
-            background-color: #121212; /* Dark Background */
-            color: #f0f0f0; /* Light Text */
+            box-sizing: border-box;
+            font-family: 'Roboto Mono', monospace;
+        }
+        
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-size: 16px;
+            line-height: 1.6;
+            padding: 0;
+            margin: 0;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-
-            --primary-font:  "Helvetica Neue", Helvetica, Arial, sans-serif;
-            --secondary-font: Menlo, Monaco, Consolas, "Courier New", monospace;
-
-            --primary-color: #64ffda; /* Tealish Blue */
-            --secondary-color: #f44336; /* Red */
-            --tertiary-color: #ffeb3b; /* Yellow */
-            --grid-gap: 20px;
-            --box-border-radius: 4px;
-            --link-border-radius: 4px;
         }
-
-        main {
-            flex: 1; /* Take up remaining vertical space */
-        }
-
-        a {
-          color: var(--tertiary-color);
-          text-decoration: none;
-        }
-
-        /* -- random-color-generator -- */
-        :root {
-           --bg: hsl(210, 25%, 98%);
-            --bg-card: hsl(0, 0%, 100%);
-            --border-radius: 0.75rem;
-            --color-heading: hsl(210, 10%, 30%);
-            --color-text: hsl(210, 10%, 50%);
-            --ff-primary: "General Sans", sans-serif;
-            --gradient-heading: linear-gradient(
-              0deg,
-              hsl(210, 10%, 30%) 0%,
-              hsl(210, 10%, 30%) 100%
-            );
-            --gradient-text: linear-gradient(
-              0deg,
-              hsl(210, 10%, 50%) 0%,
-              hsl(210, 10%, 50%) 100%
-            );
-
-
-            --primary:  #ffffff;
-            --secondary:  #e8e1e9;
-            --neutral:    #232c2b;
-            --font-color: #000000;
-            --background-color: #ffffff;
-        }
-
-        @media (prefers-color-scheme: light) {
-           :root {
-           --bg: hsl(210, 25%, 98%);
-            --bg-card: hsl(0, 0%, 100%);
-            --border-radius: 0.75rem;
-            --color-heading: hsl(210, 10%, 30%);
-            --color-text: hsl(210, 10%, 50%);
-            --ff-primary: "General Sans", sans-serif;
-            --gradient-heading: linear-gradient(
-              0deg,
-              hsl(210, 10%, 30%) 0%,
-              hsl(210, 10%, 30%) 100%
-            );
-            --gradient-text: linear-gradient(
-              0deg,
-              hsl(210, 10%, 50%) 0%,
-              hsl(210, 10%, 50%) 100%
-            );
-
-
-            --primary:  #ffffff;
-            --secondary:  #e8e1e9;
-            --neutral:    #232c2b;
-            --font-color: #000000;
-            --background-color: #ffffff;
-        }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-            --bg: hsl(230, 30%, 12%);
-            --bg-card: hsla(230, 30%, 22%, 0.78);
-            --border-radius: 0.75rem;
-            --color-heading: hsl(230, 70%, 90%);
-            --color-text: hsl(230, 50%, 70%);
-            --ff-primary: "General Sans", sans-serif;
-            --gradient-heading: linear-gradient(
-              0deg,
-              hsl(230, 70%, 90%) 0%,
-              hsl(230, 70%, 90%) 100%
-            );
-            --gradient-text: linear-gradient(
-              0deg,
-              hsl(230, 50%, 70%) 0%,
-              hsl(230, 50%, 70%) 100%
-            );
-
-            --primary:  #0b1517;
-            --secondary:  #56577c;
-            --neutral:    #67dbdd;
-            --font-color: #ffffff;
-            --background-color: #000000;
-            }
-        }
-
-
-        /* --- Header Styles --- */
+        
         header {
-            padding: 20px;
+            padding: 2rem;
             text-align: center;
         }
-
-        header h1 {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-            font-family: var(--primary-font);
-            animation: blurShift 5s infinite alternate;
+        
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
         }
-
-        header p {
-            font-size: 1.1em;
-            color: #ccc;
-            margin-bottom: 10px;
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 2rem;
         }
-
-       header .ever-changing-note {
-            font-size: 0.8em;
-            color: #888;
-            font-style: italic;
+        
+        .terminal {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            flex-grow: 1;
         }
-
-
-        @keyframes blurShift {
-            0% { text-shadow: 0 0 2px rgba(255, 255, 255, 0.3); }
-            100% { text-shadow: 0 0 8px rgba(255, 255, 255, 0.5); }
+        
+        .prompt-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 0.5rem;
+            border-radius: 4px;
+            background: rgba(0, 0, 0, 0.3);
         }
-
-        /* --- Grid Layout Styles --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: var(--grid-gap);
-            padding: var(--grid-gap);
-        }
-
-        .grid-box {
-            background-color: #222;
-            border-radius: var(--box-border-radius);
-            padding: 20px;
-            transition: transform 0.3s ease;
-            position: relative;
-            overflow: hidden; /* Ensure background images stay within boundaries */
-        }
-
-        .grid-box:hover {
-            transform: translateY(-5px);
-        }
-
-        /* --- Content Box Styles --- */
-        .box-icon {
-            font-size: 2em;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .box-title {
-            font-size: 1.5em;
+        
+        .prompt-prefix {
+            color: var(--prompt-color);
+            margin-right: 0.5rem;
             font-weight: bold;
-            margin-bottom: 10px;
-            font-family: var(--primary-font);
         }
-
-        .box-description {
-            font-size: 1em;
-            line-height: 1.4;
+        
+        #command-input {
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 1rem;
+            width: 100%;
+            outline: none;
+            caret-color: var(--prompt-color);
         }
-
-        .box-links {
-            margin-top: 15px;
+        
+        .nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
-
-        .box-links a {
-            display: inline-block;
-            padding: 8px 15px;
-            background-color: var(--primary-color);
-            color: #121212;
-            text-decoration: none;
-            border-radius: var(--link-border-radius);
-            margin-right: 10px;
-            font-family: var(--secondary-font);
-            transition: background-color 0.3s ease;
+        
+        .nav-item {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            background: rgba(0, 0, 0, 0.2);
         }
-
-        .box-links a:hover {
-            background-color: var(--secondary-color);
-            color: #fff;
+        
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.1);
         }
-
-        /* Specific Box Styles */
-        #glglstats-box {
-            /* No Specific Styles Here - keeping it general */
-             background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"><defs><pattern id="lz77Pattern" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M0 0 L20 20 M20 0 L0 20" stroke="%23444" stroke-width="1"/></pattern></defs><rect width="100%" height="100%" fill="url(%23lz77Pattern)" fill-opacity="0.1"/></svg>');
-            background-size: cover;
+        
+        .nav-item.active {
+            background: rgba(255, 255, 255, 0.15);
         }
-
-        #ahuzat-dibuk-box {
-            background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/Tel_Aviv_Montage_2023.jpg/640px-Tel_Aviv_Montage_2023.jpg'); /* Replace with Tel Aviv Map Image */
-            background-size: cover;
-            background-position: center;
-            filter: blur(3px);
+        
+        .section {
+            display: none;
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: var(--section-bg);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+            position: relative;
+            overflow: hidden;
         }
-
-         #meta-portfolio-box {
-            /*  Nothing special  */
-            /* Ensure content is readable */
-            background-color: rgba(34, 34, 34, 0.7); /* Add a semi-transparent background */
+        
+        .section.active {
+            display: block;
         }
-
-        /* --- Social Links Box --- */
-        #social-box {
+        
+        .section h2 {
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .section p {
+            margin-bottom: 1rem;
+        }
+        
+        .section-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .tech-stack {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+        
+        .tech {
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            font-size: 0.8rem;
+        }
+        
+        .project-img {
+            width: 100%;
+            max-width: 600px;
+            border-radius: 4px;
+            margin: 1rem 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        #glglstats {
+            position: relative;
+        }
+        
+        #glglstats::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, var(--accent-glgl, #4ecca3) 50%, transparent);
+            opacity: 0.05;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        #glglstats h2 {
+            color: var(--accent-glgl);
+        }
+        
+        #ahuzat {
+            position: relative;
+        }
+        
+        #ahuzat::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+                             linear-gradient(90deg, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+            opacity: 0.2;
+            pointer-events: none;
+            z-index: -1;
+        }
+        
+        #ahuzat h2 {
+            color: var(--accent-ahuzat);
+        }
+        
+        #portfolio {
+            position: relative;
+        }
+        
+        #portfolio h2 {
+            color: var(--accent-portfolio);
+        }
+        
+        .code-line {
+            font-family: 'Roboto Mono', monospace;
+            margin-bottom: 0.5rem;
+            opacity: 0;
+            animation: typeIn 0.5s forwards;
+        }
+        
+        #social {
             text-align: center;
         }
-
-        #social-box a {
-            display: inline-block;
-            margin: 10px;
+        
+        #social h2 {
+            margin-bottom: 2rem;
         }
-
-        #social-box img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%; /* Circular Profile Picture */
-             transition: transform 0.3s ease;
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
         }
-
-         #social-box img:hover {
+        
+        .social-icon {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .social-icon:hover {
             transform: scale(1.1);
         }
-
-        /* --- Footer Styles --- */
-        footer {
-            padding: 10px;
-            text-align: center;
-            font-size: 0.8em;
-            color: #777;
+        
+        .social-icon.github:hover {
+            background: #333;
         }
-
-        #stopwatch {
-            display: inline-block;
-            margin-top: 5px;
+        
+        .social-icon.linkedin:hover {
+            background: #0077B5;
         }
-
-        /* --- Responsiveness --- */
-        @media (max-width: 600px) {
-            .grid-container {
-                grid-template-columns: 1fr;
+        
+        .social-icon.facebook:hover {
+            background: #1877F2;
+        }
+        
+        .social-icon svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--text-color);
+        }
+        
+        /* Responsive styles */
+        @media (min-width: 768px) {
+            .section-content {
+                flex-direction: row;
+                align-items: flex-start;
             }
-
-            header h1 {
-                font-size: 2em;
+            
+            .text-content {
+                flex: 1;
+            }
+            
+            .visual-content {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
-
-        /* ---Theme Toggles--- */
-
-        .theme-toggle-container {
+        
+        @media (max-width: 767px) {
+            .nav {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.5rem;
+            }
+            
+            .nav-item {
+                text-align: center;
+            }
+            
+            .section {
+                padding: 1rem;
+            }
+            
+            .project-img {
+                margin: 1rem auto;
+            }
+            
+            .social-links {
+                gap: 1rem;
+            }
+            
+            .social-icon {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes typeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .typewriter {
+            overflow: hidden;
+            border-right: 2px solid var(--prompt-color);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--prompt-color) }
+        }
+        
+        .waveform {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            height: 40px;
             display: flex;
-            justify-content: space-between;
-            padding: 1rem;
-            background-color: #333; /* Darker background for contrast */
-            color: #fff;
             align-items: center;
+            justify-content: center;
+            opacity: 0.15;
         }
-
-        .theme-selector {
-            display: flex;
-            gap: 1rem; /* Spacing between theme options */
+        
+        .wave {
+            background: var(--accent-glgl);
+            height: 100%;
+            width: 3px;
+            margin: 0 2px;
+            border-radius: 3px;
+            animation: wave 1s infinite ease-in-out;
         }
-
-        .theme-button {
-            background-color: #555; /* Slightly lighter than the container */
-            color: #fff;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
+        
+        @keyframes wave {
+            0%, 100% { height: 8px; }
+            50% { height: 32px; }
         }
-
-        .theme-button:hover {
-            background-color: #777; /* Even lighter on hover */
-        }
-
-        .ai-suggestion {
-            font-style: italic;
-            color: #ddd;
-        }
-
-
+        
+        .wave:nth-child(2) { animation-delay: 0.1s; }
+        .wave:nth-child(3) { animation-delay: 0.2s; }
+        .wave:nth-child(4) { animation-delay: 0.3s; }
+        .wave:nth-child(5) { animation-delay: 0.4s; }
+        .wave:nth-child(6) { animation-delay: 0.5s; }
+        .wave:nth-child(7) { animation-delay: 0.6s; }
+        .wave:nth-child(8) { animation-delay: 0.7s; }
     </style>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
     <header>
-        <h1>Geva Kipper</h1>
-        <p>A Software Engineer at Google</p>
-        <p class="ever-changing-note">Re-designed daily by Artificial Intelligence. Come back tomorrow to see what changed.</p>
+        <h1>GEVA KIPPER</h1>
+        <p class="subtitle">Software Engineer</p>
     </header>
-
-    <div class="theme-toggle-container">
-        <div class="theme-selector">
-            <button class="theme-button" onclick="setTheme('pastel')">Pastel Day</button>
-            <button class="theme-button" onclick="setTheme('monochrome')">Monochrome Day</button>
-            <button class="theme-button" onclick="setTheme('default')">Default</button>
-
+    
+    <main class="terminal">
+        <div class="prompt-container">
+            <span class="prompt-prefix">user@geva-portfolio:~$</span>
+            <input type="text" id="command-input" placeholder="Type 'help' for options..." autocomplete="off">
         </div>
-        <div class="ai-suggestion">AI Suggestion: Try a "Retro Wave" theme tomorrow!</div>
-    </div>
-
-    <main>
-        <div class="grid-container">
-            <div class="grid-box" id="glglstats-box">
-                <div class="box-icon">📊</div>
-                <h2 class="box-title">GlglStats</h2>
-                <p class="box-description">Website to inspect and analyze data compression of text-based inputs. See impact of LZ77 algorithm.</p>
-                <div class="box-links">
-                    <a href="https://glglstats.onrender.com/" target="_blank">Website</a>
-                    <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank">Conference Presentation</a>
+        
+        <nav class="nav">
+            <div class="nav-item" data-section="glglstats">GlglStats</div>
+            <div class="nav-item" data-section="ahuzat">Ahuzat Dibuk</div>
+            <div class="nav-item" data-section="portfolio">Portfolio Site</div>
+            <div class="nav-item" data-section="social">Social Links</div>
+        </nav>
+        
+        <div id="welcome" class="section active">
+            <h2>Welcome to my portfolio</h2>
+            <p class="typewriter">I'm Geva Kipper, a software engineer passionate about creating elegant solutions.</p>
+            <p>Navigate through my projects by clicking the options above or typing commands in the terminal.</p>
+            <p>Available commands: <code>glglstats</code>, <code>ahuzat</code>, <code>portfolio</code>, <code>social</code>, <code>help</code>, <code>clear</code></p>
+        </div>
+        
+        <div id="glglstats" class="section">
+            <h2>GlglStats</h2>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>A sophisticated tool for music data analysis, providing insights and visualization for audio metrics.</p>
+                    <div class="tech-stack">
+                        <span class="tech">JavaScript</span>
+                        <span class="tech">Web Audio API</span>
+                        <span class="tech">D3.js</span>
+                        <span class="tech">Node.js</span>
+                    </div>
+                    <p>GlglStats analyzes audio patterns and presents them in an intuitive interface, allowing musicians and producers to gain deeper understanding of their compositions.</p>
+                </div>
+                <div class="visual-content">
+                    <img src="/api/placeholder/400/320" alt="GlglStats Interface" class="project-img">
                 </div>
             </div>
-
-            <div class="grid-box" id="ahuzat-dibuk-box">
-                 <div class="box-icon">🅿️</div>
-                <h2 class="box-title">Ahuzat Dibuk</h2>
-                <p class="box-description">Crowd-sourced data on availability of street parking, based on real-time parking patrols in Tel Aviv.</p>
-                <div class="box-links">
-                      <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank">Facebook Post</a>
-                      <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank">Media Mention 13TV</a>
-                      <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank">Media Mention Mako</a>
-
+            <div class="waveform">
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+                <div class="wave"></div>
+            </div>
+        </div>
+        
+        <div id="ahuzat" class="section">
+            <h2>Ahuzat Dibuk</h2>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>A smart parking management system designed to streamline urban parking experiences.</p>
+                    <div class="tech-stack">
+                        <span class="tech">Python</span>
+                        <span class="tech">IoT</span>
+                        <span class="tech">React</span>
+                        <span class="tech">MongoDB</span>
+                    </div>
+                    <p>Ahuzat Dibuk addresses the challenges of urban parking through sensor integration and real-time availability mapping, reducing search time and traffic congestion.</p>
+                </div>
+                <div class="visual-content">
+                    <img src="/api/placeholder/400/320" alt="Ahuzat Dibuk Interface" class="project-img">
                 </div>
             </div>
-
-            <div class="grid-box" id="meta-portfolio-box">
-                <div class="box-icon">💻</div>
-                <h2 class="box-title">Meta-Portfolio</h2>
-                <p class="box-description">This very website! Showcasing AI-driven design variations and project information.</p>
-                <div class="box-links">
-                    <a href="https://portfolio-dor1.onrender.com/" target="_blank">This Website!</a>
+        </div>
+        
+        <div id="portfolio" class="section">
+            <h2>Portfolio Site</h2>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>You're looking at it—a single-page portfolio built with HTML, CSS, and JavaScript.</p>
+                    <div class="tech-stack">
+                        <span class="tech">HTML5</span>
+                        <span class="tech">CSS3</span>
+                        <span class="tech">JavaScript</span>
+                        <span class="tech">Responsive Design</span>
+                    </div>
+                    <p>This terminal-inspired interface combines my love for clean code with an interactive user experience, demonstrating both technical skill and design thinking.</p>
+                    <div class="code-animation">
+                        <div class="code-line" style="animation-delay: 0.2s">/* Portfolio website code */</div>
+                        <div class="code-line" style="animation-delay: 0.4s">const portfolio = {</div>
+                        <div class="code-line" style="animation-delay: 0.6s">  developer: "Geva Kipper",</div>
+                        <div class="code-line" style="animation-delay: 0.8s">  design: "Terminal-inspired",</div>
+                        <div class="code-line" style="animation-delay: 1.0s">  technologies: ["HTML", "CSS", "JS"]</div>
+                        <div class="code-line" style="animation-delay: 1.2s">};</div>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <img src="/api/placeholder/400/320" alt="Portfolio Site Structure" class="project-img">
                 </div>
             </div>
-
-             <div class="grid-box" id="social-box">
-              <div class="box-icon">🔗</div>
-              <h2 class="box-title">Social Links</h2>
-              <div>
-                <a href="https://github.com/gevak" target="_blank">
-                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="GitHub Profile">
+        </div>
+        
+        <div id="social" class="section">
+            <h2>Social Links</h2>
+            <p>Software engineer crafting elegant solutions to complex problems.</p>
+            <div class="social-links">
+                <a href="#" class="social-icon github">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
                 </a>
-                <a href="https://www.linkedin.com/in/gevakip" target="_blank">
-                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="LinkedIn Profile">
+                <a href="#" class="social-icon linkedin">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                    </svg>
                 </a>
-                <a href="https://www.facebook.com/gevak" target="_blank">
-                  <img src="https://avatars.githubusercontent.com/u/648403?v=4" alt="Facebook Profile">
+                <a href="#" class="social-icon facebook">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
+                    </svg>
                 </a>
-              </div>
             </div>
-
         </div>
     </main>
-
-    <footer>
-        <p>Designed by: AI Model (generated using prompt by Designer)</p>
-        <div id="stopwatch"></div>
-    </footer>
-
+    
     <script>
-        // --- Stopwatch ---
-        function updateStopwatch() {
-            const startTime = new Date("2025-03-21 15:24:22");
-            const now = new Date();
-            const elapsed = now.getTime() - startTime.getTime();
-
-            const seconds = Math.floor((elapsed / 1000) % 60);
-            const minutes = Math.floor((elapsed / (1000 * 60)) % 60);
-            const hours = Math.floor((elapsed / (1000 * 60 * 60)) % 24);
-            const days = Math.floor(elapsed / (1000 * 60 * 60 * 24));
-
-            document.getElementById("stopwatch").innerText = `Time since start: ${days}d ${hours}h ${minutes}m ${seconds}s`;
-        }
-
-        setInterval(updateStopwatch, 1000);
-
-
-        // --- Random Color Generator (Simplified) ---
-        function getRandomColor() {
-            const letters = '0123456789ABCDEF';
-            let color = '#';
-            for (let i = 0; i < 6; i++) {
-                color += letters[Math.floor(Math.random() * 16)];
+        document.addEventListener('DOMContentLoaded', function() {
+            const commandInput = document.getElementById('command-input');
+            const navItems = document.querySelectorAll('.nav-item');
+            const sections = document.querySelectorAll('.section');
+            
+            // Initialize with welcome section
+            showSection('welcome');
+            
+            // Process commands
+            commandInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    const command = commandInput.value.toLowerCase().trim();
+                    processCommand(command);
+                    commandInput.value = '';
+                }
+            });
+            
+            // Nav item clicks
+            navItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const sectionId = this.getAttribute('data-section');
+                    showSection(sectionId);
+                    updateActiveNav(sectionId);
+                });
+            });
+            
+            // Process command input
+            function processCommand(command) {
+                switch(command) {
+                    case 'glglstats':
+                        showSection('glglstats');
+                        updateActiveNav('glglstats');
+                        break;
+                    case 'ahuzat':
+                        showSection('ahuzat');
+                        updateActiveNav('ahuzat');
+                        break;
+                    case 'portfolio':
+                        showSection('portfolio');
+                        updateActiveNav('portfolio');
+                        break;
+                    case 'social':
+                        showSection('social');
+                        updateActiveNav('social');
+                        break;
+                    case 'help':
+                        showSection('welcome');
+                        updateActiveNav(null);
+                        break;
+                    case 'clear':
+                        showSection('welcome');
+                        updateActiveNav(null);
+                        break;
+                    default:
+                        // Handle unknown command
+                        console.log('Unknown command: ' + command);
+                        // You could display an error message here
+                }
             }
-            return color;
-        }
-
-        // Example usage: Add random background colors (will be overriden by themes, if applied)
-        const boxes = document.querySelectorAll('.grid-box');
-        boxes.forEach(box => {
-            //box.style.backgroundColor = getRandomColor();
-        });
-
-        // --- Font Swapper (Simplified) ---
-        function getRandomFont() {
-         const fonts = [
-             "Helvetica Neue, Helvetica, Arial, sans-serif",
-             "Segoe UI, Tahoma, Geneva, Verdana, sans-serif",
-             "Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif"
-         ];
-         return fonts[Math.floor(Math.random() * fonts.length)];
-        }
-
-        function swapFonts() {
-            document.body.style.setProperty('--primary-font', getRandomFont());
-        }
-
-        //swapFonts(); // Invoke once on load
-
-
-    // --- Theme Toggles ---
-    function setTheme(themeName) {
-        switch (themeName) {
-            case 'pastel':
-                document.body.style.setProperty('--primary-color', '#ccebc5');
-                document.body.style.setProperty('--secondary-color', '#ffb3e2');
-                document.body.style.setProperty('--tertiary-color', '#fbb4ae');
-                document.body.style.backgroundColor = '#f0f0f0';
-                document.body.style.color = '#333';
-            break;
-            case 'monochrome':
-               document.body.style.setProperty('--primary-color', '#888');
-                document.body.style.setProperty('--secondary-color', '#aaa');
-                document.body.style.setProperty('--tertiary-color', '#bbb');
-                document.body.style.backgroundColor = '#333';
-                document.body.style.color = '#eee';
-               break;
-            case 'default':
-                document.body.style.setProperty('--primary-color', '#64ffda');
-                document.body.style.setProperty('--secondary-color', '#f44336');
-                document.body.style.setProperty('--tertiary-color', '#ffeb3b');
-                document.body.style.backgroundColor = '#121212';
-                document.body.style.color = '#f0f0f0';
-                break;
-        }
-    }
-
-    </script>
-<!-- Add this block to embed the like button -->
-    <script src="/static/js/like_button.js"></script>
-    <script>
-        LikeButton.init({
-          pageId: "20250321",
-          position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
+            
+            // Show section and hide others
+            function showSection(id) {
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                });
+                
+                document.getElementById(id).classList.add('active');
+            }
+            
+            // Update active nav item
+            function updateActiveNav(id) {
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('data-section') === id) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+            
+            // Initialize waveform for GlglStats
+            const waveform = document.querySelector('.waveform');
+            for (let i = 0; i < 8; i++) {
+                const wave = document.createElement('div');
+                wave.classList.add('wave');
+                wave.style.animationDelay = `${i * 0.1}s`;
+                waveform.appendChild(wave);
+            }
+            
+            // Auto-focus the command input on page load
+            setTimeout(() => {
+                commandInput.focus();
+            }, 500);
+            
+            // Add animation delay to code lines
+            const codeLines = document.querySelectorAll('.code-line');
+            codeLines.forEach((line, index) => {
+                line.style.animationDelay = `${index * 0.2}s`;
+            });
         });
     </script>
-
 </body>
 </html>

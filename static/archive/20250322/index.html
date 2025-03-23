@@ -2,590 +2,1167 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper's Portfolio</title>
+    <title>Geva Kipper | Software Engineer</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: sans-serif;
+        @import url('https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Rajdhani:wght@300;500;700&display=swap');
+
+        :root {
+            --deep-space: #0a0b1a;
+            --space-blue: #1a1b3a;
+            --cosmic-purple: #2d1b4e;
+            --bright-cyan: #00f6ff;
+            --bright-magenta: #ff00e5;
+            --star-color: rgba(255, 255, 255, 0.8);
+        }
+
+        * {
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff; /* AliceBlue */
-            color: #333;
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
+            box-sizing: border-box;
         }
 
-        a {
-            color: #007bff; /* Primary color for links */
-            text-decoration: none;
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--deep-space);
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
         }
 
-        a:hover {
-            text-decoration: underline;
+        /* Cosmic Background */
+        .cosmic-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
         }
 
-        section {
-            padding: 40px;
-            margin-bottom: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            transition: transform 0.2s ease-in-out;
+        .stars {
+            position: absolute;
+            width: 100%;
+            height: 100%;
         }
 
-        section:hover {
-            transform: translateY(-3px); /* Gentle lift on hover */
+        .star {
+            position: absolute;
+            background-color: var(--star-color);
+            border-radius: 50%;
+            animation: twinkle var(--twinkle-duration, 4s) infinite ease-in-out;
         }
 
+        .shooting-star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, white, white, transparent);
+            border-radius: 50%;
+            opacity: 0;
+            transform: rotate(45deg);
+        }
 
-        /* Hero Section */
-        #hero {
-            background-color: #e6e6e6; /* Gainsboro */
+        .aurora {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40%;
+            background: linear-gradient(to top, 
+                rgba(45, 27, 78, 0.1), 
+                rgba(0, 246, 255, 0.05), 
+                transparent);
+            opacity: 0.3;
+            animation: aurora-wave 15s infinite ease-in-out;
+            z-index: -1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.1; transform: scale(0.7); }
+            50% { opacity: var(--twinkle-max, 0.7); transform: scale(1); }
+        }
+
+        @keyframes shoot {
+            0% { transform: translateX(-100px) translateY(100px) rotate(45deg); opacity: 1; }
+            100% { transform: translateX(calc(100vw + 100px)) translateY(-100px) rotate(45deg); opacity: 0; }
+        }
+
+        @keyframes aurora-wave {
+            0%, 100% { transform: translateY(0) skewX(0); }
+            50% { transform: translateY(-20px) skewX(-5deg); }
+        }
+
+        /* Parallax Layers */
+        .parallax-layer {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        #layer1 { z-index: -2; }
+        #layer2 { z-index: -3; }
+        #layer3 { z-index: -4; }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            opacity: 0;
+            animation: focus-in 2s forwards;
+        }
+
+        @keyframes focus-in {
+            0% { opacity: 0; filter: blur(10px); }
+            100% { opacity: 1; filter: blur(0); }
+        }
+
+        /* Cursor trail */
+        .cursor-trail {
+            position: fixed;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.4);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.2s;
+            opacity: 0;
+        }
+
+        /* Header Section */
+        header {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 6rem 1rem;
             text-align: center;
-            padding: 100px 0;
-            position: relative; /* For background animation */
-            overflow: hidden; /* Hide overflowing shapes */
+            position: relative;
         }
 
-        #hero h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            color: #333;
+        .telescope-lens {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center,
+                rgba(0, 246, 255, 0.05) 0%,
+                rgba(26, 27, 58, 0.2) 60%,
+                rgba(10, 11, 26, 0.1) 100%);
+            position: absolute;
+            z-index: -1;
+            transform: scale(1.5);
+            box-shadow: 0 0 50px rgba(0, 246, 255, 0.2),
+                        inset 0 0 30px rgba(255, 0, 229, 0.1);
         }
 
-        #hero h2 {
-            font-size: 1.5em;
-            color: #666;
-            margin-bottom: 20px;
+        .name {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            letter-spacing: 0.1em;
+            background: linear-gradient(90deg, #fff, var(--bright-cyan), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 8s linear infinite;
         }
 
-        #hero p {
-            font-style: italic;
-            color: #777;
+        @keyframes shine {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
 
+        .subtitle {
+            font-family: 'Space Mono', monospace;
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.8);
+            position: relative;
+            height: 1.5em;
+        }
 
-        /* Background Animation - Simplified */
-        #hero::before {
+        .notice {
+            font-size: 0.9rem;
+            max-width: 500px;
+            margin-top: 3rem;
+            line-height: 1.5;
+            padding: 0.5rem 1rem;
+            border: 1px solid rgba(255, 0, 229, 0.3);
+            border-radius: 30px;
+            background-color: rgba(45, 27, 78, 0.2);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 15px rgba(255, 0, 229, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(255, 0, 229, 0.5); }
+        }
+
+        /* Navigation */
+        .constellation-nav {
+            display: flex;
+            justify-content: center;
+            margin: 2rem auto;
+            position: relative;
+            width: 80%;
+            max-width: 700px;
+            height: 60px;
+        }
+
+        .nav-star {
+            width: 12px;
+            height: 12px;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            margin: 0 30px;
+            cursor: pointer;
+            transition: all 0.3s, transform 0.1s;
+        }
+
+        .nav-star:hover, .nav-star.active {
+            background-color: var(--bright-cyan);
+            box-shadow: 0 0 15px var(--bright-cyan);
+            transform: scale(1.2);
+        }
+
+        .nav-star:before {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background-color: white;
+            border-radius: 50%;
+        }
+
+        .nav-label {
+            position: absolute;
+            top: 20px;
+            width: 100px;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s;
+            pointer-events: none;
+        }
+
+        .nav-star:hover .nav-label, .nav-star.active .nav-label {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .nav-line {
+            position: absolute;
+            top: 6px;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            width: 100%;
+            z-index: 1;
+        }
+
+        /* Projects Section */
+        .projects-section {
+            min-height: 100vh;
+            padding: 4rem 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            letter-spacing: 0.2em;
+            opacity: 0.8;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 70%;
+            left: 15%;
+            bottom: -10px;
+            background: linear-gradient(90deg, transparent, var(--bright-cyan), transparent);
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .project-window {
+            background: rgba(26, 27, 58, 0.3);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1.5rem;
+            position: relative;
+            transition: all 0.4s;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .project-window.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .project-window::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(0,123,255,0.1)); /* Subtle gradient */
-            opacity: 0.6;
-            z-index: -1; /* Behind content */
-            animation: flow 10s linear infinite; /* Slow, subtle animation */
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--bright-cyan), var(--bright-magenta));
+            opacity: 0.7;
+            border-radius: 10px 10px 0 0;
         }
 
-        @keyframes flow {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 200% 200%;
-            }
+        .project-window:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3),
+                        0 0 20px rgba(0, 246, 255, 0.2);
         }
 
-
-        /* Main Content Sections */
-        .section-title {
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .section-description {
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        /* Skillset Visualizations (placeholders, replace with actual visualizations) */
-        .visualization-container {
-            height: 200px;
-            background-color: #d3d3d3; /* LightGray */
-            border-radius: 8px;
-            margin-bottom: 20px;
+        .project-header {
             display: flex;
-            justify-content: center;
             align-items: center;
-            color: #777;
-            font-style: italic;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.4rem;
+            letter-spacing: 0.05em;
+            font-weight: 500;
+        }
+
+        .project-controls {
+            display: flex;
+        }
+
+        .control {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            margin-left: 6px;
+        }
+
+        .control-1 { background-color: #ff6b6b; }
+        .control-2 { background-color: #feca57; }
+        .control-3 { background-color: #1dd1a1; }
+
+        .project-visual {
+            margin: 0.5rem 0;
+            height: 120px;
+            border-radius: 5px;
             overflow: hidden;
             position: relative;
         }
 
-
-        /* GlglStats Styling */
-        #glglstats-waveform {
-            /* Placeholder for waveform visualization */
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #007bff, #d3d3d3, #007bff); /* Blue gradient */
-            background-size: 400% 400%;
-            animation: waveformAnimation 5s ease infinite;
+        /* Project Specific Visuals */
+        #glgl-visual {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.3)), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="200" viewBox="0 0 400 200"><path d="M0,100 Q25,50 50,100 T100,100 T150,100 T200,100 T250,100 T300,100 T350,100 T400,100" fill="none" stroke="cyan" stroke-width="2"/><path d="M0,100 Q25,150 50,100 T100,100 T150,100 T200,100 T250,100 T300,100 T350,100 T400,100" fill="none" stroke="magenta" stroke-width="2" opacity="0.5"/></svg>');
         }
 
-        @keyframes waveformAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+        #ahuzat-visual {
+            background-color: rgba(0, 0, 0, 0.3);
         }
 
-        .video-thumbnail {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
+        #meta-visual {
+            background-color: rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
         }
 
-        .video-thumbnail:hover {
-         opacity: 1;
+        #connection-visual {
+            background-color: rgba(0, 0, 0, 0.3);
+            position: relative;
         }
 
-        .play-button {
+        .connection-dot {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3em;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            z-index: 1;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
         }
 
-        /* Lightbox */
-        .lightbox {
-            display: none;
+        .connection-line {
+            position: absolute;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.3);
+            transform-origin: 0 50%;
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            margin-bottom: 1.5rem;
+            flex: 1;
+            line-height: 1.5;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
+
+        .project-link {
+            padding: 6px 12px;
+            background: rgba(0, 246, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            transition: all 0.3s;
+            border: 1px solid rgba(0, 246, 255, 0.2);
+        }
+
+        .project-link:hover {
+            background: rgba(0, 246, 255, 0.2);
+            box-shadow: 0 0 10px rgba(0, 246, 255, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 0;
+            text-align: center;
+            background: linear-gradient(to top, rgba(10, 11, 26, 0.9), transparent);
+            position: relative;
+        }
+
+        .space-terminal {
+            display: inline-block;
+            background: rgba(26, 27, 58, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem 2rem;
+            font-family: 'Space Mono', monospace;
+            position: relative;
+        }
+
+        .terminal-header {
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--cosmic-purple);
+            padding: 2px 15px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        .mission-clock {
+            font-size: 1.5rem;
+            margin: 0.5rem 0;
+            font-weight: bold;
+            color: var(--bright-cyan);
+            text-shadow: 0 0 10px rgba(0, 246, 255, 0.5);
+            letter-spacing: 0.2em;
+        }
+
+        .designer-credit {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 3rem;
+            }
+            
+            .constellation-nav {
+                flex-direction: column;
+                height: auto;
+                width: auto;
+                margin: 2rem auto;
+            }
+            
+            .nav-star {
+                margin: 20px 0;
+            }
+            
+            .nav-line {
+                top: 0;
+                left: 6px;
+                width: 1px;
+                height: 100%;
+                background: linear-gradient(
+                    to bottom, 
+                    transparent, 
+                    rgba(255, 255, 255, 0.3), 
+                    rgba(255, 255, 255, 0.3), 
+                    transparent);
+            }
+            
+            .nav-label {
+                top: 0;
+                left: 25px;
+                text-align: left;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .mission-clock {
+                font-size: 1.2rem;
+            }
+        }
+
+        /* Animations for project windows */
+        .wave-animation {
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            left: 0;
+            bottom: 20px;
+        }
+
+        .wave-path {
+            stroke-dasharray: 400;
+            stroke-dashoffset: 400;
+            animation: dash 3s linear infinite;
+            opacity: 0.7;
+        }
+
+        @keyframes dash {
+            0% { stroke-dashoffset: 400; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .heatmap-cell {
+            width: 8px;
+            height: 8px;
+            position: absolute;
+            border-radius: 2px;
+            transition: all 0.5s;
+        }
+
+        .mirror-frame {
+            position: absolute;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Loading animation */
+        .loading-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
+            background-color: var(--deep-space);
+            display: flex;
             justify-content: center;
-        }
-
-        .lightbox-content {
-            max-width: 80%;
-            max-height: 80%;
-        }
-
-        .lightbox-content iframe {
-            width: 100%;
-            height: 100%;
-        }
-
-        .lightbox .close-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2em;
-            color: white;
-            cursor: pointer;
-        }
-
-
-        /* Ahuzat Dibuk Styling */
-        #ahuzat-dibuk-heatmap {
-            /* Placeholder for heatmap visualization */
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.3), rgba(255, 255, 255, 0.1)); /* Red gradient */
-            animation: pulse 2s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from {
-                opacity: 0.7;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .icon-link {
-            display: inline-flex;
             align-items: center;
-            margin-right: 10px;
+            z-index: 1000;
+            transition: opacity 1s;
         }
 
-        .icon-link img {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
-        }
-
-
-        /* Portfolio Website Styling */
-        #portfolio-wireframe {
-            /* Placeholder for wireframe */
-            background: repeating-linear-gradient(45deg, #eee, #eee 10px, #fff 10px, #fff 20px); /* Wireframe pattern */
-        }
-
-
-        /* Links Styling */
-        #links-network {
-            /* Placeholder for network graph */
-            background: radial-gradient(circle, rgba(0, 123, 255, 0.2), rgba(255, 255, 255, 0.1)); /* Blue gradient */
-        }
-
-        /* Buttons */
-        button {
-            background-color: #007bff; /* Primary color for buttons */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-        }
-
-        /* Specific button style for "Explore this Site"*/
-        #explore-this-site-button{
-            background-color: #28a745;
-        }
-
-        #explore-this-site-button:hover{
-            background-color: #218838;
-        }
-
-        /* Footer */
-        footer {
-            background-color: #d3d3d3; /* LightGray */
-            padding: 20px;
-            text-align: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            font-size: small;
-        }
-
-        /* Mobile Responsiveness */
-        @media (max-width: 600px) {
-            section {
-                padding: 20px;
-            }
-
-            #hero {
-                padding: 60px 0;
-            }
-
-            #hero h1 {
-                font-size: 2.5em;
-            }
-
-            #hero h2 {
-                font-size: 1.2em;
-            }
-
-            .visualization-container {
-                height: 150px;
-            }
-        }
-
-        /* Animate the clock numbers coming in*/
-
-        .countdown {
-
-            overflow: hidden;
-
-            grid-area: time;
-
-            color: inherit;
-
-            display: grid;
-
-            grid-template-rows: 1fr;
-
-            grid-template-columns: 1fr 1fr;
-
-        }
-
-        .countdown > * {
-
+        .telescope-loader {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: radial-gradient(circle at center,
+                rgba(0, 0, 0, 1) 0%,
+                rgba(26, 27, 58, 0.6) 40%,
+                rgba(45, 27, 78, 0.4) 60%,
+                rgba(0, 246, 255, 0.2) 80%,
+                rgba(255, 0, 229, 0.1) 90%,
+                transparent 100%);
+            animation: focus 3s ease-in-out;
             position: relative;
-
-            margin: 0;
-
-            padding: 0;
-
-            width: auto;
-
-            grid-column: span 1;
-
-            text-align: center;
-
+            box-shadow: 0 0 50px 10px rgba(0, 246, 255, 0.3);
         }
 
-        .countdown .countdown-shadow {
-
-            position: absolute;
-
-            top: 50%;
-
-            left: 0;
-
-            width: 100%;
-
-            color: rgba(0, 0, 0, 0.3);
-
-            font-variation-settings: 'wght' 700;
-
-            transform: translateY(-50%);
-
+        @keyframes focus {
+            0% { transform: scale(0.1); opacity: 0; filter: blur(20px); }
+            50% { transform: scale(1.2); opacity: 0.8; filter: blur(5px); }
+            100% { transform: scale(1); opacity: 1; filter: blur(0); }
         }
-
-        .countdown-num {
-
-            z-index: 1;
-
-            -webkit-transition: all 0.5s ease-in-out;
-
-            transition: all 0.5s ease-in-out;
-
-            font-variation-settings: 'wght' 500;
-
-            will-change: transform;
-
-        }
-        /* Add for scrolling*/
-        html {
-                scroll-behavior: smooth;
-        }
-
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
+    <!-- Loading Animation -->
+    <div class="loading-overlay">
+        <div class="telescope-loader"></div>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="hero">
-        <h1>Geva Kipper</h1>
-        <h2>Software Engineer at Google</h2>
-        <p><i>This portfolio is redesigned by AI daily, a constantly evolving snapshot of my skills.</i></p>
-    </section>
+    <!-- Cosmic Background -->
+    <div class="cosmic-background">
+        <div id="layer1" class="parallax-layer stars"></div>
+        <div id="layer2" class="parallax-layer stars"></div>
+        <div id="layer3" class="parallax-layer stars"></div>
+        <div class="aurora"></div>
+    </div>
 
-    <!-- GlglStats Section -->
-    <section id="glglstats">
-        <h2 class="section-title">GlglStats: Measuring Musical Repetition</h2>
-        <p class="section-description">Analyzes repetitiveness in Israeli pop chart songs using LZ77 compression.</p>
-        <div class="visualization-container">
-            <div id="glglstats-waveform"></div>
-        </div>
-        <a href="https://glglstats.onrender.com/" target="_blank"><button>View live</button></a>
+    <!-- Cursor Trail Container -->
+    <div id="cursor-trail-container"></div>
 
-        <!-- Embedded Video Thumbnail and Lightbox -->
-        <div class="video-container">
-            <img src="https://img.youtube.com/vi/jrKAtOsj1Lo/0.jpg" alt="PyData TLV Presentation" class="video-thumbnail" onclick="openLightbox('jrKAtOsj1Lo')">
-            <div class="play-button" onclick="openLightbox('jrKAtOsj1Lo')"><i class="fas fa-play-circle"></i></div>
-        </div>
-
-        <div class="lightbox" id="lightbox">
-            <div class="lightbox-content">
-                <span class="close-button" onclick="closeLightbox()">&times;</span>
-                <iframe id="yt-video" src="" frameborder="0" allowfullscreen></iframe>
+    <div class="container">
+        <!-- Header -->
+        <header id="home">
+            <div class="telescope-lens"></div>
+            <h1 class="name">GEVA KIPPER</h1>
+            <div class="subtitle" id="typewriter"></div>
+            <div class="constellation-nav">
+                <div class="nav-line"></div>
+                <div class="nav-star active" data-target="home">
+                    <span class="nav-label">Home</span>
+                </div>
+                <div class="nav-star" data-target="projects">
+                    <span class="nav-label">Projects</span>
+                </div>
+                <div class="nav-star" data-target="contact">
+                    <span class="nav-label">Connect</span>
+                </div>
             </div>
-        </div>
-    </section>
+            <div class="notice">This portfolio is redesigned daily by AI, what you're seeing is today's unique iteration.</div>
+        </header>
 
-    <!-- Ahuzat Dibuk Section -->
-    <section id="ahuzat-dibuk">
-        <h2 class="section-title">Ahuzat Dibuk: Real-Time Parking Data Visualization</h2>
-        <p class="section-description">Collecting and visualizing Tel-Aviv parking lot statistics for resident use.</p>
-        <div class="visualization-container">
-            <div id="ahuzat-dibuk-heatmap"></div>
-        </div>
+        <!-- Projects Section -->
+        <section class="projects-section" id="projects">
+            <h2 class="section-title">OBSERVATORY</h2>
+            
+            <div class="projects-grid">
+                <!-- Project 1: GlglStats -->
+                <div class="project-window" id="project1">
+                    <div class="project-header">
+                        <h3 class="project-title">GlglStats Observatory</h3>
+                        <div class="project-controls">
+                            <div class="control control-1"></div>
+                            <div class="control control-2"></div>
+                            <div class="control control-3"></div>
+                        </div>
+                    </div>
+                    <div class="project-visual" id="glgl-visual">
+                        <svg class="wave-animation" viewBox="0 0 400 100" preserveAspectRatio="none">
+                            <path class="wave-path" d="M0,50 Q25,25 50,50 T100,50 T150,50 T200,50 T250,50 T300,50 T350,50 T400,50" fill="none" stroke="cyan" stroke-width="2"/>
+                            <path class="wave-path" d="M0,50 Q25,75 50,50 T100,50 T150,50 T200,50 T250,50 T300,50 T350,50 T400,50" fill="none" stroke="magenta" stroke-width="2" opacity="0.5" stroke-dashoffset="200"/>
+                        </svg>
+                    </div>
+                    <div class="project-description">
+                        An audio compression statistics visualization tool that implements the LZ77 algorithm for sound pattern analysis. Used by audio engineers to optimize file sizes.
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Video Demo</a>
+                        <a href="#" class="project-link">GitHub</a>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Ahuzat Dibuk -->
+                <div class="project-window" id="project2">
+                    <div class="project-header">
+                        <h3 class="project-title">Ahuzat Dibuk Lab</h3>
+                        <div class="project-controls">
+                            <div class="control control-1"></div>
+                            <div class="control control-2"></div>
+                            <div class="control control-3"></div>
+                        </div>
+                    </div>
+                    <div class="project-visual" id="ahuzat-visual">
+                        <!-- Heat cells will be generated by JavaScript -->
+                    </div>
+                    <div class="project-description">
+                        A neighborhood community platform featuring real-time updates, local announcements, and urban development notifications for residents of Ahuzat Dibuk.
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">News</a>
+                        <a href="#" class="project-link">Facebook</a>
+                    </div>
+                </div>
+                
+                <!-- Project 3: Meta-Portfolio -->
+                <div class="project-window" id="project3">
+                    <div class="project-header">
+                        <h3 class="project-title">Meta-Portfolio Mirror</h3>
+                        <div class="project-controls">
+                            <div class="control control-1"></div>
+                            <div class="control control-2"></div>
+                            <div class="control control-3"></div>
+                        </div>
+                    </div>
+                    <div class="project-visual" id="meta-visual">
+                        <!-- Mirror frames will be added by JavaScript -->
+                    </div>
+                    <div class="project-description">
+                        A self-referential exploration of portfolio design - this very website recursively contains itself, demonstrating the concept of infinite reflection.
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">Self-Reference</a>
+                    </div>
+                </div>
+                
+                <!-- Project 4: Connection Terminal -->
+                <div class="project-window" id="project4">
+                    <div class="project-header">
+                        <h3 class="project-title">Connection Terminal</h3>
+                        <div class="project-controls">
+                            <div class="control control-1"></div>
+                            <div class="control control-2"></div>
+                            <div class="control control-3"></div>
+                        </div>
+                    </div>
+                    <div class="project-visual" id="connection-visual">
+                        <!-- Connection points will be added by JavaScript -->
+                    </div>
+                    <div class="project-description" id="contact">
+                        A constellation of professional connections and social profiles. Find me across the digital universe and let's collaborate on the next breakthrough project.
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link">GitHub</a>
+                        <a href="#" class="project-link">LinkedIn</a>
+                        <a href="#" class="project-link">Facebook</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div>
-            <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank"  rel="noreferrer noopener">
-                <button>
-                    <span class="icon-link">
-                      <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png"/>
-                      Facebook post
-                    </span>
-                </button>
-            </a>
-
-
-            <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank"  rel="noreferrer noopener">
-                <button type="button">
-                    <span class="icon-link">
-                            <img src="https://static.13tv.co.il/res/images/logo-new.svg">
-                            13 News
-                    </span>
-                </button>
-            </a>
-
-            <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank"  rel="noreferrer noopener">
-                <button>
-                    <span class="icon-link">
-                        <img src="https://img.mako.co.il/mako/resources/images//global/mako_logo.svg" />
-
-                        Mako News
-                    </span>
-                </button>
-            </a>
-        </div>
-    </section>
-
-    <!-- Portfolio Website Section -->
-    <section id="portfolio">
-        <h2 class="section-title">Portfolio Website (This Site!)</h2>
-        <p class="section-description">A living portfolio, redesigned daily by AI using data visualization and interactive design.</p>
-        <div class="visualization-container">
-            <div id="portfolio-wireframe"></div>
-        </div>
-        <button id="explore-this-site-button" onclick="scrollToTop()">Explore this site</button>
-    </section>
-
-    <!-- Links Section -->
-    <section id="links">
-        <h2 class="section-title">Connect with Me</h2>
-        <div class="visualization-container">
-            <div id="links-network"></div>
-        </div>
-
-        <a href="https://www.linkedin.com/in/gevakip" target="_blank" rel="noreferrer noopener">
-                <button>
-                <span class="icon-link">
-                    <img src="https://img.icons8.com/color/48/000000/linkedin.png"/>
-                    LinkedIn
-                </span>
-                </button>
-        </a>
-
-        <a href="https://github.com/gevak" target="_blank"  rel="noreferrer noopener">
-                <button>
-                <span class="icon-link">
-                    <img src="https://img.icons8.com/color/48/000000/github--v1.png"/>
-                    GitHub
-                </span>
-                </button>
-        </a>
-
-        <a href="https://www.facebook.com/gevakip" target="_blank" rel="noreferrer noopener">
-                <button>
-                    <span class="icon-link">
-                        <img src="https://img.icons8.com/color/48/000000/facebook-new.png"/>
-                        Facebook
-                    </span>
-                </button>
-         </a>
-
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <p>Designed with the assistance of Bard (Google AI Model).</p>
-        <p>Created by [Your Name]</p>
-        <div class="countdown-container">
-          <div class="countdown">
-            <p>It has been:</p>
-            <p class="countdown-day">
-              <span class="countdown-num">00</span><span class="countdown-shadow">00</span>
-            </p>
-            <p>Day</p>
-            <p class="countdown-hour">
-              <span class="countdown-num">00</span>
-              <span class="countdown-shadow">00</span>
-            </p>
-             <p>Hours</p>
-            <p class="countdown-min"><span class="countdown-num">00</span>
-              <span class="countdown-shadow">00</span></p>
-            <p>Mins</p>
-            <p class="countdown-second"><span class="countdown-num">00</span>
-              <span class="countdown-shadow">00</span></p>
-            <p>Secs</p>
-          </div>
-        </div>
-    </footer>
+        <!-- Footer -->
+        <footer>
+            <div class="space-terminal">
+                <div class="terminal-header">MISSION CONTROL</div>
+                <div class="mission-clock" id="mission-clock">00:00:00:00</div>
+                <div class="designer-credit">Designed by GPT-4 AI Assistant</div>
+            </div>
+        </footer>
+    </div>
 
     <script>
-        // Lightbox functionality
-        function openLightbox(videoId) {
-            document.getElementById('yt-video').src = `https://www.youtube.com/embed/${videoId}`;
-            document.getElementById('lightbox').style.display = 'flex';
-        }
+        // Loading Animation
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                const loader = document.querySelector('.loading-overlay');
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1000);
+            }, 3000);
+        });
 
-        function closeLightbox() {
-            document.getElementById('yt-video').src = ''; // Stop video from playing
-            document.getElementById('lightbox').style.display = 'none';
-        }
-
-        // Scroll to top function
-        function scrollToTop() {
-                window.scrollTo({
-                  top: 0,
-                  behavior: 'smooth'
-                });
-              }
-        //Clock
-          const second = 1000,
-                minute = second * 60,
-                hour = minute * 60,
-                day = hour * 24;
-
-          let today = new Date("March 22, 2025 17:49:03"),
-              dd = String(today.getDate()).padStart(2, "0"),
-              mm = String(today.getMonth() + 1).padStart(2, "0"),
-              yyyy = today.getFullYear(),
-              nextYear = yyyy + 1,
-              dayMonth = mm + "/" + dd + "/",
-              birthday = dayMonth + yyyy;
-
-          today = new Date();
-          if (birthday > today) {
-            birthday = dayMonth + yyyy;
-          } else {
-            birthday = dayMonth + nextYear;
-          }
-          //end
-
-          const countDown = new Date("March 22, 2025 17:49:03").getTime(),
-              x = setInterval(function() {
-
-                const now = new Date().getTime(),
-                      distance = now - countDown;
-
-                document.querySelector(".countdown-day .countdown-num").innerText = Math.floor(distance / (day)),
-                  document.querySelector(".countdown-hour .countdown-num").innerText = Math.floor((distance % (day)) / (hour)),
-                  document.querySelector(".countdown-min .countdown-num").innerText = Math.floor((distance % (hour)) / (minute)),
-                  document.querySelector(".countdown-second .countdown-num").innerText = Math.floor((distance % (minute)) / second);
-
-                //do something later when date is reached
-                if (distance < 0) {
-                  clearInterval(x);
-                  //document.getElementById("headline").innerText = "It's my birthday!";
-                  //document.getElementById("content").style.display = "none";
-                  //document.getElementById("greeting").innerText = "Happy birthday! (This portfolio website was created)";
+        // Create stars in the background
+        function createStars() {
+            const layers = document.querySelectorAll('.stars');
+            
+            layers.forEach((layer, layerIndex) => {
+                const starCount = (3 - layerIndex) * 50;
+                
+                for (let i = 0; i < starCount; i++) {
+                    const star = document.createElement('div');
+                    star.classList.add('star');
+                    
+                    // Random star size between 1-3px
+                    const size = Math.random() * 2 + 1;
+                    star.style.width = `${size}px`;
+                    star.style.height = `${size}px`;
+                    
+                    // Random position
+                    star.style.left = `${Math.random() * 100}%`;
+                    star.style.top = `${Math.random() * 100}%`;
+                    
+                    // Random twinkle animation duration
+                    star.style.setProperty('--twinkle-duration', `${Math.random() * 3 + 2}s`);
+                    star.style.setProperty('--twinkle-max', `${Math.random() * 0.5 + 0.4}`);
+                    
+                    layer.appendChild(star);
                 }
-                //seconds
-              }, 0)
+            });
+        }
+
+        // Create shooting stars periodically
+        function createShootingStars() {
+            const background = document.querySelector('.cosmic-background');
+            
+            setInterval(() => {
+                if (Math.random() > 0.7) { // 30% chance of creating a shooting star
+                    const shootingStar = document.createElement('div');
+                    shootingStar.classList.add('shooting-star');
+                    
+                    // Set random starting position
+                    const top = Math.random() * 40; // Only in top 40% of screen
+                    shootingStar.style.top = `${top}%`;
+                    shootingStar.style.left = '0';
+                    
+                    // Set random width (length of trail)
+                    const width = Math.random() * 100 + 50;
+                    shootingStar.style.width = `${width}px`;
+                    
+                    // Set animation
+                    const duration = Math.random() * 2 + 1;
+                    shootingStar.style.animation = `shoot ${duration}s linear forwards`;
+                    
+                    background.appendChild(shootingStar);
+                    
+                    // Remove after animation
+                    setTimeout(() => {
+                        background.removeChild(shootingStar);
+                    }, duration * 1000);
+                }
+            }, 3000);
+        }
+
+        // Parallax effect for stars
+        function parallaxEffect() {
+            document.addEventListener('mousemove', (e) => {
+                const layers = document.querySelectorAll('.parallax-layer');
+                const mouseX = e.clientX;
+                const mouseY = e.clientY;
+                
+                layers.forEach((layer, index) => {
+                    const speed = (index + 1) * 0.02;
+                    const x = (window.innerWidth / 2 - mouseX) * speed;
+                    const y = (window.innerHeight / 2 - mouseY) * speed;
+                    
+                    layer.style.transform = `translate(${x}px, ${y}px)`;
+                });
+            });
+        }
+
+        // Typewriter effect
+        function typewriterEffect() {
+            const text = "Software Engineer at Google, crafting intelligent systems that scale.";
+            const element = document.getElementById('typewriter');
+            let i = 0;
+            const speed = 70;
+
+            function typeWriter() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, speed);
+                }
+            }
+            
+            typeWriter();
+        }
+
+        // Cursor trail effect
+        function createCursorTrail() {
+            const container = document.getElementById('cursor-trail-container');
+            const trailCount = 10;
+            const trails = [];
+            
+            // Create trail elements
+            for (let i = 0; i < trailCount; i++) {
+                const trail = document.createElement('div');
+                trail.classList.add('cursor-trail');
+                container.appendChild(trail);
+                trails.push({
+                    element: trail,
+                    x: 0,
+                    y: 0
+                });
+            }
+            
+            // Track mouse position
+            document.addEventListener('mousemove', (e) => {
+                // Update the position of the first trail to current mouse position
+                trails[0].x = e.clientX;
+                trails[0].y = e.clientY;
+                trails[0].element.style.opacity = '1';
+            });
+            
+            // Animation loop for trailing effect
+            function animate() {
+                // Each trail follows the previous one with a delay
+                for (let i = trails.length - 1; i > 0; i--) {
+                    const currentTrail = trails[i];
+                    const prevTrail = trails[i - 1];
+                    
+                    // Follow the previous trail with easing
+                    currentTrail.x += (prevTrail.x - currentTrail.x) * 0.5;
+                    currentTrail.y += (prevTrail.y - currentTrail.y) * 0.5;
+                    
+                    // Update position
+                    currentTrail.element.style.left = `${currentTrail.x}px`;
+                    currentTrail.element.style.top = `${currentTrail.y}px`;
+                    
+                    // Set opacity based on position in the trail
+                    const opacity = 1 - (i / trails.length);
+                    currentTrail.element.style.opacity = opacity;
+                    
+                    // Set size based on position in the trail
+                    const size = 6 - (i * 0.5);
+                    currentTrail.element.style.width = `${size}px`;
+                    currentTrail.element.style.height = `${size}px`;
+                }
+                
+                // Update the first trail position
+                trails[0].element.style.left = `${trails[0].x}px`;
+                trails[0].element.style.top = `${trails[0].y}px`;
+                
+                requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        // Navigation handling
+        function setupNavigation() {
+            const navStars = document.querySelectorAll('.nav-star');
+            
+            navStars.forEach(star => {
+                star.addEventListener('click', () => {
+                    // Remove active class from all stars
+                    navStars.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked star
+                    star.classList.add('active');
+                    
+                    // Scroll to target section
+                    const targetId = star.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        targetSection.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+            
+            // Update active nav star based on scroll position
+            window.addEventListener('scroll', () => {
+                const scrollPosition = window.scrollY + 200; // Offset for better detection
+                
+                navStars.forEach(star => {
+                    const targetId = star.getAttribute('data-target');
+                    const targetSection = document.getElementById(targetId);
+                    
+                    if (targetSection) {
+                        const sectionTop = targetSection.offsetTop;
+                        const sectionHeight = targetSection.offsetHeight;
+                        
+                        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+                            navStars.forEach(s => s.classList.remove('active'));
+                            star.classList.add('active');
+                        }
+                    }
+                });
+            });
+        }
+
+        // Project visualization setup
+        function setupProjectVisualizations() {
+            // Setup Ahuzat Dibuk heatmap
+            const heatmapContainer = document.getElementById('ahuzat-visual');
+            const heatmapRows = 10;
+            const heatmapCols = 16;
+            
+            for (let i = 0; i < heatmapRows; i++) {
+                for (let j = 0; j < heatmapCols; j++) {
+                    const cell = document.createElement('div');
+                    cell.classList.add('heatmap-cell');
+                    
+                    // Position cell in grid
+                    cell.style.left = `${j * 10 + 5}px`;
+                    cell.style.top = `${i * 10 + 10}px`;
+                    
+                    // Random heat color
+                    const hue = 200 - Math.floor(Math.random() * 50); // Blue to cyan
+                    const saturation = 70 + Math.floor(Math.random() * 30);
+                    const lightness = 40 + Math.floor(Math.random() * 30);
+                    cell.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                    
+                    heatmapContainer.appendChild(cell);
+                }
+            }
+            
+            // Animate heatmap cells
+            setInterval(() => {
+                const cells = document.querySelectorAll('.heatmap-cell');
+                cells.forEach(cell => {
+                    const hue = 200 - Math.floor(Math.random() * 50); // Blue to cyan
+                    const saturation = 70 + Math.floor(Math.random() * 30);
+                    const lightness = 40 + Math.floor(Math.random() * 30);
+                    cell.style.backgroundColor = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
+                });
+            }, 2000);
+            
+            // Setup Meta-Portfolio mirrors
+            const mirrorContainer = document.getElementById('meta-visual');
+            for (let i = 0; i < 5; i++) {
+                const frame = document.createElement('div');
+                frame.classList.add('mirror-frame');
+                
+                const size = 100 - i * 18;
+                frame.style.width = `${size}%`;
+                frame.style.height = `${size}%`;
+                frame.style.left = `${(100 - size) / 2}%`;
+                frame.style.top = `${(100 - size) / 2}%`;
+                
+                // Add pulsing animation
+                frame.style.animation = `pulse ${4 + i}s infinite`;
+                
+                mirrorContainer.appendChild(frame);
+            }
+            
+            // Setup Connection Terminal visualization
+            const connectionContainer = document.getElementById('connection-visual');
+            const connectionPoints = [
+                { id: 'github', x: 30, y: 40, color: 'white' },
+                { id: 'linkedin', x: 70, y: 30, color: 'rgb(10, 102, 194)' },
+                { id: 'facebook', x: 50, y: 80, color: 'rgb(66, 103, 178)' }
+            ];
+            
+            // Create connection dots
+            connectionPoints.forEach(point => {
+                const dot = document.createElement('div');
+                dot.classList.add('connection-dot');
+                dot.id = point.id + '-dot';
+                dot.style.left = `${point.x}%`;
+                dot.style.top = `${point.y}%`;
+                dot.style.backgroundColor = point.color;
+                
+                // Add pulsing animation
+                dot.style.animation = 'pulse 3s infinite';
+                
+                connectionContainer.appendChild(dot);
+            });
+            
+            // Create connection lines between dots
+            for (let i = 0; i < connectionPoints.length; i++) {
+                for (let j = i + 1; j < connectionPoints.length; j++) {
+                    const start = connectionPoints[i];
+                    const end = connectionPoints[j];
+                    
+                    const line = document.createElement('div');
+                    line.classList.add('connection-line');
+                    
+                    // Calculate line position and angle
+                    const length = Math.sqrt(
+                        Math.pow((end.x - start.x) * connectionContainer.clientWidth / 100, 2) + 
+                        Math.pow((end.y - start.y) * connectionContainer.clientHeight / 100, 2)
+                    );
+                    
+                    const angle = Math.atan2(
+                        (end.y - start.y) * connectionContainer.clientHeight / 100,
+                        (end.x - start.x) * connectionContainer.clientWidth / 100
+                    );
+                    
+                    line.style.width = `${length}px`;
+                    line.style.left = `${start.x}%`;
+                    line.style.top = `${start.y}%`;
+                    line.style.transform = `rotate(${angle}rad)`;
+                    
+                    // Add subtle animation
+                    line.style.animation = 'pulse 4s infinite';
+                    
+                    connectionContainer.appendChild(line);
+                }
+            }
+        }
+
+        // Mission clock update
+        function updateMissionClock() {
+            const startTime = new Date('2025-03-20T21:49:04Z');
+            const clockElement = document.getElementById('mission-clock');
+            
+            function updateClock() {
+                const now = new Date();
+                const diff = now - startTime;
+                
+                // Convert to days, hours, minutes, seconds
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                
+                // Format with leading zeros
+                const formatNumber = num => num.toString().padStart(2, '0');
+                
+                clockElement.textContent = `${formatNumber(days)}:${formatNumber(hours)}:${formatNumber(minutes)}:${formatNumber(seconds)}`;
+            }
+            
+            // Update immediately and then every second
+            updateClock();
+            setInterval(updateClock, 1000);
+        }
+
+        // Scroll animations
+        function setupScrollAnimations() {
+            const projectWindows = document.querySelectorAll('.project-window');
+            
+            // Initialize each project window with a delay for staggered appearance
+            projectWindows.forEach((project, index) => {
+                setTimeout(() => {
+                    project.classList.add('visible');
+                }, 300 * index);
+            });
+            
+            // Check for new elements in view while scrolling
+            window.addEventListener('scroll', () => {
+                const windowHeight = window.innerHeight;
+                const scrollY = window.scrollY;
+                
+                projectWindows.forEach(project => {
+                    const top = project.getBoundingClientRect().top + scrollY;
+                    
+                    if (scrollY + windowHeight > top + 100) {
+                        project.classList.add('visible');
+                    }
+                });
+            });
+        }
+
+        // Initialize all features
+        function init() {
+            createStars();
+            createShootingStars();
+            parallaxEffect();
+            typewriterEffect();
+            createCursorTrail();
+            setupNavigation();
+            setupProjectVisualizations();
+            updateMissionClock();
+            setupScrollAnimations();
+        }
+
+        // Start everything when the DOM is ready
+        document.addEventListener('DOMContentLoaded', init);
     </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250322",
+          pageId: "20250320",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>
