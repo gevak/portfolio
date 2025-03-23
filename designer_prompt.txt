@@ -25,9 +25,9 @@ Add a self-reference link to:
 https://portfolio-dor1.onrender.com/
 
 4. The fourth and last box will include links to GitHub, LinkedIn and Facebook:
-https://github.com/gevak
-www.linkedin.com/in/gevakip
-
+github.com/gevak
+linkedin.com/in/gevakip
+facebook.com/geva.kipper
 
 At the bottom of the page, credit to yourself as the AI model who created the site, and a stopwatch showing how much time (hours, minutes, seconds) has passed since {current_time}.
 
