@@ -2,590 +2,211 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper's Portfolio</title>
+    <title>Geva Kipper - Portfolio</title>
     <style>
-        /* General Styles */
         body {
             font-family: sans-serif;
+            background-color: #f8f5f0; /* Aged cream */
             margin: 0;
             padding: 0;
-            background-color: #f0f8ff; /* AliceBlue */
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
             color: #333;
-            line-height: 1.6;
-            overflow-x: hidden; /* Prevent horizontal scroll */
         }
 
-        a {
-            color: #007bff; /* Primary color for links */
-            text-decoration: none;
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 2rem 0;
         }
 
-        a:hover {
+        header h1 {
+            font-family: "Garamond", serif;
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1); /* Faux embossing */
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        /* Main Content Styles */
+        main {
+            flex: 1;
+            padding: 2rem;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background-color: #f0e6d2; /* Light aged wood */
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+            position: relative;
+        }
+
+         .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .card-title {
+            background-color: #d2b48c; /* Darker wood for title card */
+            padding: 0.5rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .card-description {
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 1rem;            
+        }
+
+        .card a {
+            color: #007bff;
             text-decoration: underline;
         }
 
-        section {
-            padding: 40px;
-            margin-bottom: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05); /* Subtle shadow */
-            transition: transform 0.2s ease-in-out;
+        .card a:hover {
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" cursor="pointer"><circle cx="16" cy="16" r="10" fill="rgba(0,0,0,0.1)"/><line x1="16" y1="6" x2="16" y2="26" stroke="rgba(0,0,0,0.3)" stroke-width="2"/><line x1="6" y1="16" x2="26" y2="16" stroke="rgba(0,0,0,0.3)" stroke-width="2"/></svg>'), auto;
+        }
+        /* Specific card fixes */
+        .card.connect a {
+            display: block;
+            margin-bottom: 0.5rem;
         }
 
-        section:hover {
-            transform: translateY(-3px); /* Gentle lift on hover */
-        }
-
-
-        /* Hero Section */
-        #hero {
-            background-color: #e6e6e6; /* Gainsboro */
-            text-align: center;
-            padding: 100px 0;
-            position: relative; /* For background animation */
-            overflow: hidden; /* Hide overflowing shapes */
-        }
-
-        #hero h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            color: #333;
-        }
-
-        #hero h2 {
-            font-size: 1.5em;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        #hero p {
-            font-style: italic;
-            color: #777;
-        }
-
-
-        /* Background Animation - Simplified */
-        #hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, rgba(255,255,255,0.3), rgba(0,123,255,0.1)); /* Subtle gradient */
-            opacity: 0.6;
-            z-index: -1; /* Behind content */
-            animation: flow 10s linear infinite; /* Slow, subtle animation */
-        }
-
-        @keyframes flow {
-            0% {
-                background-position: 0 0;
-            }
-            100% {
-                background-position: 200% 200%;
-            }
-        }
-
-
-        /* Main Content Sections */
-        .section-title {
-            font-size: 2em;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .section-description {
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        /* Skillset Visualizations (placeholders, replace with actual visualizations) */
-        .visualization-container {
-            height: 200px;
-            background-color: #d3d3d3; /* LightGray */
-            border-radius: 8px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #777;
-            font-style: italic;
-            overflow: hidden;
-            position: relative;
-        }
-
-
-        /* GlglStats Styling */
-        #glglstats-waveform {
-            /* Placeholder for waveform visualization */
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, #007bff, #d3d3d3, #007bff); /* Blue gradient */
-            background-size: 400% 400%;
-            animation: waveformAnimation 5s ease infinite;
-        }
-
-        @keyframes waveformAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
-        }
-
-        .video-thumbnail {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            cursor: pointer;
-            opacity: 0.8;
-            transition: opacity 0.3s ease;
-        }
-
-        .video-thumbnail:hover {
-         opacity: 1;
-        }
-
-        .play-button {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 3em;
-            color: #fff;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            cursor: pointer;
-            z-index: 1;
-        }
-
-        /* Lightbox */
-        .lightbox {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 1000;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .lightbox-content {
-            max-width: 80%;
-            max-height: 80%;
-        }
-
-        .lightbox-content iframe {
-            width: 100%;
-            height: 100%;
-        }
-
-        .lightbox .close-button {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            font-size: 2em;
-            color: white;
-            cursor: pointer;
-        }
-
-
-        /* Ahuzat Dibuk Styling */
-        #ahuzat-dibuk-heatmap {
-            /* Placeholder for heatmap visualization */
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.3), rgba(255, 255, 255, 0.1)); /* Red gradient */
-            animation: pulse 2s infinite alternate;
-        }
-
-        @keyframes pulse {
-            from {
-                opacity: 0.7;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .icon-link {
-            display: inline-flex;
-            align-items: center;
-            margin-right: 10px;
-        }
-
-        .icon-link img {
-            width: 20px;
-            height: 20px;
-            margin-right: 5px;
-        }
-
-
-        /* Portfolio Website Styling */
-        #portfolio-wireframe {
-            /* Placeholder for wireframe */
-            background: repeating-linear-gradient(45deg, #eee, #eee 10px, #fff 10px, #fff 20px); /* Wireframe pattern */
-        }
-
-
-        /* Links Styling */
-        #links-network {
-            /* Placeholder for network graph */
-            background: radial-gradient(circle, rgba(0, 123, 255, 0.2), rgba(255, 255, 255, 0.1)); /* Blue gradient */
-        }
-
-        /* Buttons */
-        button {
-            background-color: #007bff; /* Primary color for buttons */
-            color: white;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-            margin-right: 10px;
-        }
-
-        button:hover {
-            background-color: #0056b3; /* Darker shade on hover */
-        }
-
-        /* Specific button style for "Explore this Site"*/
-        #explore-this-site-button{
-            background-color: #28a745;
-        }
-
-        #explore-this-site-button:hover{
-            background-color: #218838;
-        }
-
-        /* Footer */
+        /* Footer Styles */
         footer {
-            background-color: #d3d3d3; /* LightGray */
-            padding: 20px;
             text-align: center;
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            font-size: small;
+            padding: 1rem;
+            font-size: 0.8rem;
+            color: #777;
+            border-top: 1px solid #ddd;
         }
 
-        /* Mobile Responsiveness */
-        @media (max-width: 600px) {
-            section {
-                padding: 20px;
-            }
+          /* Stopwatch Styles */
+          .stopwatch-container {
+            margin-top: 10px;
+            font-size: 1em;
+            font-family: monospace;
+        }
 
-            #hero {
-                padding: 60px 0;
-            }
-
-            #hero h1 {
-                font-size: 2.5em;
-            }
-
-            #hero h2 {
-                font-size: 1.2em;
-            }
-
-            .visualization-container {
-                height: 150px;
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .card-container {
+                grid-template-columns: 1fr; /* Single column on smaller screens */
             }
         }
-
-        /* Animate the clock numbers coming in*/
-
-        .countdown {
-
-            overflow: hidden;
-
-            grid-area: time;
-
-            color: inherit;
-
-            display: grid;
-
-            grid-template-rows: 1fr;
-
-            grid-template-columns: 1fr 1fr;
-
-        }
-
-        .countdown > * {
-
-            position: relative;
-
-            margin: 0;
-
-            padding: 0;
-
-            width: auto;
-
-            grid-column: span 1;
-
-            text-align: center;
-
-        }
-
-        .countdown .countdown-shadow {
-
-            position: absolute;
-
-            top: 50%;
-
-            left: 0;
-
-            width: 100%;
-
-            color: rgba(0, 0, 0, 0.3);
-
-            font-variation-settings: 'wght' 700;
-
-            transform: translateY(-50%);
-
-        }
-
-        .countdown-num {
-
-            z-index: 1;
-
-            -webkit-transition: all 0.5s ease-in-out;
-
-            transition: all 0.5s ease-in-out;
-
-            font-variation-settings: 'wght' 500;
-
-            will-change: transform;
-
-        }
-        /* Add for scrolling*/
-        html {
-                scroll-behavior: smooth;
-        }
-
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-        integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <section id="hero">
+    <header>
         <h1>Geva Kipper</h1>
-        <h2>Software Engineer at Google</h2>
-        <p><i>This portfolio is redesigned by AI daily, a constantly evolving snapshot of my skills.</i></p>
-    </section>
+        <p>Software Engineer at Google</p>
+        <p style="font-size:0.8em;">AI Re-designed daily.</p>
+    </header>
 
-    <!-- GlglStats Section -->
-    <section id="glglstats">
-        <h2 class="section-title">GlglStats: Measuring Musical Repetition</h2>
-        <p class="section-description">Analyzes repetitiveness in Israeli pop chart songs using LZ77 compression.</p>
-        <div class="visualization-container">
-            <div id="glglstats-waveform"></div>
-        </div>
-        <a href="https://glglstats.onrender.com/" target="_blank"><button>View live</button></a>
+    <main>
+        <div class="card-container">
 
-        <!-- Embedded Video Thumbnail and Lightbox -->
-        <div class="video-container">
-            <img src="https://img.youtube.com/vi/jrKAtOsj1Lo/0.jpg" alt="PyData TLV Presentation" class="video-thumbnail" onclick="openLightbox('jrKAtOsj1Lo')">
-            <div class="play-button" onclick="openLightbox('jrKAtOsj1Lo')"><i class="fas fa-play-circle"></i></div>
-        </div>
-
-        <div class="lightbox" id="lightbox">
-            <div class="lightbox-content">
-                <span class="close-button" onclick="closeLightbox()">&times;</span>
-                <iframe id="yt-video" src="" frameborder="0" allowfullscreen></iframe>
+            <div class="card" id="glglstats">
+                <div class="card-title">GlglStats Project</div>
+                <div class="card-description">
+                  GlglStats is a platform collecting data from various sources relating to gaming to produce summary statistics.
+                    <a href="https://glglstats.onrender.com/">Visit the website</a>.
+                    
+                    <br>
+                </div>
+                <iframe width="100%" height="200" src="https://www.youtube.com/embed/jrKAtOsj1Lo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>
+
+            <div class="card" id="ahuzat-dibuk">
+                <div class="card-title">Ahuzat Dibuk Project</div>
+                <div class="card-description">
+                    'Ahuzat Dibuk' is urban exploration and guerilla gardening event based out of Tel Aviv. 
+                    <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/">News Story 1</a><br>
+                    <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm">News Story 2</a><br>
+                    <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/">Facebook Publication</a>
+                </div>
+            </div>
+
+            <div class="card" id="portfolio-website">
+                <div class="card-title">Portfolio Website (Meta!)</div>
+                <div class="card-description">
+                    This very portfolio website! 
+                    <a href="https://portfolio-dor1.onrender.com/">Visit the portfolio page</a>.
+                </div>
+            </div>
+
+            <div class="card connect">
+                <div class="card-title">Connect</div>
+                <div class="card-description">
+                    <a href="https://github.com/gevak">GitHub</a>
+                    <a href="https://www.linkedin.com/in/gevakip">LinkedIn</a>
+                    <a href="https://www.facebook.com/gevakiper">Facebook</a>
+                </div>
+            </div>
+
         </div>
-    </section>
+    </main>
 
-    <!-- Ahuzat Dibuk Section -->
-    <section id="ahuzat-dibuk">
-        <h2 class="section-title">Ahuzat Dibuk: Real-Time Parking Data Visualization</h2>
-        <p class="section-description">Collecting and visualizing Tel-Aviv parking lot statistics for resident use.</p>
-        <div class="visualization-container">
-            <div id="ahuzat-dibuk-heatmap"></div>
-        </div>
-
-        <div>
-            <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank"  rel="noreferrer noopener">
-                <button>
-                    <span class="icon-link">
-                      <img src="https://img.icons8.com/fluent/48/000000/facebook-new.png"/>
-                      Facebook post
-                    </span>
-                </button>
-            </a>
-
-
-            <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank"  rel="noreferrer noopener">
-                <button type="button">
-                    <span class="icon-link">
-                            <img src="https://static.13tv.co.il/res/images/logo-new.svg">
-                            13 News
-                    </span>
-                </button>
-            </a>
-
-            <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank"  rel="noreferrer noopener">
-                <button>
-                    <span class="icon-link">
-                        <img src="https://img.mako.co.il/mako/resources/images//global/mako_logo.svg" />
-
-                        Mako News
-                    </span>
-                </button>
-            </a>
-        </div>
-    </section>
-
-    <!-- Portfolio Website Section -->
-    <section id="portfolio">
-        <h2 class="section-title">Portfolio Website (This Site!)</h2>
-        <p class="section-description">A living portfolio, redesigned daily by AI using data visualization and interactive design.</p>
-        <div class="visualization-container">
-            <div id="portfolio-wireframe"></div>
-        </div>
-        <button id="explore-this-site-button" onclick="scrollToTop()">Explore this site</button>
-    </section>
-
-    <!-- Links Section -->
-    <section id="links">
-        <h2 class="section-title">Connect with Me</h2>
-        <div class="visualization-container">
-            <div id="links-network"></div>
-        </div>
-
-        <a href="https://www.linkedin.com/in/gevakip" target="_blank" rel="noreferrer noopener">
-                <button>
-                <span class="icon-link">
-                    <img src="https://img.icons8.com/color/48/000000/linkedin.png"/>
-                    LinkedIn
-                </span>
-                </button>
-        </a>
-
-        <a href="https://github.com/gevak" target="_blank"  rel="noreferrer noopener">
-                <button>
-                <span class="icon-link">
-                    <img src="https://img.icons8.com/color/48/000000/github--v1.png"/>
-                    GitHub
-                </span>
-                </button>
-        </a>
-
-        <a href="https://www.facebook.com/gevakip" target="_blank" rel="noreferrer noopener">
-                <button>
-                    <span class="icon-link">
-                        <img src="https://img.icons8.com/color/48/000000/facebook-new.png"/>
-                        Facebook
-                    </span>
-                </button>
-         </a>
-
-    </section>
-
-    <!-- Footer -->
     <footer>
-        <p>Designed with the assistance of Bard (Google AI Model).</p>
-        <p>Created by [Your Name]</p>
-        <div class="countdown-container">
-          <div class="countdown">
-            <p>It has been:</p>
-            <p class="countdown-day">
-              <span class="countdown-num">00</span><span class="countdown-shadow">00</span>
-            </p>
-            <p>Day</p>
-            <p class="countdown-hour">
-              <span class="countdown-num">00</span>
-              <span class="countdown-shadow">00</span>
-            </p>
-             <p>Hours</p>
-            <p class="countdown-min"><span class="countdown-num">00</span>
-              <span class="countdown-shadow">00</span></p>
-            <p>Mins</p>
-            <p class="countdown-second"><span class="countdown-num">00</span>
-              <span class="countdown-shadow">00</span></p>
-            <p>Secs</p>
+        <p>Designed by: [Your Name]</p>
+        <p>AI Contributor: [Bard]</p>
+        <div class="stopwatch-container">
+            Stopwatch: <span id="stopwatch">00:00:00</span>
           </div>
-        </div>
     </footer>
 
     <script>
-        // Lightbox functionality
-        function openLightbox(videoId) {
-            document.getElementById('yt-video').src = `https://www.youtube.com/embed/${videoId}`;
-            document.getElementById('lightbox').style.display = 'flex';
+        function updateStopwatch() {
+            const startTime = new Date("2025-03-23 01:01:40").getTime();
+            const now = new Date().getTime();
+            const difference = now - startTime;
+
+            const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+            const formattedHours = String(hours).padStart(2, '0');
+            const formattedMinutes = String(minutes).padStart(2, '0');
+            const formattedSeconds = String(seconds).padStart(2, '0');
+
+            document.getElementById("stopwatch").innerText = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
         }
 
-        function closeLightbox() {
-            document.getElementById('yt-video').src = ''; // Stop video from playing
-            document.getElementById('lightbox').style.display = 'none';
-        }
+        // Update the stopwatch every second
+        setInterval(updateStopwatch, 1000);
 
-        // Scroll to top function
-        function scrollToTop() {
-                window.scrollTo({
-                  top: 0,
-                  behavior: 'smooth'
-                });
-              }
-        //Clock
-          const second = 1000,
-                minute = second * 60,
-                hour = minute * 60,
-                day = hour * 24;
-
-          let today = new Date("March 22, 2025 17:49:03"),
-              dd = String(today.getDate()).padStart(2, "0"),
-              mm = String(today.getMonth() + 1).padStart(2, "0"),
-              yyyy = today.getFullYear(),
-              nextYear = yyyy + 1,
-              dayMonth = mm + "/" + dd + "/",
-              birthday = dayMonth + yyyy;
-
-          today = new Date();
-          if (birthday > today) {
-            birthday = dayMonth + yyyy;
-          } else {
-            birthday = dayMonth + nextYear;
-          }
-          //end
-
-          const countDown = new Date("March 22, 2025 17:49:03").getTime(),
-              x = setInterval(function() {
-
-                const now = new Date().getTime(),
-                      distance = now - countDown;
-
-                document.querySelector(".countdown-day .countdown-num").innerText = Math.floor(distance / (day)),
-                  document.querySelector(".countdown-hour .countdown-num").innerText = Math.floor((distance % (day)) / (hour)),
-                  document.querySelector(".countdown-min .countdown-num").innerText = Math.floor((distance % (hour)) / (minute)),
-                  document.querySelector(".countdown-second .countdown-num").innerText = Math.floor((distance % (minute)) / second);
-
-                //do something later when date is reached
-                if (distance < 0) {
-                  clearInterval(x);
-                  //document.getElementById("headline").innerText = "It's my birthday!";
-                  //document.getElementById("content").style.display = "none";
-                  //document.getElementById("greeting").innerText = "Happy birthday! (This portfolio website was created)";
-                }
-                //seconds
-              }, 0)
+        // Initial call to set the stopwatch immediately
+        updateStopwatch();
     </script>
+
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250322",
+          pageId: "20250323",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>
