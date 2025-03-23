@@ -12,5 +12,6 @@ https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm
 Address of this portfolio website:
 https://portfolio-dor1.onrender.com/
 Social links:
-https://github.com/gevak
-www.linkedin.com/in/gevakip
+github.com/gevak
+linkedin.com/in/gevakip
+facebook.com/geva.kipper
