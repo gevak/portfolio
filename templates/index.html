@@ -2,559 +2,1647 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper's Digital Garden</title>
+    <title>Geva Kipper | Code Refactoring Visualizer</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Quicksand:wght@300;400;500;600&display=swap');
-        
+        :root {
+            --bg-color: #0d1117;
+            --text-color: #e6edf3;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-orange: #f0883e;
+            --accent-purple: #bc8cff;
+            --code-bg: #161b22;
+            --timeline-color: var(--accent-blue);
+            --branch-color: var(--accent-green);
+            --section-bg: rgba(13, 17, 23, 0.8);
+        }
+
+        @font-face {
+            font-family: 'JetBrains Mono';
+            src: url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        :root {
-            --soil-color: #3a2a18;
-            --light-soil: #5c422a;
-            --sky-color: #87CEEB;
-            --text-color: #333;
-            --accent-color: #4CAF50;
-            --glow-color: rgba(144, 238, 144, 0.6);
-        }
-        
+
         body {
-            font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(to top, var(--soil-color) 0%, var(--light-soil) 30%, var(--sky-color) 100%);
-            color: white;
-            min-height: 100vh;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Inter', sans-serif;
             overflow-x: hidden;
-            position: relative;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%2358a6ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 14l-6-6-6 6"></path><path d="M8 8V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v4"></path></svg>'), auto;
         }
-        
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .container {
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
             padding: 2rem;
             position: relative;
-            z-index: 2;
         }
-        
-        header {
-            text-align: center;
-            padding: 2rem 0;
-            position: relative;
-            margin-bottom: 3rem;
-        }
-        
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-        }
-        
-        .subtitle {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-        
-        .ai-notice {
-            font-size: 0.9rem;
-            padding: 0.5rem 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            display: inline-block;
-            backdrop-filter: blur(5px);
-            animation: shimmer 3s infinite;
-            margin-top: 0.5rem;
-        }
-        
-        @keyframes shimmer {
-            0%, 100% { opacity: 0.7; }
-            50% { opacity: 1; }
-        }
-        
-        .garden {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 3rem;
-            padding-bottom: 3rem;
-        }
-        
-        .plant {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            position: relative;
-            min-height: 350px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            transition: all 0.4s ease;
+
+        .code-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.1;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            backdrop-filter: blur(5px);
         }
-        
-        .plant::before {
+
+        .timeline {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: var(--timeline-color);
+            transform: translateX(-50%);
+            z-index: -1;
+        }
+
+        .timeline::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 30px;
-            background: var(--light-soil);
-            z-index: -1;
-            border-radius: 0 0 15px 15px;
+            top: 0;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: var(--timeline-color);
+            border-radius: 50%;
+            transform: translateX(-50%);
         }
-        
-        .plant:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            margin-bottom: 5rem;
+            position: relative;
         }
-        
-        .plant:hover .plant-visual {
-            transform: scale(1.1);
-            filter: drop-shadow(0 0 10px var(--glow-color));
-        }
-        
-        .plant-content {
-            z-index: 2;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.3s ease;
-            background: rgba(0,0,0,0.7);
-            padding: 1rem;
-            border-radius: 10px;
-        }
-        
-        .plant:hover .plant-content {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .plant-title {
-            font-size: 1.5rem;
+
+        .name {
+            font-size: 5rem;
+            font-weight: 700;
+            letter-spacing: -0.05em;
             margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: white;
+            position: relative;
+            display: inline-block;
         }
-        
-        .plant-description {
+
+        .name .glitch-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .name .glitch-text {
+            position: relative;
+            display: inline-block;
+            animation: glitch-skew 1s infinite linear alternate-reverse;
+        }
+
+        .name .glitch-text::before,
+        .name .glitch-text::after {
+            content: "Geva Kipper";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .name .glitch-text::before {
+            color: var(--accent-green);
+            animation: glitch-anim-1 0.4s infinite linear alternate-reverse;
+            left: 2px;
+            text-shadow: -2px 0 var(--accent-purple);
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+        }
+
+        .name .glitch-text::after {
+            color: var(--accent-orange);
+            animation: glitch-anim-2 0.5s infinite linear alternate-reverse;
+            left: -2px;
+            text-shadow: 2px 0 var(--accent-blue);
+            clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+        }
+
+        .tagline {
+            font-size: 1.5rem;
+            font-weight: 300;
             margin-bottom: 1rem;
-            font-size: 0.95rem;
-            line-height: 1.4;
-            color: rgba(255,255,255,0.9);
+            opacity: 0.9;
         }
-        
-        .plant-links {
+
+        .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0.7;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .refactor-icon {
+            width: 40px;
+            height: 40px;
+            margin: 1rem auto;
+            position: relative;
+        }
+
+        .refactor-icon .code-line {
+            position: absolute;
+            height: 2px;
+            background-color: var(--accent-blue);
+            transition: all 0.5s ease;
+        }
+
+        /* Navigation */
+        .navigation {
             display: flex;
-            flex-wrap: wrap;
+            justify-content: center;
             gap: 0.5rem;
-            margin-top: 1rem;
+            margin-bottom: 3rem;
+            position: sticky;
+            top: 1rem;
+            z-index: 100;
+            background-color: rgba(13, 17, 23, 0.8);
+            padding: 0.5rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
         }
-        
-        .plant-link {
-            display: inline-flex;
+
+        .nav-button {
+            background-color: var(--code-bg);
+            border: none;
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
             align-items: center;
-            padding: 0.4rem 0.8rem;
-            background: rgba(255,255,255,0.1);
-            border-radius: 30px;
-            color: white;
+            gap: 0.5rem;
+        }
+
+        .nav-button:hover {
+            background-color: var(--accent-blue);
+            color: var(--bg-color);
+        }
+
+        .commit-icon {
+            font-size: 1rem;
+            display: inline-block;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 3rem;
+            margin-bottom: 5rem;
+            border-radius: 8px;
+            background-color: var(--section-bg);
+            backdrop-filter: blur(10px);
+            position: relative;
+            border-left: 4px solid var(--branch-color);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 50%;
+            height: 4px;
+            width: 20px;
+            background-color: var(--branch-color);
+            transform: translateY(-50%);
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-green);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* GlglStats Section */
+        .compression-visualizer {
+            height: 150px;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .compression-visualizer .bar {
+            position: absolute;
+            bottom: 0;
+            width: 8px;
+            background-color: var(--accent-blue);
+            opacity: 0.8;
+        }
+
+        .waveform {
+            height: 60px;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .waveform .wave {
+            position: absolute;
+            top: 50%;
+            height: 2px;
+            background-color: var(--accent-green);
+            transform: translateY(-50%);
+        }
+
+        .terminal-link {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .terminal-link::before {
+            content: '$ ';
+            color: var(--accent-green);
+            margin-right: 0.5rem;
+        }
+
+        .terminal-link a {
+            color: var(--accent-blue);
             text-decoration: none;
-            font-size: 0.85rem;
-            transition: all 0.3s;
         }
-        
-        .plant-link:hover {
-            background: var(--accent-color);
-            transform: scale(1.05);
+
+        .terminal-link a:hover {
+            text-decoration: underline;
         }
-        
-        .plant-link i {
-            margin-right: 0.4rem;
-            font-size: 0.9rem;
+
+        .video-thumbnail {
+            width: 100%;
+            height: 0;
+            padding-bottom: 56.25%;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
-        
-        /* Project-specific plant styles */
-        .plant-visual {
+
+        .video-thumbnail::before {
+            content: '';
             position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 80%;
-            height: 80%;
-            transition: all 0.4s ease;
-            z-index: 1;
-        }
-        
-        /* GlglStats Plant */
-        .glglstats-visual {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g fill="%234CAF50"><path d="M50,20 L50,80 C50,80 70,60 70,50 C70,40 60,30 50,20z"/><path d="M50,20 L50,80 C50,80 30,60 30,50 C30,40 40,30 50,20z"/><circle cx="50" cy="20" r="8" fill="%23FF9800"/></g><g opacity="0.7"><path d="M50,45 C50,45 60,50 65,45 C70,40 65,30 60,35 C55,40 50,45 50,45z" fill="%23E91E63"/><path d="M50,45 C50,45 40,50 35,45 C30,40 35,30 40,35 C45,40 50,45 50,45z" fill="%239C27B0"/><path d="M50,35 C50,35 55,25 50,20 C45,15 35,20 40,25 C45,30 50,35 50,35z" fill="%233F51B5"/></g></svg>') no-repeat center;
-            animation: sway 6s ease-in-out infinite;
-        }
-        
-        /* Ahuzat Dibuk Plant */
-        .ahuzat-visual {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g><rect x="45" y="40" width="10" height="40" fill="%23795548"/><path d="M50,40 C50,40 30,20 20,30 C10,40 30,45 50,40z" fill="%234CAF50"/><path d="M50,40 C50,40 70,20 80,30 C90,40 70,45 50,40z" fill="%234CAF50"/><path d="M50,30 C50,30 30,10 25,5 C20,0 10,10 20,15 C30,20 50,30 50,30z" fill="%234CAF50"/><path d="M50,30 C50,30 70,10 75,5 C80,0 90,10 80,15 C70,20 50,30 50,30z" fill="%234CAF50"/></g><g fill="%23F44336" opacity="0.7"><circle cx="20" cy="30" r="3"/><circle cx="80" cy="30" r="3"/><circle cx="25" cy="5" r="3"/><circle cx="75" cy="5" r="3"/></g></svg>') no-repeat center;
-            animation: sway 8s ease-in-out infinite alternate;
-        }
-        
-        /* Portfolio Website Plant */
-        .portfolio-visual {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g transform="translate(50,50)"><rect x="-3" y="0" width="6" height="30" transform="translate(0,-30)" fill="%23795548"/><g transform="translate(0,-30) scale(0.6)"><path d="M0,0 L-20,-20 L-10,-30 L0,-25 L10,-30 L20,-20 Z" fill="%234CAF50"/><circle cx="0" cy="-10" r="5" fill="%23FFC107"/></g><g transform="translate(-15,-15) scale(0.4)"><path d="M0,0 L-20,-20 L-10,-30 L0,-25 L10,-30 L20,-20 Z" fill="%234CAF50"/><circle cx="0" cy="-10" r="5" fill="%239C27B0"/></g><g transform="translate(15,-15) scale(0.4)"><path d="M0,0 L-20,-20 L-10,-30 L0,-25 L10,-30 L20,-20 Z" fill="%234CAF50"/><circle cx="0" cy="-10" r="5" fill="%233F51B5"/></g><ellipse cx="0" cy="5" rx="15" ry="5" fill="%2303A9F4" opacity="0.7"/></g></svg>') no-repeat center;
-            animation: rotate 15s linear infinite;
-        }
-        
-        /* Social Links Plant */
-        .social-visual {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><g><rect x="45" y="20" width="10" height="60" fill="%23795548"/><g transform="translate(50,30)"><rect x="-30" y="-5" width="30" height="10" fill="%23795548"/><path d="M-30,-5 L-40,-10 L-40,0 Z" fill="%23795548"/></g><g transform="translate(50,50)"><rect x="-30" y="-5" width="30" height="10" fill="%23795548"/><path d="M-30,-5 L-40,-10 L-40,0 Z" fill="%23795548"/></g><g transform="translate(50,70)"><rect x="-30" y="-5" width="30" height="10" fill="%23795548"/><path d="M-30,-5 L-40,-10 L-40,0 Z" fill="%23795548"/></g></g></svg>') no-repeat center;
-        }
-        
-        @keyframes sway {
-            0%, 100% { transform: translate(-50%, -50%) rotate(-3deg); }
-            50% { transform: translate(-50%, -50%) rotate(3deg); }
-        }
-        
-        @keyframes rotate {
-            0% { transform: translate(-50%, -50%) rotate(0deg); }
-            100% { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        
-        /* Floating code particles */
-        .particles-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            top: 0;
-            overflow: hidden;
-            pointer-events: none;
-            z-index: 1;
-        }
-        
-        .particle {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: rgba(144, 238, 144, 0.7);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
-            box-shadow: 0 0 10px 5px rgba(144, 238, 144, 0.3);
-            pointer-events: none;
-            opacity: 0;
+            z-index: 1;
+            transition: all 0.3s ease;
         }
-        
-        /* Footer */
-        footer {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 1.5rem;
-            text-align: center;
-            position: relative;
+
+        .video-thumbnail::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-40%, -50%);
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-left: 25px solid white;
+            border-bottom: 15px solid transparent;
             z-index: 2;
         }
-        
-        .footer-container {
+
+        .video-thumbnail:hover::before {
+            background-color: rgba(255, 255, 255, 0.3);
+            width: 65px;
+            height: 65px;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .video-thumbnail:hover img {
+            transform: scale(1.05);
+        }
+
+        /* Ahuzat Dibuk Section */
+        .heatmap {
+            width: 100%;
+            height: 150px;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: repeat(20, 1fr);
+            grid-template-rows: repeat(7, 1fr);
+            gap: 2px;
+            padding: 5px;
+        }
+
+        .heatmap-cell {
+            background-color: var(--accent-green);
+            border-radius: 2px;
+            opacity: 0.2;
+            transition: all 0.3s ease;
+        }
+
+        .parking-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .parking-stat {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 4px;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
+            justify-content: center;
+        }
+
+        .parking-stat h4 {
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .parking-stat .value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent-orange);
+        }
+
+        .news-links {
+            display: flex;
             flex-wrap: wrap;
             gap: 1rem;
+            margin-bottom: 1.5rem;
         }
-        
-        .ai-credit {
+
+        .notification {
+            flex: 1;
+            min-width: 250px;
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            border-left: 4px solid var(--accent-orange);
+            position: relative;
+            overflow: hidden;
+            animation: notification-slide 0.5s ease forwards;
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .notification.visible {
+            animation: notification-slide 0.5s ease forwards;
+        }
+
+        .notification-header {
             display: flex;
             align-items: center;
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
         }
-        
-        .ai-icon {
-            margin-right: 0.5rem;
+
+        .notification-icon {
             font-size: 1.2rem;
-            color: var(--accent-color);
+            color: var(--accent-orange);
         }
-        
-        .garden-timer {
-            font-family: 'Montserrat', sans-serif;
+
+        .notification-title {
+            font-weight: 600;
+        }
+
+        .notification-content {
             font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.8);
-            background: rgba(255, 255, 255, 0.1);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            display: inline-flex;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+        }
+
+        .notification-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.8rem;
+        }
+
+        .notification-link:hover {
+            text-decoration: underline;
+        }
+
+        .social-card {
+            background-color: var(--code-bg);
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-card-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .social-card-icon {
+            width: 40px;
+            height: 40px;
+            background-color: #1877f2;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .social-card-title {
+            font-weight: 600;
+        }
+
+        .social-card-content {
+            margin-bottom: 1rem;
+        }
+
+        .social-card-link {
+            color: var(--accent-blue);
+            text-decoration: none;
+            display: block;
+            text-align: right;
+        }
+
+        .social-card-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Portfolio Self-Reference Section */
+        .recursion-container {
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+            height: 300px;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            perspective: 1000px;
+        }
+
+        .recursion-frame {
+            position: absolute;
+            width: 90%;
+            height: 90%;
+            top: 5%;
+            left: 5%;
+            border: 2px solid var(--accent-blue);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        .recursion-container:hover .recursion-frame {
+            transform: translateZ(-20px);
+        }
+
+        .code-editor {
+            margin-bottom: 1.5rem;
+            height: 200px;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            padding: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .code-line {
+            display: flex;
+            margin-bottom: 0.2rem;
+        }
+
+        .line-number {
+            width: 30px;
+            text-align: right;
+            padding-right: 0.5rem;
+            color: rgba(255, 255, 255, 0.5);
+            user-select: none;
+        }
+
+        .code-text {
+            flex: 1;
+        }
+
+        .code-text .keyword {
+            color: var(--accent-purple);
+        }
+
+        .code-text .string {
+            color: var(--accent-green);
+        }
+
+        .code-text .comment {
+            color: #8b949e;
+        }
+
+        .code-text .function {
+            color: var(--accent-blue);
+        }
+
+        .code-text .variable {
+            color: var(--accent-orange);
+        }
+
+        .infinite-mirror {
+            position: relative;
+            height: 200px;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+            overflow: hidden;
+            perspective: 1000px;
+        }
+
+        .mirror-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.5s ease;
+            transform-style: preserve-3d;
+        }
+
+        .mirror {
+            width: 80%;
+            height: 80%;
+            border: 2px solid var(--accent-blue);
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .infinite-mirror:hover .mirror-container {
+            transform: translateZ(-50px);
+        }
+
+        /* Social Links Section */
+        .social-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-link {
+            flex: 1;
+            min-width: 200px;
+            background-color: var(--code-bg);
+            padding: 1.5rem;
+            border-radius: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .social-link:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            position: relative;
+            height: 50px;
+            width: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .social-icon.github {
+            color: var(--accent-purple);
+        }
+
+        .social-icon.linkedin {
+            color: #0a66c2;
+        }
+
+        .social-icon.facebook {
+            color: #1877f2;
+        }
+
+        .social-command {
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 0.5rem;
+            display: flex;
             align-items: center;
         }
-        
-        .timer-digits {
-            font-family: 'Courier New', monospace;
-            color: #4CAF50;
-            margin-left: 0.5rem;
+
+        .social-command::before {
+            content: '$ ';
+            color: var(--accent-green);
+            margin-right: 0.5rem;
         }
-        
-        /* Responsive Design */
-        @media (max-width: 900px) {
-            .garden {
-                grid-template-columns: 1fr;
-                gap: 2rem;
+
+        .social-link-text {
+            color: var(--accent-blue);
+            text-decoration: none;
+        }
+
+        .social-link-text:hover {
+            text-decoration: underline;
+        }
+
+        .social-preview {
+            position: absolute;
+            bottom: -150px;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background-color: var(--bg-color);
+            transition: all 0.3s ease;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+        }
+
+        .social-link:hover .social-preview {
+            bottom: 0;
+            opacity: 1;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .stopwatch {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--code-bg);
+            border-radius: 4px;
+        }
+
+        .stopwatch-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        .stopwatch-time {
+            font-weight: 700;
+        }
+
+        .designer-credit {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .designer-credit .ai-pattern {
+            width: 20px;
+            height: 20px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+            display: inline-block;
+        }
+
+        /* Animations */
+        @keyframes glitch-anim-1 {
+            0% {
+                clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+                transform: translate(-2px, -2px);
             }
-            
-            h1 {
-                font-size: 2.5rem;
+            50% {
+                clip-path: polygon(0 5%, 100% 5%, 100% 50%, 0 50%);
+                transform: translate(-5px, -1px);
             }
-            
-            .footer-container {
+            100% {
+                clip-path: polygon(0 10%, 100% 10%, 100% 40%, 0 40%);
+                transform: translate(-3px, 0px);
+            }
+        }
+
+        @keyframes glitch-anim-2 {
+            0% {
+                clip-path: polygon(0 55%, 100% 55%, 100% 100%, 0 100%);
+                transform: translate(2px, 2px);
+            }
+            50% {
+                clip-path: polygon(0 60%, 100% 60%, 100% 95%, 0 95%);
+                transform: translate(5px, 1px);
+            }
+            100% {
+                clip-path: polygon(0 55%, 100% 55%, 100% 90%, 0 90%);
+                transform: translate(3px, 0px);
+            }
+        }
+
+        @keyframes glitch-skew {
+            0% {
+                transform: skew(0deg);
+            }
+            10% {
+                transform: skew(0.5deg);
+            }
+            20% {
+                transform: skew(-0.5deg);
+            }
+            30% {
+                transform: skew(0.5deg);
+            }
+            40% {
+                transform: skew(-0.5deg);
+            }
+            50% {
+                transform: skew(0.5deg);
+            }
+            60% {
+                transform: skew(-1deg);
+            }
+            70% {
+                transform: skew(0deg);
+            }
+            80% {
+                transform: skew(0.5deg);
+            }
+            90% {
+                transform: skew(-0.5deg);
+            }
+            100% {
+                transform: skew(0deg);
+            }
+        }
+
+        @keyframes notification-slide {
+            0% {
+                opacity: 0;
+                transform: translateX(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Media Queries */
+        @media (max-width: 1024px) {
+            .name {
+                font-size: 4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .name {
+                font-size: 3rem;
+            }
+
+            .tagline {
+                font-size: 1.2rem;
+            }
+
+            .parking-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .social-links {
                 flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .plant {
-                min-height: 300px;
             }
         }
-        
-        @media (max-width: 600px) {
+
+        @media (max-width: 480px) {
             .container {
                 padding: 1rem;
             }
-            
-            h1 {
-                font-size: 2rem;
+
+            .name {
+                font-size: 2.5rem;
             }
-            
-            .subtitle {
+
+            .tagline {
                 font-size: 1rem;
             }
-            
-            .plant-content {
-                padding: 0.8rem;
+
+            .navigation {
+                flex-direction: column;
             }
-            
-            .plant-title {
-                font-size: 1.3rem;
-            }
-            
-            .plant-description {
-                font-size: 0.9rem;
+
+            .parking-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <div class="particles-container" id="particles"></div>
-    
+    <div class="code-background" id="codeBackground"></div>
     <div class="container">
+        <div class="timeline"></div>
+
         <header>
-            <h1>Geva Kipper</h1>
-            <p class="subtitle">Software Engineer at Google</p>
-            <div class="ai-notice">This digital garden is re-designed daily by AI and is ever-changing.</div>
+            <h1 class="name">
+                <div class="glitch-wrapper">
+                    <span class="glitch-text">Geva Kipper</span>
+                </div>
+            </h1>
+            <p class="tagline">Engineering innovative solutions at Google</p>
+            <p class="subtitle">This portfolio is redesigned daily by AI, always evolving and never the same twice</p>
+            <div class="refactor-icon" id="refactorIcon">
+                <div class="code-line" style="width: 30px; top: 5px; left: 5px;"></div>
+                <div class="code-line" style="width: 20px; top: 15px; left: 5px;"></div>
+                <div class="code-line" style="width: 25px; top: 25px; left: 5px;"></div>
+            </div>
         </header>
-        
-        <main class="garden">
-            <!-- GlglStats Plant -->
-            <div class="plant">
-                <div class="plant-visual glglstats-visual"></div>
-                <div class="plant-content">
-                    <h2 class="plant-title">GlglStats</h2>
-                    <p class="plant-description">Measuring repetitiveness in Israeli pop songs to analyze patterns and trends in popular music.</p>
-                    <div class="plant-links">
-                        <a href="https://glglstats.onrender.com/" class="plant-link" target="_blank">
-                            <i class="fas fa-music"></i> Visit Website
+
+        <nav class="navigation">
+            <button class="nav-button" data-section="glglstats">
+                <span class="commit-icon">↑</span> Commit to GlglStats
+            </button>
+            <button class="nav-button" data-section="ahuzat">
+                <span class="commit-icon">↑</span> Commit to Ahuzat Dibuk
+            </button>
+            <button class="nav-button" data-section="portfolio">
+                <span class="commit-icon">↑</span> Commit to Portfolio
+            </button>
+            <button class="nav-button" data-section="social">
+                <span class="commit-icon">↑</span> Commit to Social
+            </button>
+        </nav>
+
+        <section id="glglstats" class="section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 3V21M9 6L6 9L3 12L6 15L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M15 18L18 15L21 12L18 9L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                GlglStats
+            </h2>
+            <div class="section-content">
+                <div class="compression-visualizer" id="compressionVisualizer"></div>
+                <div class="waveform" id="waveform"></div>
+                
+                <div class="terminal-link">
+                    open <a href="https://glglstats.onrender.com/" target="_blank">https://glglstats.onrender.com/</a>
+                </div>
+                
+                <div class="video-thumbnail" id="videoThumbnail">
+                    <img src="https://img.youtube.com/vi/jrKAtOsj1Lo/maxresdefault.jpg" alt="PyData TLV Talk">
+                </div>
+            </div>
+        </section>
+
+        <section id="ahuzat" class="section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 18V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 18h18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M6 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M18 18v3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M9 18v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M15 18v1" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                Ahuzat Dibuk
+            </h2>
+            <div class="section-content">
+                <div class="heatmap" id="heatmap"></div>
+                
+                <div class="parking-grid">
+                    <div class="parking-stat">
+                        <h4>Available Spots</h4>
+                        <div class="value" id="availableSpots">32</div>
+                    </div>
+                    <div class="parking-stat">
+                        <h4>Total Capacity</h4>
+                        <div class="value">120</div>
+                    </div>
+                    <div class="parking-stat">
+                        <h4>Usage Rate</h4>
+                        <div class="value" id="usageRate">73%</div>
+                    </div>
+                    <div class="parking-stat">
+                        <h4>Peak Hours</h4>
+                        <div class="value">17:00-19:00</div>
+                    </div>
+                    <div class="parking-stat">
+                        <h4>Updates Daily</h4>
+                        <div class="value">24/7</div>
+                    </div>
+                </div>
+                
+                <div class="news-links">
+                    <div class="notification">
+                        <div class="notification-header">
+                            <div class="notification-icon">📺</div>
+                            <div class="notification-title">Channel 13 Coverage</div>
+                        </div>
+                        <div class="notification-content">
+                            Channel 13 reports on the innovative parking solution at Ahuzat Dibuk
+                        </div>
+                        <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" class="notification-link" target="_blank">
+                            Read full article →
                         </a>
-                        <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" class="plant-link" target="_blank">
-                            <i class="fas fa-video"></i> Conference Video
+                    </div>
+                    
+                    <div class="notification">
+                        <div class="notification-header">
+                            <div class="notification-icon">📱</div>
+                            <div class="notification-title">Mako Tech News</div>
+                        </div>
+                        <div class="notification-content">
+                            Mako covers the technical aspects of the parking monitoring system
+                        </div>
+                        <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" class="notification-link" target="_blank">
+                            Read full article →
                         </a>
                     </div>
                 </div>
+                
+                <div class="social-card">
+                    <div class="social-card-header">
+                        <div class="social-card-icon">f</div>
+                        <div class="social-card-title">Secret Tel Aviv</div>
+                    </div>
+                    <div class="social-card-content">
+                        Community post about the Ahuzat Dibuk parking solution has gathered significant attention from Tel Aviv residents.
+                    </div>
+                    <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/" class="social-card-link" target="_blank">
+                        View Facebook Post →
+                    </a>
+                </div>
             </div>
-            
-            <!-- Ahuzat Dibuk Plant -->
-            <div class="plant">
-                <div class="plant-visual ahuzat-visual"></div>
-                <div class="plant-content">
-                    <h2 class="plant-title">Ahuzat Dibuk</h2>
-                    <p class="plant-description">An innovative parking solution project with heat-map visualization of available parking spots.</p>
-                    <div class="plant-links">
-                        <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" class="plant-link" target="_blank">
-                            <i class="fab fa-facebook-f"></i> Facebook Post
-                        </a>
-                        <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" class="plant-link" target="_blank">
-                            <i class="fas fa-newspaper"></i> Media Mention 1
-                        </a>
-                        <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" class="plant-link" target="_blank">
-                            <i class="fas fa-newspaper"></i> Media Mention 2
-                        </a>
+        </section>
+
+        <section id="portfolio" class="section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 9h18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M9 21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Portfolio Self-Reference
+            </h2>
+            <div class="section-content">
+                <div class="recursion-container" id="recursionContainer">
+                    <div class="recursion-frame"></div>
+                    <div class="recursion-frame" style="width: 75%; height: 75%; top: 12.5%; left: 12.5%;"></div>
+                    <div class="recursion-frame" style="width: 60%; height: 60%; top: 20%; left: 20%;"></div>
+                    <div class="recursion-frame" style="width: 45%; height: 45%; top: 27.5%; left: 27.5%;"></div>
+                    <div class="recursion-frame" style="width: 30%; height: 30%; top: 35%; left: 35%;"></div>
+                </div>
+                
+                <div class="terminal-link">
+                    view <a href="https://portfolio-dor1.onrender.com/" target="_blank">https://portfolio-dor1.onrender.com/</a>
+                </div>
+                
+                <div class="code-editor" id="codeEditor">
+                    <div class="code-line">
+                        <div class="line-number">1</div>
+                        <div class="code-text"><span class="keyword">const</span> <span class="variable">portfolio</span> = {</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">2</div>
+                        <div class="code-text">  <span class="variable">name</span>: <span class="string">'Geva Kipper'</span>,</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">3</div>
+                        <div class="code-text">  <span class="variable">projects</span>: [<span class="string">'GlglStats'</span>, <span class="string">'Ahuzat Dibuk'</span>],</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">4</div>
+                        <div class="code-text">  <span class="function">initialize</span>() {</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">5</div>
+                        <div class="code-text">    <span class="comment">// This code powers the current website</span></div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">6</div>
+                        <div class="code-text">    <span class="keyword">this</span>.<span class="function">renderProjects</span>();</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">7</div>
+                        <div class="code-text">    <span class="keyword">this</span>.<span class="function">animateBackground</span>();</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">8</div>
+                        <div class="code-text">  }</div>
+                    </div>
+                    <div class="code-line">
+                        <div class="line-number">9</div>
+                        <div class="code-text">}</div>
+                    </div>
+                </div>
+                
+                <div class="infinite-mirror" id="infiniteMirror">
+                    <div class="mirror-container">
+                        <div class="mirror">
+                            <div class="mirror-container" style="transform: scale(0.8);">
+                                <div class="mirror">
+                                    <div class="mirror-container" style="transform: scale(0.8);">
+                                        <div class="mirror">
+                                            <div class="mirror-container" style="transform: scale(0.8);">
+                                                <div class="mirror"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Portfolio Website Plant -->
-            <div class="plant">
-                <div class="plant-visual portfolio-visual"></div>
-                <div class="plant-content">
-                    <h2 class="plant-title">Portfolio Website</h2>
-                    <p class="plant-description">A self-referential recursive digital garden that contains elements of all my other projects.</p>
-                    <div class="plant-links">
-                        <a href="https://portfolio-dor1.onrender.com/" class="plant-link" target="_blank">
-                            <i class="fas fa-leaf"></i> Visit Portfolio
-                        </a>
+        </section>
+
+        <section id="social" class="section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9 9 9 0 0 0-9 9 9 9 0 0 0 9 9z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M8.7 10.7V15H7V8h1.7l1.2 4.3V8h1.7v7h-1.7L8.7 10.7z" fill="currentColor"/>
+                    <path d="M14 8h1.7L17 12.3 18.3 8H20v7h-1.7v-4l-1.1 4h-1.4l-1.1-4v4H13V8h1z" fill="currentColor"/>
+                </svg>
+                Social Links
+            </h2>
+            <div class="section-content">
+                <div class="social-links">
+                    <div class="social-link">
+                        <div class="social-icon github">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="social-command">
+                            visit <a href="https://github.com/gevak" class="social-link-text" target="_blank">github.com/gevak</a>
+                        </div>
+                        <div class="social-preview">
+                            <code>GitHub: gevak</code>
+                        </div>
+                    </div>
+                    
+                    <div class="social-link">
+                        <div class="social-icon linkedin">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <path d="M4 9h4v12H4z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                                <circle cx="4" cy="4" r="2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="social-command">
+                            connect <a href="https://linkedin.com/in/gevakip" class="social-link-text" target="_blank">linkedin.com/in/gevakip</a>
+                        </div>
+                        <div class="social-preview">
+                            <code>LinkedIn: Geva Kipper</code>
+                        </div>
+                    </div>
+                    
+                    <div class="social-link">
+                        <div class="social-icon facebook">
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3V2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                        </div>
+                        <div class="social-command">
+                            follow <a href="https://facebook.com/geva.kipper" class="social-link-text" target="_blank">facebook.com/geva.kipper</a>
+                        </div>
+                        <div class="social-preview">
+                            <code>Facebook: Geva Kipper</code>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <!-- Social Links Plant -->
-            <div class="plant">
-                <div class="plant-visual social-visual"></div>
-                <div class="plant-content">
-                    <h2 class="plant-title">Connect With Me</h2>
-                    <p class="plant-description">Follow my development journey across various platforms and social networks.</p>
-                    <div class="plant-links">
-                        <a href="https://github.com/gevak" class="plant-link" target="_blank">
-                            <i class="fab fa-github"></i> GitHub
-                        </a>
-                        <a href="https://linkedin.com/in/gevakip" class="plant-link" target="_blank">
-                            <i class="fab fa-linkedin-in"></i> LinkedIn
-                        </a>
-                        <a href="https://facebook.com/geva.kipper" class="plant-link" target="_blank">
-                            <i class="fab fa-facebook-f"></i> Facebook
-                        </a>
-                    </div>
+        </section>
+
+        <footer>
+            <div class="footer-content">
+                <div class="designer-credit">
+                    <span>Designed by Claude AI</span>
+                    <span class="ai-pattern"></span>
+                </div>
+                
+                <div class="stopwatch" id="stopwatch">
+                    <span class="stopwatch-label">Time since generation:</span>
+                    <span class="stopwatch-time" id="stopwatchTime">00:00:00.000</span>
                 </div>
             </div>
-        </main>
+        </footer>
     </div>
-    
-    <footer>
-        <div class="footer-container">
-            <div class="ai-credit">
-                <i class="fas fa-robot ai-icon"></i>
-                Garden cultivated by AI Assistant
-            </div>
-            <div class="garden-timer">
-                Garden growing for
-                <span class="timer-digits" id="timer">00:00:00</span>
-            </div>
-        </div>
-    </footer>
-    
+
     <script>
-        // Particles effect (floating code snippets)
-        const particlesContainer = document.getElementById('particles');
-        const maxParticles = 30;
-        const particles = [];
-        
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.classList.add('particle');
+        // Background code pattern generation and animation
+        const generateCodeBackground = () => {
+            const codeBackground = document.getElementById('codeBackground');
+            const lines = 50; // Number of code lines to generate
             
-            // Random position at the bottom of the screen
-            const x = Math.random() * window.innerWidth;
-            const y = window.innerHeight + 10;
-            
-            particle.style.left = `${x}px`;
-            particle.style.top = `${y}px`;
-            
-            // Add some text content to make it look like code
-            const codeSymbols = ['{}', '<>', '[]', '()', '//', '==', '+=', '=>', '&&', '||'];
-            particle.setAttribute('data-content', codeSymbols[Math.floor(Math.random() * codeSymbols.length)]);
-            
-            // Random size
-            const size = 5 + Math.random() * 10;
-            particle.style.width = `${size}px`;
-            particle.style.height = `${size}px`;
-            
-            // Random speed
-            const speed = 1 + Math.random() * 3;
-            particle.setAttribute('data-speed', speed);
-            
-            // Random horizontal drift
-            const drift = -1 + Math.random() * 2;
-            particle.setAttribute('data-drift', drift);
-            
-            particlesContainer.appendChild(particle);
-            particles.push(particle);
-            
-            // Start animation
-            setTimeout(() => {
-                particle.style.opacity = 0.7;
-                animateParticle(particle);
-            }, 100);
-            
-            // Remove excess particles
-            if (particles.length > maxParticles) {
-                const oldParticle = particles.shift();
-                oldParticle.remove();
-            }
-        }
-        
-        function animateParticle(particle) {
-            let currentY = parseInt(particle.style.top);
-            let currentX = parseInt(particle.style.left);
-            const speed = parseFloat(particle.getAttribute('data-speed'));
-            const drift = parseFloat(particle.getAttribute('data-drift'));
-            
-            const animate = () => {
-                currentY -= speed;
-                currentX += drift;
+            let codeHTML = '';
+            for (let i = 0; i < lines; i++) {
+                const lineLength = Math.floor(Math.random() * 80) + 20; // Random line length
+                const left = Math.floor(Math.random() * 100); // Random horizontal position
+                const top = Math.floor(Math.random() * 100); // Random vertical position
+                const delay = Math.random() * 2; // Random animation delay
                 
-                particle.style.top = `${currentY}px`;
-                particle.style.left = `${currentX}px`;
+                // Create a line of pseudo-code
+                let line = '';
+                const lineType = Math.floor(Math.random() * 5);
                 
-                // Continue animation until particle is off screen
-                if (currentY > -50) {
-                    requestAnimationFrame(animate);
-                } else {
-                    particle.remove();
+                switch(lineType) {
+                    case 0:
+                        line = `function ${getRandomWord()}() {`;
+                        break;
+                    case 1:
+                        line = `const ${getRandomWord()} = ${getRandomWord()}(${Math.random().toFixed(2)});`;
+                        break;
+                    case 2:
+                        line = `if (${getRandomWord()} === ${getRandomWord()}) {`;
+                        break;
+                    case 3:
+                        line = `return ${getRandomWord()}.${getRandomWord()}();`;
+                        break;
+                    case 4:
+                        line = `// ${getRandomWord()} ${getRandomWord()} ${getRandomWord()}`;
+                        break;
                 }
+                
+                codeHTML += `<div class="code-bg-line" style="position: absolute; left: ${left}%; top: ${top}%; opacity: 0.7; animation: fadeInOut ${Math.random() * 3 + 2}s infinite alternate ${delay}s; color: var(--accent-${getRandomAccent()});">${line}</div>`;
+            }
+            
+            codeBackground.innerHTML = codeHTML;
+        };
+        
+        const getRandomWord = () => {
+            const words = ['refactor', 'code', 'clean', 'optimize', 'variable', 'function', 'component', 'module', 'class', 'object', 'method', 'property', 'async', 'await', 'promise', 'callback', 'event', 'listener', 'data', 'render', 'update', 'state', 'props', 'context'];
+            return words[Math.floor(Math.random() * words.length)];
+        };
+        
+        const getRandomAccent = () => {
+            const accents = ['blue', 'green', 'orange', 'purple'];
+            return accents[Math.floor(Math.random() * accents.length)];
+        };
+        
+        // Code refactoring animation in the header
+        const animateRefactorIcon = () => {
+            const refactorIcon = document.getElementById('refactorIcon');
+            const codeLines = refactorIcon.querySelectorAll('.code-line');
+            
+            setInterval(() => {
+                // First make the lines messy
+                codeLines[0].style.width = `${20 + Math.random() * 15}px`;
+                codeLines[0].style.left = `${5 + Math.random() * 10}px`;
+                codeLines[1].style.width = `${15 + Math.random() * 15}px`;
+                codeLines[1].style.left = `${10 + Math.random() * 10}px`;
+                codeLines[2].style.width = `${25 + Math.random() * 15}px`;
+                codeLines[2].style.left = `${5 + Math.random() * 10}px`;
+                
+                // Then align them (refactor)
+                setTimeout(() => {
+                    codeLines[0].style.width = '30px';
+                    codeLines[0].style.left = '5px';
+                    codeLines[1].style.width = '30px';
+                    codeLines[1].style.left = '5px';
+                    codeLines[2].style.width = '30px';
+                    codeLines[2].style.left = '5px';
+                }, 1000);
+            }, 2000);
+        };
+        
+        // LZ77 compression visualization
+        const initCompressionVisualizer = () => {
+            const compressionVisualizer = document.getElementById('compressionVisualizer');
+            const totalBars = 50;
+            
+            // Generate the bars
+            for (let i = 0; i < totalBars; i++) {
+                const bar = document.createElement('div');
+                bar.className = 'bar';
+                bar.style.left = `${i * (100 / totalBars)}%`;
+                bar.style.height = `${Math.random() * 100}%`;
+                compressionVisualizer.appendChild(bar);
+            }
+            
+            // Animate compression
+            setInterval(() => {
+                const bars = compressionVisualizer.querySelectorAll('.bar');
+                
+                // Random pattern discovery (simulate LZ77)
+                const patternStart = Math.floor(Math.random() * (bars.length / 2));
+                const patternLength = Math.floor(Math.random() * 5) + 2;
+                
+                // First highlight the pattern
+                for (let i = patternStart; i < patternStart + patternLength; i++) {
+                    if (i < bars.length) {
+                        bars[i].style.backgroundColor = 'var(--accent-orange)';
+                    }
+                }
+                
+                // Then simulate compression by making matching bars the same height
+                setTimeout(() => {
+                    for (let i = patternStart; i < patternStart + patternLength; i++) {
+                        if (i < bars.length) {
+                            bars[i].style.backgroundColor = 'var(--accent-green)';
+                            bars[i].style.height = `${bars[patternStart].style.height}`;
+                        }
+                    }
+                    
+                    // Reset colors after compression
+                    setTimeout(() => {
+                        for (let i = patternStart; i < patternStart + patternLength; i++) {
+                            if (i < bars.length) {
+                                bars[i].style.backgroundColor = 'var(--accent-blue)';
+                            }
+                        }
+                    }, 1000);
+                }, 500);
+            }, 2500);
+        };
+        
+        // Audio waveform animation
+        const initWaveform = () => {
+            const waveformContainer = document.getElementById('waveform');
+            const totalWaves = 100;
+            
+            // Generate the waveform
+            for (let i = 0; i < totalWaves; i++) {
+                const wave = document.createElement('div');
+                wave.className = 'wave';
+                wave.style.left = `${i * (100 / totalWaves)}%`;
+                wave.style.width = '2px';
+                wave.style.height = `${Math.sin(i * 0.2) * 20 + 30}%`;
+                waveformContainer.appendChild(wave);
+            }
+            
+            // Animate waveform
+            let frame = 0;
+            setInterval(() => {
+                const waves = waveformContainer.querySelectorAll('.wave');
+                frame += 0.1;
+                
+                waves.forEach((wave, index) => {
+                    wave.style.height = `${Math.sin(index * 0.2 + frame) * 20 + 30}%`;
+                });
+            }, 50);
+        };
+        
+        // Video thumbnail click functionality
+        const initVideoThumbnail = () => {
+            const videoThumbnail = document.getElementById('videoThumbnail');
+            
+            videoThumbnail.addEventListener('click', () => {
+                const videoId = 'jrKAtOsj1Lo';
+                videoThumbnail.innerHTML = `<iframe width="100%" height="100%" style="position: absolute; top: 0; left: 0;" src="https://www.youtube.com/embed/${videoId}?autoplay=1" title="PyData TLV Talk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            });
+        };
+        
+        // Heatmap interactivity
+        const initHeatmap = () => {
+            const heatmap = document.getElementById('heatmap');
+            const rows = 7;
+            const cols = 20;
+            
+            // Generate the heatmap cells
+            for (let i = 0; i < rows; i++) {
+                for (let j = 0; j < cols; j++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'heatmap-cell';
+                    cell.dataset.row = i;
+                    cell.dataset.col = j;
+                    heatmap.appendChild(cell);
+                }
+            }
+            
+            // Make heatmap react to mouse movement
+            heatmap.addEventListener('mousemove', (e) => {
+                const rect = heatmap.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const cells = heatmap.querySelectorAll('.heatmap-cell');
+                
+                cells.forEach(cell => {
+                    const cellRect = cell.getBoundingClientRect();
+                    const cellCenterX = cellRect.left + cellRect.width / 2 - rect.left;
+                    const cellCenterY = cellRect.top + cellRect.height / 2 - rect.top;
+                    
+                    const distance = Math.sqrt(Math.pow(x - cellCenterX, 2) + Math.pow(y - cellCenterY, 2));
+                    const maxDistance = Math.sqrt(Math.pow(rect.width, 2) + Math.pow(rect.height, 2)) / 2;
+                    const intensity = 1 - Math.min(1, distance / (maxDistance / 2));
+                    
+                    cell.style.opacity = 0.2 + intensity * 0.8;
+                });
+            });
+            
+            // Initialize with random values when not interacting
+            const initRandomHeatmap = () => {
+                const cells = heatmap.querySelectorAll('.heatmap-cell');
+                
+                cells.forEach(cell => {
+                    const intensity = Math.random();
+                    cell.style.opacity = 0.2 + intensity * 0.6;
+                });
             };
             
-            animate();
-        }
-        
-        // Create particles at random intervals
-        function startParticleSystem() {
-            createParticle();
-            setTimeout(startParticleSystem, 1000 + Math.random() * 2000);
-        }
-        
-        // Garden timer
-        function updateTimer() {
-            const startDate = new Date('2025-03-23T06:13:40');
-            const now = new Date();
-            const diff = now - startDate;
+            initRandomHeatmap();
             
-            // Calculate hours, minutes, seconds
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-            
-            // Format with leading zeros
-            const formattedHours = String(hours).padStart(2, '0');
-            const formattedMinutes = String(minutes).padStart(2, '0');
-            const formattedSeconds = String(seconds).padStart(2, '0');
-            
-            document.getElementById('timer').textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-        }
+            // Reset to random values when mouse leaves
+            heatmap.addEventListener('mouseleave', initRandomHeatmap);
+        };
         
-        // Initialize
+        // Parking stats animation
+        const animateParkingStats = () => {
+            const availableSpots = document.getElementById('availableSpots');
+            const usageRate = document.getElementById('usageRate');
+            
+            setInterval(() => {
+                // Randomly fluctuate available spots
+                const spots = Math.floor(Math.random() * 15) + 25; // 25-40 available spots
+                availableSpots.textContent = spots;
+                
+                // Update usage rate accordingly
+                const rate = Math.floor((1 - (spots / 120)) * 100);
+                usageRate.textContent = `${rate}%`;
+            }, 5000);
+        };
+        
+        // Animate notifications to appear sequentially
+        const animateNotifications = () => {
+            const notifications = document.querySelectorAll('.notification');
+            
+            notifications.forEach((notification, index) => {
+                setTimeout(() => {
+                    notification.classList.add('visible');
+                }, index * 300);
+            });
+        };
+        
+        // Recursion container effect
+        const animateRecursion = () => {
+            const recursionContainer = document.getElementById('recursionContainer');
+            const frames = recursionContainer.querySelectorAll('.recursion-frame');
+            
+            let angle = 0;
+            setInterval(() => {
+                angle += 0.2;
+                frames.forEach((frame, index) => {
+                    const depth = index + 1;
+                    frame.style.transform = `translateZ(${-10 * depth}px) rotateY(${Math.sin(angle / depth) * 5}deg) rotateX(${Math.cos(angle / depth) * 5}deg)`;
+                });
+            }, 50);
+        };
+        
+        // Animate code editor typing effect
+        const animateCodeEditor = () => {
+            const codeLines = document.querySelectorAll('#codeEditor .code-line');
+            const visibleLines = [];
+            
+            // Hide all lines initially
+            codeLines.forEach(line => {
+                const codeText = line.querySelector('.code-text');
+                codeText.style.width = '0';
+                codeText.style.overflow = 'hidden';
+                codeText.style.whiteSpace = 'nowrap';
+            });
+            
+            // Show lines one by one with typing effect
+            const revealLine = (index) => {
+                if (index >= codeLines.length) {
+                    // Restart animation after all lines are shown
+                    setTimeout(() => {
+                        codeLines.forEach(line => {
+                            const codeText = line.querySelector('.code-text');
+                            codeText.style.width = '0';
+                        });
+                        setTimeout(() => revealLine(0), 500);
+                    }, 3000);
+                    return;
+                }
+                
+                const line = codeLines[index];
+                const codeText = line.querySelector('.code-text');
+                const fullWidth = codeText.scrollWidth;
+                let width = 0;
+                
+                const typeInterval = setInterval(() => {
+                    width += 5;
+                    codeText.style.width = `${width}px`;
+                    
+                    if (width >= fullWidth) {
+                        clearInterval(typeInterval);
+                        setTimeout(() => revealLine(index + 1), 100);
+                    }
+                }, 20);
+            };
+            
+            // Start the animation
+            setTimeout(() => revealLine(0), 1000);
+        };
+        
+        // Infinite mirror zoom effect
+        const initInfiniteMirror = () => {
+            const infiniteMirror = document.getElementById('infiniteMirror');
+            
+            infiniteMirror.addEventListener('mousemove', (e) => {
+                const rect = infiniteMirror.getBoundingClientRect();
+                const x = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+                const y = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+                
+                const mirrors = infiniteMirror.querySelectorAll('.mirror-container');
+                
+                mirrors.forEach((mirror, index) => {
+                    const depth = index + 1;
+                    mirror.style.transform = `translateZ(${-10 * depth}px) rotateY(${x * 10}deg) rotateX(${-y * 10}deg)`;
+                });
+            });
+            
+            infiniteMirror.addEventListener('mouseleave', () => {
+                const mirrors = infiniteMirror.querySelectorAll('.mirror-container');
+                
+                mirrors.forEach((mirror, index) => {
+                    mirror.style.transform = '';
+                });
+            });
+        };
+        
+        // Setup navigation to scroll to sections
+        const setupNavigation = () => {
+            const navButtons = document.querySelectorAll('.nav-button');
+            
+            navButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const sectionId = button.dataset.section;
+                    const section = document.getElementById(sectionId);
+                    
+                    if (section) {
+                        // Add animation class to button to show it's being "committed"
+                        button.classList.add('committing');
+                        
+                        // Add sound effect if audio is enabled
+                        if (soundEnabled) {
+                            playNavigationSound();
+                        }
+                        
+                        // Scroll to the section with smooth animation
+                        section.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Remove animation class after scrolling
+                        setTimeout(() => {
+                            button.classList.remove('committing');
+                        }, 1000);
+                    }
+                });
+            });
+        };
+        
+        // Sound effects for navigation
+        let soundEnabled = false; // Off by default
+        
+        const playNavigationSound = () => {
+            // Simple method to create a terminal-like beep sound using Web Audio API
+            try {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.type = 'square';
+                oscillator.frequency.setValueAtTime(440, audioContext.currentTime); 
+                
+                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.2);
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.start();
+                oscillator.stop(audioContext.currentTime + 0.2);
+            } catch (e) {
+                console.error('Web Audio API not supported');
+            }
+        };
+        
+        // Stopwatch counter in footer
+        const initStopwatch = () => {
+            const startTime = new Date('2025-03-24T00:59:42');
+            const stopwatchElement = document.getElementById('stopwatchTime');
+            
+            const updateStopwatch = () => {
+                const now = new Date();
+                const diff = now - startTime;
+                
+                const hours = Math.floor(diff / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                const milliseconds = diff % 1000;
+                
+                const formattedHours = String(hours).padStart(2, '0');
+                const formattedMinutes = String(minutes).padStart(2, '0');
+                const formattedSeconds = String(seconds).padStart(2, '0');
+                const formattedMilliseconds = String(milliseconds).padStart(3, '0');
+                
+                stopwatchElement.textContent = `${formattedHours}:${formattedMinutes}:${formattedSeconds}.${formattedMilliseconds}`;
+                
+                // Change color based on time
+                const hue = (seconds % 60) * 6; // 0-360 degrees
+                stopwatchElement.style.color = `hsl(${hue}, 80%, 60%)`;
+                
+                requestAnimationFrame(updateStopwatch);
+            };
+            
+            updateStopwatch();
+        };
+        
+        // Initialize everything when DOM is ready
         document.addEventListener('DOMContentLoaded', () => {
-            // Start particle system
-            startParticleSystem();
-            
-            // Update timer
-            updateTimer();
-            setInterval(updateTimer, 1000);
+            generateCodeBackground();
+            animateRefactorIcon();
+            initCompressionVisualizer();
+            initWaveform();
+            initVideoThumbnail();
+            initHeatmap();
+            animateParkingStats();
+            animateNotifications();
+            animateRecursion();
+            animateCodeEditor();
+            initInfiniteMirror();
+            setupNavigation();
+            initStopwatch();
         });
     </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250323",
+          pageId: "20250324",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>

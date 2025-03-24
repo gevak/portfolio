@@ -1,0 +1,52 @@
+# Code Refactoring Visualizer Portfolio Design
+
+## Overall Concept
+A single-page portfolio that visualizes code refactoring as an interactive journey. The background features subtle animated code patterns that transform from "messy" to "clean" code, symbolizing the refactoring process. The entire layout follows a branching git-like visualization where each section branches off from a main vertical timeline.
+
+## Header
+- Large, modern typography displaying "Geva Kipper" with a glitch animation effect
+- Directly below, a single sentence: "Engineering innovative solutions at Google"
+- Subtitle in smaller, elegant font: "This portfolio is redesigned daily by AI, always evolving and never the same twice"
+- A small animated icon showing code being refactored in real-time
+
+## Main Navigation
+Custom scrolling mechanism where visitors navigate by "committing changes" to the codebase, moving them through different sections of the portfolio
+
+## Section 1: GlglStats
+- Visualization displays actual LZ77 compression happening on sample song lyrics
+- Audio waveforms animate alongside compression visualization
+- Animated graph showing repetitiveness metrics across different songs
+- Link to https://glglstats.onrender.com/ appears as a terminal command being executed
+- Video thumbnail for PyData TLV talk that expands when clicked: https://www.youtube.com/watch?v=jrKAtOsj1Lo
+
+## Section 2: Ahuzat Dibuk
+- Interactive miniature heatmap that responds to mouse movement
+- Parking lot statistics visualized as a growing/shrinking grid
+- News links appear as notification pop-ups: https://13tv.co.il/item/news/domestic/internal/parking-902956407/ and https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm
+- Facebook link appears as a social share card: https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943/
+
+## Section 3: Portfolio Self-Reference
+- Recursive visualization showing the website within itself (Droste effect)
+- Link to https://portfolio-dor1.onrender.com/ appears as a mirrored interface
+- Animated code editor showing how the current site was built
+- "Infinite mirror" effect that zooms in when hovered
+
+## Section 4: Social Links
+- GitHub, LinkedIn and Facebook icons built from actual code snippets that animate when hovered
+- Links displayed as terminal commands: github.com/gevak, linkedin.com/in/gevakip, facebook.com/geva.kipper
+- When hovering over each link, a preview of the respective profile appears
+
+## Footer
+- Credit line: "Designed by Claude AI" with a subtle AI-generated pattern
+- Precision stopwatch counting up from 2025-03-24 00:59:42 with millisecond display
+- The stopwatch integrates with the page's color scheme, changing subtle highlight colors as time passes
+
+## Color Scheme & Typography
+- Dark mode primary interface with high contrast syntax highlighting colors
+- Font: Monospaced for code elements, paired with a clean sans-serif for readability
+- Accent colors derive from syntax highlighting: soft blues, greens, and occasional orange highlights
+
+## Interactive Elements
+- Mouse cursor appears as a "refactoring tool" that cleans up code it passes over
+- Scroll animations reveal code being refactored in real-time
+- Subtle audio feedback (can be toggled off) provides terminal-like sounds when navigating
