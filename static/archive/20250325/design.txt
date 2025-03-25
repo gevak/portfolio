@@ -1,0 +1,51 @@
+# Virtual IDE Portfolio Design Concept
+
+## Overall Theme
+A fullscreen interactive IDE-inspired interface where the entire portfolio is presented as a coding environment. The site simulates a modern code editor with syntax highlighting, file explorer, terminal, and output panels.
+
+## Layout Structure
+- **Header Bar**: Dark-themed with tab navigation mimicking IDE tabs
+- **Main Content Area**: Split into panels like a real IDE
+- **Left Sidebar**: File explorer showing "projects" as folders
+- **Right Side**: Main coding area where content is displayed
+- **Bottom Panel**: Terminal/console interface for interactive elements
+
+## Header & Introduction
+- The IDE's title bar displays "Geva Kipper's Portfolio IDE" 
+- A small Google logo with the text: "Currently Engineering at Google"
+- A small animated notification icon in the corner that when hovered reveals: "This website is re-designed each day by AI and is thus ever-changing"
+
+## Main Interaction
+Visitors "execute" sample code to reveal portfolio sections. The default "main.js" file is open when the site loads, containing commented code explaining how to interact with the site.
+
+## Project Displays
+Each project appears as a separate "file" in the explorer:
+
+1. **GlglStats.js** - When "run", displays project visuals as if they were console outputs, including embedded visualizations of song repetitiveness patterns. Links to the live site and PyData presentation appear as "import statements" at the top.
+
+2. **AhuzatDibuk.js** - Reveals parking heatmap visualizations when executed, with news coverage links displayed as "external API requests" in the code. The Facebook publication link appears as a "deployment script".
+
+3. **Portfolio.js** - Meta section that, when run, shows the portfolio site recursively rendering inside the output panel, with code snippets showing how the site itself was built. Self-reference link appears as a recursive function call.
+
+4. **Contact.js** - Social links appear as a JSON object when executed, with icons appearing in the "console output" that animate when hovered.
+
+## Interactive Elements
+- Syntax highlighting throughout all text
+- Line numbers alongside content
+- A simulated cursor that blinks on the active "code line"
+- "Run" button that executes animations to reveal full project content
+- Terminal at bottom accepts simple commands like "help", "about", or "contact"
+
+## Footer
+- Small status bar at bottom showing: "Designed by [AI Model Name]" styled as a Git commit message
+- A running stopwatch in monospace font showing time elapsed since 2025-03-25 00:59:17, styled as a process runtime counter
+
+## Colors & Style
+- Dark mode IDE theme with subtle syntax highlighting colors
+- Code font is a clean monospace
+- Accent colors use a palette of blues and greens typical of popular IDEs
+- Minimal animations for state changes, mimicking real IDE behavior
+- Content appears through typing animations when sections are "executed"
+
+## Responsive Behavior
+On mobile devices, the layout adapts to a simplified IDE with collapsible panels and swipe navigation between different "files".
