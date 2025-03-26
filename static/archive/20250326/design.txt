@@ -1,0 +1,36 @@
+# Circuit Board Portfolio Design Concept
+
+## Overall Theme
+A dark background representing a circuit board with neon-colored traces (primarily green, blue, and white) connecting different sections of the site. As the user scrolls or hovers over different areas, the corresponding circuit paths "power up" and glow brighter, creating an interactive electrical flow effect.
+
+## Header
+The name "Geva Kipper" appears in a large, modern tech font at the top, with a subtle glow effect. Beneath it, a single-line description of his current work at Google in a smaller, crisp font. 
+
+A subtitle appears below in an animated typing effect: "This portfolio circuit is redesigned daily by AI - today's version will never exist again."
+
+## Navigation
+Circuit traces connect all sections, pulsing with light as users move through the site. Small circuit node points serve as subtle navigation markers.
+
+## Project Sections
+Four hexagonal "microchip" sections arranged in a grid pattern, each containing a project. When inactive, they appear as dark circuit components with subtle outlines. Upon hover/selection, they illuminate with distinct colors:
+
+1. **GlglStats (Blue glow)**: Features waveform visualizations reminiscent of audio patterns. Contains project description about measuring repetitiveness in Israeli pop songs, with animated compression patterns moving across the section. Two illuminated connection points lead to the website link and YouTube presentation.
+
+2. **Ahuzat Dibuk (Green glow)**: Contains a minimalist heat-map visualization that subtly animates. Three brightly lit nodes connect to the news articles and Facebook publication. The heat-map visualization pulses slightly to draw attention.
+
+3. **Portfolio Website (Purple glow)**: A recursive design showing a miniature version of the same circuit board layout within this section. A subtle infinity mirror effect suggests endless iterations. One connection point leads to the rendered portfolio.
+
+4. **Social Connections (White glow)**: Three distinct circuit paths leading to GitHub, LinkedIn and Facebook icons. Each icon is designed to match the circuit board aesthetic rather than using standard logos - GitHub represented as a branching repository node, LinkedIn as a connected network node, and Facebook as a communication node.
+
+## Interactive Elements
+- Tracing a cursor across the page leaves a temporary "power surge" effect along circuit paths
+- Projects gently pulse with light in sequence when the page is inactive
+- Circuit traces between sections animate with electricity flowing when transitioning between focused sections
+
+## Footer
+A thin circuit line separates the main content from the footer. The credit line reads "Circuit designed by [AI model name]" in a technical, monospaced font. 
+
+The stopwatch appears as a digital readout embedded in the circuit board with hours, minutes, and seconds actively counting up from March 26, 2025, 00:58:17, with a small pulsing colon between digits that blinks at one-second intervals.
+
+## Responsive Design
+On smaller screens, the circuit board reconfigures to a vertical layout with main pathways running top to bottom. The hexagonal sections stack vertically while maintaining their interactive illumination effects.

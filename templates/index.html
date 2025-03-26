@@ -1,1715 +1,881 @@
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Geva Kipper's Portfolio IDE</title>
-  <style>
-    :root {
-      --bg-primary: #1e1e1e;
-      --bg-secondary: #252526;
-      --bg-tertiary: #333333;
-      --text-primary: #d4d4d4;
-      --text-secondary: #9cdcfe;
-      --accent-blue: #007acc;
-      --accent-green: #6A9955;
-      --accent-yellow: #dcdcaa;
-      --accent-orange: #ce9178;
-      --accent-purple: #c586c0;
-      --border-color: #454545;
-      --line-number: #858585;
-      --tab-active: #1e1e1e;
-      --tab-inactive: #2d2d2d;
-      --scrollbar-track: #1e1e1e;
-      --scrollbar-thumb: #424242;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: 'Consolas', 'Courier New', monospace;
-    }
-
-    body {
-      background-color: var(--bg-primary);
-      color: var(--text-primary);
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    /* Scrollbar styling */
-    ::-webkit-scrollbar {
-      width: 10px;
-      height: 10px;
-    }
-    ::-webkit-scrollbar-track {
-      background: var(--scrollbar-track);
-    }
-    ::-webkit-scrollbar-thumb {
-      background: var(--scrollbar-thumb);
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-
-    /* Header Bar */
-    .header {
-      background-color: var(--bg-tertiary);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      padding: 4px 8px;
-      height: 35px;
-      align-items: center;
-      justify-content: space-between;
-      z-index: 10;
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .header-title {
-      font-size: 14px;
-      font-weight: normal;
-    }
-
-    .google-badge {
-      display: flex;
-      align-items: center;
-      font-size: 12px;
-      background: rgba(255, 255, 255, 0.1);
-      padding: 3px 8px;
-      border-radius: 4px;
-      margin-left: 10px;
-    }
-
-    .google-logo {
-      height: 14px;
-      margin-right: 5px;
-    }
-
-    .notification-icon {
-      position: relative;
-      cursor: pointer;
-      padding: 5px;
-    }
-
-    .notification-icon:hover .tooltip {
-      display: block;
-    }
-
-    .notification-icon .tooltip {
-      display: none;
-      position: absolute;
-      right: 0;
-      top: 25px;
-      background: var(--bg-tertiary);
-      border: 1px solid var(--border-color);
-      padding: 8px;
-      border-radius: 4px;
-      width: 250px;
-      font-size: 12px;
-      z-index: 100;
-    }
-
-    /* Main Container */
-    .ide-container {
-      display: flex;
-      flex: 1;
-      overflow: hidden;
-    }
-
-    /* File Explorer */
-    .explorer {
-      width: 250px;
-      background-color: var(--bg-secondary);
-      border-right: 1px solid var(--border-color);
-      overflow-y: auto;
-      flex-shrink: 0;
-      transition: width 0.3s ease;
-    }
-
-    .explorer-header {
-      padding: 10px;
-      font-size: 11px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #858585;
-    }
-
-    .explorer-content {
-      padding: 5px 0;
-    }
-
-    .folder {
-      padding: 3px 10px 3px 15px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      user-select: none;
-    }
-
-    .folder-icon {
-      margin-right: 5px;
-      color: var(--accent-yellow);
-    }
-
-    .file {
-      padding: 3px 10px 3px 25px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      user-select: none;
-      transition: background-color 0.2s;
-    }
-
-    .file:hover, .folder:hover {
-      background-color: rgba(255, 255, 255, 0.05);
-    }
-
-    .file.active {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    .file-icon {
-      margin-right: 5px;
-      color: var(--accent-blue);
-    }
-
-    /* Editor Area */
-    .editor-area {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .tabs {
-      background-color: var(--bg-secondary);
-      display: flex;
-      border-bottom: 1px solid var(--border-color);
-      height: 35px;
-      overflow-x: auto;
-    }
-
-    .tab {
-      padding: 8px 15px;
-      font-size: 13px;
-      background-color: var(--tab-inactive);
-      border-right: 1px solid var(--border-color);
-      cursor: pointer;
-      white-space: nowrap;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .tab.active {
-      background-color: var(--tab-active);
-      border-bottom: 2px solid var(--accent-blue);
-    }
-
-    .tab-close {
-      margin-left: 5px;
-      width: 14px;
-      height: 14px;
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 3px;
-    }
-
-    .tab-close:hover {
-      background-color: rgba(255, 255, 255, 0.1);
-    }
-
-    /* Editor Content */
-    .editor-content {
-      flex: 1;
-      display: flex;
-      overflow: hidden;
-    }
-
-    /* Line Numbers */
-    .line-numbers {
-      padding: 10px 5px;
-      text-align: right;
-      color: var(--line-number);
-      user-select: none;
-      background-color: var(--bg-primary);
-      font-size: 14px;
-      overflow-y: auto;
-      width: 40px;
-      flex-shrink: 0;
-    }
-
-    .line-number {
-      padding: 0 5px;
-      height: 21px;
-    }
-
-    /* Code Area */
-    .code-area {
-      flex: 1;
-      padding: 10px;
-      font-size: 14px;
-      line-height: 1.5;
-      overflow-y: auto;
-      white-space: pre;
-      position: relative;
-    }
-
-    .code-line {
-      height: 21px;
-      display: block;
-      white-space: pre;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 2px;
-      height: 14px;
-      background-color: white;
-      vertical-align: middle;
-      animation: blink 1s step-end infinite;
-    }
-
-    @keyframes blink {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0; }
-    }
-
-    /* Terminal */
-    .terminal {
-      height: 150px;
-      background-color: var(--bg-secondary);
-      border-top: 1px solid var(--border-color);
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .terminal-header {
-      padding: 5px 10px;
-      font-size: 12px;
-      background-color: var(--bg-tertiary);
-      border-bottom: 1px solid var(--border-color);
-      display: flex;
-      justify-content: space-between;
-    }
-
-    .terminal-content {
-      flex: 1;
-      padding: 10px;
-      font-size: 13px;
-      overflow-y: auto;
-    }
-
-    .terminal-prompt {
-      display: flex;
-      margin: 5px 0;
-    }
-
-    .terminal-user {
-      color: var(--accent-green);
-      margin-right: 5px;
-    }
-
-    .terminal-path {
-      color: var(--accent-blue);
-      margin-right: 5px;
-    }
-
-    .terminal-input-line {
-      display: flex;
-      align-items: center;
-    }
-
-    .terminal-input {
-      background: transparent;
-      border: none;
-      color: var(--text-primary);
-      font-size: 13px;
-      font-family: 'Consolas', 'Courier New', monospace;
-      outline: none;
-      flex: 1;
-    }
-
-    /* Footer */
-    .footer {
-      height: 22px;
-      background-color: var(--bg-tertiary);
-      border-top: 1px solid var(--border-color);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 10px;
-      font-size: 12px;
-      color: var(--line-number);
-    }
-
-    .git-status {
-      display: flex;
-      align-items: center;
-    }
-
-    .branch-icon {
-      margin-right: 5px;
-    }
-
-    /* Syntax highlighting */
-    .keyword {
-      color: var(--accent-purple);
-    }
-    .function {
-      color: var(--accent-yellow);
-    }
-    .string {
-      color: var(--accent-orange);
-    }
-    .number {
-      color: var(--accent-blue);
-    }
-    .comment {
-      color: var(--accent-green);
-      font-style: italic;
-    }
-    .variable {
-      color: var(--text-secondary);
-    }
-    .operator {
-      color: var(--text-primary);
-    }
-    .property {
-      color: var(--text-secondary);
-    }
-    .method {
-      color: var(--accent-yellow);
-    }
-    .type {
-      color: #4EC9B0;
-    }
-    .import {
-      color: var(--accent-purple);
-    }
-    
-    /* Run Button */
-    .run-button {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background-color: var(--accent-green);
-      color: #fff;
-      border: none;
-      border-radius: 4px;
-      padding: 5px 10px;
-      cursor: pointer;
-      font-size: 12px;
-      z-index: 10;
-      display: flex;
-      align-items: center;
-      gap: 5px;
-    }
-
-    .run-button:hover {
-      background-color: #5a8349;
-    }
-
-    /* Output Section */
-    .output-section {
-      padding: 10px;
-      margin-top: 10px;
-      background-color: rgba(0, 0, 0, 0.2);
-      border-radius: 4px;
-      border-left: 3px solid var(--accent-blue);
-      display: none;
-    }
-
-    .output-section.visible {
-      display: block;
-    }
-
-    /* Project Visualizations */
-    .project-visualization {
-      margin: 10px 0;
-      border: 1px solid var(--border-color);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .project-image {
-      max-width: 100%;
-      display: block;
-    }
-
-    .project-link {
-      color: var(--accent-blue);
-      text-decoration: none;
-      display: inline-block;
-      margin: 5px 0;
-    }
-
-    .project-link:hover {
-      text-decoration: underline;
-    }
-
-    .social-icons {
-      display: flex;
-      gap: 15px;
-      margin-top: 10px;
-    }
-
-    .social-icon {
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      background-color: rgba(255, 255, 255, 0.1);
-      transition: transform 0.2s, background-color 0.2s;
-    }
-
-    .social-icon:hover {
-      transform: translateY(-3px);
-      background-color: var(--accent-blue);
-    }
-
-    /* Mobile Styles */
-    @media (max-width: 768px) {
-      .ide-container {
-        flex-direction: column;
-      }
-
-      .explorer {
-        width: 100%;
-        height: auto;
-        max-height: 200px;
-        border-right: none;
-        border-bottom: 1px solid var(--border-color);
-      }
-
-      .explorer.collapsed {
-        height: 35px;
-      }
-
-      .explorer-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px;
-        cursor: pointer;
-      }
-
-      .terminal {
-        height: 120px;
-      }
-
-      .run-button {
-        top: 5px;
-        right: 5px;
-      }
-    }
-
-    /* Loading spinner */
-    .spinner {
-      border: 2px solid rgba(255, 255, 255, 0.3);
-      border-radius: 50%;
-      border-top: 2px solid var(--accent-blue);
-      width: 12px;
-      height: 12px;
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geva Kipper | Circuit Portfolio</title>
+    <style>
+        :root {
+            --neon-green: #00ff9c;
+            --neon-blue: #00a6ff;
+            --neon-purple: #cc00ff;
+            --neon-white: #e0fbfc;
+            --circuit-bg: #0a0e17;
+            --chip-bg: #131820;
+            --text-main: #e0fbfc;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        @font-face {
+            font-family: 'Circuit';
+            src: url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+            font-display: swap;
+        }
+
+        body {
+            background-color: var(--circuit-bg);
+            color: var(--text-main);
+            font-family: 'Share Tech Mono', monospace;
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        /* Circuit Board Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 166, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 80% 40%, rgba(0, 255, 156, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(204, 0, 255, 0.03) 0%, transparent 20%),
+                linear-gradient(45deg, transparent 48%, rgba(0, 255, 156, 0.03) 49%, rgba(0, 255, 156, 0.03) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(0, 166, 255, 0.03) 49%, rgba(0, 166, 255, 0.03) 51%, transparent 52%);
+            background-size: 100px 100px, 90px 90px, 80px 80px, 60px 60px, 60px 60px;
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        /* Circuit Traces */
+        .circuit-trace {
+            position: absolute;
+            background: var(--neon-green);
+            opacity: 0.2;
+            transition: opacity 0.5s ease, box-shadow 0.5s ease;
+            z-index: -1;
+        }
+
+        .circuit-trace.horizontal {
+            height: 2px;
+            width: 100px;
+        }
+
+        .circuit-trace.vertical {
+            width: 2px;
+            height: 100px;
+        }
+
+        .circuit-trace.active {
+            opacity: 0.8;
+            box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+        }
+
+        .circuit-node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            opacity: 0.2;
+            transition: opacity 0.5s ease, box-shadow 0.5s ease;
+            z-index: 1;
+        }
+
+        .circuit-node.active {
+            opacity: 1;
+            box-shadow: 0 0 10px var(--neon-green), 0 0 20px var(--neon-green);
+        }
+
+        /* Header */
+        header {
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: 0.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-main);
+            text-shadow: 0 0 5px var(--neon-white), 0 0 10px var(--neon-white);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.8;
+        }
+
+        .typing-subtitle {
+            font-size: 1rem;
+            color: var(--neon-green);
+            min-height: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Hexagon Project Sections */
+        .project {
+            position: relative;
+            aspect-ratio: 1;
+            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+            background-color: var(--chip-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .project::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(255, 255, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 70% 60%, rgba(255, 255, 255, 0.03) 0%, transparent 20%),
+                radial-gradient(circle at 40% 80%, rgba(255, 255, 255, 0.03) 0%, transparent 20%);
+            z-index: 1;
+            opacity: 0.5;
+        }
+
+        .project-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 100%;
+        }
+
+        .project h3 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .project p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-bottom: 1.2rem;
+            max-width: 100%;
+        }
+
+        .project-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .project-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-size: 0.9rem;
+            padding: 0.4rem 0.8rem;
+            border: 1px solid currentColor;
+            border-radius: 3px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .link-node {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+
+        /* Project Specific Styling */
+        .project.glglstats {
+            --project-color: var(--neon-blue);
+        }
+
+        .project.ahuzat {
+            --project-color: var(--neon-green);
+        }
+
+        .project.portfolio {
+            --project-color: var(--neon-purple);
+        }
+
+        .project.social {
+            --project-color: var(--neon-white);
+        }
+
+        .project.active, .project:hover {
+            box-shadow: 0 0 20px var(--project-color), 0 0 40px var(--project-color), inset 0 0 20px rgba(255, 255, 255, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .project.active .project-links a, .project:hover .project-links a {
+            border-color: var(--project-color);
+            box-shadow: 0 0 10px var(--project-color);
+        }
+
+        .project.active h3, .project:hover h3 {
+            color: var(--project-color);
+            text-shadow: 0 0 5px var(--project-color);
+        }
+
+        .project-visualization {
+            height: 80px;
+            width: 100%;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        /* GlglStats Waveform */
+        .glglstats .project-visualization {
+            background: linear-gradient(transparent, rgba(0, 166, 255, 0.1), transparent);
+        }
+
+        .waveform {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            transform: translateY(-50%);
+        }
+
+        .waveform svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .waveform path {
+            stroke: var(--neon-blue);
+            stroke-width: 1;
+            fill: none;
+            opacity: 0.7;
+        }
+
+        /* Ahuzat Heatmap */
+        .ahuzat .project-visualization {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            gap: 2px;
+        }
+
+        .heatmap-cell {
+            background-color: var(--neon-green);
+            opacity: 0.1;
+            border-radius: 1px;
+        }
+
+        .heatmap-cell.active {
+            animation: pulse 2s infinite alternate;
+        }
+
+        /* Portfolio Recursion */
+        .portfolio .project-visualization {
+            background: rgba(204, 0, 255, 0.05);
+            border: 1px solid rgba(204, 0, 255, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mini-circuit {
+            width: 80%;
+            height: 80%;
+            background: 
+                linear-gradient(45deg, transparent 48%, rgba(204, 0, 255, 0.3) 49%, rgba(204, 0, 255, 0.3) 51%, transparent 52%),
+                linear-gradient(-45deg, transparent 48%, rgba(204, 0, 255, 0.2) 49%, rgba(204, 0, 255, 0.2) 51%, transparent 52%);
+            background-size: 10px 10px;
+            position: relative;
+        }
+
+        .mini-circuit:after {
+            content: '';
+            position: absolute;
+            width: 60%;
+            height: 60%;
+            top: 20%;
+            left: 20%;
+            background-color: rgba(204, 0, 255, 0.1);
+            animation: recursion 5s infinite alternate;
+        }
+
+        /* Social Connections */
+        .social .project-visualization {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--neon-white);
+            color: var(--neon-white);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            opacity: 1;
+            box-shadow: 0 0 10px var(--neon-white);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            margin-top: 2rem;
+        }
+
+        .circuit-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--neon-green), transparent);
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .circuit-divider::before,
+        .circuit-divider::after {
+            content: '';
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--neon-green);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 0 5px var(--neon-green);
+        }
+
+        .circuit-divider::before {
+            left: 30%;
+        }
+
+        .circuit-divider::after {
+            right: 30%;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .ai-credit {
+            font-family: monospace;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        .stopwatch {
+            font-family: 'Share Tech Mono', monospace;
+            background: rgba(10, 14, 23, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 0.8rem 1.2rem;
+            border-radius: 4px;
+            display: inline-flex;
+            gap: 0.2rem;
+            font-size: 1.2rem;
+            box-shadow: 0 0 15px rgba(0, 255, 156, 0.2);
+        }
+
+        .stopwatch-value {
+            min-width: 1.2em;
+            text-align: center;
+        }
+
+        .stopwatch-separator {
+            animation: blink 1s infinite;
+        }
+
+        /* Power surge effect */
+        .power-surge {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: radial-gradient(circle, var(--neon-green) 0%, transparent 70%);
+            border-radius: 50%;
+            opacity: 0.8;
+            z-index: 1000;
+            pointer-events: none;
+            transition: opacity 1s ease;
+        }
+
+        /* Animations */
+        @keyframes glow {
+            from { text-shadow: 0 0 5px var(--neon-white), 0 0 10px var(--neon-white); }
+            to { text-shadow: 0 0 10px var(--neon-white), 0 0 20px var(--neon-white); }
+        }
+
+        @keyframes blink {
+            0%, 49% { opacity: 1; }
+            50%, 100% { opacity: 0.2; }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 0.1; }
+        }
+
+        @keyframes recursion {
+            0% { transform: scale(1); opacity: 0.2; }
+            50% { transform: scale(0.8); opacity: 0.6; }
+            100% { transform: scale(1); opacity: 0.2; }
+        }
+
+        @keyframes flowLight {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project {
+                max-width: 400px;
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            header p {
+                font-size: 1rem;
+            }
+
+            .typing-subtitle {
+                font-size: 0.9rem;
+            }
+
+            .project h3 {
+                font-size: 1.2rem;
+            }
+
+            .project p {
+                font-size: 0.8rem;
+            }
+
+            .stopwatch {
+                font-size: 1rem;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header Bar -->
-  <header class="header">
-    <div class="header-left">
-      <h1 class="header-title">Geva Kipper's Portfolio IDE</h1>
-      <div class="google-badge">
-        <svg class="google-logo" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
-          <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
-          <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
-          <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
-        </svg>
-        <span>Currently Engineering at Google</span>
-      </div>
-    </div>
-    <div class="notification-icon">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 16C9.1 16 10 15.1 10 14H6C6 15.1 6.9 16 8 16ZM14 11V6.5C14 4.01 12.42 2 10.5 2C10.31 2 10.13 2.02 9.95 2.05C10.59 2.77 11 3.72 11 4.75V5H12V11H14ZM13 12H3L4.3 10.7C4.74 10.26 5 9.65 5 9V5C5 3.07 6.57 1.5 8.5 1.5C10.43 1.5 12 3.07 12 5V9C12 9.65 12.26 10.26 12.7 10.7L13 11V12Z" fill="#CCCCCC"/>
-      </svg>
-      <div class="tooltip">
-        This website is re-designed each day by AI and is thus ever-changing
-      </div>
-    </div>
-  </header>
+    <header>
+        <h1>Geva Kipper</h1>
+        <p>Software Engineer at Google</p>
+        <div class="typing-subtitle" id="typing-subtitle"></div>
+    </header>
 
-  <!-- Main Container -->
-  <main class="ide-container">
-    <!-- File Explorer -->
-    <aside class="explorer">
-      <div class="explorer-header">
-        EXPLORER
-      </div>
-      <div class="explorer-content">
-        <div class="folder">
-          <span class="folder-icon">📁</span>
-          <span>PORTFOLIO</span>
+    <main>
+        <div class="projects-grid">
+            <div class="project glglstats" data-section="glglstats">
+                <div class="project-content">
+                    <div class="project-visualization">
+                        <div class="waveform">
+                            <svg viewBox="0 0 200 40">
+                                <path id="wave1" d=""></path>
+                                <path id="wave2" d=""></path>
+                            </svg>
+                        </div>
+                    </div>
+                    <h3>GlglStats</h3>
+                    <p>Measuring repetitiveness in Israeli pop songs through advanced pattern analysis and compression algorithms.</p>
+                    <div class="project-links">
+                        <a href="https://glglstats.onrender.com/" target="_blank">
+                            <span class="link-node"></span>Website
+                        </a>
+                        <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank">
+                            <span class="link-node"></span>Presentation
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project ahuzat" data-section="ahuzat">
+                <div class="project-content">
+                    <div class="project-visualization">
+                        <!-- Heatmap cells will be generated by JS -->
+                    </div>
+                    <h3>Ahuzat Dibuk</h3>
+                    <p>Data-driven analysis of parking patterns and municipal enforcement in Tel Aviv neighborhoods.</p>
+                    <div class="project-links">
+                        <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank">
+                            <span class="link-node"></span>Publication
+                        </a>
+                        <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank">
+                            <span class="link-node"></span>Media 1
+                        </a>
+                        <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank">
+                            <span class="link-node"></span>Media 2
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project portfolio" data-section="portfolio">
+                <div class="project-content">
+                    <div class="project-visualization">
+                        <div class="mini-circuit"></div>
+                    </div>
+                    <h3>Portfolio Website</h3>
+                    <p>An AI-redesigned portfolio showcasing projects with interactive circuit board aesthetics.</p>
+                    <div class="project-links">
+                        <a href="https://portfolio-dor1.onrender.com/" target="_blank">
+                            <span class="link-node"></span>Visit Portfolio
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project social" data-section="social">
+                <div class="project-content">
+                    <div class="project-visualization">
+                        <a href="https://github.com/gevak" target="_blank" class="social-icon github-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path>
+                                <path d="M9 18c-4.51 2-5-2-7-2"></path>
+                            </svg>
+                        </a>
+                        <a href="https://linkedin.com/in/gevakip" target="_blank" class="social-icon linkedin-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                                <rect x="2" y="9" width="4" height="12"></rect>
+                                <circle cx="4" cy="4" r="2"></circle>
+                            </svg>
+                        </a>
+                        <a href="https://facebook.com/geva.kipper" target="_blank" class="social-icon facebook-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                    <h3>Social Connections</h3>
+                    <p>Connect with me across platforms to follow my work, projects, and professional updates.</p>
+                    <div class="project-links">
+                        <a href="https://github.com/gevak" target="_blank">
+                            <span class="link-node"></span>GitHub
+                        </a>
+                        <a href="https://linkedin.com/in/gevakip" target="_blank">
+                            <span class="link-node"></span>LinkedIn
+                        </a>
+                        <a href="https://facebook.com/geva.kipper" target="_blank">
+                            <span class="link-node"></span>Facebook
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="file" data-file="main.js">
-          <span class="file-icon">📄</span>
-          <span>main.js</span>
+    </main>
+
+    <footer>
+        <div class="circuit-divider"></div>
+        <div class="footer-content">
+            <div class="ai-credit">Circuit designed by GPT-4</div>
+            <div class="stopwatch" id="stopwatch">
+                <div class="stopwatch-value" id="hours">00</div>
+                <div class="stopwatch-separator">:</div>
+                <div class="stopwatch-value" id="minutes">00</div>
+                <div class="stopwatch-separator">:</div>
+                <div class="stopwatch-value" id="seconds">00</div>
+            </div>
         </div>
-        <div class="file" data-file="GlglStats.js">
-          <span class="file-icon">📄</span>
-          <span>GlglStats.js</span>
-        </div>
-        <div class="file" data-file="AhuzatDibuk.js">
-          <span class="file-icon">📄</span>
-          <span>AhuzatDibuk.js</span>
-        </div>
-        <div class="file" data-file="Portfolio.js">
-          <span class="file-icon">📄</span>
-          <span>Portfolio.js</span>
-        </div>
-        <div class="file" data-file="Contact.js">
-          <span class="file-icon">📄</span>
-          <span>Contact.js</span>
-        </div>
-      </div>
-    </aside>
-
-    <!-- Editor Area -->
-    <section class="editor-area">
-      <div class="tabs">
-        <div class="tab active" data-file="main.js">
-          <span>main.js</span>
-          <span class="tab-close">×</span>
-        </div>
-      </div>
-      <div class="editor-content">
-        <div class="line-numbers">
-          <!-- Line numbers will be populated with JavaScript -->
-        </div>
-        <div class="code-area">
-          <!-- Code will be populated with JavaScript -->
-          <button class="run-button">
-            <span>Run</span>
-            <span class="spinner" style="display: none;"></span>
-          </button>
-          <div class="output-section"></div>
-        </div>
-      </div>
-
-      <!-- Terminal -->
-      <div class="terminal">
-        <div class="terminal-header">
-          <span>TERMINAL</span>
-          <span>portfolio-ide</span>
-        </div>
-        <div class="terminal-content">
-          <div class="terminal-prompt">
-            <span class="terminal-user">geva@portfolio-ide</span>
-            <span class="terminal-path">~/portfolio $</span>
-            <span>Welcome to Portfolio IDE. Type 'help' for available commands.</span>
-          </div>
-          <div class="terminal-prompt terminal-input-line">
-            <span class="terminal-user">geva@portfolio-ide</span>
-            <span class="terminal-path">~/portfolio $</span>
-            <input type="text" class="terminal-input" autofocus>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="git-status">
-      <span class="branch-icon">⑂</span>
-      <span>Designed by GPT-4</span>
-    </div>
-    <div class="runtime-counter">
-      Runtime: 00:00:00
-    </div>
-  </footer>
-
-  <script>
-    // File content data
-    const fileContents = {
-      'main.js': `/**
- * Welcome to Geva Kipper's Portfolio IDE
- * ======================================
- * 
- * This interactive portfolio simulates an IDE experience.
- * 
- * @instructions:
- * - Click on files in the explorer to view different projects
- * - Press the "Run" button to execute code and reveal project details
- * - Try typing commands in the terminal below (try 'help' first)
- * - Explore the code as you would in a real development environment
- */
-
-// Initialize the portfolio application
-function initPortfolio() {
-  console.log("Portfolio IDE initialized");
-  console.log("Select a project file from the explorer to begin");
-  
-  // This is just a simulation - the actual content is loaded dynamically
-  return {
-    author: "Geva Kipper",
-    currentRole: "Software Engineer at Google",
-    expertise: [
-      "Web Development",
-      "Data Visualization",
-      "Machine Learning",
-      "Software Architecture"
-    ],
-    languages: [
-      "JavaScript", "Python", "HTML/CSS", 
-      "SQL", "TypeScript", "Java"
-    ]
-  };
-}
-
-// Run this function to see available projects
-function showProjects() {
-  return [
-    "GlglStats - Music repetitiveness analysis",
-    "AhuzatDibuk - Parking heatmap visualizations",
-    "Portfolio - This very website",
-    "Contact - Get in touch"
-  ];
-}
-
-// Portfolio is ready to explore!
-const portfolio = initPortfolio();`,
-
-      'GlglStats.js': `/**
- * GlglStats.js - Music repetitiveness analysis project
- * ===================================================
- * 
- * A web application analyzing song repetitiveness patterns
- * using natural language processing techniques
- */
-
-// External resources
-import { dataVisualization } from 'https://glglstats.onrender.com/';
-import { presentation } from 'https://www.youtube.com/watch?v=jrKAtOsj1Lo';
-
-// Primary functionality
-class GlglStats {
-  constructor() {
-    this.name = "GlglStats";
-    this.description = "Analyzing repetitiveness patterns in songs";
-    this.tools = ["Python", "Flask", "D3.js", "NLTK", "ReactJS"];
-  }
-
-  /**
-   * Analyzes song lyrics to detect repetitiveness patterns
-   * @param {string} lyrics - The song lyrics to analyze
-   * @returns {Object} Repetitiveness metrics and visualizations
-   */
-  analyzeLyrics(lyrics) {
-    // Tokenize lyrics
-    const tokens = this.tokenize(lyrics);
-    
-    // Calculate repetitiveness score
-    const repetitiveness = this.calculateRepetitiveness(tokens);
-    
-    // Generate visualization data
-    return this.generateVisualization(repetitiveness);
-  }
-
-  tokenize(text) {
-    // NLP processing to split text into meaningful tokens
-    // Actual implementation uses Python's NLTK
-    return text.split(/\\s+/);
-  }
-
-  calculateRepetitiveness(tokens) {
-    // Algorithm to quantify repetitive patterns
-    // Actual implementation uses statistical methods
-    return {
-      score: 0.75,
-      patterns: ["chorus repetition", "verse similarity"]
-    };
-  }
-
-  generateVisualization(data) {
-    // Creates interactive visualizations of repetitiveness
-    // Actual implementation uses D3.js
-    return {
-      heatmap: "song-structure-visualization.svg",
-      metrics: data
-    };
-  }
-}
-
-// Initialize project
-const project = new GlglStats();
-console.log(\`Project: \${project.name}\`);
-console.log(\`Tools: \${project.tools.join(", ")}\`);
-
-// Execute analysis on sample data
-const results = project.analyzeLyrics("Sample song lyrics...");
-console.log("Analysis complete");`,
-
-      'AhuzatDibuk.js': `/**
- * AhuzatDibuk.js - Parking Heatmap Visualization
- * ==============================================
- * 
- * A data analysis project visualizing parking availability
- * in Tel Aviv's Ahuzat Bayit neighborhood
- */
-
-// External media APIs
-const mediaReferences = [
-  { name: "Channel 13 News", url: "https://13tv.co.il/item/news/domestic/internal/parking-902956407/" },
-  { name: "Mako Nexter", url: "https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" }
-];
-
-// Deployment endpoint
-const publicationUrl = "https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943";
-
-class ParkingAnalysis {
-  constructor(neighborhood) {
-    this.neighborhood = neighborhood;
-    this.dataPoints = 1450; // Number of parking spots analyzed
-    this.timeSpan = "72 hours"; // Duration of data collection
-    this.technologies = ["Python", "Pandas", "Matplotlib", "GeoPandas"];
-  }
-
-  /**
-   * Collects parking data from street observations
-   * @param {number} duration - Hours of data collection
-   * @returns {Array} Raw parking data points
-   */
-  collectData(duration) {
-    console.log(\`Collecting \${this.neighborhood} parking data over \${duration} hours\`);
-    // Simulated data collection process
-    // The actual project used manual observation data
-    return [
-      { spot: "Rothschild 1", available: false, timestamp: "2021-05-20T08:15:00" },
-      { spot: "Ahad Ha'am 5", available: true, timestamp: "2021-05-20T08:20:00" },
-      // ... more data points ...
-    ];
-  }
-
-  /**
-   * Processes raw data into visualization-ready format
-   * @param {Array} rawData - Collected parking observations
-   * @returns {Object} Processed data for visualization
-   */
-  processData(rawData) {
-    console.log("Processing parking availability data");
-    // Data transformation and aggregation
-    // The actual implementation used Pandas and GeoPandas
-    return {
-      occupancyRate: 0.92, // 92% occupancy rate
-      peakHours: ["08:00-10:00", "18:00-20:00"],
-      availabilityByHour: {
-        "08:00": 0.05,
-        "12:00": 0.15,
-        "16:00": 0.09,
-        "20:00": 0.04
-        // ... more hourly data ...
-      }
-    };
-  }
-
-  /**
-   * Creates heatmap visualization of parking availability
-   * @param {Object} processedData - The processed parking data
-   * @returns {string} Path to generated heatmap visualization
-   */
-  generateHeatmap(processedData) {
-    console.log("Generating heatmap visualization");
-    // Visualization generation
-    // The actual implementation created Matplotlib heatmaps
-    return "ahuzat-bayit-heatmap.png";
-  }
-
-  /**
-   * Publishes results to social media
-   * @param {string} platform - Target platform for publication
-   * @param {string} visualizationPath - Path to visualization asset
-   * @returns {string} Publication URL
-   */
-  publishResults(platform, visualizationPath) {
-    console.log(\`Publishing results to \${platform}\`);
-    return publicationUrl;
-  }
-}
-
-// Initialize project
-const parkingProject = new ParkingAnalysis("Ahuzat Bayit");
-console.log(\`Project initialized for \${parkingProject.neighborhood}\`);
-console.log(\`Data points: \${parkingProject.dataPoints}\`);
-
-// Execute analysis workflow
-const rawData = parkingProject.collectData(72);
-const processedData = parkingProject.processData(rawData);
-const heatmapPath = parkingProject.generateHeatmap(processedData);
-const publicationLink = parkingProject.publishResults("Facebook", heatmapPath);
-
-console.log("Analysis complete");`,
-
-      'Portfolio.js': `/**
- * Portfolio.js - This very website
- * ===============================
- * 
- * A meta-file describing how this portfolio website works.
- * This file is part of the website it describes - very meta!
- */
-
-// Self-reference recursive import
-import { portfolio } from 'https://portfolio-dor1.onrender.com/';
-
-class PortfolioWebsite {
-  constructor() {
-    this.name = "Portfolio IDE";
-    this.concept = "IDE-inspired interactive portfolio";
-    this.technologies = [
-      "HTML5", "CSS3", "Modern JavaScript", 
-      "Responsive Design"
-    ];
-    this.createdWith = "AI assistance";
-  }
-
-  /**
-   * Initializes the portfolio IDE interface
-   * @returns {Object} Interface components
-   */
-  initInterface() {
-    // Create the main IDE components
-    const components = {
-      fileExplorer: this.createFileExplorer(),
-      editor: this.createEditor(),
-      terminal: this.createTerminal(),
-      tabs: this.createTabs()
-    };
-    
-    // Wire up event listeners
-    this.setupEventListeners(components);
-    
-    return components;
-  }
-
-  /**
-   * Creates the file explorer panel
-   * @returns {Object} File explorer component
-   */
-  createFileExplorer() {
-    // This is actually how the file explorer is implemented
-    // File structure is defined and rendered dynamically
-    return {
-      files: [
-        "main.js",
-        "GlglStats.js", 
-        "AhuzatDibuk.js", 
-        "Portfolio.js", 
-        "Contact.js"
-      ],
-      activeFile: "main.js"
-    };
-  }
-
-  /**
-   * Creates the code editor component
-   * @returns {Object} Editor component
-   */
-  createEditor() {
-    // The editor implementation with syntax highlighting
-    return {
-      syntaxHighlighting: true,
-      lineNumbers: true,
-      theme: "dark",
-      features: [
-        "Run button for code execution",
-        "Output panel for results",
-        "Automatic cursor blinking"
-      ]
-    };
-  }
-
-  /**
-   * Creates the terminal component
-   * @returns {Object} Terminal component
-   */
-  createTerminal() {
-    // The interactive terminal implementation
-    return {
-      prompt: "geva@portfolio-ide ~/portfolio $",
-      commands: [
-        "help", "about", "contact", 
-        "projects", "clear", "whoami"
-      ],
-      history: []
-    };
-  }
-
-  /**
-   * Creates the tab navigation system
-   * @returns {Object} Tabs component
-   */
-  createTabs() {
-    // Tab system for navigating between files
-    return {
-      openTabs: ["main.js"],
-      activeTab: "main.js",
-      addTab(file) {
-        if (!this.openTabs.includes(file)) {
-          this.openTabs.push(file);
-        }
-        this.activeTab = file;
-      },
-      closeTab(file) {
-        this.openTabs = this.openTabs.filter(tab => tab !== file);
-        if (this.activeTab === file && this.openTabs.length > 0) {
-          this.activeTab = this.openTabs[0];
-        }
-      }
-    };
-  }
-
-  /**
-   * Sets up all event listeners for IDE interactivity
-   * @param {Object} components - The IDE components
-   */
-  setupEventListeners(components) {
-    console.log("Setting up event listeners for interactive IDE experience");
-    // The actual implementation wires up clicks, keyboard shortcuts, etc.
-    return true;
-  }
-
-  /**
-   * Makes the site responsive across devices
-   */
-  implementResponsiveDesign() {
-    console.log("Implementing responsive design for all screen sizes");
-    // The actual implementation uses CSS media queries
-    return {
-      breakpoints: [
-        "mobile: 320px-767px",
-        "tablet: 768px-1023px",
-        "desktop: 1024px+"
-      ],
-      adaptations: [
-        "Collapsible panels on mobile",
-        "Simplified layout on smaller screens",
-        "Touch-friendly interactions for mobile"
-      ]
-    };
-  }
-}
-
-// Create the portfolio website instance
-const portfolioSite = new PortfolioWebsite();
-
-// Initialize components
-const components = portfolioSite.initInterface();
-
-// Make it responsive
-const responsiveFeatures = portfolioSite.implementResponsiveDesign();
-
-console.log(\`Portfolio website initialized: \${portfolioSite.name}\`);
-console.log(\`Technologies: \${portfolioSite.technologies.join(", ")}\`);
-
-// Self-referential recursive function that represents the meta nature of this file
-function portfolioInception(depth = 0) {
-  if (depth > 3) return "We need to go deeper...";
-  return portfolioInception(depth + 1);
-}`,
-
-      'Contact.js': `/**
- * Contact.js - Social links and contact information
- * ================================================
- * 
- * A collection of social media profiles and contact methods
- */
-
-// Define social media profiles and contact methods
-const contactInformation = {
-  name: "Geva Kipper",
-  email: "contact@example.com", // Not showing real email for privacy
-  social: {
-    github: {
-      url: "https://github.com/gevak",
-      username: "gevak",
-      icon: "github-icon"
-    },
-    linkedin: {
-      url: "https://linkedin.com/in/gevakip",
-      username: "gevakip",
-      icon: "linkedin-icon"
-    },
-    facebook: {
-      url: "https://facebook.com/geva.kipper",
-      username: "geva.kipper",
-      icon: "facebook-icon"
-    }
-  }
-};
-
-/**
- * Generates contact display layout
- * @param {Object} contactData - Contact information object
- * @returns {Object} Formatted contact display
- */
-function formatContactDisplay(contactData) {
-  console.log("Formatting contact information for display");
-  
-  // Social link formatting
-  const socialLinks = Object.keys(contactData.social).map(platform => {
-    const profile = contactData.social[platform];
-    return {
-      platform,
-      url: profile.url,
-      display: \`@\${profile.username}\`,
-      icon: profile.icon
-    };
-  });
-  
-  return {
-    header: \`Get in touch with \${contactData.name}\`,
-    emailContact: contactData.email,
-    socialProfiles: socialLinks,
-    preferredContact: "LinkedIn"
-  };
-}
-
-/**
- * Sends a contact message (simulation)
- * @param {string} name - Sender's name
- * @param {string} email - Sender's email
- * @param {string} message - Contact message
- * @returns {boolean} Success status
- */
-function sendContactMessage(name, email, message) {
-  console.log(\`Sending message from \${name} (\${email})\`);
-  
-  // This would connect to a real email API in a production environment
-  const messageData = {
-    sender: { name, email },
-    content: message,
-    timestamp: new Date().toISOString()
-  };
-  
-  // Simulate sending
-  const success = Math.random() > 0.1; // 90% success rate simulation
-  
-  if (success) {
-    console.log("Message sent successfully");
-    return true;
-  } else {
-    console.error("Failed to send message");
-    return false;
-  }
-}
-
-// Format contact information for display
-const formattedContact = formatContactDisplay(contactInformation);
-console.log("Contact information ready for display");
-
-// Export contact methods for access from other parts of the application
-const contactMethods = {
-  sendMessage: sendContactMessage,
-  getSocialProfiles: () => formattedContact.socialProfiles
-};
-
-console.log(\`Contact initialized for \${contactInformation.name}\`);
-console.log(\`Social profiles: \${Object.keys(contactInformation.social).join(", ")}\`);`
-    };
-
-    const outputContent = {
-      'main.js': `<div>
-  <h3>Welcome to Geva Kipper's Portfolio IDE</h3>
-  <p>This interactive portfolio simulates an IDE experience, showcasing various projects through a coding environment.</p>
-  <div style="margin-top: 15px; padding: 10px; border-left: 3px solid var(--accent-yellow); background-color: rgba(255, 255, 255, 0.05);">
-    <p><span style="color: var(--accent-yellow)">// Current role</span><br>Software Engineer at Google</p>
-    <p><span style="color: var(--accent-yellow)">// Expertise</span><br>Web Development, Data Visualization, Machine Learning, Software Architecture</p>
-    <p><span style="color: var(--accent-yellow)">// Languages</span><br>JavaScript, Python, HTML/CSS, SQL, TypeScript, Java</p>
-  </div>
-  <p style="margin-top: 15px;">Select a project file from the explorer to learn more:</p>
-  <ul style="list-style-type: none; padding-left: 15px; margin-top: 10px;">
-    <li>→ GlglStats.js - Music repetitiveness analysis</li>
-    <li>→ AhuzatDibuk.js - Parking heatmap visualizations</li>
-    <li>→ Portfolio.js - This very website</li>
-    <li>→ Contact.js - Get in touch</li>
-  </ul>
-  <p style="margin-top: 15px; font-style: italic;">Try typing <span style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px;">help</span> in the terminal below for additional commands.</p>
-</div>`,
-
-      'GlglStats.js': `<div>
-  <h3>GlglStats - Music Repetitiveness Analysis</h3>
-  <p>A web application analyzing song repetitiveness patterns using natural language processing techniques.</p>
-  
-  <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 4px;">
-    <p><span style="color: var(--accent-green)">// External links</span></p>
-    <a href="https://glglstats.onrender.com/" target="_blank" class="project-link">📊 Live GlglStats Website</a><br>
-    <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank" class="project-link">🎬 PyData Conference Presentation</a>
-  </div>
-
-  <h4>Project Overview</h4>
-  <p>GlglStats analyzes repetitiveness patterns in song lyrics using natural language processing techniques.</p>
-  
-  <div style="margin: 15px 0;">
-    <p><span style="color: var(--accent-yellow)">// Technologies Used</span></p>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Python</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Flask</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">D3.js</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">NLTK</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">ReactJS</span>
-  </div>
-
-  <div class="project-visualization">
-    <img src="https://via.placeholder.com/800x400/1e1e1e/cccccc?text=GlglStats+Visualization" alt="GlglStats Visualization" class="project-image">
-    <div style="padding: 10px; background: rgba(0,0,0,0.3);">
-      <p style="margin: 0;"><span style="color: var(--accent-green)">// Visualization of song repetitiveness patterns</span></p>
-    </div>
-  </div>
-
-  <h4>Key Features</h4>
-  <ul style="padding-left: 20px;">
-    <li>Analyzes song lyrics to detect repetitive patterns</li>
-    <li>Generates visual representations of song structure</li>
-    <li>Compares repetitiveness between different artists and genres</li>
-    <li>Interactive web interface for exploring music patterns</li>
-  </ul>
-</div>`,
-
-      'AhuzatDibuk.js': `<div>
-  <h3>Ahuzat Dibuk - Parking Heatmap Visualization</h3>
-  <p>A data analysis project visualizing parking availability in Tel Aviv's Ahuzat Bayit neighborhood.</p>
-  
-  <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 4px;">
-    <p><span style="color: var(--accent-green)">// Media Coverage & Publication</span></p>
-    <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank" class="project-link">📺 Channel 13 News Coverage</a><br>
-    <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank" class="project-link">📱 Mako Nexter Article</a><br>
-    <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank" class="project-link">📊 Facebook Publication</a>
-  </div>
-
-  <h4>Project Overview</h4>
-  <p>This research project analyzed parking availability patterns in Tel Aviv, collecting data over 72 hours from 1,450 parking spots.</p>
-  
-  <div style="margin: 15px 0;">
-    <p><span style="color: var(--accent-yellow)">// Technologies Used</span></p>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Python</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Pandas</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Matplotlib</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">GeoPandas</span>
-  </div>
-
-  <div class="project-visualization">
-    <img src="https://via.placeholder.com/800x400/1e1e1e/cccccc?text=Parking+Heatmap+Visualization" alt="Parking Heatmap" class="project-image">
-    <div style="padding: 10px; background: rgba(0,0,0,0.3);">
-      <p style="margin: 0;"><span style="color: var(--accent-green)">// Heatmap visualization of parking availability</span></p>
-    </div>
-  </div>
-
-  <h4>Key Findings</h4>
-  <ul style="padding-left: 20px;">
-    <li>92% average occupancy rate during peak hours</li>
-    <li>Peak parking demand periods: 8:00-10:00 AM and 6:00-8:00 PM</li>
-    <li>Only 5% of spots available during morning rush hour</li>
-    <li>Significant spatial patterns in parking availability</li>
-  </ul>
-
-  <p>The project received media attention and sparked public discussion about urban parking solutions in Tel Aviv.</p>
-</div>`,
-
-      'Portfolio.js': `<div>
-  <h3>Portfolio IDE - This Very Website</h3>
-  <p>A meta-project: an interactive IDE-inspired portfolio website designed to showcase projects in a coding environment.</p>
-  
-  <div style="margin: 15px 0; padding: 10px; background: rgba(255,255,255,0.05); border-radius: 4px;">
-    <p><span style="color: var(--accent-green)">// Self-reference</span></p>
-    <a href="https://portfolio-dor1.onrender.com/" target="_blank" class="project-link">🔄 Recursive Portfolio Link</a>
-  </div>
-
-  <h4>Project Concept</h4>
-  <p>This portfolio website simulates a code editor environment, allowing visitors to explore projects through an interactive IDE interface.</p>
-  
-  <div style="margin: 15px 0;">
-    <p><span style="color: var(--accent-yellow)">// Technologies Used</span></p>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">HTML5</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">CSS3</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Modern JavaScript</span>
-    <span style="display: inline-block; background: rgba(0,122,204,0.2); margin: 3px; padding: 3px 8px; border-radius: 3px;">Responsive Design</span>
-  </div>
-
-  <div class="project-visualization">
-    <img src="https://via.placeholder.com/800x400/1e1e1e/cccccc?text=Portfolio+IDE+Interface" alt="Portfolio IDE Interface" class="project-image">
-    <div style="padding: 10px; background: rgba(0,0,0,0.3);">
-      <p style="margin: 0;"><span style="color: var(--accent-green)">// The portfolio website interface</span></p>
-    </div>
-  </div>
-
-  <h4>Interface Components</h4>
-  <ul style="padding-left: 20px;">
-    <li>File Explorer: Navigate between different project files</li>
-    <li>Editor: View project details with syntax highlighting</li>
-    <li>Terminal: Interactive command-line interface</li>
-    <li>Tab System: Switch between open project files</li>
-  </ul>
-
-  <div style="margin-top: 15px; padding: 10px; border-left: 3px solid var(--accent-purple); background-color: rgba(255, 255, 255, 0.05);">
-    <p><span style="color: var(--accent-yellow)">// A meta moment</span><br>You're currently viewing this website through its own interface description. How recursive!</p>
-  </div>
-</div>`,
-
-      'Contact.js': `<div>
-  <h3>Get in touch with Geva Kipper</h3>
-  <p>Connect with me through any of the following platforms:</p>
-  
-  <div style="margin: 15px 0;" class="social-icons">
-    <a href="https://github.com/gevak" target="_blank" class="social-icon" title="GitHub">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-      </svg>
-    </a>
-    <a href="https://linkedin.com/in/gevakip" target="_blank" class="social-icon" title="LinkedIn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
-      </svg>
-    </a>
-    <a href="https://facebook.com/geva.kipper" target="_blank" class="social-icon" title="Facebook">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/>
-      </svg>
-    </a>
-  </div>
-
-  <div style="margin: 15px 0; padding: 10px; background: rgba(0,122,204,0.1); border-radius: 4px;">
-    <p style="margin-bottom: 10px;"><span style="color: var(--accent-yellow)">// Contact Information</span></p>
-    <div style="font-family: monospace; background: rgba(0, 0, 0, 0.2); padding: 10px; border-radius: 4px;">
-      <pre>{
-  "name": "Geva Kipper",
-  "preferred_contact": "LinkedIn",
-  "profiles": {
-    "github": "@gevak",
-    "linkedin": "@gevakip",
-    "facebook": "geva.kipper"
-  }
-}</pre>
-    </div>
-  </div>
-
-  <h4>Send a Message</h4>
-  <p>Use any of the social links above to get in touch. I'm always open to discussing new projects, creative ideas, or opportunities to be part of your vision.</p>
-  
-  <p style="margin-top: 15px; font-style: italic;">Preferred contact method: LinkedIn</p>
-</div>`
-    };
-
-    // DOM Elements
-    const fileExplorer = document.querySelector('.explorer');
-    const files = document.querySelectorAll('.file');
-    const tabs = document.querySelector('.tabs');
-    const lineNumbers = document.querySelector('.line-numbers');
-    const codeArea = document.querySelector('.code-area');
-    const runButton = document.querySelector('.run-button');
-    const outputSection = document.querySelector('.output-section');
-    const terminalInput = document.querySelector('.terminal-input');
-    const terminalContent = document.querySelector('.terminal-content');
-    const runtimeCounter = document.querySelector('.runtime-counter');
-
-    // Current active file
-    let currentFile = 'main.js';
-    
-    // Terminal history
-    let terminalHistory = [];
-    let historyIndex = -1;
-
-    // Helper functions
-    function createLineNumbers(count) {
-      lineNumbers.innerHTML = '';
-      for (let i = 1; i <= count; i++) {
-        const lineNumber = document.createElement('div');
-        lineNumber.className = 'line-number';
-        lineNumber.textContent = i;
-        lineNumbers.appendChild(lineNumber);
-      }
-    }
-
-    function applySyntaxHighlighting(code) {
-      // Basic syntax highlighting for JavaScript
-      return code
-        .replace(/\/\*\*[\s\S]*?\*\//g, match => `<span class="comment">${match}</span>`) // Block comments
-        .replace(/\/\/.*$/gm, match => `<span class="comment">${match}</span>`) // Line comments
-        .replace(/\b(const|let|var|function|class|if|else|return|new|import|export|from|for|while|switch|case|break|continue|try|catch|throw|async|await)\b/g, match => `<span class="keyword">${match}</span>`) // Keywords
-        .replace(/\b(console|Math|Object|Array|String|Number|Boolean|RegExp|JSON)\b/g, match => `<span class="type">${match}</span>`) // Built-in objects
-        .replace(/\b(\w+)\s*\(/g, match => {
-          // Keep the last character (the opening parenthesis)
-          const lastChar = match[match.length - 1];
-          // Get everything except the last character and wrap it in a span
-          const funcName = match.slice(0, -1);
-          return `<span class="function">${funcName}</span>${lastChar}`;
-        }) // Functions
-        .replace(/\b(true|false|null|undefined|NaN)\b/g, match => `<span class="keyword">${match}</span>`) // Constants
-        .replace(/\b(\d+(\.\d+)?)\b/g, match => `<span class="number">${match}</span>`) // Numbers
-        .replace(/"([^"]*)"/g, match => `<span class="string">${match}</span>`) // Double-quoted strings
-        .replace(/'([^']*)'/g, match => `<span class="string">${match}</span>`) // Single-quoted strings
-        .replace(/`([^`]*)`/g, match => `<span class="string">${match}</span>`) // Template literals
-        .replace(/\.([\w$]+)/g, match => `<span class="property">${match}</span>`); // Object properties
-    }
-
-    function displayCode(fileName) {
-      if (fileContents[fileName]) {
-        const code = fileContents[fileName];
-        const lines = code.split('\n');
-        
-        // Create line numbers
-        createLineNumbers(lines.length);
-        
-        // Display code with syntax highlighting
-        codeArea.innerHTML = '';
-        
-        // Add run button
-        const runButtonClone = runButton.cloneNode(true);
-        codeArea.appendChild(runButtonClone);
-        
-        // Add output section
-        const outputSectionClone = outputSection.cloneNode(true);
-        outputSectionClone.classList.remove('visible');
-        codeArea.appendChild(outputSectionClone);
-        
-        // Add each line with highlighting
-        lines.forEach((line, index) => {
-          const codeLine = document.createElement('div');
-          codeLine.className = 'code-line';
-          codeLine.innerHTML = applySyntaxHighlighting(line);
-          codeArea.appendChild(codeLine);
-        });
-        
-        // Add cursor to the first line
-        const firstCodeLine = codeArea.querySelector('.code-line');
-        if (firstCodeLine) {
-          const cursor = document.createElement('span');
-          cursor.className = 'cursor';
-          firstCodeLine.appendChild(cursor);
-        }
-        
-        // Scroll to top
-        codeArea.scrollTop = 0;
-        
-        // Set up the run button click event
-        setupRunButton();
-      }
-    }
-
-    function addTab(fileName) {
-      // Check if tab already exists
-      const existingTab = document.querySelector(`.tab[data-file="${fileName}"]`);
-      if (existingTab) {
-        // Activate existing tab
-        document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-        existingTab.classList.add('active');
-        return;
-      }
-      
-      // Remove active class from all tabs
-      document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-      
-      // Create new tab
-      const newTab = document.createElement('div');
-      newTab.className = 'tab active';
-      newTab.setAttribute('data-file', fileName);
-      
-      const tabText = document.createElement('span');
-      tabText.textContent = fileName;
-      newTab.appendChild(tabText);
-      
-      const closeButton = document.createElement('span');
-      closeButton.className = 'tab-close';
-      closeButton.textContent = '×';
-      newTab.appendChild(closeButton);
-      
-      // Add tab click event
-      newTab.addEventListener('click', (e) => {
-        if (e.target.className === 'tab-close') {
-          closeTab(fileName);
-        } else {
-          switchToFile(fileName);
-        }
-      });
-      
-      tabs.appendChild(newTab);
-    }
-
-    function closeTab(fileName) {
-      // Remove tab
-      const tabToClose = document.querySelector(`.tab[data-file="${fileName}"]`);
-      if (!tabToClose) return;
-      
-      const isActive = tabToClose.classList.contains('active');
-      tabs.removeChild(tabToClose);
-      
-      // If it was the active tab, activate another one
-      if (isActive) {
-        const remainingTabs = document.querySelectorAll('.tab');
-        if (remainingTabs.length > 0) {
-          const newActiveTab = remainingTabs[remainingTabs.length - 1];
-          newActiveTab.classList.add('active');
-          switchToFile(newActiveTab.getAttribute('data-file'));
-        } else {
-          // No tabs left, display empty state
-          codeArea.innerHTML = '<div class="code-line">// No file selected</div>';
-          lineNumbers.innerHTML = '<div class="line-number">1</div>';
-        }
-      }
-    }
-
-    function switchToFile(fileName) {
-      currentFile = fileName;
-      
-      // Update active file in explorer
-      document.querySelectorAll('.file').forEach(file => {
-        file.classList.remove('active');
-        if (file.getAttribute('data-file') === fileName) {
-          file.classList.add('active');
-        }
-      });
-      
-      // Update active tab
-      document.querySelectorAll('.tab').forEach(tab => {
-        tab.classList.remove('active');
-        if (tab.getAttribute('data-file') === fileName) {
-          tab.classList.add('active');
-        }
-      });
-      
-      // Display code
-      displayCode(fileName);
-    }
-
-    function setupRunButton() {
-      const runBtn = codeArea.querySelector('.run-button');
-      const output = codeArea.querySelector('.output-section');
-      
-      runBtn.addEventListener('click', () => {
-        // Show loading state
-        const spinner = runBtn.querySelector('.spinner');
-        spinner.style.display = 'inline-block';
-        runBtn.querySelector('span:first-child').textContent = 'Running';
-        
-        // Simulate processing time
-        setTimeout(() => {
-          // Show output
-          output.innerHTML = outputContent[currentFile] || 'No output for this file';
-          output.classList.add('visible');
-          
-          // Reset button state
-          spinner.style.display = 'none';
-          runBtn.querySelector('span:first-child').textContent = 'Run';
-          
-          // Add to terminal history
-          addTerminalOutput(`> Executed ${currentFile}`);
-        }, 800);
-      });
-    }
-
-    function addTerminalOutput(text) {
-      const outputLine = document.createElement('div');
-      outputLine.className = 'terminal-prompt';
-      outputLine.innerHTML = `<span class="terminal-user">geva@portfolio-ide</span><span class="terminal-path">~/portfolio $</span><span>${text}</span>`;
-      
-      // Add before the input line
-      const inputLine = document.querySelector('.terminal-input-line');
-      terminalContent.insertBefore(outputLine, inputLine);
-      
-      // Scroll to bottom
-      terminalContent.scrollTop = terminalContent.scrollHeight;
-    }
-
-    function processTerminalCommand(command) {
-      command = command.trim();
-      
-      if (!command) return;
-      
-      // Add command to history
-      terminalHistory.push(command);
-      historyIndex = terminalHistory.length;
-      
-      // Process command
-      switch (command.toLowerCase()) {
-        case 'help':
-          addTerminalOutput('Available commands:');
-          addTerminalOutput('  help     - Show available commands');
-          addTerminalOutput('  about    - Display information about this portfolio');
-          addTerminalOutput('  clear    - Clear the terminal');
-          addTerminalOutput('  projects - List all projects');
-          addTerminalOutput('  contact  - Show contact information');
-          addTerminalOutput('  whoami   - Who are you?');
-          addTerminalOutput('  run      - Execute the current file');
-          break;
-          
-        case 'about':
-          addTerminalOutput('Geva Kipper\'s Portfolio IDE');
-          addTerminalOutput('A virtual IDE-themed portfolio showcasing various projects.');
-          addTerminalOutput('This website is re-designed each day by AI and is thus ever-changing.');
-          break;
-          
-        case 'clear':
-          // Clear all but keep the input line
-          const inputLine = document.querySelector('.terminal-input-line');
-          terminalContent.innerHTML = '';
-          terminalContent.appendChild(inputLine);
-          break;
-          
-        case 'projects':
-          addTerminalOutput('Available projects:');
-          addTerminalOutput('  1. GlglStats - Music repetitiveness analysis');
-          addTerminalOutput('  2. AhuzatDibuk - Parking heatmap visualizations');
-          addTerminalOutput('  3. Portfolio - This very website');
-          addTerminalOutput('  4. Contact - Get in touch');
-          addTerminalOutput('');
-          addTerminalOutput('Type "open [filename]" to open a project file.');
-          break;
-          
-        case 'contact':
-          addTerminalOutput('Get in touch with Geva Kipper:');
-          addTerminalOutput('  GitHub: github.com/gevak');
-          addTerminalOutput('  LinkedIn: linkedin.com/in/gevakip');
-          addTerminalOutput('  Facebook: facebook.com/geva.kipper');
-          break;
-
-        case 'whoami':
-          addTerminalOutput('Visitor to Geva Kipper\'s Portfolio');
-          break;
-          
-        case 'run':
-          // Trigger run button click
-          const runBtn = codeArea.querySelector('.run-button');
-          if (runBtn) runBtn.click();
-          break;
-          
-        default:
-          // Check for open command
-          if (command.startsWith('open ')) {
-            const fileName = command.substring(5).trim();
-            if (fileContents[fileName]) {
-              addTerminalOutput(`Opening ${fileName}...`);
-              addTab(fileName);
-              switchToFile(fileName);
-            } else {
-              addTerminalOutput(`File not found: ${fileName}`);
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Typing effect for subtitle
+            const subtitleElement = document.getElementById('typing-subtitle');
+            const subtitleText = "This portfolio circuit is redesigned daily by AI - today's version will never exist again.";
+            let characterIndex = 0;
+            
+            function typeSubtitle() {
+                if (characterIndex < subtitleText.length) {
+                    subtitleElement.textContent += subtitleText.charAt(characterIndex);
+                    characterIndex++;
+                    setTimeout(typeSubtitle, 50);
+                } else {
+                    setTimeout(() => {
+                        characterIndex = 0;
+                        subtitleElement.textContent = "";
+                        typeSubtitle();
+                    }, 5000);
+                }
             }
-          } else {
-            addTerminalOutput(`Command not found: ${command}. Type 'help' for available commands.`);
-          }
-      }
-    }
+            
+            typeSubtitle();
 
-    // Set up file explorer clicks
-    files.forEach(file => {
-      file.addEventListener('click', () => {
-        const fileName = file.getAttribute('data-file');
-        addTab(fileName);
-        switchToFile(fileName);
-      });
-    });
+            // Generate circuit traces
+            const main = document.querySelector('main');
+            const traceCount = 30;
+            
+            for (let i = 0; i < traceCount; i++) {
+                const isHorizontal = Math.random() > 0.5;
+                const trace = document.createElement('div');
+                trace.className = `circuit-trace ${isHorizontal ? 'horizontal' : 'vertical'}`;
+                
+                const left = Math.random() * 90;
+                const top = Math.random() * 90;
+                
+                trace.style.left = `${left}%`;
+                trace.style.top = `${top}%`;
+                
+                if (isHorizontal) {
+                    trace.style.width = `${Math.random() * 10 + 5}%`;
+                } else {
+                    trace.style.height = `${Math.random() * 10 + 5}%`;
+                }
+                
+                main.appendChild(trace);
+                
+                // Add circuit nodes at trace endpoints
+                const node = document.createElement('div');
+                node.className = 'circuit-node';
+                node.style.left = isHorizontal ? `${left + parseFloat(trace.style.width)}%` : `${left}%`;
+                node.style.top = isHorizontal ? `${top}%` : `${top + parseFloat(trace.style.height)}%`;
+                main.appendChild(node);
+            }
 
-    // Set up terminal input
-    terminalInput.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter') {
-        const command = terminalInput.value;
-        
-        // Add command to output
-        addTerminalOutput(command);
-        
-        // Process command
-        processTerminalCommand(command);
-        
-        // Clear input
-        terminalInput.value = '';
-      } else if (e.key === 'ArrowUp') {
-        // Navigate history up
-        if (historyIndex > 0) {
-          historyIndex--;
-          terminalInput.value = terminalHistory[historyIndex];
-          
-          // Move cursor to end
-          setTimeout(() => {
-            terminalInput.selectionStart = terminalInput.value.length;
-            terminalInput.selectionEnd = terminalInput.value.length;
-          }, 0);
-        }
-        e.preventDefault();
-      } else if (e.key === 'ArrowDown') {
-        // Navigate history down
-        if (historyIndex < terminalHistory.length - 1) {
-          historyIndex++;
-          terminalInput.value = terminalHistory[historyIndex];
-        } else {
-          historyIndex = terminalHistory.length;
-          terminalInput.value = '';
-        }
-        e.preventDefault();
-      }
-    });
+            // Generate waveform visualization for GlglStats
+            function generateWaveform() {
+                const wave1 = document.getElementById('wave1');
+                const wave2 = document.getElementById('wave2');
+                
+                let path1 = "M0,20 ";
+                let path2 = "M0,20 ";
+                
+                for (let i = 1; i <= 20; i++) {
+                    const x = i * 10;
+                    const y1 = 20 + Math.sin(i * 0.5) * 10 * Math.random();
+                    const y2 = 20 + Math.cos(i * 0.3) * 8 * Math.random();
+                    
+                    path1 += `L${x},${y1} `;
+                    path2 += `L${x},${y2} `;
+                }
+                
+                wave1.setAttribute("d", path1);
+                wave2.setAttribute("d", path2);
+            }
+            
+            generateWaveform();
+            setInterval(generateWaveform, 3000);
 
-    // Runtime counter update
-    function updateRuntimeCounter() {
-      const startDate = new Date('2025-03-25T00:59:17');
-      const now = new Date();
-      const diff = now - startDate;
-      
-      // Calculate hours, minutes, seconds
-      const hours = Math.floor(diff / 3600000);
-      const minutes = Math.floor((diff % 3600000) / 60000);
-      const seconds = Math.floor((diff % 60000) / 1000);
-      
-      // Format as HH:MM:SS
-      const formattedHours = hours.toString().padStart(2, '0');
-      const formattedMinutes = minutes.toString().padStart(2, '0');
-      const formattedSeconds = seconds.toString().padStart(2, '0');
-      
-      runtimeCounter.textContent = `Runtime: ${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
-    }
-    
-    // Update runtime counter every second
-    setInterval(updateRuntimeCounter, 1000);
-    updateRuntimeCounter();
+            // Generate heatmap for Ahuzat Dibuk
+            const heatmapContainer = document.querySelector('.ahuzat .project-visualization');
+            
+            for (let i = 0; i < 40; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'heatmap-cell';
+                cell.style.opacity = Math.random() * 0.5 + 0.1;
+                
+                if (Math.random() > 0.7) {
+                    cell.classList.add('active');
+                }
+                
+                heatmapContainer.appendChild(cell);
+            }
 
-    // Mobile responsive handlers
-    function setupMobileResponsiveness() {
-      if (window.innerWidth <= 768) {
-        // Add explorer toggle functionality
-        const explorerHeader = document.querySelector('.explorer-header');
-        explorerHeader.classList.add('explorer-toggle');
-        
-        explorerHeader.addEventListener('click', () => {
-          fileExplorer.classList.toggle('collapsed');
+            // Project hover effects
+            const projects = document.querySelectorAll('.project');
+            const traces = document.querySelectorAll('.circuit-trace');
+            const nodes = document.querySelectorAll('.circuit-node');
+            
+            projects.forEach(project => {
+                project.addEventListener('mouseenter', () => {
+                    project.classList.add('active');
+                    activateRandomCircuitTraces();
+                });
+                
+                project.addEventListener('mouseleave', () => {
+                    project.classList.remove('active');
+                    deactivateCircuitTraces();
+                });
+            });
+            
+            function activateRandomCircuitTraces() {
+                const traceCount = Math.floor(Math.random() * 10) + 5;
+                
+                for (let i = 0; i < traceCount; i++) {
+                    const randomIndex = Math.floor(Math.random() * traces.length);
+                    traces[randomIndex].classList.add('active');
+                    
+                    // Also activate some nodes
+                    if (i % 2 === 0) {
+                        const randomNodeIndex = Math.floor(Math.random() * nodes.length);
+                        nodes[randomNodeIndex].classList.add('active');
+                    }
+                }
+            }
+            
+            function deactivateCircuitTraces() {
+                traces.forEach(trace => trace.classList.remove('active'));
+                nodes.forEach(node => node.classList.remove('active'));
+            }
+
+            // Power surge effect on mouse movement
+            document.addEventListener('mousemove', (e) => {
+                const surge = document.createElement('div');
+                surge.className = 'power-surge';
+                surge.style.left = `${e.clientX}px`;
+                surge.style.top = `${e.clientY}px`;
+                
+                document.body.appendChild(surge);
+                
+                setTimeout(() => {
+                    surge.style.opacity = '0';
+                    setTimeout(() => {
+                        document.body.removeChild(surge);
+                    }, 1000);
+                }, 100);
+                
+                // Activate circuit traces near the mouse
+                traces.forEach(trace => {
+                    const rect = trace.getBoundingClientRect();
+                    const centerX = rect.left + rect.width / 2;
+                    const centerY = rect.top + rect.height / 2;
+                    const distance = Math.sqrt(Math.pow(e.clientX - centerX, 2) + Math.pow(e.clientY - centerY, 2));
+                    
+                    if (distance < 100) {
+                        trace.classList.add('active');
+                        setTimeout(() => {
+                            trace.classList.remove('active');
+                        }, 500);
+                    }
+                });
+            });
+
+            // Stopwatch functionality
+            function updateStopwatch() {
+                const startDate = new Date('March 26, 2025 00:58:17').getTime();
+                const now = new Date().getTime();
+                const timeDiff = now - startDate;
+                
+                // Calculate hours, minutes, seconds
+                const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+                
+                // Update DOM
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+            
+            // Initialize stopwatch with current values
+            updateStopwatch();
+            
+            // Update stopwatch every second
+            setInterval(updateStopwatch, 1000);
+
+            // Pulse project sections when page is inactive
+            let pageActive = true;
+            let pulseInterval;
+            
+            function startPulsingProjects() {
+                let currentIndex = 0;
+                pulseInterval = setInterval(() => {
+                    projects.forEach((project, index) => {
+                        if (index === currentIndex) {
+                            project.classList.add('active');
+                        } else {
+                            project.classList.remove('active');
+                        }
+                    });
+                    
+                    currentIndex = (currentIndex + 1) % projects.length;
+                }, 2000);
+            }
+            
+            function stopPulsingProjects() {
+                clearInterval(pulseInterval);
+                projects.forEach(project => project.classList.remove('active'));
+            }
+            
+            document.addEventListener('visibilitychange', () => {
+                if (document.hidden) {
+                    pageActive = false;
+                    startPulsingProjects();
+                } else {
+                    pageActive = true;
+                    stopPulsingProjects();
+                }
+            });
+            
+            // Cycle through active projects occasionally even when page is active
+            setInterval(() => {
+                if (pageActive) {
+                    const randomIndex = Math.floor(Math.random() * projects.length);
+                    projects[randomIndex].classList.add('active');
+                    
+                    setTimeout(() => {
+                        projects[randomIndex].classList.remove('active');
+                    }, 1000);
+                    
+                    activateRandomCircuitTraces();
+                    setTimeout(deactivateCircuitTraces, 1000);
+                }
+            }, 8000);
         });
-      }
-    }
-
-    // Initialize
-    window.addEventListener('resize', setupMobileResponsiveness);
-    setupMobileResponsiveness();
-    
-    // Initial file display
-    displayCode(currentFile);
-  </script>
+    </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250325",
+          pageId: "20250326",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>
