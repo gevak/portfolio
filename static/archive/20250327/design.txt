@@ -1,0 +1,40 @@
+# Blockchain-Inspired Portfolio Design for Geva Kipper
+
+## Core Concept
+A single-page portfolio that visually resembles a blockchain, with each project section appearing as a "block" in the chain. Each block has a timestamp, hash visualization, and connects to the next block with animated lines representing cryptographic links.
+
+## Layout & Navigation
+- Dark background with glowing neon blue/green accent colors
+- Large header with Geva Kipper's name in a monospace font, resembling a terminal
+- Subtitle in smaller text explaining the AI-generated nature of the site that changes daily
+- A subtle hexagonal grid background pattern suggesting a distributed network
+- A vertical blockchain of four project blocks that users scroll through
+
+## Block Design
+Each project block appears as a 3D-rendered cube with:
+- Project title displayed on the "face" of the cube in tech-inspired typography
+- A unique animated "hash" visualization (abstract geometric pattern) for each project
+- Timestamp showing when the project was created (in blockchain format)
+- Blocks connected by glowing lines with small animated data packets traveling between blocks
+
+## Interaction Elements
+- As users scroll, blocks rotate slightly to reveal more information
+- Each block has a "Verify" button that triggers a satisfying animation showing the project's authenticity
+- Links within blocks glow on hover with a subtle pulse effect
+- When clicking a link, an animation shows the data being "signed" before redirecting
+
+## Special Features
+- A terminal-style command line at the bottom where visitors can type simple commands to navigate
+- A mini visualization of the blockchain in the corner that serves as a navigation element
+- Each project section has a unique color scheme while maintaining the overall aesthetic
+- The stopwatch at the bottom displays time in a hexadecimal format alongside standard format
+
+## Footer
+- Minimalist footer with AI credit in terminal-style font
+- The stopwatch counting time since 2025-03-27 00:58:30 visualized as both a digital counter and a mini blockchain growing in real-time
+- A subtle easter egg where clicking the stopwatch shows a full validation of the site's "blocks"
+
+## Responsive Behavior
+- On mobile, the blockchain transforms from vertical to a more compact accordion-style interface
+- Touch gestures allow users to "rotate" each block to see different sides with more information
+- Simplified animations for performance on mobile devices while maintaining the core aesthetic
