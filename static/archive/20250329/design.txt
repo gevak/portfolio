@@ -1,0 +1,39 @@
+# Virtual Coding Bookshelf Portfolio Design
+
+## Core Concept
+A virtual wooden bookshelf that spans the entire page with beautifully crafted coding books. Each book represents a different project or section, with custom spines showing titles. When clicked, books animate off the shelf and open to reveal their contents.
+
+## Header
+At the top of the bookshelf, a wooden name plaque displays "Geva Kipper" in an elegant, carved font. Below it, a smaller line mentions his current work at Google. A subtle animated ticker below the name shows "This portfolio is redesigned daily by AI and is ever-changing" with a small AI icon that pulses.
+
+## Bookshelf Design
+The bookshelf appears to be made of warm-toned wood with subtle lighting effects creating a cozy, library atmosphere. Small decorative items like a miniature potted plant, a coffee mug, and coding trinkets are scattered between the books.
+
+## The Books
+Four distinct books on the shelf, each with unique binding colors and textures:
+
+1. **GlglStats** - A music-themed book with musical notes on the spine and colorful waveform patterns. When opened, it displays project details, visualization examples, and prominent links to the website and PyData TLV conference video.
+
+2. **Ahuzat Dibuk** - A city-planning book with a parking icon and heat map pattern on the spine. When opened, it shows an interactive miniature of a Tel-Aviv parking map, news coverage thumbnails that link to the articles, and the original Facebook post.
+
+3. **Meta Portfolio** - A recursively designed book with smaller books on its cover. When opened, it shows a miniature version of this same bookshelf design (inception-style) with an animated "you are here" pointer and a link.
+
+4. **Connect** - A smaller, notebook-style book with social media icons embossed on the spine. When opened, it displays elegant icon links to GitHub, LinkedIn, and Facebook with subtle hover animations.
+
+## Interactive Elements
+- Books slightly tilt outward when hovered, with a subtle glow
+- When clicked, books animate off the shelf, grow larger, and open to reveal content
+- Page-turning animations when navigating book content
+- Closing a book returns it to its place on the shelf with a satisfying animation
+
+## Background & Ambiance
+A subtle parallax effect creates depth as users scroll. The background suggests a cozy studio workspace with soft, ambient lighting. Gentle ambient sounds like page-turning or wooden creaks can be toggled on/off.
+
+## Footer
+A small AI signature that reads "Designed by [Your AI Name]" is carved into the bottom of the bookshelf. Next to it, an elegant wooden clock displays the time elapsed since March 29, 2025, with gently ticking seconds.
+
+## Responsive Design
+On mobile devices, the bookshelf rotates to a horizontal orientation, allowing users to swipe through the books. The opened book view takes up the full screen with easy-to-tap navigation controls.
+
+## Color Palette
+Warm wood tones, cream parchment, deep leather colors for books (burgundy, forest green, navy, and amber), with gold accents for book titles and embellishments.

@@ -2,19 +2,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper | Blockchain Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600&family=Inter:wght@300;400;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <title>Geva Kipper - Virtual Coding Bookshelf</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
+
         :root {
-            --navy: #0A192F;
-            --teal: #64FFDA;
-            --purple: #C770F0;
-            --light-gray: #CCD6F6;
-            --white: #E6F1FF;
-            --block-bg: rgba(16, 33, 63, 0.7);
-            --transition: all 0.3s ease;
+            --wood-light: #d4a76a;
+            --wood-medium: #b38049;
+            --wood-dark: #8c5e31;
+            --paper-cream: #f9f4e3;
+            --book-burgundy: #8c2e2e;
+            --book-green: #2d5d3a;
+            --book-navy: #1d3b5a;
+            --book-amber: #c77e1d;
+            --gold: #d4af37;
+            --shadow: rgba(0, 0, 0, 0.3);
         }
 
         * {
@@ -24,952 +27,868 @@
         }
 
         body {
-            background-color: var(--navy);
-            color: var(--light-gray);
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
+            font-family: 'Roboto', sans-serif;
+            background: #f0e6d8 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+FhYWHh4d5eXlzc3OLi4ubm5uVlZWPj4+FhYWHh4d5eXlzc3OLi4uVlZUNF1RMAAAAd3RSTlMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM8Ks9lkAAAD1SURBVHja1dRZDoMwDAVQD2nN4BlSEsL9b1lFUZGJcZqtF97KT34SU1AlE2KqUlLNCn0RsaEBoGJVcZ5Qq1A0a1QiI1FnVXwqkhFoBB+REQrQl53EKdTQ29x7IXWB+EgqINQI2hKzhEmEwYOEDIELWMqYxCxCYEwCGYPc+YhZxiRCYGn8hRSGAJ3vMoqYhCbwdx0injnnTACt6zKImIQi0LsuA74y57z2PRbxlPH926CQ/KdfYUq4z4XSBS4U2VIp+SJo9dkoQ7GI7x3+J8YmDpkg3MaGD4qJ/ek7dBpG2V5/B1x7J/+ge4Rj7qCX+wCdJzzRaC+FFAAAAABJRU5ErkJggg==');
             min-height: 100vh;
+            overflow-x: hidden;
+            color: #333;
+        }
+
+        /* Header Styles */
+        header {
+            text-align: center;
+            padding: 20px 0;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .name-plaque {
+            display: inline-block;
+            background: linear-gradient(to bottom, var(--wood-medium), var(--wood-dark));
+            border-radius: 10px;
+            padding: 15px 40px;
+            box-shadow: 0 4px 8px var(--shadow);
+            border: 2px solid var(--wood-light);
+            position: relative;
+            max-width: 90%;
+        }
+
+        .name-plaque::before, .name-plaque::after {
+            content: "";
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gold);
+            border-radius: 50%;
+            border: 3px solid var(--wood-dark);
+        }
+
+        .name-plaque::before {
+            left: 5px;
+        }
+
+        .name-plaque::after {
+            right: 5px;
+        }
+
+        .name {
+            font-family: 'Playfair Display', serif;
+            color: var(--paper-cream);
+            font-size: 2.5rem;
+            text-shadow: 1px 1px 3px var(--shadow);
+            margin: 0;
             position: relative;
         }
 
-        /* Grid Pattern Background */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                linear-gradient(rgba(10, 25, 47, 0.9) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(10, 25, 47, 0.9) 1px, transparent 1px);
-            background-size: 30px 30px;
-            z-index: -2;
+        .current-work {
+            font-family: 'EB Garamond', serif;
+            color: var(--paper-cream);
+            font-size: 1rem;
+            margin-top: 5px;
         }
 
-        /* Container */
-        .container {
+        .ticker-container {
+            overflow: hidden;
+            margin-top: 15px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 5px;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .ticker {
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+            font-size: 0.9rem;
+            color: var(--wood-dark);
+        }
+
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
+        }
+
+        .ai-icon {
+            display: inline-block;
+            margin-left: 5px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.2); opacity: 0.7; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Bookshelf Styles */
+        .bookshelf-container {
+            perspective: 1000px;
+            width: 100%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 2rem;
-        }
-
-        /* Header */
-        header {
-            padding: 4rem 0 2rem;
-            text-align: center;
+            padding: 20px;
             position: relative;
         }
 
-        .blockchain-icon {
-            display: inline-block;
-            margin-right: 15px;
-            vertical-align: middle;
-            transition: transform 0.3s ease;
-        }
-
-        .blockchain-icon:hover {
-            transform: rotate(15deg);
-        }
-
-        .blockchain-icon svg {
-            width: 40px;
-            height: 40px;
-        }
-
-        h1 {
-            font-family: 'Montserrat', sans-serif;
-            font-size: 3.5rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            background: linear-gradient(45deg, #4A9CF6, var(--teal));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            display: inline-block;
-        }
-
-        .subtitle {
-            font-size: 1.5rem;
-            color: var(--white);
-            margin-bottom: 0.5rem;
-        }
-
-        .secondary-subtitle {
-            font-size: 1rem;
-            color: rgba(204, 214, 246, 0.7);
-            font-weight: 300;
-            max-width: 600px;
+        .bookshelf {
+            background: linear-gradient(to bottom, var(--wood-medium), var(--wood-dark));
+            border-radius: 10px;
+            padding: 30px;
             margin: 0 auto;
-        }
-
-        /* Navigation */
-        nav {
-            margin: 3rem 0;
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-        }
-
-        .nav-item {
+            box-shadow: 0 10px 20px var(--shadow);
             position: relative;
-            padding: 0.5rem 1rem;
-            cursor: pointer;
-            font-family: 'Fira Code', monospace;
-            color: var(--light-gray);
-            text-decoration: none;
-            transition: var(--transition);
+            transform-style: preserve-3d;
+            min-height: 400px;
         }
 
-        .nav-item::before {
+        .shelf-top {
+            height: 20px;
+            background: linear-gradient(to bottom, var(--wood-light), var(--wood-medium));
+            border-radius: 5px 5px 0 0;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
+        }
+
+        .shelf-top::before {
             content: "";
             position: absolute;
-            top: 50%;
-            left: -10px;
-            width: 8px;
-            height: 8px;
-            background-color: var(--teal);
-            border-radius: 50%;
-            transform: translateY(-50%);
-            box-shadow: 0 0 10px var(--teal);
-            transition: var(--transition);
-        }
-
-        .nav-item:hover {
-            color: var(--white);
-        }
-
-        .nav-item:hover::before {
-            box-shadow: 0 0 15px var(--teal), 0 0 5px var(--white);
-        }
-
-        /* Project Blocks */
-        .blockchain {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4rem;
-            padding: 2rem 0;
-            margin-bottom: 4rem;
-        }
-
-        .blockchain::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 50%;
-            height: 100%;
-            width: 3px;
-            background: linear-gradient(to bottom, transparent, var(--teal), var(--purple), transparent);
-            transform: translateX(-50%);
-            z-index: -1;
-        }
-
-        .block {
-            position: relative;
-            max-width: 800px;
+            height: 10px;
             width: 100%;
-            background: var(--block-bg);
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-            overflow: hidden;
-            clip-path: polygon(5% 0, 95% 0, 100% 25%, 100% 75%, 95% 100%, 5% 100%, 0 75%, 0 25%);
-        }
-
-        .block::before {
-            content: "";
-            position: absolute;
-            top: 0;
+            bottom: -10px;
             left: 0;
-            right: 0;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--teal), transparent);
+            background: var(--wood-dark);
+            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
         }
 
-        .block::after {
-            content: "";
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: rgba(100, 255, 218, 0.1);
+        .shelf-bottom {
+            height: 20px;
+            background: linear-gradient(to bottom, var(--wood-medium), var(--wood-light));
+            border-radius: 0 0 5px 5px;
+            position: relative;
+            margin-top: 20px;
+            box-shadow: 0 -3px 5px rgba(0,0,0,0.1);
         }
 
-        .block:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4), 0 0 20px rgba(100, 255, 218, 0.2);
-            border-color: rgba(100, 255, 218, 0.4);
-        }
-
-        .block-header {
+        .books-container {
             display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
+            justify-content: space-around;
+            align-items: flex-end;
+            padding: 10px;
+            height: 300px;
             position: relative;
         }
 
-        .block-icon {
-            margin-right: 1rem;
+        .decorative-item {
+            position: absolute;
+            z-index: 10;
+        }
+
+        .plant {
+            width: 60px;
+            height: 80px;
+            left: 5%;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M40,15 C40,40 60,40 60,15" stroke="%232d5d3a" fill="none" stroke-width="5"/><path d="M45,20 C45,40 65,40 65,20" stroke="%232d5d3a" fill="none" stroke-width="4"/><path d="M35,25 C35,45 55,45 55,25" stroke="%232d5d3a" fill="none" stroke-width="4"/><rect x="40" y="60" width="20" height="25" rx="2" fill="%23a66a2e"/></svg>') no-repeat center center;
+        }
+
+        .coffee-mug {
+            width: 40px;
+            height: 50px;
+            right: 10%;
+            bottom: 0;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,30 L30,70 Q30,80 40,80 L60,80 Q70,80 70,70 L70,30 Z" fill="%23fff"/><path d="M70,40 L80,40 Q90,40 90,50 L90,60 Q90,70 80,70 L70,70" fill="none" stroke="%238c2e2e" stroke-width="5"/><rect x="35" y="25" width="30" height="5" rx="2" fill="%238c2e2e"/></svg>') no-repeat center center;
+        }
+
+        .code-trinket {
             width: 40px;
             height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            left: 50%;
+            bottom: 5px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,40 L10,50 L30,60" fill="none" stroke="%231d3b5a" stroke-width="5"/><path d="M70,40 L90,50 L70,60" fill="none" stroke="%231d3b5a" stroke-width="5"/><path d="M40,20 L60,80" fill="none" stroke="%231d3b5a" stroke-width="5"/></svg>') no-repeat center center;
         }
 
-        .block-title {
-            font-family: 'Fira Code', monospace;
-            font-size: 1.8rem;
-            color: var(--white);
-            letter-spacing: 1px;
-        }
-
-        .project-description {
-            margin-bottom: 2rem;
+        /* Book Styles */
+        .book {
+            height: 240px;
+            width: 50px;
             position: relative;
+            transform-origin: bottom center;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
             z-index: 1;
         }
 
-        .block-hash {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.7rem;
-            color: rgba(204, 214, 246, 0.5);
-            margin-bottom: 1rem;
-            letter-spacing: 1px;
+        .book:hover {
+            transform: translateZ(10px) rotateY(-15deg);
         }
 
-        .block-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1.5rem;
-        }
-
-        .block-button {
-            position: relative;
-            background: rgba(100, 255, 218, 0.1);
-            color: var(--teal);
-            border: 1px solid rgba(100, 255, 218, 0.3);
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .block-button:hover {
-            background: rgba(100, 255, 218, 0.2);
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(100, 255, 218, 0.15);
-        }
-
-        .block-button svg {
-            width: 16px;
-            height: 16px;
-        }
-
-        /* Specific Block Styles */
-        .block-audio-viz {
-            height: 50px;
-            width: 100%;
-            margin: 1.5rem 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 3px;
-        }
-
-        .audio-bar {
-            width: 4px;
-            height: 20px;
-            background: var(--teal);
-            border-radius: 2px;
-            transition: height 0.2s ease;
-        }
-
-        .minimap {
-            height: 150px;
-            width: 100%;
-            margin: 1.5rem 0;
-            background: rgba(10, 25, 47, 0.8);
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .minimap::before {
+        .book::before { /* Book spine shadow */
             content: "";
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
+            width: 10px;
             height: 100%;
-            background-image: radial-gradient(circle, rgba(100, 255, 218, 0.4) 1%, transparent 10%);
-            background-position: 0 0;
-            background-size: 40px 40px;
-            opacity: 0.3;
+            background: rgba(0,0,0,0.2);
         }
 
-        .meta-block {
-            background: rgba(10, 25, 47, 0.6);
-            border-radius: 6px;
-            padding: 1rem;
-            margin: 1.5rem 0;
-            border: 1px dashed rgba(100, 255, 218, 0.3);
-            position: relative;
+        .book::after { /* Book pages */
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--paper-cream);
+            transform: rotateY(90deg);
+            transform-origin: right;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
+        }
+
+        .book-spine {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            padding: 10px;
+            color: var(--gold);
+            text-align: center;
+            font-family: 'EB Garamond', serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
             overflow: hidden;
         }
 
-        .meta-block::after {
-            content: "";
+        .book-cover {
             position: absolute;
             width: 100%;
-            height: 20px;
-            background: linear-gradient(to right, var(--navy), transparent, var(--navy));
-            bottom: 0;
-            left: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 10px;
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+            background: var(--paper-cream);
+            transform: rotateY(-90deg) translateX(-130px) scale(3);
+            transform-origin: left;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease;
+            overflow-y: auto;
+            max-height: 80vh;
+            width: 300px;
+            border-radius: 5px;
         }
 
-        /* Social Block */
+        .book-content {
+            color: #333;
+            font-family: 'Roboto', sans-serif;
+            padding: 20px;
+            text-align: left;
+        }
+
+        .book.open {
+            transform: translateZ(150px) translateX(-110px) rotateY(-90deg) scale(1.2);
+            z-index: 100;
+        }
+
+        .book.open .book-cover {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* Specific Book Styles */
+        .book-glglstats {
+            background: var(--book-burgundy);
+        }
+
+        .book-glglstats .book-spine {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><path d="M20,50 Q50,20 80,50 Q50,80 20,50" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M20,150 Q50,120 80,150 Q50,180 20,150" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M20,250 Q50,220 80,250 Q50,280 20,250" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M20,350 Q50,320 80,350 Q50,380 20,350" stroke="%23d4af37" fill="none" stroke-width="2"/></svg>') var(--book-burgundy);
+        }
+
+        .book-ahuzat {
+            background: var(--book-green);
+        }
+
+        .book-ahuzat .book-spine {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><rect x="25" y="50" width="50" height="30" rx="5" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M35,65 L50,65 L50,75 L35,75 Z" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="25" y="150" width="50" height="30" rx="5" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M35,165 L50,165 L50,175 L35,175 Z" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="25" y="250" width="50" height="30" rx="5" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M35,265 L50,265 L50,275 L35,275 Z" stroke="%23d4af37" fill="none" stroke-width="2"/></svg>') var(--book-green);
+        }
+
+        .book-meta {
+            background: var(--book-navy);
+        }
+
+        .book-meta .book-spine {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><rect x="30" y="50" width="40" height="60" rx="2" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="30" y="150" width="40" height="60" rx="2" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="30" y="250" width="40" height="60" rx="2" stroke="%23d4af37" fill="none" stroke-width="2"/></svg>') var(--book-navy);
+        }
+
+        .book-connect {
+            background: var(--book-amber);
+            height: 200px; /* Smaller than other books */
+        }
+
+        .book-connect .book-spine {
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><circle cx="50" cy="70" r="20" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M40,70 L60,70 M50,60 L50,80" stroke="%23d4af37" stroke-width="2"/><circle cx="50" cy="150" r="20" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M40,150 L60,150" stroke="%23d4af37" stroke-width="2"/><circle cx="50" cy="230" r="20" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M40,230 L60,230 M50,220 L50,240" stroke="%23d4af37" stroke-width="2" stroke-linecap="round"/></svg>') var(--book-amber);
+        }
+
+        .close-book {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--wood-medium);
+            color: var(--paper-cream);
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 16px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .close-book:hover {
+            background: var(--wood-dark);
+            transform: scale(1.1);
+        }
+
+        /* Content Styling */
+        .book-title {
+            color: #333;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--gold);
+            padding-bottom: 5px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .project-image {
+            max-width: 100%;
+            border-radius: 5px;
+            margin: 10px 0;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .project-link {
+            padding: 8px 15px;
+            background: var(--wood-medium);
+            color: var(--paper-cream);
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .project-link:hover {
+            background: var(--wood-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .media-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+            justify-content: center;
+        }
+
+        .media-item {
+            width: 45%;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .media-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .media-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
         .social-links {
             display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin: 2rem 0;
+            justify-content: space-around;
+            margin: 20px 0;
         }
 
         .social-link {
-            position: relative;
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            background: rgba(100, 255, 218, 0.1);
+            width: 50px;
+            height: 50px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
-            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 50%;
+            background: var(--wood-medium);
+            color: var(--paper-cream);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-decoration: none;
         }
 
         .social-link:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 15px rgba(100, 255, 218, 0.4);
+            transform: translateY(-5px) rotate(5deg);
+            background: var(--wood-dark);
         }
 
-        .social-link svg {
-            width: 24px;
-            height: 24px;
-            color: var(--teal);
+        /* Footer Styles */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 40px;
+            font-size: 0.9rem;
+            color: var(--wood-dark);
+            position: relative;
         }
 
-        .social-link::before {
+        .ai-signature {
+            font-family: 'EB Garamond', serif;
+            margin-bottom: 10px;
+        }
+
+        .wooden-clock {
+            display: inline-block;
+            background: var(--wood-medium);
+            padding: 10px 20px;
+            border-radius: 5px;
+            color: var(--paper-cream);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            font-family: 'EB Garamond', serif;
+            position: relative;
+        }
+
+        .wooden-clock::before, .wooden-clock::after {
             content: "";
             position: absolute;
+            width: 8px;
+            height: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--paper-cream);
+            border-radius: 50%;
+            border: 1px solid var(--wood-dark);
+        }
+
+        .wooden-clock::before {
+            left: 5px;
+        }
+
+        .wooden-clock::after {
+            right: 5px;
+        }
+
+        /* Ambiance Toggles */
+        .ambiance-toggle {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            background: var(--wood-medium);
+            color: var(--paper-cream);
+            border: none;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+            z-index: 100;
+            transition: all 0.3s ease;
+        }
+
+        .ambiance-toggle:hover {
+            background: var(--wood-dark);
+            transform: scale(1.1);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .name {
+                font-size: 2rem;
+            }
+
+            .bookshelf-container {
+                padding: 10px;
+            }
+
+            .bookshelf {
+                padding: 15px;
+                transform: rotate(90deg);
+                height: 300px;
+                margin-top: 150px;
+                margin-bottom: 150px;
+            }
+
+            .books-container {
+                flex-direction: column;
+                height: auto;
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            .book {
+                transform-origin: center right;
+                margin-bottom: 10px;
+                width: 200px;
+                height: 40px;
+            }
+
+            .book:hover {
+                transform: translateZ(10px) rotateX(15deg);
+            }
+
+            .book-spine {
+                writing-mode: horizontal-tb;
+                transform: none;
+            }
+
+            .book.open {
+                transform: translateZ(50px) translateY(-110px) rotateX(90deg) scale(1);
+            }
+
+            .book-cover {
+                transform: rotateX(-90deg) translateY(-130px) scale(1);
+                transform-origin: top;
+                width: 100%;
+            }
+
+            .decorative-item {
+                display: none;
+            }
+
+            .media-gallery {
+                flex-direction: column;
+            }
+
+            .media-item {
+                width: 100%;
+            }
+        }
+
+        /* Animations */
+        @keyframes pageTurn {
+            0% { transform: rotateY(0); }
+            50% { transform: rotateY(-15deg); }
+            100% { transform: rotateY(0); }
+        }
+
+        .overlay {
+            position: fixed;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            border-radius: 50%;
-            box-shadow: inset 0 0 10px rgba(100, 255, 218, 0.2);
-            animation: pulse 3s infinite;
+            background: rgba(0,0,0,0.7);
+            z-index: 90;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
         }
 
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 2rem;
-            position: relative;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
         }
 
-        .ai-credit {
-            margin-bottom: 1.5rem;
-            opacity: 0.8;
+        /* Animations for the bookshelf ambiance */
+        @keyframes lightEffect {
+            0% { box-shadow: 0 5px 15px rgba(255,223,0,0.2); }
+            50% { box-shadow: 0 5px 25px rgba(255,223,0,0.4); }
+            100% { box-shadow: 0 5px 15px rgba(255,223,0,0.2); }
         }
 
-        .block-timestamp {
-            display: inline-block;
-            padding: 0.5rem 1rem;
-            background: rgba(10, 25, 47, 0.8);
-            border: 1px solid rgba(100, 255, 218, 0.2);
-            border-radius: 4px;
-            font-family: 'Fira Code', monospace;
-            color: var(--teal);
-        }
-
-        /* Animations */
-        @keyframes pulse {
-            0% {
-                opacity: 0.4;
-                transform: scale(1.02);
-            }
-            50% {
-                opacity: 0.2;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0.4;
-                transform: scale(1.02);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-                opacity: 0;
-            }
-            50% {
-                opacity: 0.7;
-            }
-            100% {
-                transform: translateY(-800px) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        /* Floating Particles */
-        .particles-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            z-index: -1;
-        }
-
-        .particle {
-            position: absolute;
-            bottom: -100px;
-            width: 15px;
-            height: 15px;
-            background-color: transparent;
-            border: 1px solid rgba(100, 255, 218, 0.3);
-            animation: float 15s infinite linear;
-        }
-
-        .particle:nth-child(even) {
-            background-color: rgba(100, 255, 218, 0.1);
-        }
-
-        @keyframes audioViz {
-            0%, 100% {
-                height: 5px;
-            }
-            50% {
-                height: 30px;
-            }
-        }
-
-        /* Media Queries */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            .subtitle {
-                font-size: 1.2rem;
-            }
-
-            .nav-item {
-                padding: 0.5rem;
-            }
-
-            .block {
-                padding: 1.5rem;
-            }
-
-            .block-title {
-                font-size: 1.5rem;
-            }
-
-            .blockchain {
-                gap: 3rem;
-            }
-
-            .social-links {
-                gap: 1rem;
-            }
-
-            .social-link {
-                width: 50px;
-                height: 50px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2rem;
-            }
-
-            .blockchain-icon svg {
-                width: 30px;
-                height: 30px;
-            }
-
-            .container {
-                padding: 1rem;
-            }
-
-            nav {
-                flex-direction: column;
-                gap: 1rem;
-                align-items: center;
-            }
-
-            .block {
-                padding: 1rem;
-                clip-path: polygon(3% 0, 97% 0, 100% 5%, 100% 95%, 97% 100%, 3% 100%, 0 95%, 0 5%);
-            }
-
-            .block-actions {
-                flex-direction: column;
-                gap: 0.8rem;
-            }
-
-            .block-button {
-                width: 100%;
-                justify-content: center;
-            }
+        .bookshelf {
+            animation: lightEffect 5s infinite;
         }
     </style>
 </head>
 <body>
-    <div class="particles-container" id="particles"></div>
-    
-    <div class="container">
-        <header>
-            <div class="blockchain-icon">
-                <svg viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M383.8 351.7c2.5-2.5 105.2-92.4 105.2-92.4l-17.5-7.5c-10 9-89.7 77.3-93.8 81.2-4.2 4-8.5 6-14.5 6-4.7 0-10.5-2-15.2-5.2-4.7-3.2-293.8-207.3-296.3-209-6.2-4.3-14.3-4.3-20.5 0-4.2 3-4.8 8-4.8 13.5V400c0 5.5.7 10.7 4.8 13.5 4.3 3 8.5 3.8 13.4 3.8 4.8 0 9.7-1 13.5-3.7 4.3-4.3 183-128.7 185.8-131.2 5.8-4.8 18.5-4.5 24.8-.5 4.5 3.5 302.8 218 304.8 219.2 6.2 4.3 14.3 4.3 20.5 0 4.2-3 4.8-8 4.8-13.5V200c0-5.5-.7-10.7-4.8-13.5-4.3-3-8.5-3.8-13.4-3.8-4.8 0-9.7 1-13.5 3.7-2.3 2.5-114.3 82.8-116.8 85.3-5.8 6.2-18.3 7.1-25.5 2-4-2.5-310-217.2-313.3-220-6.2-4.3-14.3-4.3-20.5 0-4.2 3-4.8 8-4.8 13.5V400c0 5.5.7 10.7 4.8 13.5 4.3 3 8.5 3.8 13.4 3.8 4.8 0 9.7-1 13.5-3.7 2.5-2.5 116.5-82 119-84.5 5.8-6.2 23.7-3.7 29.5 2.5z" fill="url(#gradient-blockchain)" stroke="#64FFDA" stroke-width="5"/>
-                    <defs>
-                        <linearGradient id="gradient-blockchain" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#4A9CF6" />
-                            <stop offset="100%" stop-color="#64FFDA" />
-                        </linearGradient>
-                    </defs>
-                </svg>
-            </div>
-            <h1>Geva Kipper</h1>
-            <p class="subtitle">Currently building search infrastructure at Google.</p>
-            <p class="secondary-subtitle">This website is re-designed daily by AI and is perpetually evolving.</p>
-        </header>
-
-        <nav>
-            <a href="#glglstats" class="nav-item">GlglStats</a>
-            <a href="#ahuzat" class="nav-item">Ahuzat Dibuk</a>
-            <a href="#portfolio" class="nav-item">Portfolio</a>
-            <a href="#connect" class="nav-item">Connect</a>
-        </nav>
-
-        <div class="blockchain">
-            <!-- Block 1: GlglStats -->
-            <div class="block" id="glglstats">
-                <div class="block-hash">0xf8a52da43e...</div>
-                <div class="block-header">
-                    <div class="block-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M3 13H21V15H3V13ZM3 17H21V19H3V17ZM3 9H21V11H3V9ZM3 5H21V7H3V5Z" fill="url(#gradient)" />
-                            <defs>
-                                <linearGradient id="gradient" x1="3" y1="5" x2="21" y2="19" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#64FFDA" />
-                                    <stop offset="1" stop-color="#C770F0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <h2 class="block-title">GlglStats</h2>
-                </div>
-                
-                <div class="project-description">
-                    <p>A research project measuring repetitiveness metrics in Israeli pop songs. By analyzing lyrical patterns and statistical markers, GlglStats provides insights into the structure and composition of modern Hebrew music.</p>
-                </div>
-                
-                <div class="block-audio-viz" id="audio-visualization">
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                    <div class="audio-bar"></div>
-                </div>
-                
-                <div class="block-actions">
-                    <a href="https://glglstats.onrender.com/" class="block-button" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 19H5V5H12V3H5C3.89 3 3 3.9 3 5V19C3 20.1 3.89 21 5 21H19C20.1 21 21 20.1 21 19V12H19V19ZM14 3V5H17.59L7.76 14.83L9.17 16.24L19 6.41V10H21V3H14Z" fill="#64FFDA"/>
-                        </svg>
-                        Visit Project
-                    </a>
-                    <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" class="block-button" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M10 16.5V7.5L16 12L10 16.5ZM12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20Z" fill="#64FFDA"/>
-                        </svg>
-                        Watch Presentation
-                    </a>
-                </div>
-            </div>
-
-            <!-- Block 2: Ahuzat Dibuk -->
-            <div class="block" id="ahuzat">
-                <div class="block-hash">0x7c3a8d9f1b...</div>
-                <div class="block-header">
-                    <div class="block-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C8.13 2 5 5.13 5 9C5 14.25 12 22 12 22C12 22 19 14.25 19 9C19 5.13 15.87 2 12 2ZM12 11.5C10.62 11.5 9.5 10.38 9.5 9C9.5 7.62 10.62 6.5 12 6.5C13.38 6.5 14.5 7.62 14.5 9C14.5 10.38 13.38 11.5 12 11.5Z" fill="url(#gradient-map)" />
-                            <defs>
-                                <linearGradient id="gradient-map" x1="5" y1="2" x2="19" y2="22" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#64FFDA" />
-                                    <stop offset="1" stop-color="#C770F0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <h2 class="block-title">Ahuzat Dibuk</h2>
-                </div>
-                
-                <div class="project-description">
-                    <p>A data analytics project revealing inefficiencies in Tel-Aviv parking enforcement. Using public records and statistical analysis, this research highlighted systematic parking ticket patterns that gained significant media attention, prompting discussions about urban planning and policy.</p>
-                </div>
-                
-                <div class="minimap" id="parking-heatmap"></div>
-                
-                <div class="block-actions">
-                    <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" class="block-button" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM19 18H5C4.45 18 4 17.55 4 17V7C4 6.45 4.45 6 5 6H19C19.55 6 20 6.45 20 7V17C20 17.55 19.55 18 19 18ZM14 9H11V12H9L12 15L15 12H13V9Z" fill="#64FFDA"/>
-                        </svg>
-                        News Coverage 1
-                    </a>
-                    <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" class="block-button" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M20 4H4C2.89 4 2.01 4.89 2.01 6L2 18C2 19.11 2.89 20 4 20H20C21.11 20 22 19.11 22 18V6C22 4.89 21.11 4 20 4ZM19 18H5C4.45 18 4 17.55 4 17V7C4 6.45 4.45 6 5 6H19C19.55 6 20 6.45 20 7V17C20 17.55 19.55 18 19 18ZM14 9H11V12H9L12 15L15 12H13V9Z" fill="#64FFDA"/>
-                        </svg>
-                        News Coverage 2
-                    </a>
-                    <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" class="block-button" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.59 20 4 16.41 4 12C4 7.59 7.59 4 12 4C16.41 4 20 7.59 20 12C20 16.41 16.41 20 12 20ZM11 7H13V9H11V7ZM11 11H13V17H11V11Z" fill="#64FFDA"/>
-                        </svg>
-                        Original Publication
-                    </a>
-                </div>
-            </div>
-
-            <!-- Block 3: Portfolio Website -->
-            <div class="block" id="portfolio">
-                <div class="block-hash">0x3d7f5e6c9a...</div>
-                <div class="block-header">
-                    <div class="block-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M8 3H5C3.9 3 3 3.9 3 5V8H5V5H8V3ZM5 19H8V21H5C3.9 21 3 20.1 3 19V16H5V19ZM19 3H16V5H19V8H21V5C21 3.9 20.1 3 19 3ZM19 19V16H21V19C21 20.1 20.1 21 19 21H16V19H19ZM7 11H9V13H7V11ZM7 7H9V9H7V7ZM11 15H13V17H11V15ZM11 11H13V13H11V11ZM11 7H13V9H11V7ZM15 15H17V17H15V15ZM15 11H17V13H15V11ZM15 7H17V9H15V7Z" fill="url(#gradient-portfolio)" />
-                            <defs>
-                                <linearGradient id="gradient-portfolio" x1="3" y1="3" x2="21" y2="21" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#64FFDA" />
-                                    <stop offset="1" stop-color="#C770F0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <h2 class="block-title">Portfolio Website</h2>
-                </div>
-                
-                <div class="project-description">
-                    <p>A self-evolving showcase of my work and ideas. This recursive portfolio site is redesigned daily using AI, creating a perpetually evolving digital presence that explores new design concepts, techniques, and interaction models.</p>
-                </div>
-                
-                <div class="meta-block">
-                    <p style="font-family: 'Fira Code', monospace; font-size: 0.9rem; color: var(--teal);">
-                    &lt;div class="block"&gt;<br>
-                    &nbsp;&nbsp;&lt;div class="block-title"&gt;Portfolio Website&lt;/div&gt;<br>
-                    &nbsp;&nbsp;&lt;div class="block-description"&gt;Self-referential...&lt;/div&gt;<br>
-                    &nbsp;&nbsp;...<br>
-                    &lt;/div&gt;
-                    </p>
-                </div>
-                
-                <div class="block-actions">
-                    <a href="https://portfolio-dor1.onrender.com/" class="block-button" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M17.65 6.35C16.2 4.9 14.21 4 12 4C7.58 4 4.01 7.58 4.01 12C4.01 16.42 7.58 20 12 20C15.73 20 18.84 17.45 19.73 14H17.65C16.83 16.33 14.61 18 12 18C8.69 18 6 15.31 6 12C6 8.69 8.69 6 12 6C13.66 6 15.14 6.69 16.22 7.78L13 11H20V4L17.65 6.35Z" fill="#64FFDA"/>
-                        </svg>
-                        Visit Current Instance
-                    </a>
-                </div>
-            </div>
-
-            <!-- Block 4: Connect -->
-            <div class="block" id="connect">
-                <div class="block-hash">0x9e4b2d1c8a...</div>
-                <div class="block-header">
-                    <div class="block-icon">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M12 6C13.1 6 14 5.1 14 4C14 2.9 13.1 2 12 2C10.9 2 10 2.9 10 4C10 5.1 10.9 6 12 6ZM12 8C10.9 8 10 8.9 10 10C10 11.1 10.9 12 12 12C13.1 12 14 11.1 14 10C14 8.9 13.1 8 12 8ZM12 14C10.9 14 10 14.9 10 16C10 17.1 10.9 18 12 18C13.1 18 14 17.1 14 16C14 14.9 13.1 14 12 14ZM18 6C19.1 6 20 5.1 20 4C20 2.9 19.1 2 18 2C16.9 2 16 2.9 16 4C16 5.1 16.9 6 18 6ZM18 8C16.9 8 16 8.9 16 10C16 11.1 16.9 12 18 12C19.1 12 20 11.1 20 10C20 8.9 19.1 8 18 8ZM18 14C16.9 14 16 14.9 16 16C16 17.1 16.9 18 18 18C19.1 18 20 17.1 20 16C20 14.9 19.1 14 18 14ZM6 6C7.1 6 8 5.1 8 4C8 2.9 7.1 2 6 2C4.9 2 4 2.9 4 4C4 5.1 4.9 6 6 6ZM6 8C4.9 8 4 8.9 4 10C4 11.1 4.9 12 6 12C7.1 12 8 11.1 8 10C8 8.9 7.1 8 6 8ZM6 14C4.9 14 4 14.9 4 16C4 17.1 4.9 18 6 18C7.1 18 8 17.1 8 16C8 14.9 7.1 14 6 14Z" fill="url(#gradient-connect)" />
-                            <defs>
-                                <linearGradient id="gradient-connect" x1="4" y1="2" x2="20" y2="18" gradientUnits="userSpaceOnUse">
-                                    <stop stop-color="#64FFDA" />
-                                    <stop offset="1" stop-color="#C770F0" />
-                                </linearGradient>
-                            </defs>
-                        </svg>
-                    </div>
-                    <h2 class="block-title">Connect</h2>
-                </div>
-                
-                <div class="project-description">
-                    <p>Explore my digital footprint and get in touch. Let's discuss technology, projects, or opportunities to collaborate.</p>
-                </div>
-                
-                <div class="social-links">
-                    <a href="https://github.com/gevak" class="social-link" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12C2 16.418 4.865 20.167 8.839 21.489C9.339 21.581 9.521 21.278 9.521 21.016C9.521 20.781 9.513 20.128 9.508 19.269C6.726 19.888 6.139 17.859 6.139 17.859C5.685 16.688 5.029 16.386 5.029 16.386C4.128 15.757 5.098 15.77 5.098 15.77C6.101 15.841 6.629 16.805 6.629 16.805C7.508 18.351 8.97 17.907 9.539 17.653C9.631 17.002 9.891 16.559 10.175 16.319C7.956 16.075 5.62 15.222 5.62 11.42C5.62 10.313 6.01 9.413 6.649 8.713C6.545 8.465 6.203 7.495 6.747 6.126C6.747 6.126 7.572 5.863 9.497 7.151C10.3018 6.92751 11.1353 6.81414 11.972 6.815C12.809 6.815 13.646 6.929 14.447 7.151C16.371 5.863 17.195 6.126 17.195 6.126C17.739 7.495 17.397 8.465 17.293 8.713C17.935 9.413 18.32 10.313 18.32 11.42C18.32 15.234 15.98 16.071 13.753 16.309C14.11 16.608 14.429 17.202 14.429 18.111C14.429 19.416 14.414 20.687 14.414 21.016C14.414 21.281 14.594 21.587 15.102 21.488C19.072 20.164 21.932 16.418 21.932 12C21.932 6.477 17.455 2 11.932 2H12Z" fill="#64FFDA"/>
-                        </svg>
-                    </a>
-                    <a href="https://linkedin.com/in/gevakip" class="social-link" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M19 3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM9 17H6.5V10H9V17ZM7.7 8.7C6.8 8.7 6 7.9 6 6.9C6 5.9 6.8 5.1 7.7 5.1C8.7 5.1 9.5 5.9 9.5 6.9C9.5 7.9 8.7 8.7 7.7 8.7ZM18 17H15.5V13.5C15.5 12.7 14.8 12 14 12C13.2 12 12.5 12.7 12.5 13.5V17H10V10H12.5V11.3C12.9 10.5 13.8 10 15 10C16.6 10 18 11.4 18 13V17Z" fill="#64FFDA"/>
-                        </svg>
-                    </a>
-                    <a href="https://facebook.com/geva.kipper" class="social-link" target="_blank">
-                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M22 12C22 6.48 17.52 2 12 2C6.48 2 2 6.48 2 12C2 16.84 5.44 20.87 10 21.8V15H8V12H10V9.5C10 7.57 11.57 6 13.5 6H16V9H14C13.45 9 13 9.45 13 10V12H16V15H13V21.95C18.05 21.45 22 17.19 22 12Z" fill="#64FFDA"/>
-                        </svg>
-                    </a>
-                </div>
+    <header>
+        <div class="name-plaque">
+            <h1 class="name">Geva Kipper</h1>
+            <p class="current-work">Currently working at Google</p>
+        </div>
+        <div class="ticker-container">
+            <div class="ticker">
+                This portfolio is redesigned daily by AI and is ever-changing
+                <span class="ai-icon"><i class="fas fa-robot"></i></span>
             </div>
         </div>
-        
-        <footer>
-            <div class="ai-credit">Design generated by ChatGPT</div>
-            <div class="block-timestamp" id="blockchain-time">
-                0x0000000000000000
+    </header>
+
+    <div class="bookshelf-container">
+        <div class="bookshelf">
+            <div class="shelf-top"></div>
+            <div class="books-container">
+                <div class="decorative-item plant"></div>
+
+                <div class="book book-glglstats" data-book="glglstats">
+                    <div class="book-spine">GlglStats</div>
+                    <div class="book-cover">
+                        <button class="close-book">&times;</button>
+                        <h2 class="book-title">GlglStats</h2>
+                        <div class="book-content">
+                            <p>A music visualization and analysis tool that provides comprehensive statistics and insights about your favorite music.</p>
+                            <img src="https://via.placeholder.com/300x150?text=GlglStats+Visualization" alt="GlglStats Visualization" class="project-image">
+                            <p>This project was presented at the PyData TLV conference, showcasing innovative approaches to music data analysis and visualization.</p>
+                            <div class="project-links">
+                                <a href="https://glglstats.onrender.com/" target="_blank" class="project-link">Visit Website</a>
+                                <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank" class="project-link">Watch Conference Talk</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book book-ahuzat" data-book="ahuzat">
+                    <div class="book-spine">Ahuzat Dibuk</div>
+                    <div class="book-cover">
+                        <button class="close-book">&times;</button>
+                        <h2 class="book-title">Ahuzat Dibuk</h2>
+                        <div class="book-content">
+                            <p>A city planning and parking analysis project for Tel Aviv, creating heat maps of parking availability.</p>
+                            <img src="https://via.placeholder.com/300x150?text=Tel+Aviv+Parking+Map" alt="Tel Aviv Parking Map" class="project-image">
+                            <p>The project gained media attention for its innovative approach to urban parking problems.</p>
+                            <div class="media-gallery">
+                                <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank" class="media-item">
+                                    <img src="https://via.placeholder.com/150x100?text=Channel+13+Coverage" alt="Channel 13 News Coverage">
+                                </a>
+                                <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank" class="media-item">
+                                    <img src="https://via.placeholder.com/150x100?text=Mako+News+Coverage" alt="Mako News Coverage">
+                                </a>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank" class="project-link">Original Facebook Post</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book book-meta" data-book="meta">
+                    <div class="book-spine">Meta Portfolio</div>
+                    <div class="book-cover">
+                        <button class="close-book">&times;</button>
+                        <h2 class="book-title">Meta Portfolio</h2>
+                        <div class="book-content">
+                            <p>A recursive representation of this portfolio design.</p>
+                            <div style="position: relative; width: 100%; padding-top: 20px; padding-bottom: 20px; text-align: center;">
+                                <div style="display: inline-block; width: 80%; background: var(--wood-medium); padding: 10px; border-radius: 5px; transform: perspective(500px) rotateX(10deg);">
+                                    <div style="display: flex; justify-content: space-around; padding: 5px; background: var(--wood-dark); border-radius: 3px;">
+                                        <div style="height: 40px; width: 10px; background: var(--book-burgundy);"></div>
+                                        <div style="height: 40px; width: 10px; background: var(--book-green);"></div>
+                                        <div style="height: 40px; width: 10px; background: var(--book-navy);"></div>
+                                        <div style="height: 35px; width: 10px; background: var(--book-amber);"></div>
+                                    </div>
+                                </div>
+                                <div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: var(--gold); animation: pulse 2s infinite;">
+                                    <i class="fas fa-arrow-down"></i> You are here
+                                </div>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://portfolio-dor1.onrender.com/" target="_blank" class="project-link">Portfolio Website</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="book book-connect" data-book="connect">
+                    <div class="book-spine">Connect</div>
+                    <div class="book-cover">
+                        <button class="close-book">&times;</button>
+                        <h2 class="book-title">Connect</h2>
+                        <div class="book-content">
+                            <p>Let's connect! Find me on these platforms:</p>
+                            <div class="social-links">
+                                <a href="https://github.com/gevak" target="_blank" class="social-link">
+                                    <i class="fab fa-github"></i>
+                                </a>
+                                <a href="https://linkedin.com/in/gevakip" target="_blank" class="social-link">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://facebook.com/geva.kipper" target="_blank" class="social-link">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                            </div>
+                            <p>Feel free to reach out for collaborations or just to say hello!</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="decorative-item coffee-mug"></div>
+                <div class="decorative-item code-trinket"></div>
             </div>
-        </footer>
+            <div class="shelf-bottom"></div>
+        </div>
     </div>
 
-    <script>
-        // Generate floating particles
-        function createParticles() {
-            const container = document.getElementById('particles');
-            const particleCount = 25;
-            
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                
-                // Randomize particle shape (hexagon)
-                const size = Math.random() * 20 + 10;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                particle.style.clipPath = 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)';
-                
-                // Randomize position and animation duration
-                const leftPos = Math.random() * 100;
-                const delay = Math.random() * 5;
-                const duration = Math.random() * 15 + 10;
-                
-                particle.style.left = `${leftPos}%`;
-                particle.style.animationDelay = `${delay}s`;
-                particle.style.animationDuration = `${duration}s`;
-                
-                // Add to container
-                container.appendChild(particle);
-            }
-        }
+    <footer>
+        <div class="ai-signature">Designed by Claude AI</div>
+        <div class="wooden-clock" id="elapsed-time">00:00:00:00</div>
+    </footer>
 
-        // Add smooth scrolling for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    window.scrollTo({
-                        top: target.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
+    <button class="ambiance-toggle" id="sound-toggle">
+        <i class="fas fa-volume-mute"></i>
+    </button>
+
+    <div class="overlay" id="overlay"></div>
+
+    <script>
+        // Book interaction
+        const books = document.querySelectorAll('.book');
+        const overlay = document.getElementById('overlay');
+
+        books.forEach(book => {
+            book.addEventListener('click', () => {
+                // Check if the book is already open
+                if (!book.classList.contains('open')) {
+                    // Close any open book first
+                    const openBook = document.querySelector('.book.open');
+                    if (openBook) {
+                        openBook.classList.remove('open');
+                    }
+                    
+                    // Open the clicked book
+                    book.classList.add('open');
+                    overlay.classList.add('active');
                 }
             });
         });
 
-        // Audio visualization animation
-        function animateAudioViz() {
-            const bars = document.querySelectorAll('.audio-bar');
-            
-            function animateBars() {
-                bars.forEach(bar => {
-                    const height = Math.floor(Math.random() * 35) + 5;
-                    bar.style.height = `${height}px`;
-                });
-            }
-            
-            // Initial animation
-            animateBars();
-            
-            // Start animation interval when hovered
-            const vizContainer = document.getElementById('audio-visualization');
-            let intervalId = null;
-            
-            vizContainer.addEventListener('mouseenter', () => {
-                if (!intervalId) {
-                    intervalId = setInterval(animateBars, 150);
+        // Close book button
+        const closeButtons = document.querySelectorAll('.close-book');
+        closeButtons.forEach(button => {
+            button.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent event from bubbling to the book
+                const openBook = document.querySelector('.book.open');
+                if (openBook) {
+                    openBook.classList.remove('open');
+                    overlay.classList.remove('active');
                 }
             });
-            
-            vizContainer.addEventListener('mouseleave', () => {
-                clearInterval(intervalId);
-                intervalId = null;
-                
-                // Reset to low state
-                bars.forEach(bar => {
-                    bar.style.height = '5px';
-                });
-            });
+        });
 
-            // Occasional animation even without hover
-            setInterval(() => {
-                if (!intervalId) {
-                    animateBars();
-                    setTimeout(() => {
-                        if (!intervalId) {
-                            bars.forEach(bar => {
-                                bar.style.height = '5px';
-                            });
-                        }
-                    }, 1000);
+        // Click on overlay to close book
+        overlay.addEventListener('click', () => {
+            const openBook = document.querySelector('.book.open');
+            if (openBook) {
+                openBook.classList.remove('open');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Wooden clock - time elapsed since March 29, 2025
+        function updateElapsedTime() {
+            const targetDate = new Date('2025-03-29T00:00:00');
+            const currentDate = new Date();
+            
+            // If the target date is in the future, display zeros
+            if (targetDate > currentDate) {
+                document.getElementById('elapsed-time').textContent = "00:00:00:00";
+                return;
+            }
+            
+            const timeDiff = currentDate - targetDate;
+            
+            // Calculate days, hours, minutes, seconds
+            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
+            
+            // Format with leading zeros
+            const formattedDays = days.toString().padStart(2, '0');
+            const formattedHours = hours.toString().padStart(2, '0');
+            const formattedMinutes = minutes.toString().padStart(2, '0');
+            const formattedSeconds = seconds.toString().padStart(2, '0');
+            
+            // Update the clock display
+            document.getElementById('elapsed-time').textContent = 
+                `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+        }
+
+        // Update immediately and then every second
+        updateElapsedTime();
+        setInterval(updateElapsedTime, 1000);
+
+        // Ambient sound toggle
+        let audioPlaying = false;
+        let ambientAudio = null;
+        
+        const soundToggle = document.getElementById('sound-toggle');
+        
+        soundToggle.addEventListener('click', () => {
+            if (audioPlaying) {
+                // Stop audio
+                if (ambientAudio) {
+                    ambientAudio.pause();
+                    ambientAudio.currentTime = 0;
                 }
-            }, 5000);
-        }
-
-        // Generate heat map visualization
-        function generateHeatmap() {
-            const heatmap = document.getElementById('parking-heatmap');
-            const pointsCount = 200;
-            
-            for (let i = 0; i < pointsCount; i++) {
-                const point = document.createElement('div');
-                point.style.position = 'absolute';
-                
-                // Create clusters for more realistic visualization
-                const clusterCenters = [
-                    {x: 30, y: 30},
-                    {x: 70, y: 50},
-                    {x: 40, y: 70},
-                    {x: 80, y: 20}
-                ];
-                
-                const cluster = clusterCenters[Math.floor(Math.random() * clusterCenters.length)];
-                const deviation = 15;
-                
-                const x = Math.min(100, Math.max(0, cluster.x + (Math.random() - 0.5) * deviation * 2));
-                const y = Math.min(100, Math.max(0, cluster.y + (Math.random() - 0.5) * deviation * 2));
-                
-                point.style.left = `${x}%`;
-                point.style.top = `${y}%`;
-                
-                // Style the point
-                const size = Math.random() * 5 + 3;
-                point.style.width = `${size}px`;
-                point.style.height = `${size}px`;
-                point.style.borderRadius = '50%';
-                
-                // Use different opacities for heat effect
-                const opacity = Math.random() * 0.6 + 0.1;
-                point.style.backgroundColor = `rgba(100, 255, 218, ${opacity})`;
-                point.style.boxShadow = `0 0 ${size * 2}px rgba(100, 255, 218, ${opacity / 2})`;
-                
-                heatmap.appendChild(point);
+                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            } else {
+                // Start audio
+                if (!ambientAudio) {
+                    ambientAudio = new Audio();
+                    // Using a data URL would be ideal here, but for simplicity let's just create silence
+                    // In a real implementation, you would use a proper audio file
+                    ambientAudio.src = 'data:audio/mp3;base64,SUQzAwAAAAABOlRJVDIAAAAMAAAAU2lsZW5jZQAAAFRQRTEAAAAMAAAAU2lsZW5jZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
+                    ambientAudio.loop = true;
+                }
+                ambientAudio.play().catch(e => console.log('Audio playback prevented:', e));
+                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
             }
+            audioPlaying = !audioPlaying;
+        });
+
+        // Page turning animations
+        function animatePageTurn(book) {
+            book.style.animation = 'pageTurn 1s forwards';
+            setTimeout(() => {
+                book.style.animation = '';
+            }, 1000);
         }
 
-        // Blockchain timestamp function
-        function updateBlockchainTime() {
-            const startDate = new Date('2025-03-28T00:58:43');
-            const timeDisplay = document.getElementById('blockchain-time');
+        // Apply subtle parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const moveX = (e.clientX - window.innerWidth / 2) / 50;
+            const moveY = (e.clientY - window.innerHeight / 2) / 50;
             
-            function update() {
-                const now = new Date();
-                const diff = now.getTime() - startDate.getTime();
-                
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-                
-                // Create a hexadecimal-like timestamp for blockchain effect
-                const hexTime = `0x${days.toString(16).padStart(2, '0')}${hours.toString(16).padStart(2, '0')}${minutes.toString(16).padStart(2, '0')}${seconds.toString(16).padStart(2, '0')}`;
-                timeDisplay.textContent = hexTime;
-            }
-            
-            update();
-            setInterval(update, 1000);
-        }
-
-        // Add scroll reveal for blocks
-        function addScrollReveal() {
-            const blocks = document.querySelectorAll('.block');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.style.opacity = '1';
-                        entry.target.style.transform = 'translateY(0)';
-                        
-                        // Add "mining" animation
-                        setTimeout(() => {
-                            entry.target.classList.add('mined');
-                        }, 300);
-                        
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.2
-            });
-            
-            blocks.forEach(block => {
-                block.style.opacity = '0';
-                block.style.transform = 'translateY(20px)';
-                block.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
-                observer.observe(block);
-            });
-        }
-
-        // Initialize everything when the DOM is loaded
-        document.addEventListener('DOMContentLoaded', () => {
-            createParticles();
-            animateAudioViz();
-            generateHeatmap();
-            updateBlockchainTime();
-            addScrollReveal();
+            document.querySelector('.bookshelf').style.transform = `translate(${moveX}px, ${moveY}px)`;
         });
     </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
     <script>
         LikeButton.init({
-          pageId: "20250328",
+          pageId: "20250329",
           position: "bottom-right", // Options: bottom-right, bottom-left, top-right, top-left
         });
     </script>
