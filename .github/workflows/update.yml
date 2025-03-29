@@ -34,8 +34,7 @@ jobs:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
-        with:
-          force_idea: ${{ inputs.force_idea || '' }}
+          INPUT_FORCE_IDEA: ${{ github.event.inputs.force_idea || '' }}
         run: python updater.py
           
       - name: commit files
