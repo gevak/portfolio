@@ -1,39 +1,37 @@
-# Virtual Coding Bookshelf Portfolio Design
+# Virtual Reality Workspace Portfolio Design
 
 ## Core Concept
-A virtual wooden bookshelf that spans the entire page with beautifully crafted coding books. Each book represents a different project or section, with custom spines showing titles. When clicked, books animate off the shelf and open to reveal their contents.
+A virtual reality workspace that functions both with and without a VR headset. The site appears as a 3D room with holographic interfaces floating in space. As users scroll or navigate, they move through this virtual environment where Geva's work is displayed on interactive virtual screens.
 
-## Header
-At the top of the bookshelf, a wooden name plaque displays "Geva Kipper" in an elegant, carved font. Below it, a smaller line mentions his current work at Google. A subtle animated ticker below the name shows "This portfolio is redesigned daily by AI and is ever-changing" with a small AI icon that pulses.
+## Header & Introduction
+A futuristic holographic name badge that reads "Geva Kipper" floats prominently at the top of the space. Below it, a single elegant line about his current work at Google appears to be projected onto a glass surface. A subtle pulsing subtitle mentions that the site is "Re-designed daily by AI - what you see today won't exist tomorrow."
 
-## Bookshelf Design
-The bookshelf appears to be made of warm-toned wood with subtle lighting effects creating a cozy, library atmosphere. Small decorative items like a miniature potted plant, a coffee mug, and coding trinkets are scattered between the books.
+## Navigation
+Navigation happens through physical movement in the space - scrolling moves the viewer through the room, while mouse movements or head movements (in VR) allow looking around. Small holographic control panels float in the periphery for direct section jumps.
 
-## The Books
-Four distinct books on the shelf, each with unique binding colors and textures:
+## Layout
+The 3D workspace is minimalist - clean white/blue surfaces with holographic projections. The four project sections appear as interactive workstations around the virtual room, each with its own distinct area.
 
-1. **GlglStats** - A music-themed book with musical notes on the spine and colorful waveform patterns. When opened, it displays project details, visualization examples, and prominent links to the website and PyData TLV conference video.
+## Project Sections
+1. **GlglStats Station**: Features a floating music visualization that reacts to cursor proximity. Links appear on a virtual tablet device beside the visualization. The YouTube video appears to play on a virtual wall-mounted screen when selected.
 
-2. **Ahuzat Dibuk** - A city-planning book with a parking icon and heat map pattern on the spine. When opened, it shows an interactive miniature of a Tel-Aviv parking map, news coverage thumbnails that link to the articles, and the original Facebook post.
+2. **Ahuzat Dibuk Station**: Showcases a 3D heat-map that rotates slowly in space, with floating news article previews that expand when approached. The links to news stories hover above the map as holographic buttons.
 
-3. **Meta Portfolio** - A recursively designed book with smaller books on its cover. When opened, it shows a miniature version of this same bookshelf design (inception-style) with an animated "you are here" pointer and a link.
+3. **Portfolio Station**: A recursive visualization showing miniature versions of the same VR workspace (creating a "rooms within rooms" effect). The self-reference link appears as a portal that glows when hovered.
 
-4. **Connect** - A smaller, notebook-style book with social media icons embossed on the spine. When opened, it displays elegant icon links to GitHub, LinkedIn, and Facebook with subtle hover animations.
+4. **Contact Station**: Features three interconnected holographic spheres representing GitHub, LinkedIn, and Facebook. Each sphere contains the respective platform's icon and expands to show the profile link when approached.
 
-## Interactive Elements
-- Books slightly tilt outward when hovered, with a subtle glow
-- When clicked, books animate off the shelf, grow larger, and open to reveal content
-- Page-turning animations when navigating book content
-- Closing a book returns it to its place on the shelf with a satisfying animation
-
-## Background & Ambiance
-A subtle parallax effect creates depth as users scroll. The background suggests a cozy studio workspace with soft, ambient lighting. Gentle ambient sounds like page-turning or wooden creaks can be toggled on/off.
+## Visual Effects
+- Subtle particle effects flow through the space, suggesting data streams
+- Holographic UI elements have slight transparency and blue/cyan glow
+- Interface elements react to cursor proximity with gentle expansion and increased brightness
+- Background shifts subtly based on time of day
 
 ## Footer
-A small AI signature that reads "Designed by [Your AI Name]" is carved into the bottom of the bookshelf. Next to it, an elegant wooden clock displays the time elapsed since March 29, 2025, with gently ticking seconds.
+At the bottom of the virtual space, a credits panel floats above the floor with the AI model's credit. Beside it, a futuristic digital stopwatch counts up from the specified date, with numbers that appear to float above their surface.
 
 ## Responsive Design
-On mobile devices, the bookshelf rotates to a horizontal orientation, allowing users to swipe through the books. The opened book view takes up the full screen with easy-to-tap navigation controls.
+On mobile or non-VR devices, the 3D room automatically reorients for easier navigation via touch, while maintaining the holographic aesthetic. A simplified navigation appears for accessibility.
 
-## Color Palette
-Warm wood tones, cream parchment, deep leather colors for books (burgundy, forest green, navy, and amber), with gold accents for book titles and embellishments.
+## Technical Elements
+The design uses WebGL for 3D rendering, with fallbacks to simpler CSS 3D transforms on less capable devices. The entire interface feels weightless and futuristic while remaining highly readable and functional.

@@ -2,887 +2,741 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - Virtual Coding Bookshelf</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Geva Kipper - VR Portfolio</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;700&display=swap');
-
-        :root {
-            --wood-light: #d4a76a;
-            --wood-medium: #b38049;
-            --wood-dark: #8c5e31;
-            --paper-cream: #f9f4e3;
-            --book-burgundy: #8c2e2e;
-            --book-green: #2d5d3a;
-            --book-navy: #1d3b5a;
-            --book-amber: #c77e1d;
-            --gold: #d4af37;
-            --shadow: rgba(0, 0, 0, 0.3);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+            color: #e0f7ff;
         }
 
         body {
-            font-family: 'Roboto', sans-serif;
-            background: #f0e6d8 url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAMAAAAp4XiDAAAAUVBMVEWFhYWDg4N3d3dtbW17e3t1dXWBgYGHh4d5eXlzc3OLi4ubm5uVlZWPj4+FhYWHh4d5eXlzc3OLi4ubm5uVlZWPj4+FhYWHh4d5eXlzc3OLi4uVlZUNF1RMAAAAd3RSTlMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzMzM8Ks9lkAAAD1SURBVHja1dRZDoMwDAVQD2nN4BlSEsL9b1lFUZGJcZqtF97KT34SU1AlE2KqUlLNCn0RsaEBoGJVcZ5Qq1A0a1QiI1FnVXwqkhFoBB+REQrQl53EKdTQ29x7IXWB+EgqINQI2hKzhEmEwYOEDIELWMqYxCxCYEwCGYPc+YhZxiRCYGn8hRSGAJ3vMoqYhCbwdx0injnnTACt6zKImIQi0LsuA74y57z2PRbxlPH926CQ/KdfYUq4z4XSBS4U2VIp+SJo9dkoQ7GI7x3+J8YmDpkg3MaGD4qJ/ek7dBpG2V5/B1x7J/+ge4Rj7qCX+wCdJzzRaC+FFAAAAABJRU5ErkJggg==');
-            min-height: 100vh;
             overflow-x: hidden;
-            color: #333;
-        }
-
-        /* Header Styles */
-        header {
-            text-align: center;
-            padding: 20px 0;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .name-plaque {
-            display: inline-block;
-            background: linear-gradient(to bottom, var(--wood-medium), var(--wood-dark));
-            border-radius: 10px;
-            padding: 15px 40px;
-            box-shadow: 0 4px 8px var(--shadow);
-            border: 2px solid var(--wood-light);
-            position: relative;
-            max-width: 90%;
-        }
-
-        .name-plaque::before, .name-plaque::after {
-            content: "";
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--gold);
-            border-radius: 50%;
-            border: 3px solid var(--wood-dark);
-        }
-
-        .name-plaque::before {
-            left: 5px;
-        }
-
-        .name-plaque::after {
-            right: 5px;
-        }
-
-        .name {
-            font-family: 'Playfair Display', serif;
-            color: var(--paper-cream);
-            font-size: 2.5rem;
-            text-shadow: 1px 1px 3px var(--shadow);
-            margin: 0;
-            position: relative;
-        }
-
-        .current-work {
-            font-family: 'EB Garamond', serif;
-            color: var(--paper-cream);
-            font-size: 1rem;
-            margin-top: 5px;
-        }
-
-        .ticker-container {
-            overflow: hidden;
-            margin-top: 15px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 20px;
-            padding: 5px;
-            max-width: 80%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .ticker {
-            white-space: nowrap;
-            animation: ticker 30s linear infinite;
-            font-size: 0.9rem;
-            color: var(--wood-dark);
-        }
-
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        .ai-icon {
-            display: inline-block;
-            margin-left: 5px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 0.7; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        /* Bookshelf Styles */
-        .bookshelf-container {
+            background-color: #05071a;
             perspective: 1000px;
-            width: 100%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
         }
 
-        .bookshelf {
-            background: linear-gradient(to bottom, var(--wood-medium), var(--wood-dark));
-            border-radius: 10px;
-            padding: 30px;
-            margin: 0 auto;
-            box-shadow: 0 10px 20px var(--shadow);
-            position: relative;
-            transform-style: preserve-3d;
-            min-height: 400px;
-        }
-
-        .shelf-top {
-            height: 20px;
-            background: linear-gradient(to bottom, var(--wood-light), var(--wood-medium));
-            border-radius: 5px 5px 0 0;
-            position: relative;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 5px rgba(0,0,0,0.2);
-        }
-
-        .shelf-top::before {
-            content: "";
-            position: absolute;
-            height: 10px;
-            width: 100%;
-            bottom: -10px;
-            left: 0;
-            background: var(--wood-dark);
-            box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-        }
-
-        .shelf-bottom {
-            height: 20px;
-            background: linear-gradient(to bottom, var(--wood-medium), var(--wood-light));
-            border-radius: 0 0 5px 5px;
-            position: relative;
-            margin-top: 20px;
-            box-shadow: 0 -3px 5px rgba(0,0,0,0.1);
-        }
-
-        .books-container {
-            display: flex;
-            justify-content: space-around;
-            align-items: flex-end;
-            padding: 10px;
-            height: 300px;
-            position: relative;
-        }
-
-        .decorative-item {
-            position: absolute;
-            z-index: 10;
-        }
-
-        .plant {
-            width: 60px;
-            height: 80px;
-            left: 5%;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M40,15 C40,40 60,40 60,15" stroke="%232d5d3a" fill="none" stroke-width="5"/><path d="M45,20 C45,40 65,40 65,20" stroke="%232d5d3a" fill="none" stroke-width="4"/><path d="M35,25 C35,45 55,45 55,25" stroke="%232d5d3a" fill="none" stroke-width="4"/><rect x="40" y="60" width="20" height="25" rx="2" fill="%23a66a2e"/></svg>') no-repeat center center;
-        }
-
-        .coffee-mug {
-            width: 40px;
-            height: 50px;
-            right: 10%;
-            bottom: 0;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,30 L30,70 Q30,80 40,80 L60,80 Q70,80 70,70 L70,30 Z" fill="%23fff"/><path d="M70,40 L80,40 Q90,40 90,50 L90,60 Q90,70 80,70 L70,70" fill="none" stroke="%238c2e2e" stroke-width="5"/><rect x="35" y="25" width="30" height="5" rx="2" fill="%238c2e2e"/></svg>') no-repeat center center;
-        }
-
-        .code-trinket {
-            width: 40px;
-            height: 40px;
-            left: 50%;
-            bottom: 5px;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M30,40 L10,50 L30,60" fill="none" stroke="%231d3b5a" stroke-width="5"/><path d="M70,40 L90,50 L70,60" fill="none" stroke="%231d3b5a" stroke-width="5"/><path d="M40,20 L60,80" fill="none" stroke="%231d3b5a" stroke-width="5"/></svg>') no-repeat center center;
-        }
-
-        /* Book Styles */
-        .book {
-            height: 240px;
-            width: 50px;
-            position: relative;
-            transform-origin: bottom center;
-            transform-style: preserve-3d;
-            transition: transform 0.5s ease;
-            cursor: pointer;
-            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
-            z-index: 1;
-        }
-
-        .book:hover {
-            transform: translateZ(10px) rotateY(-15deg);
-        }
-
-        .book::before { /* Book spine shadow */
-            content: "";
-            position: absolute;
+        #vr-container {
+            position: fixed;
             top: 0;
             left: 0;
-            width: 10px;
-            height: 100%;
-            background: rgba(0,0,0,0.2);
-        }
-
-        .book::after { /* Book pages */
-            content: "";
-            position: absolute;
-            top: 0;
-            right: 0;
-            width: 5px;
-            height: 100%;
-            background: var(--paper-cream);
-            transform: rotateY(90deg);
-            transform-origin: right;
-            box-shadow: 0 0 5px rgba(0,0,0,0.1);
-        }
-
-        .book-spine {
-            position: absolute;
             width: 100%;
             height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            writing-mode: vertical-rl;
-            transform: rotate(180deg);
-            padding: 10px;
-            color: var(--gold);
-            text-align: center;
-            font-family: 'EB Garamond', serif;
-            font-weight: 700;
-            font-size: 1.1rem;
-            text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
-            overflow: hidden;
+            z-index: -1;
         }
 
-        .book-cover {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 10px;
-            color: var(--gold);
-            font-family: 'Playfair Display', serif;
-            background: var(--paper-cream);
-            transform: rotateY(-90deg) translateX(-130px) scale(3);
-            transform-origin: left;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.3);
-            opacity: 0;
+        #content {
+            position: relative;
+            min-height: 400vh;
             pointer-events: none;
-            transition: opacity 0.5s ease;
-            overflow-y: auto;
-            max-height: 80vh;
-            width: 300px;
-            border-radius: 5px;
         }
 
-        .book-content {
-            color: #333;
-            font-family: 'Roboto', sans-serif;
-            padding: 20px;
-            text-align: left;
-        }
-
-        .book.open {
-            transform: translateZ(150px) translateX(-110px) rotateY(-90deg) scale(1.2);
-            z-index: 100;
-        }
-
-        .book.open .book-cover {
-            opacity: 1;
+        .section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
             pointer-events: all;
         }
 
-        /* Specific Book Styles */
-        .book-glglstats {
-            background: var(--book-burgundy);
-        }
-
-        .book-glglstats .book-spine {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><path d="M20,50 Q50,20 80,50 Q50,80 20,50" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M20,150 Q50,120 80,150 Q50,180 20,150" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M20,250 Q50,220 80,250 Q50,280 20,250" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M20,350 Q50,320 80,350 Q50,380 20,350" stroke="%23d4af37" fill="none" stroke-width="2"/></svg>') var(--book-burgundy);
-        }
-
-        .book-ahuzat {
-            background: var(--book-green);
-        }
-
-        .book-ahuzat .book-spine {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><rect x="25" y="50" width="50" height="30" rx="5" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M35,65 L50,65 L50,75 L35,75 Z" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="25" y="150" width="50" height="30" rx="5" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M35,165 L50,165 L50,175 L35,175 Z" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="25" y="250" width="50" height="30" rx="5" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M35,265 L50,265 L50,275 L35,275 Z" stroke="%23d4af37" fill="none" stroke-width="2"/></svg>') var(--book-green);
-        }
-
-        .book-meta {
-            background: var(--book-navy);
-        }
-
-        .book-meta .book-spine {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><rect x="30" y="50" width="40" height="60" rx="2" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="30" y="150" width="40" height="60" rx="2" stroke="%23d4af37" fill="none" stroke-width="2"/><rect x="30" y="250" width="40" height="60" rx="2" stroke="%23d4af37" fill="none" stroke-width="2"/></svg>') var(--book-navy);
-        }
-
-        .book-connect {
-            background: var(--book-amber);
-            height: 200px; /* Smaller than other books */
-        }
-
-        .book-connect .book-spine {
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 400"><circle cx="50" cy="70" r="20" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M40,70 L60,70 M50,60 L50,80" stroke="%23d4af37" stroke-width="2"/><circle cx="50" cy="150" r="20" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M40,150 L60,150" stroke="%23d4af37" stroke-width="2"/><circle cx="50" cy="230" r="20" stroke="%23d4af37" fill="none" stroke-width="2"/><path d="M40,230 L60,230 M50,220 L50,240" stroke="%23d4af37" stroke-width="2" stroke-linecap="round"/></svg>') var(--book-amber);
-        }
-
-        .close-book {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: var(--wood-medium);
-            color: var(--paper-cream);
-            border: none;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        .holographic {
+            position: relative;
+            background: rgba(0, 90, 180, 0.1);
+            border: 1px solid rgba(0, 195, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 195, 255, 0.5),
+                        inset 0 0 15px rgba(0, 195, 255, 0.3);
+            backdrop-filter: blur(5px);
+            padding: 25px;
             transition: all 0.3s ease;
-        }
-
-        .close-book:hover {
-            background: var(--wood-dark);
-            transform: scale(1.1);
-        }
-
-        /* Content Styling */
-        .book-title {
-            color: #333;
-            margin-bottom: 15px;
-            border-bottom: 2px solid var(--gold);
-            padding-bottom: 5px;
-            width: 100%;
-            text-align: center;
-        }
-
-        .project-image {
-            max-width: 100%;
-            border-radius: 5px;
-            margin: 10px 0;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-
-        .project-links {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .project-link {
-            padding: 8px 15px;
-            background: var(--wood-medium);
-            color: var(--paper-cream);
-            text-decoration: none;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        .project-link:hover {
-            background: var(--wood-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .media-gallery {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-            justify-content: center;
-        }
-
-        .media-item {
-            width: 45%;
-            border-radius: 5px;
+            transform-style: preserve-3d;
+            opacity: 0.9;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            transition: all 0.3s ease;
         }
 
-        .media-item:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-        }
-
-        .media-item img {
-            width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: space-around;
-            margin: 20px 0;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: var(--wood-medium);
-            color: var(--paper-cream);
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-            text-decoration: none;
-        }
-
-        .social-link:hover {
-            transform: translateY(-5px) rotate(5deg);
-            background: var(--wood-dark);
-        }
-
-        /* Footer Styles */
-        footer {
-            text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
-            font-size: 0.9rem;
-            color: var(--wood-dark);
-            position: relative;
-        }
-
-        .ai-signature {
-            font-family: 'EB Garamond', serif;
-            margin-bottom: 10px;
-        }
-
-        .wooden-clock {
-            display: inline-block;
-            background: var(--wood-medium);
-            padding: 10px 20px;
-            border-radius: 5px;
-            color: var(--paper-cream);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            font-family: 'EB Garamond', serif;
-            position: relative;
-        }
-
-        .wooden-clock::before, .wooden-clock::after {
-            content: "";
+        .holographic::before {
+            content: '';
             position: absolute;
-            width: 8px;
-            height: 8px;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                rgba(0, 195, 255, 0) 0%,
+                rgba(0, 195, 255, 0.1) 50%,
+                rgba(0, 195, 255, 0) 100%
+            );
+            animation: hologramSweep 6s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes hologramSweep {
+            0% {
+                transform: translateX(-50%) translateY(-50%) rotate(0deg);
+            }
+            100% {
+                transform: translateX(-50%) translateY(-50%) rotate(360deg);
+            }
+        }
+
+        .hologram-button {
+            background: rgba(0, 60, 120, 0.3);
+            border: 1px solid rgba(0, 195, 255, 0.5);
+            border-radius: 5px;
+            color: #a0f7ff;
+            padding: 10px 15px;
+            margin: 10px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            text-decoration: none;
+            transform-style: preserve-3d;
+            pointer-events: all;
+        }
+
+        .hologram-button:hover {
+            background: rgba(0, 100, 160, 0.5);
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.7);
+            transform: translateZ(10px);
+        }
+
+        /* Header Styles */
+        .name-badge {
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 3rem;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
+            letter-spacing: 3px;
+            z-index: 100;
+        }
+
+        .subtitle {
+            position: fixed;
+            top: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            width: 80%;
+            text-align: center;
+            color: rgba(224, 247, 255, 0.8);
+            z-index: 100;
+        }
+
+        .ai-subtitle {
+            position: fixed;
+            top: 130px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.9rem;
+            opacity: 0.7;
+            animation: pulse 4s infinite;
+            z-index: 100;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 0.9; }
+        }
+
+        /* Navigation */
+        .nav-hologram {
+            position: fixed;
+            right: 30px;
             top: 50%;
             transform: translateY(-50%);
-            background: var(--paper-cream);
-            border-radius: 50%;
-            border: 1px solid var(--wood-dark);
-        }
-
-        .wooden-clock::before {
-            left: 5px;
-        }
-
-        .wooden-clock::after {
-            right: 5px;
-        }
-
-        /* Ambiance Toggles */
-        .ambiance-toggle {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            background: var(--wood-medium);
-            color: var(--paper-cream);
-            border: none;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
             z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .nav-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: rgba(0, 195, 255, 0.3);
+            border: 1px solid rgba(0, 195, 255, 0.5);
+            cursor: pointer;
             transition: all 0.3s ease;
+            box-shadow: 0 0 5px rgba(0, 195, 255, 0.5);
+            pointer-events: all;
         }
 
-        .ambiance-toggle:hover {
-            background: var(--wood-dark);
-            transform: scale(1.1);
+        .nav-dot.active {
+            background: rgba(0, 195, 255, 0.7);
+            box-shadow: 0 0 10px rgba(0, 195, 255, 0.9);
         }
 
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .name {
-                font-size: 2rem;
-            }
-
-            .bookshelf-container {
-                padding: 10px;
-            }
-
-            .bookshelf {
-                padding: 15px;
-                transform: rotate(90deg);
-                height: 300px;
-                margin-top: 150px;
-                margin-bottom: 150px;
-            }
-
-            .books-container {
-                flex-direction: column;
-                height: auto;
-                width: 90%;
-                margin: 0 auto;
-            }
-
-            .book {
-                transform-origin: center right;
-                margin-bottom: 10px;
-                width: 200px;
-                height: 40px;
-            }
-
-            .book:hover {
-                transform: translateZ(10px) rotateX(15deg);
-            }
-
-            .book-spine {
-                writing-mode: horizontal-tb;
-                transform: none;
-            }
-
-            .book.open {
-                transform: translateZ(50px) translateY(-110px) rotateX(90deg) scale(1);
-            }
-
-            .book-cover {
-                transform: rotateX(-90deg) translateY(-130px) scale(1);
-                transform-origin: top;
-                width: 100%;
-            }
-
-            .decorative-item {
-                display: none;
-            }
-
-            .media-gallery {
-                flex-direction: column;
-            }
-
-            .media-item {
-                width: 100%;
-            }
+        .nav-dot:hover {
+            transform: scale(1.2);
         }
 
-        /* Animations */
-        @keyframes pageTurn {
-            0% { transform: rotateY(0); }
-            50% { transform: rotateY(-15deg); }
-            100% { transform: rotateY(0); }
+        /* Project Station Styles */
+        .station {
+            width: 80%;
+            max-width: 800px;
+            padding: 30px;
+            transform-style: preserve-3d;
+            position: relative;
         }
 
-        .overlay {
-            position: fixed;
-            top: 0;
+        .station h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+            position: relative;
+        }
+
+        .station h2::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
             left: 0;
-            right: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, rgba(0, 195, 255, 0), rgba(0, 195, 255, 0.8), rgba(0, 195, 255, 0));
+        }
+
+        .station-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            transform-style: preserve-3d;
+        }
+
+        .visual-element {
+            height: 200px;
+            width: 100%;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* GlglStats Station */
+        #music-visualization {
+            background: linear-gradient(135deg, #002040, #004080);
+            position: relative;
+        }
+
+        .music-bar {
+            position: absolute;
             bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 90;
-            opacity: 0;
-            visibility: hidden;
+            background: rgba(0, 195, 255, 0.7);
+            width: 5px;
+            border-radius: 3px 3px 0 0;
+            transition: height 0.2s ease;
+        }
+
+        /* Ahuzat Dibuk Station */
+        #heatmap {
+            background: linear-gradient(135deg, #001030, #002050);
+            position: relative;
+        }
+
+        .heatmap-point {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 0, 0) 70%);
+        }
+
+        /* Portfolio Station */
+        #recursive-viz {
+            background: linear-gradient(135deg, #000820, #001840);
+            perspective: 600px;
+            transform-style: preserve-3d;
+        }
+
+        .mini-room {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 60, 120, 0.3);
+            border: 1px solid rgba(0, 195, 255, 0.5);
+            transform-style: preserve-3d;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotateY(0deg); }
+            50% { transform: translateY(-10px) rotateY(180deg); }
+        }
+
+        /* Contact Station */
+        #contact-spheres {
+            display: flex;
+            justify-content: space-around;
+            height: 200px;
+            align-items: center;
+        }
+
+        .contact-sphere {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(0, 60, 120, 0.4);
+            border: 1px solid rgba(0, 195, 255, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
             transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
+            cursor: pointer;
         }
 
-        .overlay.active {
-            opacity: 1;
-            visibility: visible;
+        .contact-sphere:hover {
+            transform: scale(1.2);
+            box-shadow: 0 0 25px rgba(0, 195, 255, 0.7);
         }
 
-        /* Animations for the bookshelf ambiance */
-        @keyframes lightEffect {
-            0% { box-shadow: 0 5px 15px rgba(255,223,0,0.2); }
-            50% { box-shadow: 0 5px 25px rgba(255,223,0,0.4); }
-            100% { box-shadow: 0 5px 15px rgba(255,223,0,0.2); }
+        .contact-sphere i {
+            font-size: 30px;
         }
 
-        .bookshelf {
-            animation: lightEffect 5s infinite;
+        /* Footer */
+        footer {
+            position: relative;
+            padding: 20px 0;
+            margin-top: -100px;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            pointer-events: all;
+        }
+
+        .footer-content {
+            width: 100%;
+            max-width: 800px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        .timer {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
+        }
+
+        .credits {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .name-badge {
+                font-size: 2rem;
+                top: 20px;
+            }
+
+            .subtitle, .ai-subtitle {
+                font-size: 0.9rem;
+                width: 90%;
+            }
+
+            .subtitle {
+                top: 70px;
+            }
+
+            .ai-subtitle {
+                top: 100px;
+            }
+
+            .station {
+                width: 90%;
+                padding: 15px;
+            }
+
+            .contact-sphere {
+                width: 60px;
+                height: 60px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+        /* Particle effect */
+        .particle {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background-color: rgba(0, 195, 255, 0.7);
+            border-radius: 50%;
+            z-index: -1;
         }
     </style>
 </head>
 <body>
+    <div id="vr-container"></div>
+
     <header>
-        <div class="name-plaque">
-            <h1 class="name">Geva Kipper</h1>
-            <p class="current-work">Currently working at Google</p>
-        </div>
-        <div class="ticker-container">
-            <div class="ticker">
-                This portfolio is redesigned daily by AI and is ever-changing
-                <span class="ai-icon"><i class="fas fa-robot"></i></span>
-            </div>
-        </div>
+        <h1 class="name-badge">GEVA KIPPER</h1>
+        <p class="subtitle">Engineering Leadership @ Google</p>
+        <p class="ai-subtitle">Re-designed daily by AI - what you see today won't exist tomorrow</p>
     </header>
 
-    <div class="bookshelf-container">
-        <div class="bookshelf">
-            <div class="shelf-top"></div>
-            <div class="books-container">
-                <div class="decorative-item plant"></div>
+    <nav class="nav-hologram">
+        <div class="nav-dot active" data-section="0"></div>
+        <div class="nav-dot" data-section="1"></div>
+        <div class="nav-dot" data-section="2"></div>
+        <div class="nav-dot" data-section="3"></div>
+    </nav>
 
-                <div class="book book-glglstats" data-book="glglstats">
-                    <div class="book-spine">GlglStats</div>
-                    <div class="book-cover">
-                        <button class="close-book">&times;</button>
-                        <h2 class="book-title">GlglStats</h2>
-                        <div class="book-content">
-                            <p>A music visualization and analysis tool that provides comprehensive statistics and insights about your favorite music.</p>
-                            <img src="https://via.placeholder.com/300x150?text=GlglStats+Visualization" alt="GlglStats Visualization" class="project-image">
-                            <p>This project was presented at the PyData TLV conference, showcasing innovative approaches to music data analysis and visualization.</p>
-                            <div class="project-links">
-                                <a href="https://glglstats.onrender.com/" target="_blank" class="project-link">Visit Website</a>
-                                <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank" class="project-link">Watch Conference Talk</a>
-                            </div>
-                        </div>
+    <main id="content">
+        <section id="glglstats" class="section">
+            <div class="station holographic">
+                <h2>GlglStats Station</h2>
+                <div class="station-content">
+                    <div id="music-visualization" class="visual-element">
+                        <!-- Music visualization bars will be added via JS -->
+                    </div>
+                    <p>A real-time music visualization platform for statistical analysis of music performance.</p>
+                    <div class="links">
+                        <a href="https://glglstats.onrender.com/" target="_blank" class="hologram-button">Visit GlglStats Website</a>
+                        <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank" class="hologram-button">Watch Conference Presentation</a>
                     </div>
                 </div>
-
-                <div class="book book-ahuzat" data-book="ahuzat">
-                    <div class="book-spine">Ahuzat Dibuk</div>
-                    <div class="book-cover">
-                        <button class="close-book">&times;</button>
-                        <h2 class="book-title">Ahuzat Dibuk</h2>
-                        <div class="book-content">
-                            <p>A city planning and parking analysis project for Tel Aviv, creating heat maps of parking availability.</p>
-                            <img src="https://via.placeholder.com/300x150?text=Tel+Aviv+Parking+Map" alt="Tel Aviv Parking Map" class="project-image">
-                            <p>The project gained media attention for its innovative approach to urban parking problems.</p>
-                            <div class="media-gallery">
-                                <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank" class="media-item">
-                                    <img src="https://via.placeholder.com/150x100?text=Channel+13+Coverage" alt="Channel 13 News Coverage">
-                                </a>
-                                <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank" class="media-item">
-                                    <img src="https://via.placeholder.com/150x100?text=Mako+News+Coverage" alt="Mako News Coverage">
-                                </a>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank" class="project-link">Original Facebook Post</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="book book-meta" data-book="meta">
-                    <div class="book-spine">Meta Portfolio</div>
-                    <div class="book-cover">
-                        <button class="close-book">&times;</button>
-                        <h2 class="book-title">Meta Portfolio</h2>
-                        <div class="book-content">
-                            <p>A recursive representation of this portfolio design.</p>
-                            <div style="position: relative; width: 100%; padding-top: 20px; padding-bottom: 20px; text-align: center;">
-                                <div style="display: inline-block; width: 80%; background: var(--wood-medium); padding: 10px; border-radius: 5px; transform: perspective(500px) rotateX(10deg);">
-                                    <div style="display: flex; justify-content: space-around; padding: 5px; background: var(--wood-dark); border-radius: 3px;">
-                                        <div style="height: 40px; width: 10px; background: var(--book-burgundy);"></div>
-                                        <div style="height: 40px; width: 10px; background: var(--book-green);"></div>
-                                        <div style="height: 40px; width: 10px; background: var(--book-navy);"></div>
-                                        <div style="height: 35px; width: 10px; background: var(--book-amber);"></div>
-                                    </div>
-                                </div>
-                                <div style="position: absolute; top: 5px; left: 50%; transform: translateX(-50%); color: var(--gold); animation: pulse 2s infinite;">
-                                    <i class="fas fa-arrow-down"></i> You are here
-                                </div>
-                            </div>
-                            <div class="project-links">
-                                <a href="https://portfolio-dor1.onrender.com/" target="_blank" class="project-link">Portfolio Website</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="book book-connect" data-book="connect">
-                    <div class="book-spine">Connect</div>
-                    <div class="book-cover">
-                        <button class="close-book">&times;</button>
-                        <h2 class="book-title">Connect</h2>
-                        <div class="book-content">
-                            <p>Let's connect! Find me on these platforms:</p>
-                            <div class="social-links">
-                                <a href="https://github.com/gevak" target="_blank" class="social-link">
-                                    <i class="fab fa-github"></i>
-                                </a>
-                                <a href="https://linkedin.com/in/gevakip" target="_blank" class="social-link">
-                                    <i class="fab fa-linkedin-in"></i>
-                                </a>
-                                <a href="https://facebook.com/geva.kipper" target="_blank" class="social-link">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                            </div>
-                            <p>Feel free to reach out for collaborations or just to say hello!</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="decorative-item coffee-mug"></div>
-                <div class="decorative-item code-trinket"></div>
             </div>
-            <div class="shelf-bottom"></div>
-        </div>
-    </div>
+        </section>
 
-    <footer>
-        <div class="ai-signature">Designed by Claude AI</div>
-        <div class="wooden-clock" id="elapsed-time">00:00:00:00</div>
-    </footer>
+        <section id="ahuzat-dibuk" class="section">
+            <div class="station holographic">
+                <h2>Ahuzat Dibuk Station</h2>
+                <div class="station-content">
+                    <div id="heatmap" class="visual-element">
+                        <!-- Heatmap points will be added via JS -->
+                    </div>
+                    <p>Urban insights project focused on parking data analysis in Tel Aviv residential areas.</p>
+                    <div class="links">
+                        <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank" class="hologram-button">View Facebook Publication</a>
+                        <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank" class="hologram-button">13TV Media Mention</a>
+                        <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank" class="hologram-button">Mako News Coverage</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <button class="ambiance-toggle" id="sound-toggle">
-        <i class="fas fa-volume-mute"></i>
-    </button>
+        <section id="portfolio" class="section">
+            <div class="station holographic">
+                <h2>Portfolio Station</h2>
+                <div class="station-content">
+                    <div id="recursive-viz" class="visual-element">
+                        <!-- Mini rooms will be added via JS -->
+                    </div>
+                    <p>A self-referential portfolio showcasing projects through an interactive VR experience.</p>
+                    <div class="links">
+                        <a href="https://portfolio-dor1.onrender.com/" target="_blank" class="hologram-button">Explore Previous Portfolio Version</a>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <div class="overlay" id="overlay"></div>
+        <section id="contact" class="section">
+            <div class="station holographic">
+                <h2>Contact Station</h2>
+                <div class="station-content">
+                    <div id="contact-spheres" class="visual-element">
+                        <a href="https://github.com/gevak" target="_blank" class="contact-sphere">
+                            <i>GitHub</i>
+                        </a>
+                        <a href="https://linkedin.com/in/gevakip" target="_blank" class="contact-sphere">
+                            <i>LinkedIn</i>
+                        </a>
+                        <a href="https://facebook.com/geva.kipper" target="_blank" class="contact-sphere">
+                            <i>Facebook</i>
+                        </a>
+                    </div>
+                    <p>Connect with Geva through these platforms. Each sphere contains a portal to a different social network.</p>
+                </div>
+            </div>
+        </section>
+
+        <footer>
+            <div class="footer-content holographic">
+                <div class="credits">Generated by AI on <span id="generation-date"></span></div>
+                <div class="timer">Online for: <span id="uptime-counter">00:00:00:00</span></div>
+            </div>
+        </footer>
+    </main>
 
     <script>
-        // Book interaction
-        const books = document.querySelectorAll('.book');
-        const overlay = document.getElementById('overlay');
+        // Set current date for the generation
+        document.getElementById('generation-date').textContent = new Date().toLocaleDateString();
 
-        books.forEach(book => {
-            book.addEventListener('click', () => {
-                // Check if the book is already open
-                if (!book.classList.contains('open')) {
-                    // Close any open book first
-                    const openBook = document.querySelector('.book.open');
-                    if (openBook) {
-                        openBook.classList.remove('open');
+        // Create uptime counter
+        const startDate = new Date('2023-01-01');
+        function updateCounter() {
+            const now = new Date();
+            const diff = Math.floor((now - startDate) / 1000);
+            
+            const days = Math.floor(diff / 86400);
+            const hours = Math.floor((diff % 86400) / 3600);
+            const minutes = Math.floor((diff % 3600) / 60);
+            const seconds = diff % 60;
+            
+            const formatted = 
+                String(days).padStart(2, '0') + ':' +
+                String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
+                
+            document.getElementById('uptime-counter').textContent = formatted;
+        }
+        
+        setInterval(updateCounter, 1000);
+        updateCounter();
+
+        // Create music visualization
+        const musicViz = document.getElementById('music-visualization');
+        for (let i = 0; i < 40; i++) {
+            const bar = document.createElement('div');
+            bar.className = 'music-bar';
+            bar.style.left = (i * 2.5) + '%';
+            bar.style.height = (Math.random() * 70 + 10) + 'px';
+            musicViz.appendChild(bar);
+        }
+
+        // Animate music visualization bars
+        function animateMusicBars() {
+            const bars = document.querySelectorAll('.music-bar');
+            bars.forEach(bar => {
+                const newHeight = Math.random() * 70 + 10;
+                bar.style.height = newHeight + 'px';
+            });
+            requestAnimationFrame(animateMusicBars);
+        }
+        animateMusicBars();
+
+        // Create heatmap visualization
+        const heatmap = document.getElementById('heatmap');
+        for (let i = 0; i < 20; i++) {
+            const point = document.createElement('div');
+            point.className = 'heatmap-point';
+            point.style.left = (Math.random() * 90 + 5) + '%';
+            point.style.top = (Math.random() * 90 + 5) + '%';
+            point.style.width = (Math.random() * 50 + 20) + 'px';
+            point.style.height = point.style.width;
+            point.style.opacity = (Math.random() * 0.5 + 0.3).toString();
+            heatmap.appendChild(point);
+        }
+
+        // Create recursive visualization
+        const recursiveViz = document.getElementById('recursive-viz');
+        for (let i = 0; i < 10; i++) {
+            const miniRoom = document.createElement('div');
+            miniRoom.className = 'mini-room';
+            miniRoom.style.left = (Math.random() * 80 + 10) + '%';
+            miniRoom.style.top = (Math.random() * 80 + 10) + '%';
+            miniRoom.style.transform = `translateZ(${Math.random() * 100}px) rotateY(${Math.random() * 360}deg)`;
+            miniRoom.style.animationDelay = (Math.random() * 2) + 's';
+            recursiveViz.appendChild(miniRoom);
+        }
+
+        // Setup scroll to section navigation
+        const sections = document.querySelectorAll('.section');
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        navDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const targetIndex = dot.getAttribute('data-section');
+                window.scrollTo({
+                    top: sections[targetIndex].offsetTop,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Update active nav dot on scroll
+        window.addEventListener('scroll', () => {
+            const scrollPosition = window.scrollY;
+            
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                
+                if (scrollPosition >= sectionTop - 300 && 
+                    scrollPosition < sectionTop + sectionHeight - 300) {
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    navDots[index].classList.add('active');
+                }
+            });
+        });
+
+        // Mouse interactions for holographic elements
+        document.querySelectorAll('.holographic').forEach(element => {
+            element.addEventListener('mousemove', (e) => {
+                const rect = element.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateY = (x - centerX) / 20;
+                const rotateX = (centerY - y) / 20;
+                
+                element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+                element.style.boxShadow = `
+                    ${(x - centerX) / 10}px ${(y - centerY) / 10}px 20px rgba(0, 195, 255, 0.5),
+                    inset 0 0 15px rgba(0, 195, 255, 0.3)
+                `;
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                element.style.transform = 'rotateY(0deg) rotateX(0deg)';
+                element.style.boxShadow = '0 0 20px rgba(0, 195, 255, 0.5), inset 0 0 15px rgba(0, 195, 255, 0.3)';
+            });
+        });
+
+        // Create floating particles
+        function createParticles(count) {
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * window.innerWidth + 'px';
+                particle.style.top = Math.random() * window.innerHeight + 'px';
+                particle.style.opacity = Math.random() * 0.6 + 0.3;
+                particle.style.width = Math.random() * 3 + 1 + 'px';
+                particle.style.height = particle.style.width;
+                
+                // Animation details
+                const duration = Math.random() * 60 + 30;
+                const direction = Math.random() > 0.5 ? 1 : -1;
+                
+                // Apply animation
+                particle.style.animation = `
+                    float ${duration}s infinite linear,
+                    fadeInOut ${Math.random() * 10 + 5}s infinite ease-in-out
+                `;
+                
+                // Create animation keyframes dynamically
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes float {
+                        from { transform: translate(0, 0); }
+                        to { transform: translate(${direction * Math.random() * 200}px, ${-Math.random() * 1000}px); }
                     }
-                    
-                    // Open the clicked book
-                    book.classList.add('open');
-                    overlay.classList.add('active');
-                }
-            });
-        });
-
-        // Close book button
-        const closeButtons = document.querySelectorAll('.close-book');
-        closeButtons.forEach(button => {
-            button.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent event from bubbling to the book
-                const openBook = document.querySelector('.book.open');
-                if (openBook) {
-                    openBook.classList.remove('open');
-                    overlay.classList.remove('active');
-                }
-            });
-        });
-
-        // Click on overlay to close book
-        overlay.addEventListener('click', () => {
-            const openBook = document.querySelector('.book.open');
-            if (openBook) {
-                openBook.classList.remove('open');
-                overlay.classList.remove('active');
+                    @keyframes fadeInOut {
+                        0%, 100% { opacity: ${Math.random() * 0.3}; }
+                        50% { opacity: ${Math.random() * 0.6 + 0.3}; }
+                    }
+                `;
+                document.head.appendChild(style);
+                document.body.appendChild(particle);
             }
-        });
-
-        // Wooden clock - time elapsed since March 29, 2025
-        function updateElapsedTime() {
-            const targetDate = new Date('2025-03-29T00:00:00');
-            const currentDate = new Date();
-            
-            // If the target date is in the future, display zeros
-            if (targetDate > currentDate) {
-                document.getElementById('elapsed-time').textContent = "00:00:00:00";
-                return;
-            }
-            
-            const timeDiff = currentDate - targetDate;
-            
-            // Calculate days, hours, minutes, seconds
-            const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((timeDiff % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((timeDiff % (1000 * 60)) / 1000);
-            
-            // Format with leading zeros
-            const formattedDays = days.toString().padStart(2, '0');
-            const formattedHours = hours.toString().padStart(2, '0');
-            const formattedMinutes = minutes.toString().padStart(2, '0');
-            const formattedSeconds = seconds.toString().padStart(2, '0');
-            
-            // Update the clock display
-            document.getElementById('elapsed-time').textContent = 
-                `${formattedDays}:${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
         }
-
-        // Update immediately and then every second
-        updateElapsedTime();
-        setInterval(updateElapsedTime, 1000);
-
-        // Ambient sound toggle
-        let audioPlaying = false;
-        let ambientAudio = null;
         
-        const soundToggle = document.getElementById('sound-toggle');
-        
-        soundToggle.addEventListener('click', () => {
-            if (audioPlaying) {
-                // Stop audio
-                if (ambientAudio) {
-                    ambientAudio.pause();
-                    ambientAudio.currentTime = 0;
-                }
-                soundToggle.innerHTML = '<i class="fas fa-volume-mute"></i>';
-            } else {
-                // Start audio
-                if (!ambientAudio) {
-                    ambientAudio = new Audio();
-                    // Using a data URL would be ideal here, but for simplicity let's just create silence
-                    // In a real implementation, you would use a proper audio file
-                    ambientAudio.src = 'data:audio/mp3;base64,SUQzAwAAAAABOlRJVDIAAAAMAAAAU2lsZW5jZQAAAFRQRTEAAAAMAAAAU2lsZW5jZQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA';
-                    ambientAudio.loop = true;
-                }
-                ambientAudio.play().catch(e => console.log('Audio playback prevented:', e));
-                soundToggle.innerHTML = '<i class="fas fa-volume-up"></i>';
-            }
-            audioPlaying = !audioPlaying;
-        });
+        createParticles(50);
 
-        // Page turning animations
-        function animatePageTurn(book) {
-            book.style.animation = 'pageTurn 1s forwards';
-            setTimeout(() => {
-                book.style.animation = '';
-            }, 1000);
-        }
-
-        // Apply subtle parallax effect
-        document.addEventListener('mousemove', (e) => {
-            const moveX = (e.clientX - window.innerWidth / 2) / 50;
-            const moveY = (e.clientY - window.innerHeight / 2) / 50;
+        // Simple WebGL background if Three.js is available
+        if (typeof THREE !== 'undefined') {
+            const container = document.getElementById('vr-container');
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             
-            document.querySelector('.bookshelf').style.transform = `translate(${moveX}px, ${moveY}px)`;
-        });
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setClearColor(0x000000, 0);
+            container.appendChild(renderer.domElement);
+            
+            // Create a grid for the "floor"
+            const gridSize = 50;
+            const gridDivisions = 50;
+            const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x0088ff, 0x004488);
+            scene.add(gridHelper);
+            
+            // Ambient light
+            const ambientLight = new THREE.AmbientLight(0x123456);
+            scene.add(ambientLight);
+            
+            // Directional light
+            const directionalLight = new THREE.DirectionalLight(0x3498db, 0.5);
+            directionalLight.position.set(0, 1, 0);
+            scene.add(directionalLight);
+            
+            // Position camera
+            camera.position.y = 3;
+            camera.position.z = 10;
+            
+            // Add moving stars
+            const starGeometry = new THREE.BufferGeometry();
+            const starMaterial = new THREE.PointsMaterial({
+                color: 0x3498db,
+                size: 0.1,
+                transparent: true,
+                opacity: 0.6
+            });
+            
+            const starVertices = [];
+            for (let i = 0; i < 1000; i++) {
+                const x = (Math.random() - 0.5) * 100;
+                const y = (Math.random() - 0.5) * 100;
+                const z = (Math.random() - 0.5) * 100;
+                starVertices.push(x, y, z);
+            }
+            
+            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
+            const stars = new THREE.Points(starGeometry, starMaterial);
+            scene.add(stars);
+            
+            // Animation loop
+            function animate() {
+                requestAnimationFrame(animate);
+                
+                // Rotate grid
+                gridHelper.rotation.y += 0.001;
+                
+                // Rotate stars
+                stars.rotation.y += 0.0005;
+                stars.rotation.x += 0.0002;
+                
+                // Sync camera rotation with scroll
+                const scrollY = window.scrollY;
+                const maxScroll = document.body.scrollHeight - window.innerHeight;
+                const scrollProgress = scrollY / maxScroll;
+                
+                camera.rotation.x = scrollProgress * -0.5;
+                camera.position.y = 3 + scrollProgress * 5;
+                
+                renderer.render(scene, camera);
+            }
+            
+            animate();
+            
+            // Handle window resize
+            window.addEventListener('resize', () => {
+                camera.aspect = window.innerWidth / window.innerHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(window.innerWidth, window.innerHeight);
+            });
+            
+            // Track mouse for parallax effect
+            document.addEventListener('mousemove', (event) => {
+                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+                const mouseY = (event.clientY / window.innerHeight) * 2 - 1;
+                
+                camera.rotation.y = mouseX * 0.1;
+                camera.rotation.z = mouseY * 0.05;
+            });
+        }
     </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
