@@ -1,1 +1,1 @@
-Virtual reality workspace accessible with or without headset
+Virtual bookshelf with interactive coding books containing projects

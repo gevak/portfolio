@@ -2,741 +2,959 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Geva Kipper - VR Portfolio</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <title>Geva Kipper - Interactive Portfolio</title>
     <style>
+        :root {
+            --wood-dark: #5D4037;
+            --wood-medium: #8D6E63;
+            --wood-light: #A1887F;
+            --parchment: #F5F5DC;
+            --burgundy: #800020;
+            --forest-green: #228B22;
+            --navy-blue: #000080;
+            --brown: #8B4513;
+            --gold: #D4AF37;
+            --shadow: rgba(0, 0, 0, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-            color: #e0f7ff;
+            font-family: 'Garamond', serif;
         }
 
         body {
+            background: #2C2416;
+            color: #F5F5DC;
             overflow-x: hidden;
-            background-color: #05071a;
             perspective: 1000px;
+            height: 100vh;
+            background-image: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('data:image/png;base64,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');
+            background-size: cover;
+            background-position: center;
         }
 
-        #vr-container {
+        #dust-particles {
             position: fixed;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .dust {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+        }
+
+        .bookshelf-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            transform-style: preserve-3d;
+        }
+
+        .header {
+            text-align: center;
+            padding: 2rem 1rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(to bottom, var(--wood-dark), var(--wood-medium));
+            border-radius: 8px;
+            border: 4px solid var(--wood-dark);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            position: relative;
+            z-index: 10;
+            transform-style: preserve-3d;
+            transform: translateZ(10px);
+        }
+
+        .header h1 {
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 3rem;
+            color: var(--gold);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin: 0;
+            padding-bottom: 0.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .header h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, var(--gold), transparent);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--parchment);
+            margin-top: 0.5rem;
+            font-style: italic;
+        }
+
+        .ai-note {
+            font-size: 1rem;
+            color: var(--parchment);
+            margin-top: 1rem;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 2s forwards, writeText 4s steps(70, end) forwards;
+            white-space: nowrap;
+            overflow: hidden;
+            display: inline-block;
+        }
+
+        @keyframes writeText {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        .quill {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 0;
+            right: -30px;
+            opacity: 0;
+            animation: fadeIn 1s 1s forwards, moveQuill 4s 1s linear forwards;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        @keyframes moveQuill {
+            0% { right: 0; opacity: 1; }
+            95% { opacity: 1; }
+            100% { right: -30px; opacity: 0; }
+        }
+
+        .bookshelf {
+            position: relative;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 2rem;
+            padding: 2rem 0;
+            perspective: 1000px;
+            z-index: 5;
+        }
+
+        .shelf {
+            position: relative;
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(to bottom, var(--wood-dark), var(--wood-medium));
+            margin-top: 2rem;
+            border-radius: 5px 5px 0 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            transform-style: preserve-3d;
+            transform: translateZ(5px);
+            z-index: 2;
+        }
+
+        .shelf::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            bottom: -20px;
+            background: var(--wood-dark);
+            transform: rotateX(-45deg);
+            transform-origin: top;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .shelf-front {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: var(--wood-medium);
+            bottom: -30px;
+            border-radius: 0 0 5px 5px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .book {
+            position: relative;
+            width: 200px;
+            height: 300px;
+            margin-bottom: 30px;
+            perspective: 1000px;
+            cursor: pointer;
+            transform-style: preserve-3d;
+            transition: transform 0.5s ease;
+            z-index: 10;
+        }
+
+        .book:hover {
+            transform: translateY(-20px) translateZ(30px) rotateX(5deg);
+            z-index: 20;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.2));
+        }
+
+        .book-cover {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            transform-style: preserve-3d;
+            transform-origin: left;
+            transition: transform 1s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 2px 8px 8px 2px;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+
+        .book.open .book-cover {
+            transform: rotateY(-160deg);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+            z-index: 10;
+        }
+
+        .book-spine {
+            position: absolute;
+            left: 0;
+            width: 40px;
+            height: 100%;
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0));
+            transform-origin: left;
+            z-index: 2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            color: var(--gold);
+            font-weight: bold;
+            font-size: 1.2rem;
+            padding: 1rem 0;
+        }
+
+        .book-content {
+            position: absolute;
+            width: 400px;
+            height: 300px;
+            top: 0;
+            left: 0;
+            transform-origin: center;
+            background: var(--parchment);
+            color: #333;
+            display: flex;
+            border-radius: 4px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            z-index: 1;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .book.open .book-content {
+            opacity: 1;
+        }
+
+        .page {
+            width: 50%;
+            height: 100%;
+            padding: 1.5rem;
+            overflow-y: auto;
+            position: relative;
+            background-image: 
+                linear-gradient(to right, rgba(0, 0, 0, 0.05), transparent 10px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent 10px);
+        }
+
+        .page-left {
+            border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .page-right {
+            position: relative;
+            background-image: 
+                linear-gradient(to left, rgba(0, 0, 0, 0.05), transparent 10px),
+                linear-gradient(to bottom, rgba(0, 0, 0, 0.05), transparent 10px);
+        }
+
+        .bookmark {
+            position: absolute;
+            width: 20px;
+            height: 80px;
+            background: var(--burgundy);
+            top: -20px;
+            right: 30px;
+            transform: rotate(10deg);
+            z-index: 20;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .bookmark:hover {
+            transform: rotate(0deg) translateY(10px);
+        }
+
+        .bookmark.blue {
+            background: var(--navy-blue);
+            right: 60px;
+        }
+
+        .bookmark.green {
+            background: var(--forest-green);
+            right: 90px;
+        }
+
+        .book-title {
+            font-size: 1.5rem;
+            text-align: center;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .video-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            height: 0;
+        }
+        
+        .video-container iframe {
+            position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
         }
 
-        #content {
+        /* Book-specific designs */
+        #book1 .book-cover {
+            background-color: var(--burgundy);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMzAwIj48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9ImciIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPjxzdG9wIG9mZnNldD0iMCUiIHN0b3AtY29sb3I9IiNmZmYiIHN0b3Atb3BhY2l0eT0iMC4yIi8+PHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmZmIiBzdG9wLW9wYWNpdHk9IjAiLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzgwMDAyMCIvPjxnIGZpbGw9Im5vbmUiIHN0cm9rZT0idXJsKCNnKSIgc3Ryb2tlLXdpZHRoPSIyIj48cGF0aCBkPSJNMjAgNTAgQzgwIDgwIDE2MCA2MCAxODAgNDAiLz48cGF0aCBkPSJNMjAgODAgQzgwIDExMCAxNjAgOTAgMTgwIDcwIi8+PHBhdGggZD0iTTIwIDExMCBDODAgMTQwIDE2MCAxMjAgMTgwIDEwMCIvPjxwYXRoIGQ9Ik0yMCAxNDAgQzgwIDE3MCAxNjAgMTUwIDE4MCAxMzAiLz48cGF0aCBkPSJNMjAgMTcwIEM4MCAyMDAgMTYwIDE4MCAxODAgMTYwIi8+PC9nPjxjaXJjbGUgY3g9IjQwIiBjeT0iNDAiIHI9IjE1IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMyIvPjxjaXJjbGUgY3g9IjE2MCIgY3k9IjQwIiByPSIxNSIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjMiLz48dGV4dCB4PSIxMDAiIHk9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjI0IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIj5HbGdsU3RhdHM8L3RleHQ+PC9zdmc+');
+        }
+
+        #book2 .book-cover {
+            background-color: var(--forest-green);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMzAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzIyOEIyMiIvPjxwYXRoIGQ9Ik0yMCA2MCBDNDAgMzAgODAgNzAgMTIwIDUwIEMxNjAgMzAgMTgwIDgwIDE4MCA5MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjZmZmIiBzdHJva2Utd2lkdGg9IjEiIHN0cm9rZS1vcGFjaXR5PSIwLjQiLz48cGF0aCBkPSJNMjAgODAgQzUwIDUwIDkwIDEyMCAxMzAgNzAgQzE3MCA0MCAxODAgMTAwIDE4MCAxMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC40Ii8+PHBhdGggZD0iTTIwIDExMCBDNjAgODAgMTAwIDE1MCAxNDAgOTAgQzE4MCA2MCAxODAgMTMwIDE4MCAxNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC40Ii8+PHBhdGggZD0iTTIwIDE0MCBDNZCA5MCAxMTAgMTgwIDE1MCAxMTAgQzE5MCA4MCAxODAgMTYwIDE4MCAxNzAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC40Ii8+PHBhdGggZD0iTTIwIDE3MCBDNzAgMTIwIDEyMCAyMTAgMTYwIDE0MCBDMjAwIDEwMCAxODAgMTkwIDE4MCAyMDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC40Ii8+PGNpcmNsZSBjeD0iNDAiIGN5PSI0MCIgcj0iMTAiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC42Ii8+PGNpcmNsZSBjeD0iNzAiIGN5PSI4MCIgcj0iNSIgZmlsbD0iI0ZGMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjYiLz48Y2lyY2xlIGN4PSIxMDAiIGN5PSI2MCIgcj0iOCIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjYiLz48Y2lyY2xlIGN4PSIxMzAiIGN5PSI5MCIgcj0iNSIgZmlsbD0iI0ZGMDAwMCIgZmlsbC1vcGFjaXR5PSIwLjYiLz48Y2lyY2xlIGN4PSIxNjAiIGN5PSI3MCIgcj0iNiIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjYiLz48dGV4dCB4PSIxMDAiIHk9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE4IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIj5BaHV6YXQgRGlidWs8L3RleHQ+PC9zdmc+');
+        }
+
+        #book3 .book-cover {
+            background-color: var(--navy-blue);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMzAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzAwMDA4MCIvPjxyZWN0IHg9IjQwIiB5PSI4MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSIxNDAiIGZpbGw9IiMwMDAwQTAiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIxIiBzdHJva2Utb3BhY2l0eT0iMC41Ii8+PHBhdGggZD0iTTUwIDExMCBDNjAgOTAgODAgOTUgOTAgODUgQzEwMCA4MCAxMzAgMTAwIDE1MCAxMTAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz48cGF0aCBkPSJNNTAgMTQwIEM2MCAxMjAgODAgMTI1IDkwIDExNSBDMTAwIDExMCAxMzAgMTMwIDE1MCAxNDAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI2ZmZiIgc3Ryb2tlLXdpZHRoPSIwLjUiIHN0cm9rZS1vcGFjaXR5PSIwLjUiLz48cmVjdCB4PSI3MCIgeT0iMTYwIiB3aWR0aD0iNjAiIGhlaWdodD0iMTAiIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4zIi8+PHJlY3QgeD0iNzAiIHk9IjE4MCIgd2lkdGg9IjYwIiBoZWlnaHQ9IjEwIiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMyIvPjxyZWN0IHg9IjcwIiB5PSIyMDAiIHdpZHRoPSI0MCIgaGVpZ2h0PSIxMCIgZmlsbD0iI2ZmZiIgZmlsbC1vcGFjaXR5PSIwLjMiLz48dGV4dCB4PSIxMDAiIHk9IjI1MCIgZm9udC1mYW1pbHk9IkFyaWFsIiBmb250LXNpemU9IjE2IiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjZmZmIj5Qb3J0Zm9saW8gTWV0YS1Cb29rPC90ZXh0Pjwvc3ZnPg==');
+        }
+
+        #book4 .book-cover {
+            background-color: var(--brown);
+            background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMzAwIj48cmVjdCB3aWR0aD0iMjAwIiBoZWlnaHQ9IjMwMCIgZmlsbD0iIzhCNDUxMyIvPjxyZWN0IHg9IjEwIiB5PSIxMCIgd2lkdGg9IjE4MCIgaGVpZ2h0PSIyODAiIGZpbGw9Im5vbmUiIHN0cm9rZT0iI0Q0QUYzNyIgc3Ryb2tlLXdpZHRoPSIyIi8+PHJlY3QgeD0iMjAiIHk9IjMwIiB3aWR0aD0iMTYwIiBoZWlnaHQ9IjI0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRDRBRjM3IiBzdHJva2UtZGFzaGFycmF5PSI1LDUiIHN0cm9rZS13aWR0aD0iMSIvPjx0ZXh0IHg9IjEwMCIgeT0iMjQwIiBmb250LWZhbWlseT0iQXJpYWwiIGZvbnQtc2l6ZT0iMjQiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZpbGw9IiNENEFGMzciPkNvbm5lY3Q8L3RleHQ+PGNpcmNsZSBjeD0iNDAiIGN5PSI3MCIgcj0iMTAiIGZpbGw9IiNENEFGMzciIGZpbGwtb3BhY2l0eT0iMC43Ii8+PGNpcmNsZSBjeD0iNDAiIGN5PSIxMTAiIHI9IjEwIiBmaWxsPSIjRDRBRjM3IiBmaWxsLW9wYWNpdHk9IjAuNyIvPjxjaXJjbGUgY3g9IjQwIiBjeT0iMTUwIiByPSIxMCIgZmlsbD0iI0Q0QUYzNyIgZmlsbC1vcGFjaXR5PSIwLjciLz48L3N2Zz4=');
+        }
+
+        /* Bottom shelf with plaque and clock */
+        .bottom-shelf {
             position: relative;
-            min-height: 400vh;
-            pointer-events: none;
-        }
-
-        .section {
-            height: 100vh;
+            width: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            pointer-events: all;
+            margin-top: auto;
+            padding-top: 2rem;
         }
 
-        .holographic {
-            position: relative;
-            background: rgba(0, 90, 180, 0.1);
-            border: 1px solid rgba(0, 195, 255, 0.3);
+        .brass-plaque {
+            width: 180px;
+            height: 60px;
+            background: linear-gradient(45deg, #D4AF37, #FFF8DC, #D4AF37);
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 195, 255, 0.5),
-                        inset 0 0 15px rgba(0, 195, 255, 0.3);
-            backdrop-filter: blur(5px);
-            padding: 25px;
-            transition: all 0.3s ease;
-            transform-style: preserve-3d;
-            opacity: 0.9;
-            overflow: hidden;
-        }
-
-        .holographic::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                45deg,
-                rgba(0, 195, 255, 0) 0%,
-                rgba(0, 195, 255, 0.1) 50%,
-                rgba(0, 195, 255, 0) 100%
-            );
-            animation: hologramSweep 6s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes hologramSweep {
-            0% {
-                transform: translateX(-50%) translateY(-50%) rotate(0deg);
-            }
-            100% {
-                transform: translateX(-50%) translateY(-50%) rotate(360deg);
-            }
-        }
-
-        .hologram-button {
-            background: rgba(0, 60, 120, 0.3);
-            border: 1px solid rgba(0, 195, 255, 0.5);
-            border-radius: 5px;
-            color: #a0f7ff;
-            padding: 10px 15px;
-            margin: 10px 0;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-            display: inline-block;
-            text-decoration: none;
-            transform-style: preserve-3d;
-            pointer-events: all;
-        }
-
-        .hologram-button:hover {
-            background: rgba(0, 100, 160, 0.5);
-            box-shadow: 0 0 15px rgba(0, 195, 255, 0.7);
-            transform: translateZ(10px);
-        }
-
-        /* Header Styles */
-        .name-badge {
-            position: fixed;
-            top: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 3rem;
-            font-weight: 700;
-            text-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
-            letter-spacing: 3px;
-            z-index: 100;
-        }
-
-        .subtitle {
-            position: fixed;
-            top: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 1rem;
-            width: 80%;
-            text-align: center;
-            color: rgba(224, 247, 255, 0.8);
-            z-index: 100;
-        }
-
-        .ai-subtitle {
-            position: fixed;
-            top: 130px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.9rem;
-            opacity: 0.7;
-            animation: pulse 4s infinite;
-            z-index: 100;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 0.9; }
-        }
-
-        /* Navigation */
-        .nav-hologram {
-            position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 100;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            margin-right: 2rem;
+            padding: 0.5rem;
+            font-family: 'Times New Roman', Times, serif;
+            font-size: 0.8rem;
+            color: #333;
+            text-align: center;
+            letter-spacing: 1px;
+            transform: perspective(500px) rotateX(10deg);
         }
 
-        .nav-dot {
-            width: 15px;
-            height: 15px;
+        .clock {
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, #D4AF37, #8B4513);
             border-radius: 50%;
-            background: rgba(0, 195, 255, 0.3);
-            border: 1px solid rgba(0, 195, 255, 0.5);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 5px rgba(0, 195, 255, 0.5);
-            pointer-events: all;
-        }
-
-        .nav-dot.active {
-            background: rgba(0, 195, 255, 0.7);
-            box-shadow: 0 0 10px rgba(0, 195, 255, 0.9);
-        }
-
-        .nav-dot:hover {
-            transform: scale(1.2);
-        }
-
-        /* Project Station Styles */
-        .station {
-            width: 80%;
-            max-width: 800px;
-            padding: 30px;
-            transform-style: preserve-3d;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
         }
 
-        .station h2 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 195, 255, 0.5);
+        .clock::before {
+            content: '';
+            width: 100px;
+            height: 100px;
+            background: #F5F5DC;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .clock-face {
+            width: 90px;
+            height: 90px;
+            background: #F5F5DC;
+            border-radius: 50%;
             position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
         }
 
-        .station h2::after {
+        .hour-hand, .minute-hand, .second-hand {
+            position: absolute;
+            transform-origin: bottom center;
+            z-index: 3;
+            background: #333;
+        }
+
+        .hour-hand {
+            width: 4px;
+            height: 25px;
+            border-radius: 4px;
+        }
+
+        .minute-hand {
+            width: 3px;
+            height: 35px;
+            border-radius: 3px;
+        }
+
+        .second-hand {
+            width: 1px;
+            height: 40px;
+            background: #D4AF37;
+        }
+
+        .clock-center {
+            width: 8px;
+            height: 8px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            z-index: 4;
+        }
+
+        .news-clipping {
+            background: #f0e9d8;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .news-logo {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: #333;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 3px;
+        }
+
+        .business-card {
+            background: var(--parchment);
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 10px 0;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .business-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .card-url {
+            font-size: 0.8rem;
+            color: #666;
+        }
+
+        .heat-map {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(to right, #00FF00, #FFFF00, #FF0000);
+            border-radius: 5px;
+            position: relative;
+            margin: 10px 0;
+        }
+
+        .heat-map::before {
             content: '';
             position: absolute;
-            bottom: -5px;
+            top: 0;
             left: 0;
             width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(0, 195, 255, 0), rgba(0, 195, 255, 0.8), rgba(0, 195, 255, 0));
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 30% 40%, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 0) 40%),
+                radial-gradient(circle at 70% 60%, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 0) 30%),
+                radial-gradient(circle at 40% 80%, rgba(255, 0, 0, 0.5) 0%, rgba(255, 0, 0, 0) 35%);
+            border-radius: 5px;
         }
 
-        .station-content {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            transform-style: preserve-3d;
+        .code-block {
+            background: #272822;
+            color: #f8f8f2;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: monospace;
+            margin: 10px 0;
+            font-size: 0.8rem;
+            overflow: auto;
+            max-height: 150px;
         }
 
-        .visual-element {
-            height: 200px;
-            width: 100%;
-            border-radius: 8px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* GlglStats Station */
-        #music-visualization {
-            background: linear-gradient(135deg, #002040, #004080);
-            position: relative;
-        }
-
-        .music-bar {
-            position: absolute;
-            bottom: 0;
-            background: rgba(0, 195, 255, 0.7);
-            width: 5px;
-            border-radius: 3px 3px 0 0;
-            transition: height 0.2s ease;
-        }
-
-        /* Ahuzat Dibuk Station */
-        #heatmap {
-            background: linear-gradient(135deg, #001030, #002050);
-            position: relative;
-        }
-
-        .heatmap-point {
-            position: absolute;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.7) 0%, rgba(255, 0, 0, 0) 70%);
-        }
-
-        /* Portfolio Station */
-        #recursive-viz {
-            background: linear-gradient(135deg, #000820, #001840);
-            perspective: 600px;
-            transform-style: preserve-3d;
-        }
-
-        .mini-room {
-            position: absolute;
-            width: 50px;
-            height: 50px;
-            background: rgba(0, 60, 120, 0.3);
-            border: 1px solid rgba(0, 195, 255, 0.5);
-            transform-style: preserve-3d;
-            animation: float 4s infinite ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0) rotateY(0deg); }
-            50% { transform: translateY(-10px) rotateY(180deg); }
-        }
-
-        /* Contact Station */
-        #contact-spheres {
-            display: flex;
-            justify-content: space-around;
-            height: 200px;
-            align-items: center;
-        }
-
-        .contact-sphere {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: rgba(0, 60, 120, 0.4);
-            border: 1px solid rgba(0, 195, 255, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            transition: all 0.3s ease;
-            position: relative;
-            box-shadow: 0 0 15px rgba(0, 195, 255, 0.3);
-            cursor: pointer;
-        }
-
-        .contact-sphere:hover {
-            transform: scale(1.2);
-            box-shadow: 0 0 25px rgba(0, 195, 255, 0.7);
-        }
-
-        .contact-sphere i {
-            font-size: 30px;
-        }
-
-        /* Footer */
-        footer {
-            position: relative;
-            padding: 20px 0;
-            margin-top: -100px;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            pointer-events: all;
-        }
-
-        .footer-content {
-            width: 100%;
-            max-width: 800px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-        }
-
-        .timer {
-            font-family: 'Courier New', monospace;
-            font-size: 1.2rem;
-            text-shadow: 0 0 10px rgba(0, 195, 255, 0.8);
-        }
-
-        .credits {
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* Mobile responsiveness */
         @media (max-width: 768px) {
-            .name-badge {
-                font-size: 2rem;
-                top: 20px;
-            }
-
-            .subtitle, .ai-subtitle {
-                font-size: 0.9rem;
-                width: 90%;
-            }
-
-            .subtitle {
-                top: 70px;
-            }
-
-            .ai-subtitle {
-                top: 100px;
-            }
-
-            .station {
-                width: 90%;
-                padding: 15px;
-            }
-
-            .contact-sphere {
-                width: 60px;
-                height: 60px;
-            }
-
-            .footer-content {
+            .bookshelf {
                 flex-direction: column;
-                gap: 15px;
+                align-items: center;
             }
-        }
 
-        /* Particle effect */
-        .particle {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            background-color: rgba(0, 195, 255, 0.7);
-            border-radius: 50%;
-            z-index: -1;
+            .book {
+                margin: 1rem 0;
+            }
+
+            .book-content {
+                width: 300px;
+                flex-direction: column;
+                height: auto;
+            }
+
+            .page {
+                width: 100%;
+                min-height: 300px;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .bottom-shelf {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .brass-plaque {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .book.open .book-cover {
+                transform: rotateY(-150deg) translateX(-50px);
+            }
         }
     </style>
 </head>
 <body>
-    <div id="vr-container"></div>
-
-    <header>
-        <h1 class="name-badge">GEVA KIPPER</h1>
-        <p class="subtitle">Engineering Leadership @ Google</p>
-        <p class="ai-subtitle">Re-designed daily by AI - what you see today won't exist tomorrow</p>
-    </header>
-
-    <nav class="nav-hologram">
-        <div class="nav-dot active" data-section="0"></div>
-        <div class="nav-dot" data-section="1"></div>
-        <div class="nav-dot" data-section="2"></div>
-        <div class="nav-dot" data-section="3"></div>
-    </nav>
-
-    <main id="content">
-        <section id="glglstats" class="section">
-            <div class="station holographic">
-                <h2>GlglStats Station</h2>
-                <div class="station-content">
-                    <div id="music-visualization" class="visual-element">
-                        <!-- Music visualization bars will be added via JS -->
+    <div id="dust-particles"></div>
+    
+    <div class="bookshelf-container">
+        <div class="header">
+            <h1>Geva Kipper</h1>
+            <p class="subtitle">Engineering innovative solutions at Google.</p>
+            <p class="ai-note">This portfolio is redesigned daily by AI, presenting a new experience with each visit.
+                <img class="quill" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiI+PHBhdGggZD0iTTI5LjcsMTYuMmMtMC4xLTAuMS0wLjEtMC4yLTAuMi0wLjJsLTIuNi0yLjNjLTAuMi0wLjItMC41LTAuMS0wLjgsMGwtMywxLjdjLTAuNSwwLjMtMC43LDAuOS0wLjQsMS40ICBjMC4xLDAuMiwwLjMsMC40LDAuNSwwLjVsMS40LDAuOWwtOSw0LjhMMTIuMiwxMWw5LjctNC43bDEsMC41YzAuNSwwLjMsMS4yLDAuMSwxLjQtMC40YzAuMS0wLjIsMC4yLTAuNSwwLjItMC43bC0wLjItMy40ICBjLTAtMC4zLTAuMy0wLjUtMC42LTAuNWwtMy40LDBjLTAuNiwwLTEsMC40LTEsMWMwLDAuMywwLjEsMC41LDAuMywwLjdsMSwwLjdMMTEuMyw5LjZMNy44LDVjLTAuMy0wLjQtMC45LTAuNC0xLjMtMC4xICBjLTAuMSwwLjEtMC4yLDAuMi0wLjMsMC40TDIuMSwxNC41Yy0wLjIsMC41LDAsMSwwLjUsMS4zYzAuMiwwLjEsMC41LDAuMSwwLjcsMGw3LjktNC4yTDE1LDIzLjhsLTctMy4yYy0wLjUtMC4yLTEuMSwwLTEuMywwLjQgIGMtMC4xLDAuMi0wLjEsMC41LDAsMC43bDIuNyw3YzAuMiwwLjUsMC44LDAuOCwxLjMsMC42YzAuMi0wLjEsMC40LTAuMiwwLjUtMC40bDItNGw5LjktNS4zbDEuMywwLjhjMC41LDAuMywxLjIsMC4xLDEuNC0wLjQgIGMwLjEtMC4yLDAuMi0wLjUsMC4yLTAuN2wwLjMtMy4yQzMwLDE2LjUsMjkuOSwxNi4zLDI5LjcsMTYuMnoiIGZpbGw9IiNENEFGMzciLz48L3N2Zz4="/>
+            </p>
+        </div>
+        
+        <div class="bookshelf">
+            <div class="book" id="book1">
+                <div class="book-cover">
+                    <div class="book-spine">GlglStats</div>
+                </div>
+                <div class="book-content">
+                    <div class="page page-left">
+                        <h2 class="book-title">GlglStats</h2>
+                        <p>GlglStats is a novel approach to measuring musical repetitiveness through compression techniques.</p>
+                        <p>The core idea is leveraging the LZ77 compression algorithm to quantify how predictable or repetitive a song is. The more repetitive the song, the higher its compression rate.</p>
+                        <p>This project provides an objective metric for what makes songs "catchy" or "repetitive" - terms that are usually subjectively defined.</p>
+                        <p>The tool analyzes songs and generates visual representations of their repetitive structures, making patterns in music visible and comparable.</p>
                     </div>
-                    <p>A real-time music visualization platform for statistical analysis of music performance.</p>
-                    <div class="links">
-                        <a href="https://glglstats.onrender.com/" target="_blank" class="hologram-button">Visit GlglStats Website</a>
-                        <a href="https://www.youtube.com/watch?v=jrKAtOsj1Lo" target="_blank" class="hologram-button">Watch Conference Presentation</a>
+                    <div class="page page-right">
+                        <h3>PyData TLV Conference Presentation</h3>
+                        <div class="video-container">
+                            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/jrKAtOsj1Lo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+                        <p>The presentation explores how compression algorithms can be used to analyze music complexity and repetitiveness.</p>
                     </div>
+                    <a href="https://glglstats.onrender.com/" target="_blank" class="bookmark" title="Visit GlglStats website"></a>
                 </div>
             </div>
-        </section>
-
-        <section id="ahuzat-dibuk" class="section">
-            <div class="station holographic">
-                <h2>Ahuzat Dibuk Station</h2>
-                <div class="station-content">
-                    <div id="heatmap" class="visual-element">
-                        <!-- Heatmap points will be added via JS -->
+            
+            <div class="book" id="book2">
+                <div class="book-cover">
+                    <div class="book-spine">Ahuzat Dibuk</div>
+                </div>
+                <div class="book-content">
+                    <div class="page page-left">
+                        <h2 class="book-title">Ahuzat Dibuk</h2>
+                        <p>Crowdsourced parking data analytics for Tel Aviv.</p>
+                        
+                        <div class="news-clipping">
+                            <div class="news-logo">Channel 13 News</div>
+                            <p>Revolutionary app helping Tel Aviv residents find parking by analyzing and visualizing parking patterns across the city.</p>
+                        </div>
+                        
+                        <div class="news-clipping">
+                            <div class="news-logo">Mako Nexter</div>
+                            <p>Community-driven solution to one of Tel Aviv's most notorious problems - finding available parking spaces in congested neighborhoods.</p>
+                        </div>
+                        
+                        <div class="news-clipping">
+                            <div class="news-logo">Secret Tel Aviv</div>
+                            <p>The community's response to this initiative has been overwhelming, with thousands of residents contributing data to help each other navigate the challenging parking landscape.</p>
+                        </div>
                     </div>
-                    <p>Urban insights project focused on parking data analysis in Tel Aviv residential areas.</p>
-                    <div class="links">
-                        <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank" class="hologram-button">View Facebook Publication</a>
-                        <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank" class="hologram-button">13TV Media Mention</a>
-                        <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank" class="hologram-button">Mako News Coverage</a>
+                    <div class="page page-right">
+                        <h3>Parking Heat Map Visualization</h3>
+                        
+                        <p>This project created a dynamic heat map showing parking availability throughout Tel Aviv neighborhoods, based on crowdsourced data from local residents.</p>
+                        
+                        <div class="heat-map"></div>
+                        
+                        <p>The visualization helped identify patterns in parking availability throughout different times of day and days of the week, making it easier for residents to plan their commutes.</p>
+                        
+                        <p>Data collection was facilitated through a community-driven approach, with residents sharing real-time parking information through a dedicated platform.</p>
                     </div>
+                    <a href="https://www.facebook.com/groups/secrettelaviv/posts/10159636301195943" target="_blank" class="bookmark" title="Secret Tel Aviv post"></a>
+                    <a href="https://13tv.co.il/item/news/domestic/internal/parking-902956407/" target="_blank" class="bookmark blue" title="Channel 13 News article"></a>
+                    <a href="https://www.mako.co.il/nexter-news/Article-ae43964b891bf71027.htm" target="_blank" class="bookmark green" title="Mako Nexter article"></a>
                 </div>
             </div>
-        </section>
+            
+            <div class="book" id="book3">
+                <div class="book-cover">
+                    <div class="book-spine">Portfolio</div>
+                </div>
+                <div class="book-content">
+                    <div class="page page-left">
+                        <h2 class="book-title">Portfolio Meta-Book</h2>
+                        <p>This is a meta-book about the very portfolio you're currently viewing.</p>
+                        
+                        <p>The portfolio you're exploring is an AI-generated, interactive bookshelf design that showcases my projects in a unique and engaging way.</p>
+                        
+                        <div class="code-block">
+                        <pre>/* Book hover animation */
+.book:hover {
+  transform: translateY(-20px) 
+    translateZ(30px) rotateX(5deg);
+  filter: drop-shadow(0 0 20px 
+    rgba(255, 255, 255, 0.2));
+}
 
-        <section id="portfolio" class="section">
-            <div class="station holographic">
-                <h2>Portfolio Station</h2>
-                <div class="station-content">
-                    <div id="recursive-viz" class="visual-element">
-                        <!-- Mini rooms will be added via JS -->
+/* Book opening animation */
+.book.open .book-cover {
+  transform: rotateY(-160deg);
+}</pre>
+                        </div>
+                        
+                        <p>The design concept revolves around a virtual bookshelf with interactive 3D books that represent different projects and connect points.</p>
                     </div>
-                    <p>A self-referential portfolio showcasing projects through an interactive VR experience.</p>
-                    <div class="links">
-                        <a href="https://portfolio-dor1.onrender.com/" target="_blank" class="hologram-button">Explore Previous Portfolio Version</a>
+                    <div class="page page-right">
+                        <h3>Design Features</h3>
+                        
+                        <p>The portfolio utilizes modern web technologies:</p>
+                        <ul>
+                            <li>3D CSS transformations for book animations</li>
+                            <li>JavaScript for interactive elements</li>
+                            <li>Custom SVG graphics for book covers</li>
+                            <li>Responsive design for all devices</li>
+                        </ul>
+                        
+                        <p>Each book on this shelf represents a different aspect of my work, from technical projects to community initiatives.</p>
+                        
+                        <p>The ambient effects like floating dust particles and subtle shadows are created programmatically to enhance the immersive library experience.</p>
+                        
+                        <p>This portfolio is updated regularly with new features and projects.</p>
                     </div>
+                    <a href="https://portfolio-dor1.onrender.com/" target="_blank" class="bookmark" title="Visit Portfolio website"></a>
                 </div>
             </div>
-        </section>
-
-        <section id="contact" class="section">
-            <div class="station holographic">
-                <h2>Contact Station</h2>
-                <div class="station-content">
-                    <div id="contact-spheres" class="visual-element">
-                        <a href="https://github.com/gevak" target="_blank" class="contact-sphere">
-                            <i>GitHub</i>
+            
+            <div class="book" id="book4">
+                <div class="book-cover">
+                    <div class="book-spine">Connect</div>
+                </div>
+                <div class="book-content">
+                    <div class="page page-left">
+                        <h2 class="book-title">Let's Connect</h2>
+                        <p>I'd be delighted to connect with you. Here are the best ways to reach me or explore more of my work.</p>
+                        
+                        <a href="https://github.com/gevak" target="_blank" class="business-card">
+                            <div class="card-icon" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjYgMC0xMiA1LjM3My0xMiAxMiAwIDUuMzAyIDMuNDM4IDkuOCA4LjIwNyAxMS4zODcuNTk5LjExMS43OTMtLjI2MS43OTMtLjU3N3YtMi4yMzRjLTMuMzM4LjcyNi00LjAzMy0xLjQxNi00LjAzMy0xLjQxNi0uNTQ2LTEuMzg3LTEuMzMzLTEuNzU2LTEuMzMzLTEuNzU2LTEuMDg5LS43NDUuMDgzLS43MjkuMDgzLS43MjkgMS4yMDUuMDg0IDEuODM5IDEuMjM3IDEuODM5IDEuMjM3IDEuMDcgMS44MzQgMi44MDcgMS4zMDQgMy40OTIuOTk3LjEwNy0uNzc1LjQxOC0xLjMwNS43NjItMS42MDQtMi42NjUtLjMwNS01LjQ2Ny0xLjMzNC01LjQ2Ny01LjkzMSAwLTEuMzExLjQ2OS0yLjM4MSAxLjIzNi0zLjIyMS0uMTI0LS4zMDMtLjUzNS0xLjUyNC4xMTctMy4xNzYgMCAwIDEuMDA4LS4zMjIgMy4zMDEgMS4yMy45NTctLjI2NiAxLjk4My0uMzk5IDMuMDAzLS40MDQgMS4wMi4wMDUgMi4wNDcuMTM4IDMuMDA2LjQwNCAyLjI5MS0xLjU1MiAzLjI5Ny0xLjIzIDMuMjk3LTEuMjMuNjUzIDEuNjUzLjI0MiAyLjg3NC4xMTggMy4xNzYuNzcuODQgMS4yMzUgMS45MTEgMS4yMzUgMy4yMjEgMCA0LjYwOS0yLjgwNyA1LjYyNC01LjQ3OSA1LjkyMS40MyAuMzcyLjgyMyAxLjEwMi44MjMgMi4yMjJ2My4yOTNjMCAuMzE5LjE5Mi42OTQuODAxLjU3NiA0Ljc2NS0xLjU4OSA4LjE5OS02LjA4NiA4LjE5OS0xMS4zODYgMC02LjYyNy01LjM3My0xMi0xMi0xMnoiIGZpbGw9IiMzMzMiLz48L3N2Zz4=');"></div>
+                            <div class="card-content">
+                                <div class="card-title">GitHub</div>
+                                <div class="card-url">github.com/gevak</div>
+                            </div>
                         </a>
-                        <a href="https://linkedin.com/in/gevakip" target="_blank" class="contact-sphere">
-                            <i>LinkedIn</i>
+                        
+                        <a href="https://linkedin.com/in/gevakip" target="_blank" class="business-card">
+                            <div class="card-icon" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTkgMGgtMTRjLTIuNzYxIDAtNSAyLjIzOS01IDV2MTRjMCAyLjc2MSAyLjIzOSA1IDUgNWgxNGMyLjc2MiAwIDUtMi4yMzkgNS01di0xNGMwLTIuNzYxLTIuMjM4LTUtNS01em0tMTEgMTloLTN2LTExaDN2MTF6bS0xLjUtMTIuMjY4Yy0uOTY2IDAtMS43NS0uNzktMS43NS0xLjc2NHMuNzg0LTEuNzY0IDEuNzUtMS43NjQgMS43NS43OSAxLjc1IDEuNzY0LS43ODMgMS43NjQtMS43NSAxLjc2NHptMTMuNSAxMi4yNjhoLTN2LTUuNjA0YzAtMy4zNjgtNC0zLjExMy00IDB2NS42MDRoLTN2LTExaDN2MS43NjVjMS4zOTYtMi41ODYgNy0yLjc3NyA3IDIuNDc2djYuNzU5eiIgZmlsbD0iIzAwNzdCNSIvPjwvc3ZnPg==');"></div>
+                            <div class="card-content">
+                                <div class="card-title">LinkedIn</div>
+                                <div class="card-url">linkedin.com/in/gevakip</div>
+                            </div>
                         </a>
-                        <a href="https://facebook.com/geva.kipper" target="_blank" class="contact-sphere">
-                            <i>Facebook</i>
+                        
+                        <a href="https://facebook.com/geva.kipper" target="_blank" class="business-card">
+                            <div class="card-icon" style="background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij48cGF0aCBkPSJNMTIgMGMtNi42MjcgMC0xMiA1LjM3My0xMiAxMnM1LjM3MyAxMiAxMiAxMiAxMi01LjM3MyAxMi0xMi01LjM3My0xMi0xMi0xMnptMyA4aC0xLjM1Yy0uNTM4IDAtLjY1LjIyMS0uNjUuNzc4djEuMjIyaDJsLS4yMDkgMmgtMS43OTF2N2gtM3YtN2gtMXYtMmgxdi0yLjMwOGMwLTEuNzY5LjkzMS0yLjY5MiAzLjAyOS0yLjY5MmgxLjk3MXYzeiIgZmlsbD0iIzE4NzdGMiIvPjwvc3ZnPg==');"></div>
+                            <div class="card-content">
+                                <div class="card-title">Facebook</div>
+                                <div class="card-url">facebook.com/geva.kipper</div>
+                            </div>
                         </a>
                     </div>
-                    <p>Connect with Geva through these platforms. Each sphere contains a portal to a different social network.</p>
+                    <div class="page page-right">
+                        <h3>About Me</h3>
+                        <p>I'm a software engineer passionate about using technology to solve real-world problems. Currently working at Google, I enjoy tackling complex challenges and finding innovative solutions.</p>
+                        
+                        <p>My professional interests include:</p>
+                        <ul>
+                            <li>Data analysis and visualization</li>
+                            <li>Machine learning applications</li>
+                            <li>Community-driven tech solutions</li>
+                            <li>Open-source development</li>
+                        </ul>
+                        
+                        <p>I'm always open to discussing new projects, ideas, or collaboration opportunities. Feel free to reach out through any of the platforms listed.</p>
+                        
+                        <p>Let's connect and explore how we might work together to create something amazing!</p>
+                    </div>
                 </div>
             </div>
-        </section>
-
-        <footer>
-            <div class="footer-content holographic">
-                <div class="credits">Generated by AI on <span id="generation-date"></span></div>
-                <div class="timer">Online for: <span id="uptime-counter">00:00:00:00</span></div>
+            
+            <div class="shelf"></div>
+            <div class="shelf-front"></div>
+        </div>
+        
+        <div class="bottom-shelf">
+            <div class="brass-plaque">Designed by<br>Gemini Advanced<br>2024</div>
+            
+            <div class="clock">
+                <div class="clock-face">
+                    <div class="hour-hand"></div>
+                    <div class="minute-hand"></div>
+                    <div class="second-hand"></div>
+                    <div class="clock-center"></div>
+                </div>
             </div>
-        </footer>
-    </main>
+        </div>
+    </div>
 
     <script>
-        // Set current date for the generation
-        document.getElementById('generation-date').textContent = new Date().toLocaleDateString();
-
-        // Create uptime counter
-        const startDate = new Date('2023-01-01');
-        function updateCounter() {
-            const now = new Date();
-            const diff = Math.floor((now - startDate) / 1000);
-            
-            const days = Math.floor(diff / 86400);
-            const hours = Math.floor((diff % 86400) / 3600);
-            const minutes = Math.floor((diff % 3600) / 60);
-            const seconds = diff % 60;
-            
-            const formatted = 
-                String(days).padStart(2, '0') + ':' +
-                String(hours).padStart(2, '0') + ':' +
-                String(minutes).padStart(2, '0') + ':' +
-                String(seconds).padStart(2, '0');
-                
-            document.getElementById('uptime-counter').textContent = formatted;
-        }
-        
-        setInterval(updateCounter, 1000);
-        updateCounter();
-
-        // Create music visualization
-        const musicViz = document.getElementById('music-visualization');
-        for (let i = 0; i < 40; i++) {
-            const bar = document.createElement('div');
-            bar.className = 'music-bar';
-            bar.style.left = (i * 2.5) + '%';
-            bar.style.height = (Math.random() * 70 + 10) + 'px';
-            musicViz.appendChild(bar);
-        }
-
-        // Animate music visualization bars
-        function animateMusicBars() {
-            const bars = document.querySelectorAll('.music-bar');
-            bars.forEach(bar => {
-                const newHeight = Math.random() * 70 + 10;
-                bar.style.height = newHeight + 'px';
+        document.addEventListener('DOMContentLoaded', function() {
+            // Book interaction
+            const books = document.querySelectorAll('.book');
+            books.forEach(book => {
+                book.addEventListener('click', function() {
+                    if (this.classList.contains('open')) {
+                        this.classList.remove('open');
+                    } else {
+                        // Close all other books
+                        books.forEach(b => b.classList.remove('open'));
+                        this.classList.add('open');
+                    }
+                });
             });
-            requestAnimationFrame(animateMusicBars);
-        }
-        animateMusicBars();
 
-        // Create heatmap visualization
-        const heatmap = document.getElementById('heatmap');
-        for (let i = 0; i < 20; i++) {
-            const point = document.createElement('div');
-            point.className = 'heatmap-point';
-            point.style.left = (Math.random() * 90 + 5) + '%';
-            point.style.top = (Math.random() * 90 + 5) + '%';
-            point.style.width = (Math.random() * 50 + 20) + 'px';
-            point.style.height = point.style.width;
-            point.style.opacity = (Math.random() * 0.5 + 0.3).toString();
-            heatmap.appendChild(point);
-        }
+            // Dust particle animation
+            const dustContainer = document.getElementById('dust-particles');
+            const numberOfParticles = 50;
 
-        // Create recursive visualization
-        const recursiveViz = document.getElementById('recursive-viz');
-        for (let i = 0; i < 10; i++) {
-            const miniRoom = document.createElement('div');
-            miniRoom.className = 'mini-room';
-            miniRoom.style.left = (Math.random() * 80 + 10) + '%';
-            miniRoom.style.top = (Math.random() * 80 + 10) + '%';
-            miniRoom.style.transform = `translateZ(${Math.random() * 100}px) rotateY(${Math.random() * 360}deg)`;
-            miniRoom.style.animationDelay = (Math.random() * 2) + 's';
-            recursiveViz.appendChild(miniRoom);
-        }
+            for (let i = 0; i < numberOfParticles; i++) {
+                const dust = document.createElement('div');
+                dust.classList.add('dust');
+                dust.style.width = `${Math.random() * 3 + 1}px`;
+                dust.style.height = dust.style.width;
+                dust.style.left = `${Math.random() * 100}vw`;
+                dust.style.top = `${Math.random() * 100}vh`;
+                dust.style.animationDelay = `${Math.random() * 5}s`;
+                dustContainer.appendChild(dust);
 
-        // Setup scroll to section navigation
-        const sections = document.querySelectorAll('.section');
-        const navDots = document.querySelectorAll('.nav-dot');
+                animateParticle(dust);
+            }
 
-        navDots.forEach(dot => {
-            dot.addEventListener('click', () => {
-                const targetIndex = dot.getAttribute('data-section');
-                window.scrollTo({
-                    top: sections[targetIndex].offsetTop,
-                    behavior: 'smooth'
+            function animateParticle(particle) {
+                const startX = Math.random() * window.innerWidth;
+                const startY = Math.random() * window.innerHeight;
+                const endX = startX + (Math.random() * 200 - 100);
+                const endY = startY + (Math.random() * 200 - 100);
+                const duration = Math.random() * 10 + 5;
+
+                particle.style.left = `${startX}px`;
+                particle.style.top = `${startY}px`;
+                particle.style.opacity = '0';
+
+                const keyframes = [
+                    { left: `${startX}px`, top: `${startY}px`, opacity: 0 },
+                    { opacity: 0.2, offset: 0.1 },
+                    { opacity: 0.5, offset: 0.3 },
+                    { opacity: 0.2, offset: 0.9 },
+                    { left: `${endX}px`, top: `${endY}px`, opacity: 0 }
+                ];
+                
+                const animation = particle.animate(keyframes, {
+                    duration: duration * 1000,
+                    iterations: 1
+                });
+                
+                animation.onfinish = () => animateParticle(particle);
+            }
+
+            // Parallax effect
+            const bookshelfContainer = document.querySelector('.bookshelf-container');
+            document.addEventListener('mousemove', (e) => {
+                const x = (window.innerWidth / 2 - e.clientX) / 50;
+                const y = (window.innerHeight / 2 - e.clientY) / 50;
+                bookshelfContainer.style.transform = `translateX(${x}px) translateY(${y}px)`;
+            });
+
+            // Clock animation
+            function updateClock() {
+                const now = new Date();
+                const targetDate = new Date('March 29, 2025');
+                
+                // Calculate seconds elapsed since target date
+                const elapsedTime = Math.floor((now - targetDate) / 1000);
+                
+                // Convert to hours, minutes, seconds for display
+                const hours = Math.abs(Math.floor(elapsedTime / 3600) % 12);
+                const minutes = Math.abs(Math.floor((elapsedTime % 3600) / 60));
+                const seconds = Math.abs(elapsedTime % 60);
+                
+                const hourHand = document.querySelector('.hour-hand');
+                const minuteHand = document.querySelector('.minute-hand');
+                const secondHand = document.querySelector('.second-hand');
+                
+                const hourDeg = (hours * 30) + (minutes * 0.5);
+                const minuteDeg = minutes * 6;
+                const secondDeg = seconds * 6;
+                
+                hourHand.style.transform = `rotate(${hourDeg}deg)`;
+                minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+                secondHand.style.transform = `rotate(${secondDeg}deg)`;
+            }
+            
+            // Update clock immediately and then every second
+            updateClock();
+            setInterval(updateClock, 1000);
+
+            // Ambient sound effects (subtle)
+            function playAmbientSounds() {
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                
+                // Create a soft ticking sound
+                function createTickSound() {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.type = 'sine';
+                    oscillator.frequency.value = 2000;
+                    gainNode.gain.value = 0.03;
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    oscillator.start();
+                    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.1);
+                    oscillator.stop(audioContext.currentTime + 0.1);
+                }
+                
+                // Create page turning sound
+                function createPageSound() {
+                    const noise = audioContext.createBufferSource();
+                    const gainNode = audioContext.createGain();
+                    const buffer = audioContext.createBuffer(1, audioContext.sampleRate * 0.5, audioContext.sampleRate);
+                    const data = buffer.getChannelData(0);
+                    
+                    for (let i = 0; i < buffer.length; i++) {
+                        data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i/buffer.length, 3);
+                    }
+                    
+                    noise.buffer = buffer;
+                    gainNode.gain.value = 0.05;
+                    
+                    noise.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    noise.start();
+                }
+                
+                // Play tick sound every second
+                setInterval(createTickSound, 1000);
+                
+                // Play page turning sound when opening books
+                books.forEach(book => {
+                    book.addEventListener('click', createPageSound);
+                });
+            }
+            
+            // Uncommenting this would enable sound (keeping commented for user-friendly initial load)
+            // document.addEventListener('click', playAmbientSounds, { once: true });
+            
+            // Bookmark hover effect
+            const bookmarks = document.querySelectorAll('.bookmark');
+            bookmarks.forEach(bookmark => {
+                bookmark.addEventListener('mouseenter', () => {
+                    bookmark.style.boxShadow = '0 0 15px rgba(255, 255, 255, 0.5)';
+                });
+                
+                bookmark.addEventListener('mouseleave', () => {
+                    bookmark.style.boxShadow = '2px 2px 5px rgba(0, 0, 0, 0.2)';
                 });
             });
         });
-
-        // Update active nav dot on scroll
-        window.addEventListener('scroll', () => {
-            const scrollPosition = window.scrollY;
-            
-            sections.forEach((section, index) => {
-                const sectionTop = section.offsetTop;
-                const sectionHeight = section.offsetHeight;
-                
-                if (scrollPosition >= sectionTop - 300 && 
-                    scrollPosition < sectionTop + sectionHeight - 300) {
-                    navDots.forEach(dot => dot.classList.remove('active'));
-                    navDots[index].classList.add('active');
-                }
-            });
-        });
-
-        // Mouse interactions for holographic elements
-        document.querySelectorAll('.holographic').forEach(element => {
-            element.addEventListener('mousemove', (e) => {
-                const rect = element.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                
-                const centerX = rect.width / 2;
-                const centerY = rect.height / 2;
-                
-                const rotateY = (x - centerX) / 20;
-                const rotateX = (centerY - y) / 20;
-                
-                element.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-                element.style.boxShadow = `
-                    ${(x - centerX) / 10}px ${(y - centerY) / 10}px 20px rgba(0, 195, 255, 0.5),
-                    inset 0 0 15px rgba(0, 195, 255, 0.3)
-                `;
-            });
-            
-            element.addEventListener('mouseleave', () => {
-                element.style.transform = 'rotateY(0deg) rotateX(0deg)';
-                element.style.boxShadow = '0 0 20px rgba(0, 195, 255, 0.5), inset 0 0 15px rgba(0, 195, 255, 0.3)';
-            });
-        });
-
-        // Create floating particles
-        function createParticles(count) {
-            for (let i = 0; i < count; i++) {
-                const particle = document.createElement('div');
-                particle.className = 'particle';
-                particle.style.left = Math.random() * window.innerWidth + 'px';
-                particle.style.top = Math.random() * window.innerHeight + 'px';
-                particle.style.opacity = Math.random() * 0.6 + 0.3;
-                particle.style.width = Math.random() * 3 + 1 + 'px';
-                particle.style.height = particle.style.width;
-                
-                // Animation details
-                const duration = Math.random() * 60 + 30;
-                const direction = Math.random() > 0.5 ? 1 : -1;
-                
-                // Apply animation
-                particle.style.animation = `
-                    float ${duration}s infinite linear,
-                    fadeInOut ${Math.random() * 10 + 5}s infinite ease-in-out
-                `;
-                
-                // Create animation keyframes dynamically
-                const style = document.createElement('style');
-                style.textContent = `
-                    @keyframes float {
-                        from { transform: translate(0, 0); }
-                        to { transform: translate(${direction * Math.random() * 200}px, ${-Math.random() * 1000}px); }
-                    }
-                    @keyframes fadeInOut {
-                        0%, 100% { opacity: ${Math.random() * 0.3}; }
-                        50% { opacity: ${Math.random() * 0.6 + 0.3}; }
-                    }
-                `;
-                document.head.appendChild(style);
-                document.body.appendChild(particle);
-            }
-        }
-        
-        createParticles(50);
-
-        // Simple WebGL background if Three.js is available
-        if (typeof THREE !== 'undefined') {
-            const container = document.getElementById('vr-container');
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-            
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            renderer.setClearColor(0x000000, 0);
-            container.appendChild(renderer.domElement);
-            
-            // Create a grid for the "floor"
-            const gridSize = 50;
-            const gridDivisions = 50;
-            const gridHelper = new THREE.GridHelper(gridSize, gridDivisions, 0x0088ff, 0x004488);
-            scene.add(gridHelper);
-            
-            // Ambient light
-            const ambientLight = new THREE.AmbientLight(0x123456);
-            scene.add(ambientLight);
-            
-            // Directional light
-            const directionalLight = new THREE.DirectionalLight(0x3498db, 0.5);
-            directionalLight.position.set(0, 1, 0);
-            scene.add(directionalLight);
-            
-            // Position camera
-            camera.position.y = 3;
-            camera.position.z = 10;
-            
-            // Add moving stars
-            const starGeometry = new THREE.BufferGeometry();
-            const starMaterial = new THREE.PointsMaterial({
-                color: 0x3498db,
-                size: 0.1,
-                transparent: true,
-                opacity: 0.6
-            });
-            
-            const starVertices = [];
-            for (let i = 0; i < 1000; i++) {
-                const x = (Math.random() - 0.5) * 100;
-                const y = (Math.random() - 0.5) * 100;
-                const z = (Math.random() - 0.5) * 100;
-                starVertices.push(x, y, z);
-            }
-            
-            starGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starVertices, 3));
-            const stars = new THREE.Points(starGeometry, starMaterial);
-            scene.add(stars);
-            
-            // Animation loop
-            function animate() {
-                requestAnimationFrame(animate);
-                
-                // Rotate grid
-                gridHelper.rotation.y += 0.001;
-                
-                // Rotate stars
-                stars.rotation.y += 0.0005;
-                stars.rotation.x += 0.0002;
-                
-                // Sync camera rotation with scroll
-                const scrollY = window.scrollY;
-                const maxScroll = document.body.scrollHeight - window.innerHeight;
-                const scrollProgress = scrollY / maxScroll;
-                
-                camera.rotation.x = scrollProgress * -0.5;
-                camera.position.y = 3 + scrollProgress * 5;
-                
-                renderer.render(scene, camera);
-            }
-            
-            animate();
-            
-            // Handle window resize
-            window.addEventListener('resize', () => {
-                camera.aspect = window.innerWidth / window.innerHeight;
-                camera.updateProjectionMatrix();
-                renderer.setSize(window.innerWidth, window.innerHeight);
-            });
-            
-            // Track mouse for parallax effect
-            document.addEventListener('mousemove', (event) => {
-                const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
-                const mouseY = (event.clientY / window.innerHeight) * 2 - 1;
-                
-                camera.rotation.y = mouseX * 0.1;
-                camera.rotation.z = mouseY * 0.05;
-            });
-        }
     </script>
 <!-- Add this block to embed the like button -->
     <script src="/static/js/like_button.js"></script>
