@@ -1,5 +1,6 @@
 import models
 
+import os
 import logging
 import random
 import re
@@ -46,6 +47,9 @@ def extract_idea(text: str) -> str:
   return ''
 
 def get_idea_title(model: str) -> str:
+  force_idea = os.getenv('INPUT_FORCE_IDEA')
+  if force_idea:
+    return force_idea
   dreamer_prompt = open(_DREAMER_PROMPT_FILE, 'r').read()
   response = prompt(dreamer_prompt, model)
   logging.info("Got ideas response: %s", response)

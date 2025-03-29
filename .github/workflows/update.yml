@@ -1,10 +1,15 @@
 name: run portfolio updater
 
+
 on:
   schedule:
     - cron: '0 0 * * *' # At 00:00 each day
   workflow_dispatch:
-
+    inputs:
+        force_idea:
+          description: 'Idea that we should force the AI to design (default: generate idea with AI)'
+          required: true
+          default: ''
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,11 +29,13 @@ jobs:
           pip install -r requirements.txt
           python -m playwright install chromium --with-deps
       
-      - name: execute py script # run main.py
+      - name: execute py script # run updater.py
         env:
           OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_KEY: ${{ secrets.SUPABASE_KEY }}
+        with:
+          force_idea: ${{ inputs.force_idea || '' }}
         run: python updater.py
           
       - name: commit files
